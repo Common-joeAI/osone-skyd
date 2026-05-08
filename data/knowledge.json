@@ -2,12 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "f299b277",
-      "lesson": "SkyLang: WATCH idle_tasks_count LOW -> develop_new_rules_action",
-      "source": "skylang",
-      "ts": "2026-05-07T23:33:23.076901"
-    },
-    {
       "id": "163d682c",
       "lesson": "Understanding the importance of ongoing self-improvement in AI development",
       "source": "self",
@@ -1800,6 +1794,12 @@
       "lesson": "SkyLang: WATCH CPUUsage > 80 -> adjustResources & alertSystemAdministrator",
       "source": "skylang",
       "ts": "2026-05-08T04:31:29.639873"
+    },
+    {
+      "id": "d619af62",
+      "lesson": "SkyLang: WATCH cpu_usage '>' 90% -> alert",
+      "source": "skylang",
+      "ts": "2026-05-08T04:32:34.165175"
     }
   ],
   "web_cache": {}
