@@ -65,16 +65,21 @@ _loop_guardrails     = []   # list of active guardrails
 _current_cycle       = [0]  # mutable cycle counter
 
 def _check_loop(observation, action, cycle):
-    """Returns (is_looping, pattern_key)"""
-    _recent_observations.append({"obs": observation[:80], "action": action, "cycle": cycle})
+    """Returns (is_looping, pattern_key)
+    Detects loops by action type + first 20 chars of observation — not exact match.
+    This catches 'same thing slightly differently worded' loops.
+    """
+    fingerprint = f"{action}::{observation[:20]}"
+    _recent_observations.append({"fp": fingerprint, "obs": observation[:80], "action": action, "cycle": cycle})
     if len(_recent_observations) < 3:
         return False, None
-    # Check if last 3 observations are identical
     last3 = list(_recent_observations)[-3:]
-    obs_same    = len(set(o["obs"]    for o in last3)) == 1
-    action_same = len(set(o["action"] for o in last3)) == 1
-    if obs_same and action_same:
-        return True, f"{action}::{observation[:40]}"
+    # Loop = same action 3 times in a row (regardless of observation wording)
+    action_same = len(set(o["action"] for o in last3)) == 1 and action != "none"
+    # OR same fingerprint 3 times
+    fp_same = len(set(o["fp"] for o in last3)) == 1
+    if action_same or fp_same:
+        return True, fingerprint
     return False, None
 
 def _add_guardrail(pattern_key, suppress_cycles=10):
@@ -538,17 +543,21 @@ IF service failed -> RESTART service
 
         state = get_system_state()
 
-        # Wolf Spider CPU guard — if Ollama is the culprit, renice it, don't loop on it
+        # Wolf Spider CPU guard — renice ollama if spiking, but only once per 10 cycles
         cpu = state.get("cpu_percent", 0)
         top_procs = state.get("top_processes", [])
+        if not hasattr(main, '_last_renice_cycle'):
+            main._last_renice_cycle = 0
         for proc in top_procs:
-            if "ollama" in proc.get("name","").lower() and (proc.get("cpu_percent") or 0) > 150:
-                import subprocess as _sp
-                try:
-                    pid = proc["pid"]
-                    _sp.run(f"renice -n 15 -p {pid}", shell=True, capture_output=True)
-                    log.info(f"🕷️  Auto-reniced ollama (PID {pid}) — CPU hog detected")
-                except: pass
+            if "ollama" in proc.get("name","").lower() and (proc.get("cpu_percent") or 0) > 200:
+                if cycle - main._last_renice_cycle >= 10:
+                    import subprocess as _sp
+                    try:
+                        pid = proc["pid"]
+                        _sp.run(f"renice -n 15 -p {pid}", shell=True, capture_output=True)
+                        log.info(f"🕷️  Auto-reniced ollama (PID {pid}) — CPU hog detected")
+                        main._last_renice_cycle = cycle
+                    except: pass
 
         decision = think(state, kb, ev)
         obs    = decision.get("observation", "")
