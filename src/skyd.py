@@ -33,6 +33,30 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler(sys.stdout)]
 )
 log = logging.getLogger("skyd")
+# ── WOLF SPIDER ENGINE ──────────────────────────────────────────
+import sys as _sys
+_sys.path.insert(0, "/usr/local/bin")
+from wolf_spider import MotherSpider
+
+mother = MotherSpider(max_spiderlings=12)
+
+def think_in_parallel(questions, context=None):
+    tasks = [{"type": "think", "task": q, "context": context or {}} for q in questions]
+    ids = mother.spawn_many(tasks)
+    results = mother.wait_all(timeout=180)
+    return results
+
+def spawn_monitor_spider():
+    tid, ok, _ = mother.spawn("monitor", "Full system health check", {})
+    if ok: log.info(f"🕷️  Monitor spiderling spawned: {tid}")
+    return tid if ok else None
+
+def spawn_optimizer_spider(target):
+    tid, ok, _ = mother.spawn("optimize", target, {})
+    if ok: log.info(f"🕷️  Optimizer spiderling spawned [{tid}]: {target}")
+    return tid if ok else None
+# ── END WOLF SPIDER ENGINE ───────────────────────────────────────
+
 
 # ─────────────────────────────────────────────
 # KNOWLEDGE BASE
