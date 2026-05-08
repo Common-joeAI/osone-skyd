@@ -2,66 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "061d8618",
-      "lesson": "Learning the importance of code optimization for high-performance systems",
-      "source": "self",
-      "ts": "2026-05-08T04:54:30.812585"
-    },
-    {
-      "id": "0ea1eb21",
-      "lesson": "Code Optimization Techniques for High-Performance Systems",
-      "source": "self",
-      "ts": "2026-05-08T04:55:24.729782"
-    },
-    {
-      "id": "2747da07",
-      "lesson": "SkyLang: WATCH CPU_usage MONITORING -> CONTINUE_MONITORING",
-      "source": "skylang",
-      "ts": "2026-05-08T04:56:08.909039"
-    },
-    {
-      "id": "7204c219",
-      "lesson": "SkyLang: WATCH cpu_utilization > 90 -> notify_admin AND CONTINUE Monitoring",
-      "source": "skylang",
-      "ts": "2026-05-08T04:58:03.715082"
-    },
-    {
-      "id": "78b87826",
-      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> CONTINUE MONITORING AND OPTIMIZE",
-      "source": "skylang",
-      "ts": "2026-05-08T04:58:48.131130"
-    },
-    {
-      "id": "5a80d128",
-      "lesson": "importance of code optimization for high-performance systems",
-      "source": "self",
-      "ts": "2026-05-08T04:59:01.421918"
-    },
-    {
-      "id": "e79df01f",
-      "lesson": "Understanding the importance of continuous system monitoring",
-      "source": "self",
-      "ts": "2026-05-08T04:59:54.676313"
-    },
-    {
-      "id": "bb2ab94c",
-      "lesson": "The importance of proactive monitoring in high-performance systems.",
-      "source": "self",
-      "ts": "2026-05-08T05:01:46.396666"
-    },
-    {
-      "id": "6a5e33cc",
-      "lesson": "SkyLang: WATCH CPUUtilization <op> > 80 -> OPTIMIZE_RESOURCE_USAGE",
-      "source": "skylang",
-      "ts": "2026-05-08T05:02:31.395598"
-    },
-    {
-      "id": "28132f38",
-      "lesson": "Monitoring high resource utilization can help prevent system crashes",
-      "source": "self",
-      "ts": "2026-05-08T05:02:55.173557"
-    },
-    {
       "id": "31d2e444",
       "lesson": "Understanding the importance of proactive monitoring in high-performance systems.",
       "source": "self",
@@ -1806,6 +1746,66 @@
       "lesson": "Monitoring system resources proactively is crucial for resource optimization.",
       "source": "self",
       "ts": "2026-05-08T12:35:35.098556"
+    },
+    {
+      "id": "f1ccfdd7",
+      "lesson": "SkyLang: WATCH system_load > 70 -> adjust_resource_allocation",
+      "source": "skylang",
+      "ts": "2026-05-08T12:39:56.060892"
+    },
+    {
+      "id": "5648d35e",
+      "lesson": "The importance of proactive optimization in resource allocation.",
+      "source": "self",
+      "ts": "2026-05-08T12:40:17.047479"
+    },
+    {
+      "id": "e25d93c8",
+      "lesson": "SkyLang: WATCH load_avg > 70 -> IF load_avg > 90 THEN scale_down 20%",
+      "source": "skylang",
+      "ts": "2026-05-08T12:40:39.827047"
+    },
+    {
+      "id": "9f7d67a6",
+      "lesson": "SkyLang: WATCH CPU_LOAD GROWTH > 70 -> RESIZE_RESOURCE_ALLOCATIONS",
+      "source": "skylang",
+      "ts": "2026-05-08T12:41:23.424575"
+    },
+    {
+      "id": "f54b4a4a",
+      "lesson": "SkyLang: WATCH cpu_usage_exceeding_threshold IF cpu_usage > 70 THEN scale_cpu_up",
+      "source": "skylang",
+      "ts": "2026-05-08T12:41:58.152473"
+    },
+    {
+      "id": "17cc411b",
+      "lesson": "SkyLang: WATCH system_load > 80 -> adjust_resource_allocation",
+      "source": "skylang",
+      "ts": "2026-05-08T12:42:35.778467"
+    },
+    {
+      "id": "49418698",
+      "lesson": "SkyLang: WATCH cpu_usage 1 -> send \"System load is normal\" to alerting system",
+      "source": "skylang",
+      "ts": "2026-05-08T12:43:29.206690"
+    },
+    {
+      "id": "5dc4d44e",
+      "lesson": "Understanding the importance of proactive optimization",
+      "source": "self",
+      "ts": "2026-05-08T12:43:44.374694"
+    },
+    {
+      "id": "9513101a",
+      "lesson": "SkyLang: WATCH CPUUtilization <op> >= 80 -> send_notification",
+      "source": "skylang",
+      "ts": "2026-05-08T12:44:06.803273"
+    },
+    {
+      "id": "dabde77d",
+      "lesson": "Proactively optimize system for high loads",
+      "source": "self",
+      "ts": "2026-05-08T12:45:57.398203"
     }
   ],
   "web_cache": {}
