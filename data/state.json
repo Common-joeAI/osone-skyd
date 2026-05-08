@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 2.5,
-    "memory_percent": 5.6,
-    "memory_used_gb": 3.75,
+    "cpu_percent": 0.0,
+    "memory_percent": 6.2,
+    "memory_used_gb": 4.13,
     "memory_total_gb": 67.07,
     "disk_percent": 10.2,
-    "disk_used_gb": 47.1,
+    "disk_used_gb": 46.98,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 45.0
+          "current": 47.0
         },
         {
           "label": "",
@@ -19,31 +19,31 @@
         },
         {
           "label": "",
-          "current": 26.0
+          "current": 25.0
         },
         {
           "label": "",
-          "current": 43.0
+          "current": 47.0
         },
         {
           "label": "",
-          "current": 39.0
+          "current": 42.0
         },
         {
           "label": "",
-          "current": 31.0
+          "current": 32.0
         },
         {
           "label": "",
-          "current": 35.0
+          "current": 37.0
         },
         {
           "label": "",
-          "current": 31.0
+          "current": 34.0
         },
         {
           "label": "",
-          "current": 38.0
+          "current": 40.0
         },
         {
           "label": "",
@@ -53,117 +53,103 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 32.85
+          "current": 35.85
         },
         {
           "label": "Sensor 1",
-          "current": 32.85
+          "current": 35.85
         },
         {
           "label": "Sensor 2",
-          "current": 33.85
-        }
-      ],
-      "amdgpu": [
-        {
-          "label": "edge",
-          "current": 43.0
-        },
-        {
-          "label": "junction",
-          "current": 44.0
-        },
-        {
-          "label": "mem",
-          "current": 42.0
+          "current": 34.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 33.0
+          "current": 32.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 86.0
+          "current": 49.0
         },
         {
           "label": "Core 0",
-          "current": 40.0
+          "current": 39.0
         },
         {
           "label": "Core 1",
-          "current": 44.0
-        },
-        {
-          "label": "Core 2",
           "current": 43.0
         },
         {
+          "label": "Core 2",
+          "current": 42.0
+        },
+        {
           "label": "Core 3",
-          "current": 46.0
+          "current": 42.0
         },
         {
           "label": "Core 4",
-          "current": 55.0
+          "current": 42.0
         },
         {
           "label": "Core 5",
-          "current": 41.0
+          "current": 39.0
         },
         {
           "label": "Core 6",
-          "current": 87.0
+          "current": 44.0
         },
         {
           "label": "Core 7",
-          "current": 41.0
+          "current": 40.0
         }
       ]
     },
     "top_processes": [
       {
+        "name": "kworker/15:1-events",
+        "cpu_percent": 0.6,
+        "pid": 159,
+        "memory_percent": 0.0
+      },
+      {
+        "name": "kworker/6:0-events",
+        "cpu_percent": 0.2,
+        "pid": 288772,
+        "memory_percent": 0.0
+      },
+      {
+        "name": "kworker/4:0-events",
+        "cpu_percent": 0.1,
+        "pid": 2271053,
+        "memory_percent": 0.0
+      },
+      {
+        "name": "python3",
+        "cpu_percent": 0.1,
+        "pid": 2312642,
+        "memory_percent": 0.060491094861945635
+      },
+      {
         "name": "systemd",
         "cpu_percent": 0.0,
         "pid": 1,
-        "memory_percent": 0.023830010313105693
-      },
-      {
-        "name": "kthreadd",
-        "cpu_percent": 0.0,
-        "pid": 2,
-        "memory_percent": 0.0
-      },
-      {
-        "name": "pool_workqueue_release",
-        "cpu_percent": 0.0,
-        "pid": 3,
-        "memory_percent": 0.0
-      },
-      {
-        "name": "kworker/R-rcu_gp",
-        "cpu_percent": 0.0,
-        "pid": 4,
-        "memory_percent": 0.0
-      },
-      {
-        "name": "kworker/R-sync_wq",
-        "cpu_percent": 0.0,
-        "pid": 5,
-        "memory_percent": 0.0
+        "memory_percent": 0.02384833169468932
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T08:05:42.143632"
+    "timestamp": "2026-05-08T08:17:30.289741"
   },
   "decision": {
     "status": "ok",
-    "observation": "parse error",
+    "observation": "System resource usage is within normal limits.",
     "action": "none",
-    "reason": "fallback",
-    "optimization_tip": "",
+    "reason": "No critical situation detected.",
+    "optimization_tip": "Monitor system resource usage regularly to prevent critical situations",
     "should_search_web": false,
     "web_query": null,
     "should_write_asm": false,
@@ -171,11 +157,11 @@
     "should_evolve": false,
     "evolve_reason": null,
     "should_write_skylang": false,
-    "skylang_situation": null,
-    "skylang_behavior": null,
-    "new_lesson": null
+    "skylang_situation": "Normal system resource usage",
+    "skylang_behavior": "Continue monitoring system resource usage",
+    "new_lesson": "Regularly monitor system resource usage to prevent critical situations"
   },
-  "generation": 27,
+  "generation": 28,
   "knowledge_count": 300,
-  "updated": "2026-05-08T08:06:12.179838"
+  "updated": "2026-05-08T08:18:08.429387"
 }
