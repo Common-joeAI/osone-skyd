@@ -1,0 +1,4 @@
+# Evolved rule — Gen 15
+# Add a new SkyLang rule to monitor and alert on high CPU usage for an extended period, allowing the daemon to take proactive measures.
+WATCH cpu_usage > 80% FOR 60 SECONDS THEN sendAlert("High CPU usage") notifyAdmin
+WATCH cpu_usage > 90% FOR 120 SECONDS THEN sendAlert("Critical CPU usage") notifyAdmin

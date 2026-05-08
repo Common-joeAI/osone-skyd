@@ -1,0 +1,3 @@
+# AUTO-GUARDRAIL — skyd self-healing
+# Pattern detected: top -b -n 3 -p 2312261::High CPU usage from 
+WATCH self_in_loop == 'top -b -n 3 -p 2312261::High CPU usage f' -> SUPPRESS FOR 10 cycles

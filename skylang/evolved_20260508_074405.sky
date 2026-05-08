@@ -1,0 +1,5 @@
+# Evolved rule — Gen 26
+# Introduce a guardrail to prevent repetition of inefficient actions by utilizing the 'memoize' function in SkyLang.
+WATCH CPU_usage HIGH -> USE_MEMOIZE(
+    // Example usage: memoized_function(arg1, arg2)
+)

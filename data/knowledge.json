@@ -2,78 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "f7e01ee2",
-      "lesson": "Proactively monitor system resources to prevent resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:04:14.294090"
-    },
-    {
-      "id": "2653f199",
-      "lesson": "Understanding the importance of proactive monitoring in preventing resource exhaustion",
-      "source": "self",
-      "ts": "2026-05-08T02:05:50.372343"
-    },
-    {
-      "id": "b4796551",
-      "lesson": "SkyLang: WATCH cpu_usage > 90% THEN limit_power_consumption()",
-      "source": "skylang",
-      "ts": "2026-05-08T02:08:22.430474"
-    },
-    {
-      "id": "04327eae",
-      "lesson": "SkyLang: WATCH CPU_usage > 0.9 -> LIMIT_power_consumption",
-      "source": "skylang",
-      "ts": "2026-05-08T02:09:21.631623"
-    },
-    {
-      "id": "6460021b",
-      "lesson": "Regularly monitor system resources to prevent resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:09:36.572096"
-    },
-    {
-      "id": "227689ae",
-      "lesson": "Proactively monitoring system resources is crucial for preventing resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:10:14.513471"
-    },
-    {
-      "id": "4c911c72",
-      "lesson": "Understanding the importance of proactive monitoring in preventing resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:11:07.163123"
-    },
-    {
-      "id": "15352335",
-      "lesson": "SkyLang: EVERY 1m -> continue monitoring and sending resource usage metrics to alerting system",
-      "source": "skylang",
-      "ts": "2026-05-08T02:11:49.988082"
-    },
-    {
-      "id": "c8149ad3",
-      "lesson": "The importance of proactive monitoring in system resource management",
-      "source": "self",
-      "ts": "2026-05-08T02:12:03.309431"
-    },
-    {
-      "id": "02ba831d",
-      "lesson": "Understanding the importance of proactive monitoring in system resource management",
-      "source": "self",
-      "ts": "2026-05-08T02:12:54.727990"
-    },
-    {
-      "id": "d33aa433",
-      "lesson": "SkyLang: WATCH resource_usage > 90% -> alert_threshold_exceeded",
-      "source": "skylang",
-      "ts": "2026-05-08T02:15:15.318000"
-    },
-    {
-      "id": "f471c6da",
-      "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> sendAlert(\"CPU usage threshold exceeded\", alertingSystem)",
-      "source": "skylang",
-      "ts": "2026-05-08T02:16:16.669656"
-    },
-    {
       "id": "c72a0088",
       "lesson": "The importance of proactive monitoring in preventing resource exhaustion.",
       "source": "self",
@@ -1806,6 +1734,78 @@
       "lesson": "SkyLang: WATCH Readability 30 -> Improve Code Structure",
       "source": "skylang",
       "ts": "2026-05-08T08:36:19.496784"
+    },
+    {
+      "id": "d134dc17",
+      "lesson": "SkyLang: WATCH type_checks -> improve code readability, catch type errors",
+      "source": "skylang",
+      "ts": "2026-05-08T08:37:19.577337"
+    },
+    {
+      "id": "33d6a954",
+      "lesson": "Master type hints and their importance in code readability.",
+      "source": "self",
+      "ts": "2026-05-08T08:37:34.867823"
+    },
+    {
+      "id": "ade6a3dc",
+      "lesson": "SkyLang: WATCH code_readability <op> improve -> refactor_to_enumerate()",
+      "source": "skylang",
+      "ts": "2026-05-08T08:37:57.811903"
+    },
+    {
+      "id": "bb48a733",
+      "lesson": "Evolved Gen 36: Improving code readability and reducing memory usage by adding type hints for function parameters an",
+      "source": "evolution",
+      "ts": "2026-05-08T08:38:09.014497"
+    },
+    {
+      "id": "67125a11",
+      "lesson": "SkyLang: WATCH code_readability 0 -> refactor_and_optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T08:39:56.561213"
+    },
+    {
+      "id": "9c218fc2",
+      "lesson": "The importance of continued improvement in code quality and optimization",
+      "source": "self",
+      "ts": "2026-05-08T08:40:10.850324"
+    },
+    {
+      "id": "5a10a03d",
+      "lesson": "SkyLang: WATCH Code quality refactor -> Improve readability and structure while optimizing performance",
+      "source": "skylang",
+      "ts": "2026-05-08T08:40:33.259511"
+    },
+    {
+      "id": "8ceaf1f9",
+      "lesson": "SkyLang: WATCH readability -> refactor",
+      "source": "skylang",
+      "ts": "2026-05-08T08:42:33.202412"
+    },
+    {
+      "id": "5e7e44a5",
+      "lesson": "Refactoring and optimizing code for better performance",
+      "source": "self",
+      "ts": "2026-05-08T08:42:45.463120"
+    },
+    {
+      "id": "3e039d6f",
+      "lesson": "SkyLang: `IF readability < 80 -> refactor;`",
+      "source": "skylang",
+      "ts": "2026-05-08T08:43:07.747015"
+    },
+    {
+      "id": "1976dba7",
+      "lesson": "Evolved Gen 37: Adding a 'concurrency' parameter to improve performance under heavy load",
+      "source": "evolution",
+      "ts": "2026-05-08T08:43:18.037864"
+    },
+    {
+      "id": "6590c133",
+      "lesson": "Evolved Gen 38: Adding a 'concurrency' parameter to improve performance under heavy load and adding a 'timeout' para",
+      "source": "evolution",
+      "ts": "2026-05-08T08:45:13.399688"
     }
   ],
   "web_cache": {}

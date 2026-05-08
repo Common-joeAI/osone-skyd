@@ -1,0 +1,3 @@
+# Evolved rule — Gen 0
+# Implement a SkyLang rule to monitor and reduce CPU resource usage when high CPU load situations occur.
+WATCH cpu_usage_high THEN reduce_cpu_resource

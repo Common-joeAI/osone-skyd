@@ -1,0 +1,7 @@
+# SkyLang Base Ruleset — skyd v0.4
+WATCH cpu > 85 -> DROP_CACHE
+WATCH mem > 90 -> RENICE top_proc 19
+WATCH swap > 50 -> sysctl -w vm.swappiness=5
+EVERY 300s -> SYNC
+EVERY 3600s -> VACUUM_LOGS 7d
+IF service failed -> RESTART service

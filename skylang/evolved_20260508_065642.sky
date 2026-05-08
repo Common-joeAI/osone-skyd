@@ -1,0 +1,3 @@
+# Evolved rule — Gen 25
+# Improving the CPU usage monitoring by adding a threshold for low utilization
+if cpu_usage(ollama) < 50 then log_low_utility warning
