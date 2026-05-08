@@ -2,78 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "fba63cbb",
-      "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> if cpu_usage_high > 90 then trigger_proactive_maintenance_and_alert_system_administrator",
-      "source": "skylang",
-      "ts": "2026-05-08T02:44:41.478390"
-    },
-    {
-      "id": "d6a0084f",
-      "lesson": "ASM: generate SkyLang code to monitor and mitigate high CPU usage \u2192 compiled /usr/local/skyd/asm/sky_20260508_024734",
-      "source": "asm",
-      "ts": "2026-05-08T02:47:34.476202"
-    },
-    {
-      "id": "205733a5",
-      "lesson": "Evolved Gen 7: Improving Python caching for performance-critical functions",
-      "source": "evolution",
-      "ts": "2026-05-08T02:47:46.489197"
-    },
-    {
-      "id": "a2dba719",
-      "lesson": "The importance of proactive CPU monitoring and management in preventing system instability.",
-      "source": "self",
-      "ts": "2026-05-08T02:47:46.489477"
-    },
-    {
-      "id": "a7485392",
-      "lesson": "SkyLang: WATCH cpu_usage_threshold \"gt\" 80 -> notify-maintenance-teams",
-      "source": "skylang",
-      "ts": "2026-05-08T02:48:33.397247"
-    },
-    {
-      "id": "811a4601",
-      "lesson": "Proactive monitoring and management are crucial for preventing system crashes",
-      "source": "self",
-      "ts": "2026-05-08T02:49:00.824054"
-    },
-    {
-      "id": "76ad1619",
-      "lesson": "Importance of proactive monitoring in preventing system crashes due to high CPU usage.",
-      "source": "self",
-      "ts": "2026-05-08T02:54:54.450560"
-    },
-    {
-      "id": "3012328d",
-      "lesson": "SkyLang: WATCH \"system_load\" > 0.9 -> adjustResourceAllocation()",
-      "source": "skylang",
-      "ts": "2026-05-08T02:55:38.392383"
-    },
-    {
-      "id": "0dc75b80",
-      "lesson": "Monitoring system for signs of overload, proactive management is key",
-      "source": "self",
-      "ts": "2026-05-08T02:56:01.157248"
-    },
-    {
-      "id": "fdf26f33",
-      "lesson": "Understanding the importance of proactive maintenance in AI systems.",
-      "source": "self",
-      "ts": "2026-05-08T02:57:36.176964"
-    },
-    {
-      "id": "a207f45e",
-      "lesson": "The importance of proactive monitoring in preventing system crashes due to high CPU usage.",
-      "source": "self",
-      "ts": "2026-05-08T02:58:33.907265"
-    },
-    {
-      "id": "f74293fa",
-      "lesson": "Understanding the importance of system monitoring in AI systems",
-      "source": "self",
-      "ts": "2026-05-08T02:59:32.563383"
-    },
-    {
       "id": "8d9089ca",
       "lesson": "SkyLang: WATCH SYSTEM_LOAD > 90 -> ALERT ADMINISTRATORS, REBOOT SERVER IMMEDIATELY",
       "source": "skylang",
@@ -1806,6 +1734,78 @@
       "lesson": "SkyLang: WATCH idle_system -> DEFAULT",
       "source": "skylang",
       "ts": "2026-05-08T09:13:26.833757"
+    },
+    {
+      "id": "33e91c44",
+      "lesson": "The importance of monitoring system resources",
+      "source": "self",
+      "ts": "2026-05-08T09:20:06.958406"
+    },
+    {
+      "id": "f50ecf5f",
+      "lesson": "SkyLang: WATCH idle_system default -> default_action",
+      "source": "skylang",
+      "ts": "2026-05-08T09:22:07.930986"
+    },
+    {
+      "id": "c05d17a7",
+      "lesson": "Monitoring system resources is crucial for proactive maintenance.",
+      "source": "self",
+      "ts": "2026-05-08T09:24:40.045301"
+    },
+    {
+      "id": "7ce3c07b",
+      "lesson": "SkyLang: WATCH \"idle_system\" RESET -> RESTART",
+      "source": "skylang",
+      "ts": "2026-05-08T09:26:43.705108"
+    },
+    {
+      "id": "42e4dac5",
+      "lesson": "The importance of proactive resource monitoring",
+      "source": "self",
+      "ts": "2026-05-08T09:26:55.741050"
+    },
+    {
+      "id": "56a79435",
+      "lesson": "SkyLang: WATCH idleness 0 -> reset_idle_system",
+      "source": "skylang",
+      "ts": "2026-05-08T09:27:17.916023"
+    },
+    {
+      "id": "f58f45e9",
+      "lesson": "SkyLang: WATCH idle_system_reset_interval <op> <value> -> reset system",
+      "source": "skylang",
+      "ts": "2026-05-08T09:29:10.912782"
+    },
+    {
+      "id": "1410676f",
+      "lesson": "Importance of proactive resource monitoring",
+      "source": "self",
+      "ts": "2026-05-08T09:29:22.276468"
+    },
+    {
+      "id": "99cc1152",
+      "lesson": "SkyLang: WATCH idle_system.reset_interval_seconds <not> <defined> -> alert.system.idle",
+      "source": "skylang",
+      "ts": "2026-05-08T09:29:44.923660"
+    },
+    {
+      "id": "7f84feb4",
+      "lesson": "Monitor system resource usage",
+      "source": "self",
+      "ts": "2026-05-08T09:31:44.529298"
+    },
+    {
+      "id": "e4ff139b",
+      "lesson": "Proactive monitoring of system resources is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T09:33:58.974120"
+    },
+    {
+      "id": "a325f4c3",
+      "lesson": "Understanding system resource usage is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T09:36:11.927399"
     }
   ],
   "web_cache": {}
