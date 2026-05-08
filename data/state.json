@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 63.0
+          "current": 62.0
         },
         {
           "label": "",
@@ -23,7 +23,7 @@
         },
         {
           "label": "",
-          "current": 58.0
+          "current": 56.0
         },
         {
           "label": "",
@@ -35,15 +35,15 @@
         },
         {
           "label": "",
-          "current": 43.0
+          "current": 42.0
         },
         {
           "label": "",
-          "current": 38.0
+          "current": 37.0
         },
         {
           "label": "",
-          "current": 47.0
+          "current": 46.0
         },
         {
           "label": "",
@@ -67,13 +67,13 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 34.0
+          "current": 33.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 58.0
+          "current": 56.0
         },
         {
           "label": "Core 0",
@@ -81,7 +81,7 @@
         },
         {
           "label": "Core 1",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "Core 2",
@@ -89,7 +89,7 @@
         },
         {
           "label": "Core 3",
-          "current": 53.0
+          "current": 51.0
         },
         {
           "label": "Core 4",
@@ -97,7 +97,7 @@
         },
         {
           "label": "Core 5",
-          "current": 50.0
+          "current": 49.0
         },
         {
           "label": "Core 6",
@@ -105,65 +105,65 @@
         },
         {
           "label": "Core 7",
-          "current": 51.0
+          "current": 50.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 4.040933386449054,
-        "cpu_percent": 516.4,
+        "memory_percent": 4.046240479981112,
+        "cpu_percent": 542.5,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.21073863810208565,
-        "cpu_percent": 1.0,
+        "memory_percent": 0.2108058165012256,
+        "cpu_percent": 0.9,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/2:0-events",
-        "pid": 269060
+        "name": "kworker/5:0-events",
+        "pid": 52
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/4:1-mm_percpu_wq",
-        "pid": 154
+        "name": "kworker/3:1-events_freezable",
+        "pid": 146
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/10:1-events",
-        "pid": 171
+        "name": "kworker/11:1-mm_percpu_wq",
+        "pid": 169
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T04:32:08.400136"
+    "timestamp": "2026-05-08T05:02:07.485103"
   },
   "decision": {
     "status": "warning",
-    "observation": "CPU usage is elevated to 516.4%, indicating potential resource utilization issues.",
-    "action": "skyd v0.14: CHECK CPU_USAGE and adjust_resources if necessary; if not, consider safe shell command 'ps -ef | grep ollama' to check processes.",
-    "reason": "proactive monitoring of resource utilization is crucial to prevent critical CPU usage issues.",
-    "optimization_tip": "Regularly monitor CPU usage and take proactive measures to maintain optimal performance.",
-    "should_search_web": false,
-    "web_query": null,
+    "observation": "cpu_utilization is high, should start optimizing",
+    "action": "optimize -Xss2M && sleep 5 && XDEBUG_MODE=1 php -ri",
+    "reason": "High CPU usage detected, optimization and monitoring required",
+    "optimization_tip": "Monitor system resources closely to prevent crashes",
+    "should_search_web": true,
+    "web_query": "search for high cpu utilization patterns",
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": true,
-    "evolve_reason": "To improve SkyLang rules for more accurate monitoring and alerting.",
+    "evolve_reason": "Optimization is crucial for performance, should evolve to improve",
     "should_write_skylang": true,
-    "skylang_situation": "CPU usage is critical, but not immediately escalating to critical threshold",
-    "skylang_behavior": "Increase the watch statement to > 90% to ensure timely alerts.",
-    "new_lesson": "The importance of load balancing in distributed systems",
+    "skylang_situation": "High CPU usage detected, optimization required",
+    "skylang_behavior": "Continuously monitor system resources and optimize as needed",
+    "new_lesson": "Monitoring high resource utilization can help prevent system crashes",
     "action_result": "blocked",
-    "skylang_rule": "WATCH cpu_usage '>' 90% -> alert"
+    "skylang_rule": "WATCH CPUUtilization <op> > 80 -> OPTIMIZE_RESOURCE_USAGE"
   },
-  "generation": 11,
+  "generation": 12,
   "knowledge_count": 300,
-  "updated": "2026-05-08T04:32:57.209517"
+  "updated": "2026-05-08T05:02:55.175437"
 }
