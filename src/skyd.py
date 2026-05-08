@@ -56,6 +56,50 @@ def spawn_optimizer_spider(target):
     if ok: log.info(f"🕷️  Optimizer spiderling spawned [{tid}]: {target}")
     return tid if ok else None
 # ── END WOLF SPIDER ENGINE ───────────────────────────────────────
+# ── LOOP DETECTOR & GUARDRAIL ENGINE ────────────────────────────
+import collections as _collections
+
+_recent_observations = _collections.deque(maxlen=5)
+_suppressed_actions  = {}   # action_key -> suppress_until_cycle
+_loop_guardrails     = []   # list of active guardrails
+_current_cycle       = [0]  # mutable cycle counter
+
+def _check_loop(observation, action, cycle):
+    """Returns (is_looping, pattern_key)"""
+    _recent_observations.append({"obs": observation[:80], "action": action, "cycle": cycle})
+    if len(_recent_observations) < 3:
+        return False, None
+    # Check if last 3 observations are identical
+    last3 = list(_recent_observations)[-3:]
+    obs_same    = len(set(o["obs"]    for o in last3)) == 1
+    action_same = len(set(o["action"] for o in last3)) == 1
+    if obs_same and action_same:
+        return True, f"{action}::{observation[:40]}"
+    return False, None
+
+def _add_guardrail(pattern_key, suppress_cycles=10):
+    """Suppress a looping action for N cycles and write a SkyLang guardrail."""
+    current = _current_cycle[0]
+    _suppressed_actions[pattern_key] = current + suppress_cycles
+    guardrail = f"WATCH self_in_loop == '{pattern_key[:40]}' -> SUPPRESS FOR {suppress_cycles} cycles"
+    _loop_guardrails.append({"pattern": pattern_key, "added_cycle": current, "suppress_until": current + suppress_cycles, "rule": guardrail})
+    # Write to SkyLang rules
+    import os as _os, datetime as _dt
+    LANG_DIR = "/usr/local/skyd/lang"
+    ts = _dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+    rule_file = f"{LANG_DIR}/guardrail_{ts}.sky"
+    with open(rule_file, "w") as _f:
+        _f.write(f"# AUTO-GUARDRAIL — skyd self-healing\n")
+        _f.write(f"# Pattern detected: {pattern_key}\n")
+        _f.write(guardrail + "\n")
+    log.info(f"🛡️  GUARDRAIL added: {guardrail[:80]}")
+    return guardrail
+
+def _is_suppressed(action_key, cycle):
+    until = _suppressed_actions.get(action_key, 0)
+    return cycle < until
+# ── END LOOP DETECTOR ────────────────────────────────────────────
+
 
 
 # ─────────────────────────────────────────────
@@ -489,6 +533,7 @@ IF service failed -> RESTART service
     cycle = 0
     while True:
         cycle += 1
+        _current_cycle[0] = cycle
         log.info(f"━━━ Cycle {cycle} | Gen {ev['generation']} @ {datetime.now().strftime('%H:%M:%S')} ━━━")
 
         state = get_system_state()
@@ -506,7 +551,22 @@ IF service failed -> RESTART service
                 except: pass
 
         decision = think(state, kb, ev)
-        log.info(f"[{decision.get('status','?').upper()}] {decision.get('observation')}")
+        obs    = decision.get("observation", "")
+        action = decision.get("action", "none")
+        log.info(f"[{decision.get('status','?').upper()}] {obs}")
+
+        # ── Loop detection ──
+        is_looping, pattern = _check_loop(obs, action, cycle)
+        if is_looping and pattern and not _is_suppressed(pattern, cycle):
+            log.warning(f"🔁 LOOP DETECTED: '{pattern[:60]}' — analyzing & adding guardrail")
+            _add_guardrail(pattern, suppress_cycles=10)
+            decision["should_write_asm"]     = False
+            decision["should_evolve"]        = False
+            decision["should_write_skylang"] = False
+            decision["action"]               = "none"
+        elif action != "none" and _is_suppressed(f"{action}::{obs[:40]}", cycle):
+            log.info(f"🛡️  Action suppressed by guardrail: {action[:40]}")
+            decision["action"] = "none"
 
         # Suppress ASM writes when CPU is already high — don't make it worse
         if cpu > 70 and decision.get("should_write_asm"):
