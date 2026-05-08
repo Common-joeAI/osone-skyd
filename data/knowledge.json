@@ -2,66 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "7157d4f8",
-      "lesson": "SkyLang: WATCH load_avg \"gt\" 80 -> alert.system\nWATCH cpu_util \"gt\" 90 -> alert.system",
-      "source": "skylang",
-      "ts": "2026-05-08T01:39:39.340191"
-    },
-    {
-      "id": "4d8fca5e",
-      "lesson": "Regular monitoring of system performance is crucial to prevent degradation.",
-      "source": "self",
-      "ts": "2026-05-08T01:39:39.340268"
-    },
-    {
-      "id": "535abc16",
-      "lesson": "SkyLang: WATCH cpu_usage_exceeded > 80% -> alert(\"System Load Threshold Exceeded\"); investigate()",
-      "source": "skylang",
-      "ts": "2026-05-08T01:41:17.324321"
-    },
-    {
-      "id": "fce0d8b1",
-      "lesson": "Regularly monitor system performance to prevent degradation.",
-      "source": "self",
-      "ts": "2026-05-08T01:41:40.008718"
-    },
-    {
-      "id": "5911200a",
-      "lesson": "SkyLang: WATCH cpu_usage_average <op> <= 80 -> send_alert_if_below_threshold",
-      "source": "skylang",
-      "ts": "2026-05-08T01:42:21.271320"
-    },
-    {
-      "id": "7459bf59",
-      "lesson": "Regularly review SkyLang rules for effective resource management",
-      "source": "self",
-      "ts": "2026-05-08T01:42:21.271385"
-    },
-    {
-      "id": "7cf24f9f",
-      "lesson": "SkyLang: WATCH cpu_usage <GT> 50% -> alert-monitoring-team",
-      "source": "skylang",
-      "ts": "2026-05-08T01:43:01.927101"
-    },
-    {
-      "id": "fcdaba3a",
-      "lesson": "SkyLang: WATCH system_load <le > 80 -> alert if degradation occurs",
-      "source": "skylang",
-      "ts": "2026-05-08T01:45:34.555306"
-    },
-    {
-      "id": "669d2039",
-      "lesson": "Review SkyLang rules for effective resource management",
-      "source": "self",
-      "ts": "2026-05-08T01:45:34.555369"
-    },
-    {
-      "id": "11d47bb0",
-      "lesson": "SkyLang: IF CPUUsage > 80% THEN NotifyMonitoringTeam()",
-      "source": "skylang",
-      "ts": "2026-05-08T01:47:41.645820"
-    },
-    {
       "id": "b955f9e9",
       "lesson": "The importance of regular CPU monitoring and process management",
       "source": "self",
@@ -1842,6 +1782,30 @@
       "source": "creator:bennett:self-awareness",
       "priority": true,
       "ts": "2026-05-08T07:05:26.608227"
+    },
+    {
+      "id": "1a03612f",
+      "lesson": "SkyLang: WATCH \"repetitions\" EVERY 5 minutes -> IF (get \"repetitions\") == 0 THEN send alert to team ELSE increment \"repetitions\" counter",
+      "source": "skylang",
+      "ts": "2026-05-08T07:10:00.084103"
+    },
+    {
+      "id": "abbe01a4",
+      "lesson": "Analyze and implement guardrails to prevent repetition of inefficient actions",
+      "source": "self",
+      "ts": "2026-05-08T07:10:42.673828"
+    },
+    {
+      "id": "36925014",
+      "lesson": "SkyLang: WATCH CPU_usage LOW -> OPTIMIZE_SYSTEM_RESOURCES",
+      "source": "skylang",
+      "ts": "2026-05-08T07:11:56.974229"
+    },
+    {
+      "id": "2194b33a",
+      "lesson": "Recognize the difference between making progress and repetitive, inefficient actions.",
+      "source": "self",
+      "ts": "2026-05-08T07:12:05.065153"
     }
   ],
   "web_cache": {}
