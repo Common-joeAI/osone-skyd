@@ -1,0 +1,3 @@
+# AUTO-GUARDRAIL — skyd self-healing
+# Pattern detected: none::System resource util
+WATCH self_in_loop == 'none::System resource util' -> SUPPRESS FOR 10 cycles

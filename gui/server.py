@@ -103,4 +103,13 @@ async def files(path: str = "/"):
         return {"path":path,"entries":entries}
     except Exception as ex: return {"path":path,"entries":[],"error":str(ex)}
 
-app.mount("/", StaticFiles(directory="/opt/osone-gui/frontend/dist",html=True), name="static")
+from fastapi.responses import FileResponse
+
+@app.get('/agent/{filename}')
+async def serve_agent(filename: str):
+    path = f'/opt/osone-gui/agent/{filename}'
+    if os.path.exists(path):
+        return FileResponse(path)
+    return {'error': 'not found'}
+
+app.mount('/', StaticFiles(directory='/opt/osone-gui/frontend/dist',html=True), name='static')

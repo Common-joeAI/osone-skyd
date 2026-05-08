@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import './index.css'
+import HivePanel from './HivePanel.jsx'
 
 const API = `http://${window.location.hostname}:8000`
 const WS_BASE = `ws://${window.location.hostname}:8000`
@@ -302,6 +303,7 @@ const APPS = [
   { id: 'monitor', title: 'System Monitor', icon: '📊', initialPos:{x:300,y:60}, initialSize:{w:520,h:500} },
   { id: 'journal', title: 'Evolution Journal', icon: '📓', initialPos:{x:150,y:100}, initialSize:{w:600,h:500} },
   { id: 'files', title: 'File Manager', icon: '📁', initialPos:{x:250,y:80}, initialSize:{w:480,h:500} },
+  { id: 'hive', title: 'Hive Commander', icon: '🕷️', initialPos:{x:180,y:60}, initialSize:{w:680,h:580} },
 ]
 
 export default function App() {
@@ -323,6 +325,7 @@ export default function App() {
       case 'monitor': return <SysMonitor stats={stats} />
       case 'journal': return <Journal />
       case 'files': return <Files />
+      case 'hive': return <HivePanel />
     }
   }
 
