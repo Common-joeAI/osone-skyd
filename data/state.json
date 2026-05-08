@@ -1,6 +1,6 @@
 {
   "system": {
-    "cpu_percent": 0.1,
+    "cpu_percent": 0.0,
     "memory_percent": 6.3,
     "memory_used_gb": 4.24,
     "memory_total_gb": 67.07,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 61.0
+          "current": 64.0
         },
         {
           "label": "",
@@ -81,19 +81,19 @@
         },
         {
           "label": "Core 1",
-          "current": 51.0
+          "current": 52.0
         },
         {
           "label": "Core 2",
-          "current": 50.0
-        },
-        {
-          "label": "Core 3",
           "current": 51.0
         },
         {
+          "label": "Core 3",
+          "current": 52.0
+        },
+        {
           "label": "Core 4",
-          "current": 48.0
+          "current": 49.0
         },
         {
           "label": "Core 5",
@@ -101,7 +101,7 @@
         },
         {
           "label": "Core 6",
-          "current": 51.0
+          "current": 50.0
         },
         {
           "label": "Core 7",
@@ -111,38 +111,38 @@
     },
     "top_processes": [
       {
-        "memory_percent": 4.048390188753591,
-        "cpu_percent": 514.1,
+        "memory_percent": 4.048078725266669,
+        "cpu_percent": 401.7,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.21520905520849093,
-        "cpu_percent": 1.0,
+        "memory_percent": 0.21021953229054952,
+        "cpu_percent": 0.4,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/4:1-events",
-        "pid": 154
+        "name": "kworker/15:1-events",
+        "pid": 159
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/1:0-events",
-        "pid": 214115
+        "name": "kworker/12:2-events",
+        "pid": 879871
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/10:1-events",
-        "pid": 171
+        "name": "kworker/3:1-mm_percpu_wq",
+        "pid": 146
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T06:33:28.081679"
+    "timestamp": "2026-05-08T06:34:11.292669"
   },
   "decision": {
     "status": "ok",
@@ -163,5 +163,5 @@
   },
   "generation": 23,
   "knowledge_count": 300,
-  "updated": "2026-05-08T06:33:50.201887"
+  "updated": "2026-05-08T06:34:31.470803"
 }
