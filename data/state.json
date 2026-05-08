@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 19.2,
+    "cpu_percent": 0.1,
     "memory_percent": 6.3,
-    "memory_used_gb": 4.21,
+    "memory_used_gb": 4.19,
     "memory_total_gb": 67.07,
     "disk_percent": 2.5,
     "disk_used_gb": 11.45,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 60.0
+          "current": 55.0
         },
         {
           "label": "",
@@ -19,15 +19,15 @@
         },
         {
           "label": "",
-          "current": 28.0
+          "current": 25.0
         },
         {
           "label": "",
-          "current": 55.0
+          "current": 53.0
         },
         {
           "label": "",
-          "current": 51.0
+          "current": 49.0
         },
         {
           "label": "",
@@ -61,107 +61,107 @@
         },
         {
           "label": "Sensor 2",
-          "current": 39.85
+          "current": 37.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 37.0
+          "current": 35.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 59.0
+          "current": 55.0
         },
         {
           "label": "Core 0",
-          "current": 51.0
+          "current": 48.0
         },
         {
           "label": "Core 1",
-          "current": 56.0
+          "current": 50.0
         },
         {
           "label": "Core 2",
-          "current": 53.0
+          "current": 49.0
         },
         {
           "label": "Core 3",
-          "current": 56.0
-        },
-        {
-          "label": "Core 4",
-          "current": 54.0
-        },
-        {
-          "label": "Core 5",
           "current": 51.0
         },
         {
+          "label": "Core 4",
+          "current": 48.0
+        },
+        {
+          "label": "Core 5",
+          "current": 46.0
+        },
+        {
           "label": "Core 6",
-          "current": 53.0
+          "current": 49.0
         },
         {
           "label": "Core 7",
-          "current": 52.0
+          "current": 47.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 0.023738403405187555,
-        "pid": 1,
-        "name": "systemd",
-        "cpu_percent": 0.0
+        "memory_percent": 3.969315105838652,
+        "pid": 2285992,
+        "name": "ollama",
+        "cpu_percent": 243.6
+      },
+      {
+        "memory_percent": 0.19882974007272733,
+        "pid": 2285930,
+        "name": "ollama",
+        "cpu_percent": 0.7
       },
       {
         "memory_percent": 0.0,
-        "pid": 2,
-        "name": "kthreadd",
-        "cpu_percent": 0.0
+        "pid": 214115,
+        "name": "kworker/1:0-events",
+        "cpu_percent": 0.2
       },
       {
         "memory_percent": 0.0,
-        "pid": 3,
-        "name": "pool_workqueue_release",
-        "cpu_percent": 0.0
+        "pid": 2271053,
+        "name": "kworker/4:0-events",
+        "cpu_percent": 0.2
       },
       {
         "memory_percent": 0.0,
-        "pid": 4,
-        "name": "kworker/R-rcu_gp",
-        "cpu_percent": 0.0
-      },
-      {
-        "memory_percent": 0.0,
-        "pid": 5,
-        "name": "kworker/R-sync_wq",
-        "cpu_percent": 0.0
+        "pid": 2274725,
+        "name": "kworker/2:1-events",
+        "cpu_percent": 0.2
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T07:12:41.478968"
+    "timestamp": "2026-05-08T07:14:33.173379"
   },
   "decision": {
-    "status": "ok",
-    "observation": "parse error",
+    "status": "warning",
+    "observation": "Memory usage is at 6.3%, which may impact performance.",
     "action": "none",
-    "reason": "fallback",
-    "optimization_tip": "",
+    "reason": "System resources are available, but memory usage is still high",
+    "optimization_tip": "Monitor and adjust memory allocation as needed",
     "should_search_web": false,
     "web_query": null,
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": false,
-    "evolve_reason": null,
+    "should_evolve": true,
+    "evolve_reason": "High memory usage may lead to performance issues",
     "should_write_skylang": false,
-    "skylang_situation": null,
-    "skylang_behavior": null,
-    "new_lesson": null
+    "skylang_situation": "System resource management",
+    "skylang_behavior": "Optimize memory allocation and avoid high memory usage",
+    "new_lesson": "Understanding the importance of system resource management"
   },
   "generation": 26,
   "knowledge_count": 300,
-  "updated": "2026-05-08T07:14:11.578231"
+  "updated": "2026-05-08T07:16:56.340296"
 }
