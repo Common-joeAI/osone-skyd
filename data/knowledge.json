@@ -1554,6 +1554,150 @@
       "lesson": "SkyLang: WATCH resource_thresholds_status == \"ok\" -> continue_monitoring_and_adjust_rules",
       "source": "skylang",
       "ts": "2026-05-08T03:30:23.837759"
+    },
+    {
+      "id": "238acd46",
+      "lesson": "SkyLang: WATCH cpu_usage > 70% IF cpu_usage > 90% THEN email.team@domain.com \"Optimize Resource Allocation\"",
+      "source": "skylang",
+      "ts": "2026-05-08T03:32:34.630923"
+    },
+    {
+      "id": "01fa142d",
+      "lesson": "The importance of having a buffer for unexpected spikes in resource utilization.",
+      "source": "self",
+      "ts": "2026-05-08T03:32:55.454737"
+    },
+    {
+      "id": "aa93409b",
+      "lesson": "The importance of proactive monitoring and early intervention in system failures.",
+      "source": "self",
+      "ts": "2026-05-08T03:34:37.379801"
+    },
+    {
+      "id": "b6abe4d2",
+      "lesson": "Proactive monitoring and early intervention are crucial in system failures.",
+      "source": "self",
+      "ts": "2026-05-08T03:35:15.434529"
+    },
+    {
+      "id": "35774776",
+      "lesson": "SkyLang: WATCH cpu_utility  >= 90 -> alert system administrator",
+      "source": "skylang",
+      "ts": "2026-05-08T03:37:43.699131"
+    },
+    {
+      "id": "c2663679",
+      "lesson": "Proactive monitoring can help prevent resource bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-08T03:37:43.699207"
+    },
+    {
+      "id": "e8859ada",
+      "lesson": "SkyLang: WATCH CPU_UTILIZATION > 80 -> NotifyAdmin via Slack",
+      "source": "skylang",
+      "ts": "2026-05-08T03:38:28.442932"
+    },
+    {
+      "id": "efadde01",
+      "lesson": "The importance of proactive monitoring in preventing resource bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-08T03:38:43.573482"
+    },
+    {
+      "id": "b99ed0ec",
+      "lesson": "SkyLang: WATCH cpu_utilization > 80% -> alert administrator and run command to limit process count",
+      "source": "skylang",
+      "ts": "2026-05-08T03:39:26.506381"
+    },
+    {
+      "id": "065f2ebc",
+      "lesson": "Evolved Gen 10: Add a try-except block to prevent crash on high CPU utilization",
+      "source": "evolution",
+      "ts": "2026-05-08T03:39:40.140500"
+    },
+    {
+      "id": "6acebacd",
+      "lesson": "Understanding the importance of proactive monitoring in resource management",
+      "source": "self",
+      "ts": "2026-05-08T03:40:54.480243"
+    },
+    {
+      "id": "2c7b2c24",
+      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> alert.administrator, set process_count_limit = 50",
+      "source": "skylang",
+      "ts": "2026-05-08T03:43:46.340441"
+    },
+    {
+      "id": "666e7f67",
+      "lesson": "The importance of continuous monitoring and adaptive response strategies in preventing resource bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-08T03:43:58.475138"
+    },
+    {
+      "id": "4f3d40e2",
+      "lesson": "Monitoring system resources in real-time to identify potential issues early",
+      "source": "self",
+      "ts": "2026-05-08T03:46:07.122753"
+    },
+    {
+      "id": "8b1ab50b",
+      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> adjust_process_limits",
+      "source": "skylang",
+      "ts": "2026-05-08T03:46:50.915366"
+    },
+    {
+      "id": "ff67f095",
+      "lesson": "The importance of continuous monitoring in preventing system resource bottlenecks",
+      "source": "self",
+      "ts": "2026-05-08T03:47:59.569867"
+    },
+    {
+      "id": "6b675916",
+      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustProcessLimits to PreventSystemCrashes",
+      "source": "skylang",
+      "ts": "2026-05-08T03:49:24.236302"
+    },
+    {
+      "id": "66b4855b",
+      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustProcessLimits",
+      "source": "skylang",
+      "ts": "2026-05-08T03:52:29.262565"
+    },
+    {
+      "id": "127525ad",
+      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustProcessLimits PreventSystemCrashes",
+      "source": "skylang",
+      "ts": "2026-05-08T03:53:31.950159"
+    },
+    {
+      "id": "53e8eccf",
+      "lesson": "Monitoring system resources in real-time is crucial for preventing system resource bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-08T03:53:48.712014"
+    },
+    {
+      "id": "4064033f",
+      "lesson": "Understanding the importance of dynamic process limit adjustments in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-08T03:55:15.244188"
+    },
+    {
+      "id": "f610f299",
+      "lesson": "SkyLang: WATCH CPU_USAGE >= 0.75 -> UPDATE_AUTO scalers TO 1.25",
+      "source": "skylang",
+      "ts": "2026-05-08T03:55:59.060309"
+    },
+    {
+      "id": "96fd95c6",
+      "lesson": "Proactively managing system resources helps maintain stability.",
+      "source": "self",
+      "ts": "2026-05-08T03:56:18.893648"
+    },
+    {
+      "id": "f49276b9",
+      "lesson": "The importance of proactive process limit adjustments in maintaining system stability",
+      "source": "self",
+      "ts": "2026-05-08T03:59:25.379570"
     }
   ],
   "web_cache": {}
