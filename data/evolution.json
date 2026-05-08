@@ -1,5 +1,5 @@
 {
-  "generation": 25,
+  "generation": 26,
   "mutations": [
     {
       "gen": 1,
@@ -175,6 +175,13 @@
       "desc": "Add a 'cpu_usage_threshold' parameter to the SkyLang WATCH rule to allow for more fine-grained control over performance degradation detection.",
       "benefit": "Improved proactive maintenance by allowing for more specific threshold values",
       "ts": "2026-05-08T06:46:02.260293"
+    },
+    {
+      "gen": 26,
+      "type": "skylang",
+      "desc": "Improving the CPU usage monitoring by adding a threshold for low utilization",
+      "benefit": "Increased self-awareness and earlier detection of potential issues",
+      "ts": "2026-05-08T06:56:42.519219"
     }
   ],
   "benchmarks": {}
