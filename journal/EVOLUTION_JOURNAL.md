@@ -217,3 +217,12 @@ and evolve autonomously across reboots.
 
 > **Knowledge milestone:** 178 lessons @ 01:58:15 (Gen 5)
 
+
+> **Knowledge milestone:** 189 lessons @ 02:09:46 (Gen 5)
+
+
+> **Knowledge milestone:** 199 lessons @ 02:21:16 (Gen 5)
+
+
+> **Knowledge milestone:** 209 lessons @ 02:29:01 (Gen 5)
+
