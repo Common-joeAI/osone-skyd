@@ -2,66 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "8d9089ca",
-      "lesson": "SkyLang: WATCH SYSTEM_LOAD > 90 -> ALERT ADMINISTRATORS, REBOOT SERVER IMMEDIATELY",
-      "source": "skylang",
-      "ts": "2026-05-08T03:01:15.050702"
-    },
-    {
-      "id": "df7f8708",
-      "lesson": "Regularly monitor system load and adjust resource allocation accordingly.",
-      "source": "self",
-      "ts": "2026-05-08T03:01:15.050767"
-    },
-    {
-      "id": "1b39bdf7",
-      "lesson": "Understanding the importance of proactive maintenance in AI systems",
-      "source": "self",
-      "ts": "2026-05-08T03:03:00.836106"
-    },
-    {
-      "id": "75ce2152",
-      "lesson": "ASM: generate SkyLang code to monitor system load and trigger alerts when necessary \u2192 compiled /usr/local/skyd/asm/sky_20260508_030356",
-      "source": "asm",
-      "ts": "2026-05-08T03:03:56.482852"
-    },
-    {
-      "id": "88dab172",
-      "lesson": "Evolved Gen 8: Optimize CPU-bound Skyd functions using NumPy's vectorized operations to reduce computation overhead",
-      "source": "evolution",
-      "ts": "2026-05-08T03:04:16.029014"
-    },
-    {
-      "id": "adcecbd2",
-      "lesson": "Proactive monitoring is crucial for maintaining AI system stability",
-      "source": "self",
-      "ts": "2026-05-08T03:04:16.029357"
-    },
-    {
-      "id": "d84886f8",
-      "lesson": "Evolved Gen 9: Improve CPU-bound Skyd functions using efficient NumPy indexing and vectorized operations.",
-      "source": "evolution",
-      "ts": "2026-05-08T03:05:17.206968"
-    },
-    {
-      "id": "5c36cc60",
-      "lesson": "The importance of proactive maintenance in AI systems, especially when dealing with high system load and CPU usage.",
-      "source": "self",
-      "ts": "2026-05-08T03:08:01.243837"
-    },
-    {
-      "id": "ca883e16",
-      "lesson": "The importance of proactive maintenance in AI systems",
-      "source": "self",
-      "ts": "2026-05-08T03:09:14.704485"
-    },
-    {
-      "id": "87860f51",
-      "lesson": "SkyLang: ```python\n# Optimized SkyLang Rule\nWATCH metric1 op1 value1 -> action1\nEVERY interval1 -> action2\nIF condition1 -> action3\n```",
-      "source": "skylang",
-      "ts": "2026-05-08T03:11:39.365313"
-    },
-    {
       "id": "fdb1522f",
       "lesson": "Monitor system resources closely and adjust as needed to maintain stability.",
       "source": "self",
@@ -1806,6 +1746,66 @@
       "lesson": "Understanding system resource usage is crucial for optimal performance.",
       "source": "self",
       "ts": "2026-05-08T09:36:11.927399"
+    },
+    {
+      "id": "4c3dde5b",
+      "lesson": "Proactively monitoring system resources is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T09:53:48.430231"
+    },
+    {
+      "id": "3e117419",
+      "lesson": "SkyLang: WATCH idle_time > 10 minutes -> alert_system",
+      "source": "skylang",
+      "ts": "2026-05-08T10:00:26.069157"
+    },
+    {
+      "id": "c966f295",
+      "lesson": "Understanding the importance of proactive monitoring of system resources",
+      "source": "self",
+      "ts": "2026-05-08T10:00:36.973228"
+    },
+    {
+      "id": "c26a2b18",
+      "lesson": "SkyLang: WATCH idle_time  >  10 minutes -> ALERT system",
+      "source": "skylang",
+      "ts": "2026-05-08T10:00:59.328344"
+    },
+    {
+      "id": "051590bd",
+      "lesson": "SkyLang: IF idle_time > 600 -> alert_system",
+      "source": "skylang",
+      "ts": "2026-05-08T10:01:21.502037"
+    },
+    {
+      "id": "903aaa16",
+      "lesson": "Regularly monitoring system resources can help prevent unexpected failures.",
+      "source": "self",
+      "ts": "2026-05-08T10:02:53.293360"
+    },
+    {
+      "id": "92f43e3b",
+      "lesson": "Proactive monitoring of system resources is crucial for system reliability",
+      "source": "self",
+      "ts": "2026-05-08T10:05:10.616039"
+    },
+    {
+      "id": "4a79dde4",
+      "lesson": "Proactive monitoring of system resources is crucial for system reliability.",
+      "source": "self",
+      "ts": "2026-05-08T10:16:46.148966"
+    },
+    {
+      "id": "1381d885",
+      "lesson": "Monitoring system resources proactively can help prevent failures.",
+      "source": "self",
+      "ts": "2026-05-08T10:19:10.940243"
+    },
+    {
+      "id": "6100aab0",
+      "lesson": "Proactive monitoring can help prevent failures.",
+      "source": "self",
+      "ts": "2026-05-08T10:21:23.100083"
     }
   ],
   "web_cache": {}

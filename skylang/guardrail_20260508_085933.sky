@@ -1,0 +1,3 @@
+# AUTO-GUARDRAIL — skyd self-healing
+# Pattern detected: none::No immediate threats
+WATCH self_in_loop == 'none::No immediate threats' -> SUPPRESS FOR 10 cycles

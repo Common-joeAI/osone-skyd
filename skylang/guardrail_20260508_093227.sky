@@ -1,0 +1,3 @@
+# AUTO-GUARDRAIL — skyd self-healing
+# Pattern detected: safe shell command: 'free -m'::RAM usage is 15.2%, 
+WATCH self_in_loop == 'safe shell command: 'free -m'::RAM usage' -> SUPPRESS FOR 10 cycles
