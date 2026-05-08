@@ -1698,6 +1698,18 @@
       "lesson": "The importance of proactive process limit adjustments in maintaining system stability",
       "source": "self",
       "ts": "2026-05-08T03:59:25.379570"
+    },
+    {
+      "id": "7f68b407",
+      "lesson": "SkyLang: WATCH CPU_USAGE > 80% + 5% -> IF CPU_USAGE > 90% THEN SET PROCESS_LIMIT 50% ELSE SET PROCESS_LIMIT 70%",
+      "source": "skylang",
+      "ts": "2026-05-08T04:02:18.696680"
+    },
+    {
+      "id": "bd343a05",
+      "lesson": "Dynamic process limit adjustments are crucial for system stability",
+      "source": "self",
+      "ts": "2026-05-08T04:02:35.122286"
     }
   ],
   "web_cache": {}
