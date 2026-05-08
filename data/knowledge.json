@@ -864,6 +864,216 @@
       "lesson": "Add more specific CPU threshold to SkyLang alerting mechanism",
       "source": "self",
       "ts": "2026-05-08T01:28:29.447179"
+    },
+    {
+      "id": "f576ed0f",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> INVESTIGATE_SYSTEM_LOGS",
+      "source": "skylang",
+      "ts": "2026-05-08T01:31:31.041058"
+    },
+    {
+      "id": "a006978c",
+      "lesson": "Regularly monitor system performance and address issues promptly to prevent degradation",
+      "source": "self",
+      "ts": "2026-05-08T01:32:25.304932"
+    },
+    {
+      "id": "79e35cb1",
+      "lesson": "Improved SkyLang alerting mechanism can help prevent system degradation",
+      "source": "self",
+      "ts": "2026-05-08T01:34:07.787908"
+    },
+    {
+      "id": "1de70863",
+      "lesson": "SkyLang: WATCH load_average > 80 -> alert(\"System Load Threshold Exceeded\")",
+      "source": "skylang",
+      "ts": "2026-05-08T01:36:30.613532"
+    },
+    {
+      "id": "6653ef39",
+      "lesson": "Regularly monitoring system performance can help prevent degradation and improve overall stability.",
+      "source": "self",
+      "ts": "2026-05-08T01:36:30.613589"
+    },
+    {
+      "id": "2515cf66",
+      "lesson": "SkyLang: WATCH cpu_utilization > 90 -> Investigate and address potential performance bottlenecks immediately.",
+      "source": "skylang",
+      "ts": "2026-05-08T01:37:16.011733"
+    },
+    {
+      "id": "7157d4f8",
+      "lesson": "SkyLang: WATCH load_avg \"gt\" 80 -> alert.system\nWATCH cpu_util \"gt\" 90 -> alert.system",
+      "source": "skylang",
+      "ts": "2026-05-08T01:39:39.340191"
+    },
+    {
+      "id": "4d8fca5e",
+      "lesson": "Regular monitoring of system performance is crucial to prevent degradation.",
+      "source": "self",
+      "ts": "2026-05-08T01:39:39.340268"
+    },
+    {
+      "id": "535abc16",
+      "lesson": "SkyLang: WATCH cpu_usage_exceeded > 80% -> alert(\"System Load Threshold Exceeded\"); investigate()",
+      "source": "skylang",
+      "ts": "2026-05-08T01:41:17.324321"
+    },
+    {
+      "id": "fce0d8b1",
+      "lesson": "Regularly monitor system performance to prevent degradation.",
+      "source": "self",
+      "ts": "2026-05-08T01:41:40.008718"
+    },
+    {
+      "id": "5911200a",
+      "lesson": "SkyLang: WATCH cpu_usage_average <op> <= 80 -> send_alert_if_below_threshold",
+      "source": "skylang",
+      "ts": "2026-05-08T01:42:21.271320"
+    },
+    {
+      "id": "7459bf59",
+      "lesson": "Regularly review SkyLang rules for effective resource management",
+      "source": "self",
+      "ts": "2026-05-08T01:42:21.271385"
+    },
+    {
+      "id": "7cf24f9f",
+      "lesson": "SkyLang: WATCH cpu_usage <GT> 50% -> alert-monitoring-team",
+      "source": "skylang",
+      "ts": "2026-05-08T01:43:01.927101"
+    },
+    {
+      "id": "fcdaba3a",
+      "lesson": "SkyLang: WATCH system_load <le > 80 -> alert if degradation occurs",
+      "source": "skylang",
+      "ts": "2026-05-08T01:45:34.555306"
+    },
+    {
+      "id": "669d2039",
+      "lesson": "Review SkyLang rules for effective resource management",
+      "source": "self",
+      "ts": "2026-05-08T01:45:34.555369"
+    },
+    {
+      "id": "11d47bb0",
+      "lesson": "SkyLang: IF CPUUsage > 80% THEN NotifyMonitoringTeam()",
+      "source": "skylang",
+      "ts": "2026-05-08T01:47:41.645820"
+    },
+    {
+      "id": "b955f9e9",
+      "lesson": "The importance of regular CPU monitoring and process management",
+      "source": "self",
+      "ts": "2026-05-08T01:47:55.676129"
+    },
+    {
+      "id": "fd5b77e0",
+      "lesson": "SkyLang: WATCH cpu_usage <<= 0.5 -> notify_team",
+      "source": "skylang",
+      "ts": "2026-05-08T01:48:37.376598"
+    },
+    {
+      "id": "682c38ca",
+      "lesson": "Monitor high CPU usage to prevent system crashes",
+      "source": "self",
+      "ts": "2026-05-08T01:48:37.376659"
+    },
+    {
+      "id": "de1aa0e6",
+      "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> notifyMonitoringTeam",
+      "source": "skylang",
+      "ts": "2026-05-08T01:49:23.231817"
+    },
+    {
+      "id": "0593943a",
+      "lesson": "Review of SkyLang rules for effective resource management",
+      "source": "self",
+      "ts": "2026-05-08T01:49:36.740150"
+    },
+    {
+      "id": "e44dc417",
+      "lesson": "Regularly monitor system resources and adjust as necessary",
+      "source": "self",
+      "ts": "2026-05-08T01:50:34.001294"
+    },
+    {
+      "id": "5a828b10",
+      "lesson": "SkyLang: WATCH CPU_USAGE <<= 80% -> ACTION alert and log;",
+      "source": "skylang",
+      "ts": "2026-05-08T01:51:15.099536"
+    },
+    {
+      "id": "48760c13",
+      "lesson": "The importance of regular monitoring for optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-08T01:51:27.482098"
+    },
+    {
+      "id": "be2551ab",
+      "lesson": "The importance of proactive resource monitoring and limiting CPU usage to maintain system stability.",
+      "source": "self",
+      "ts": "2026-05-08T01:52:31.091969"
+    },
+    {
+      "id": "f3977a1d",
+      "lesson": "SkyLang: WATCH cpu_usage HIGH -> adjust_cpu_power 5",
+      "source": "skylang",
+      "ts": "2026-05-08T01:53:12.319998"
+    },
+    {
+      "id": "df735274",
+      "lesson": "SkyLang: WATCH cpu_usage <op> == \"high\" -> limit_cpu_power()",
+      "source": "skylang",
+      "ts": "2026-05-08T01:54:56.851251"
+    },
+    {
+      "id": "1410676f",
+      "lesson": "Importance of proactive resource monitoring",
+      "source": "self",
+      "ts": "2026-05-08T01:55:20.824463"
+    },
+    {
+      "id": "cf8c2541",
+      "lesson": "Evolved Gen 4: Introduce a new SkyLang rule to monitor and adjust CPU power consumption based on the current resour",
+      "source": "evolution",
+      "ts": "2026-05-08T01:56:11.939908"
+    },
+    {
+      "id": "42e4dac5",
+      "lesson": "The importance of proactive resource monitoring",
+      "source": "self",
+      "ts": "2026-05-08T01:56:11.940217"
+    },
+    {
+      "id": "7ad62392",
+      "lesson": "SkyLang: WATCH cpu_usage <op> > 80 -> adjust_power_consumption",
+      "source": "skylang",
+      "ts": "2026-05-08T01:56:54.241433"
+    },
+    {
+      "id": "4979ba07",
+      "lesson": "SkyLang: WATCH cpu_usage_high > 90 -> limit_power_consumption",
+      "source": "skylang",
+      "ts": "2026-05-08T01:57:55.862584"
+    },
+    {
+      "id": "e1419d4e",
+      "lesson": "Evolved Gen 5: Improve CPU power consumption adjustment by utilizing NumPy's vectorized operations for faster compu",
+      "source": "evolution",
+      "ts": "2026-05-08T01:58:08.264194"
+    },
+    {
+      "id": "b8119abe",
+      "lesson": "Monitor CPU usage and adjust power consumption as needed",
+      "source": "self",
+      "ts": "2026-05-08T01:58:08.264433"
+    },
+    {
+      "id": "91460381",
+      "lesson": "Monitor CPU resources regularly to prevent resource exhaustion.",
+      "source": "self",
+      "ts": "2026-05-08T01:59:06.588763"
     }
   ],
   "web_cache": {}
