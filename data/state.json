@@ -1,6 +1,6 @@
 {
   "system": {
-    "cpu_percent": 0.1,
+    "cpu_percent": 0.0,
     "memory_percent": 6.3,
     "memory_used_gb": 4.23,
     "memory_total_gb": 67.07,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 62.0
+          "current": 63.0
         },
         {
           "label": "",
@@ -27,7 +27,7 @@
         },
         {
           "label": "",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "",
@@ -53,21 +53,21 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 38.85
+          "current": 37.85
         },
         {
           "label": "Sensor 1",
-          "current": 38.85
+          "current": 37.85
         },
         {
           "label": "Sensor 2",
-          "current": 38.85
+          "current": 37.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 33.0
+          "current": 34.0
         }
       ],
       "coretemp": [
@@ -77,11 +77,11 @@
         },
         {
           "label": "Core 0",
-          "current": 50.0
+          "current": 48.0
         },
         {
           "label": "Core 1",
-          "current": 53.0
+          "current": 51.0
         },
         {
           "label": "Core 2",
@@ -89,81 +89,80 @@
         },
         {
           "label": "Core 3",
-          "current": 51.0
+          "current": 50.0
         },
         {
           "label": "Core 4",
-          "current": 53.0
+          "current": 50.0
         },
         {
           "label": "Core 5",
-          "current": 49.0
+          "current": 48.0
         },
         {
           "label": "Core 6",
-          "current": 53.0
+          "current": 50.0
         },
         {
           "label": "Core 7",
-          "current": 50.0
+          "current": 48.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 4.046240479981112,
-        "cpu_percent": 542.5,
+        "memory_percent": 4.047748940398164,
+        "cpu_percent": 471.0,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.2108058165012256,
-        "cpu_percent": 0.9,
+        "memory_percent": 0.2130959891991791,
+        "cpu_percent": 1.1,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
-        "cpu_percent": 0.2,
-        "name": "kworker/5:0-events",
+        "cpu_percent": 0.1,
+        "name": "kworker/5:0-events_freezable",
         "pid": 52
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/3:1-events_freezable",
+        "name": "kworker/3:1-mm_percpu_wq",
         "pid": 146
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/11:1-mm_percpu_wq",
-        "pid": 169
+        "name": "kworker/4:1-events",
+        "pid": 154
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T05:02:07.485103"
+    "timestamp": "2026-05-08T05:31:51.951234"
   },
   "decision": {
     "status": "warning",
-    "observation": "cpu_utilization is high, should start optimizing",
-    "action": "optimize -Xss2M && sleep 5 && XDEBUG_MODE=1 php -ri",
-    "reason": "High CPU usage detected, optimization and monitoring required",
-    "optimization_tip": "Monitor system resources closely to prevent crashes",
-    "should_search_web": true,
-    "web_query": "search for high cpu utilization patterns",
+    "observation": "CPU usage is high, could lead to performance degradation.",
+    "action": "ps -ef | grep -v 'kworker'",
+    "reason": "CPU usage exceeds 50%",
+    "optimization_tip": "Monitor CPU usage regularly to catch such issues early.",
+    "should_search_web": false,
+    "web_query": null,
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": true,
-    "evolve_reason": "Optimization is crucial for performance, should evolve to improve",
-    "should_write_skylang": true,
-    "skylang_situation": "High CPU usage detected, optimization required",
-    "skylang_behavior": "Continuously monitor system resources and optimize as needed",
-    "new_lesson": "Monitoring high resource utilization can help prevent system crashes",
-    "action_result": "blocked",
-    "skylang_rule": "WATCH CPUUtilization <op> > 80 -> OPTIMIZE_RESOURCE_USAGE"
+    "evolve_reason": "Optimize performance-critical function using Cython.",
+    "should_write_skylang": false,
+    "skylang_situation": null,
+    "skylang_behavior": null,
+    "new_lesson": "The importance of proactive system monitoring.",
+    "action_result": "blocked"
   },
-  "generation": 12,
+  "generation": 14,
   "knowledge_count": 300,
-  "updated": "2026-05-08T05:02:55.175437"
+  "updated": "2026-05-08T05:32:33.025206"
 }
