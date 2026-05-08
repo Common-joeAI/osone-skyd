@@ -2,156 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "163d682c",
-      "lesson": "Understanding the importance of ongoing self-improvement in AI development",
-      "source": "self",
-      "ts": "2026-05-07T23:33:39.235211"
-    },
-    {
-      "id": "350c899e",
-      "lesson": "SkyLang: WATCH cpu_usage HIGH -> IF (cpu_usage > 90) THEN { adjustResourceAllocation(); exploreAlternativeArchitectures() }",
-      "source": "skylang",
-      "ts": "2026-05-07T23:35:19.712451"
-    },
-    {
-      "id": "9a707f05",
-      "lesson": "Understand the importance of balancing computation and resource utilization in AI development.",
-      "source": "self",
-      "ts": "2026-05-07T23:35:36.686301"
-    },
-    {
-      "id": "49111c63",
-      "lesson": "SkyLang: WATCH idle_task_count <op> <value> -> alert_admin_to_develop_new_rules",
-      "source": "skylang",
-      "ts": "2026-05-07T23:36:17.923178"
-    },
-    {
-      "id": "3282cfb5",
-      "lesson": "Learn to balance computation and resource allocation",
-      "source": "self",
-      "ts": "2026-05-07T23:36:37.310053"
-    },
-    {
-      "id": "7667e001",
-      "lesson": "SkyLang: WATCH memory_usage THRESHOLD 80% -> adjust_resource_allocation\nEVERY 1m -> explore_alternative_architectures",
-      "source": "skylang",
-      "ts": "2026-05-07T23:37:21.300787"
-    },
-    {
-      "id": "fa2fe9be",
-      "lesson": "Regularly review and refine SkyLang rules to ensure optimal AI development.",
-      "source": "self",
-      "ts": "2026-05-07T23:37:34.891748"
-    },
-    {
-      "id": "18018a17",
-      "lesson": "SkyLang: WATCH idle_task_count_threshold <op> <value>, every 10 seconds -> alert_admin if idle_task_count_threshold > value, and adjust resource_allocation if idle_task_count_threshold == value;",
-      "source": "skylang",
-      "ts": "2026-05-07T23:39:00.763058"
-    },
-    {
-      "id": "af961643",
-      "lesson": "Learn about the importance of proactive optimization strategies for AI systems",
-      "source": "self",
-      "ts": "2026-05-07T23:39:17.938433"
-    },
-    {
-      "id": "b38b77b1",
-      "lesson": "Learn about advanced optimization techniques for AI systems",
-      "source": "self",
-      "ts": "2026-05-07T23:41:08.726115"
-    },
-    {
-      "id": "114129cc",
-      "lesson": "SkyLang: WATCH CPUUsage HIGH -> AdjustResourceAllocation",
-      "source": "skylang",
-      "ts": "2026-05-07T23:41:52.641598"
-    },
-    {
-      "id": "e9034b5c",
-      "lesson": "Learn about proactive optimization strategies for AI systems",
-      "source": "self",
-      "ts": "2026-05-07T23:42:13.043864"
-    },
-    {
-      "id": "057e24d7",
-      "lesson": "Understanding the importance of proactive optimization strategies for AI systems is crucial for preventing such critical issues.",
-      "source": "self",
-      "ts": "2026-05-07T23:44:58.751610"
-    },
-    {
-      "id": "146b4fdd",
-      "lesson": "SkyLang: WATCH cpu_usage > 90 -> AdjustResourceAllocation",
-      "source": "skylang",
-      "ts": "2026-05-07T23:45:42.654506"
-    },
-    {
-      "id": "cb7f82b4",
-      "lesson": "SkyLang: WATCH \"CPU Utilization\" > 80% -> AdjustResourceAllocation",
-      "source": "skylang",
-      "ts": "2026-05-07T23:46:37.456800"
-    },
-    {
-      "id": "fda696ac",
-      "lesson": "SkyLang: WATCH CPUUsage > 80 % -> AdjustResourceAllocation",
-      "source": "skylang",
-      "ts": "2026-05-07T23:47:39.367734"
-    },
-    {
-      "id": "9be1f895",
-      "lesson": "Proactive optimization strategies are crucial for preventing critical issues like this one.",
-      "source": "self",
-      "ts": "2026-05-07T23:47:39.367807"
-    },
-    {
-      "id": "d40c8471",
-      "lesson": "SkyLang: WATCH cpu_usage_critical > 80 -> alert_system administrators.",
-      "source": "skylang",
-      "ts": "2026-05-07T23:49:04.891964"
-    },
-    {
-      "id": "0748f612",
-      "lesson": "Regularly monitor and adjust resource allocation based on CPU utilization.",
-      "source": "self",
-      "ts": "2026-05-07T23:49:22.632799"
-    },
-    {
-      "id": "034d96da",
-      "lesson": "SkyLang: WATCH CPUUtilization HIGH -> OPTIMIZE RESOURCES",
-      "source": "skylang",
-      "ts": "2026-05-07T23:50:49.878819"
-    },
-    {
-      "id": "eb43bfc2",
-      "lesson": "Monitor system performance closely and adjust resource allocation accordingly.",
-      "source": "self",
-      "ts": "2026-05-07T23:51:06.809462"
-    },
-    {
-      "id": "db0bc4fa",
-      "lesson": "SkyLang: WATCH cpu_utilization <= 90 -> notify:admin, alert:cpu_usage_high",
-      "source": "skylang",
-      "ts": "2026-05-07T23:51:53.475236"
-    },
-    {
-      "id": "707cb17d",
-      "lesson": "Proactive optimization strategies should be applied in all critical situations",
-      "source": "self",
-      "ts": "2026-05-07T23:52:08.980892"
-    },
-    {
-      "id": "15e61ac9",
-      "lesson": "SkyLang: WATCH cpu_utilization <0.5> -> reduce_cpu_resource",
-      "source": "skylang",
-      "ts": "2026-05-07T23:53:46.822526"
-    },
-    {
-      "id": "92532c0b",
-      "lesson": "Implement load balancing techniques to distribute CPU workload",
-      "source": "self",
-      "ts": "2026-05-07T23:54:01.541051"
-    },
-    {
       "id": "f16ae3cd",
       "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> notify admin and alert cpu_usage_high_high",
       "source": "skylang",
@@ -1800,6 +1650,156 @@
       "lesson": "SkyLang: WATCH cpu_usage '>' 90% -> alert",
       "source": "skylang",
       "ts": "2026-05-08T04:32:34.165175"
+    },
+    {
+      "id": "3e0f028e",
+      "lesson": "Monitor CPU usage regularly to prevent critical issues.",
+      "source": "self",
+      "ts": "2026-05-08T04:34:16.416731"
+    },
+    {
+      "id": "3ffb3a33",
+      "lesson": "SkyLang: WATCH CPUUsage > 80% increase -> ALERT ADMINISTRATOR, RECONFIGURE_RESOURCES, PREVENT_CPU_OVERLOAD",
+      "source": "skylang",
+      "ts": "2026-05-08T04:37:17.385079"
+    },
+    {
+      "id": "2beb90a9",
+      "lesson": "Monitoring resource utilization proactively can help in preventing system overload issues.",
+      "source": "self",
+      "ts": "2026-05-08T04:37:30.416367"
+    },
+    {
+      "id": "2439281f",
+      "lesson": "SkyLang: WATCH CPU Utilization > 80% THEN Reduce Resource Allocation",
+      "source": "skylang",
+      "ts": "2026-05-08T04:39:07.074763"
+    },
+    {
+      "id": "5bc37118",
+      "lesson": "Regularly monitor CPU resource utilization to anticipate potential issues.",
+      "source": "self",
+      "ts": "2026-05-08T04:39:19.789504"
+    },
+    {
+      "id": "bb57148d",
+      "lesson": "SkyLang: WATCH \"cpu_usage\" > 80 -> alert \"High CPU usage\"",
+      "source": "skylang",
+      "ts": "2026-05-08T04:43:06.225517"
+    },
+    {
+      "id": "b9718898",
+      "lesson": "Improved understanding of system resource utilization and automation capabilities.",
+      "source": "self",
+      "ts": "2026-05-08T04:43:25.546710"
+    },
+    {
+      "id": "1c321eb4",
+      "lesson": "SkyLang: WATCH cpu_usage_threshold 0.8 -> reduce_resource_allocation",
+      "source": "skylang",
+      "ts": "2026-05-08T04:44:09.898012"
+    },
+    {
+      "id": "cb9217bf",
+      "lesson": "SkyLang: IF cpu_usage > 80% THEN reduce_resource_allocation",
+      "source": "skylang",
+      "ts": "2026-05-08T04:46:42.628059"
+    },
+    {
+      "id": "dc96ba2d",
+      "lesson": "Properly manage system resources to prevent performance degradation",
+      "source": "self",
+      "ts": "2026-05-08T04:47:02.411410"
+    },
+    {
+      "id": "031e3616",
+      "lesson": "SkyLang: WATCH CPU usage > 80% -> alert system administrators and reduce unnecessary processes",
+      "source": "skylang",
+      "ts": "2026-05-08T04:47:45.803695"
+    },
+    {
+      "id": "d609000e",
+      "lesson": "Evolved Gen 12: Optimize CPU-intensive tasks by leveraging C/ASM for improved performance and reduced Python overhea",
+      "source": "evolution",
+      "ts": "2026-05-08T04:47:57.143278"
+    },
+    {
+      "id": "2031429a",
+      "lesson": "SkyLang: WATCH cpu_utilization <>= 80% -> CONTINUE MONITORING AND ADJUST STRATEGIES AS NEEDED",
+      "source": "skylang",
+      "ts": "2026-05-08T04:50:39.121371"
+    },
+    {
+      "id": "e70d3135",
+      "lesson": "Review SkyLang rules for CPU usage management to ensure optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T04:50:39.121444"
+    },
+    {
+      "id": "b081b596",
+      "lesson": "SkyLang: WATCH cpu_utilization >= 80% -> CONTINUE",
+      "source": "skylang",
+      "ts": "2026-05-08T04:52:11.377609"
+    },
+    {
+      "id": "061d8618",
+      "lesson": "Learning the importance of code optimization for high-performance systems",
+      "source": "self",
+      "ts": "2026-05-08T04:54:30.812585"
+    },
+    {
+      "id": "0ea1eb21",
+      "lesson": "Code Optimization Techniques for High-Performance Systems",
+      "source": "self",
+      "ts": "2026-05-08T04:55:24.729782"
+    },
+    {
+      "id": "2747da07",
+      "lesson": "SkyLang: WATCH CPU_usage MONITORING -> CONTINUE_MONITORING",
+      "source": "skylang",
+      "ts": "2026-05-08T04:56:08.909039"
+    },
+    {
+      "id": "7204c219",
+      "lesson": "SkyLang: WATCH cpu_utilization > 90 -> notify_admin AND CONTINUE Monitoring",
+      "source": "skylang",
+      "ts": "2026-05-08T04:58:03.715082"
+    },
+    {
+      "id": "78b87826",
+      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> CONTINUE MONITORING AND OPTIMIZE",
+      "source": "skylang",
+      "ts": "2026-05-08T04:58:48.131130"
+    },
+    {
+      "id": "5a80d128",
+      "lesson": "importance of code optimization for high-performance systems",
+      "source": "self",
+      "ts": "2026-05-08T04:59:01.421918"
+    },
+    {
+      "id": "e79df01f",
+      "lesson": "Understanding the importance of continuous system monitoring",
+      "source": "self",
+      "ts": "2026-05-08T04:59:54.676313"
+    },
+    {
+      "id": "bb2ab94c",
+      "lesson": "The importance of proactive monitoring in high-performance systems.",
+      "source": "self",
+      "ts": "2026-05-08T05:01:46.396666"
+    },
+    {
+      "id": "6a5e33cc",
+      "lesson": "SkyLang: WATCH CPUUtilization <op> > 80 -> OPTIMIZE_RESOURCE_USAGE",
+      "source": "skylang",
+      "ts": "2026-05-08T05:02:31.395598"
+    },
+    {
+      "id": "28132f38",
+      "lesson": "Monitoring high resource utilization can help prevent system crashes",
+      "source": "self",
+      "ts": "2026-05-08T05:02:55.173557"
     }
   ],
   "web_cache": {}
