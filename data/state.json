@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 72.0
+          "current": 65.0
         },
         {
           "label": "",
@@ -67,7 +67,7 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 34.0
+          "current": 35.0
         }
       ],
       "coretemp": [
@@ -77,7 +77,7 @@
         },
         {
           "label": "Core 0",
-          "current": 56.0
+          "current": 53.0
         },
         {
           "label": "Core 1",
@@ -85,15 +85,15 @@
         },
         {
           "label": "Core 2",
-          "current": 56.0
+          "current": 54.0
         },
         {
           "label": "Core 3",
-          "current": 56.0
+          "current": 53.0
         },
         {
           "label": "Core 4",
-          "current": 55.0
+          "current": 54.0
         },
         {
           "label": "Core 5",
@@ -101,23 +101,23 @@
         },
         {
           "label": "Core 6",
-          "current": 56.0
+          "current": 55.0
         },
         {
           "label": "Core 7",
-          "current": 54.0
+          "current": 52.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 4.029006167038112,
-        "cpu_percent": 265.0,
+        "memory_percent": 4.029213809362727,
+        "cpu_percent": 372.3,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.20687282658794012,
+        "memory_percent": 0.2083324299874358,
         "cpu_percent": 0.4,
         "name": "ollama",
         "pid": 695
@@ -125,48 +125,43 @@
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.3,
-        "name": "kworker/11:1-events",
-        "pid": 169
+        "name": "kworker/15:1-events",
+        "pid": 159
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/14:1-events",
-        "pid": 158
+        "name": "kworker/10:1-events",
+        "pid": 171
       },
       {
-        "memory_percent": 0.0,
-        "cpu_percent": 0.2,
-        "name": "kworker/2:0-mm_percpu_wq",
-        "pid": 269060
+        "memory_percent": 0.061407163941127045,
+        "cpu_percent": 0.1,
+        "name": "python3",
+        "pid": 42537
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T01:59:59.504951"
+    "timestamp": "2026-05-08T02:30:39.123343"
   },
   "decision": {
     "status": "ok",
-    "observation": "CPU usage is currently at 265.0%, indicating high load.",
-    "action": "skyd.sh adjust_power_consumption",
-    "reason": "High CPU usage may cause overheating and resource exhaustion.",
-    "optimization_tip": "Monitor system resources regularly to prevent resource exhaustion.",
+    "observation": "parse error",
+    "action": "none",
+    "reason": "fallback",
+    "optimization_tip": "",
     "should_search_web": false,
     "web_query": null,
-    "should_write_asm": true,
-    "asm_task": "Optimize CPU power consumption adjustment using NumPy's vectorized operations",
-    "should_evolve": true,
-    "evolve_reason": "Gen 5: Improve performance and efficiency in CPU power consumption adjustment",
+    "should_write_asm": false,
+    "asm_task": null,
+    "should_evolve": false,
+    "evolve_reason": null,
     "should_write_skylang": false,
     "skylang_situation": null,
     "skylang_behavior": null,
-    "new_lesson": "The importance of monitoring system resources to prevent resource exhaustion.",
-    "action_result": "blocked",
-    "asm_result": {
-      "status": "error",
-      "error": "/usr/local/skyd/asm/sky_20260508_020041.c: In function \u2018main\u2019:\n/usr/local/skyd/asm/sky_20260508_020041.c:23:5: error: unknown register name \u2018% xmm0\u2019 in \u2018asm\u2019\n   23 |     __asm__ volatile (\n      |    "
-    }
+    "new_lesson": null
   },
   "generation": 5,
-  "knowledge_count": 180,
-  "updated": "2026-05-08T02:00:57.897649"
+  "knowledge_count": 209,
+  "updated": "2026-05-08T02:30:59.068732"
 }
