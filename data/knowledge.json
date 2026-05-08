@@ -2,150 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "c72a0088",
-      "lesson": "The importance of proactive monitoring in preventing resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:16:33.897795"
-    },
-    {
-      "id": "76af317a",
-      "lesson": "SkyLang: WATCH resource_usage > 0 -> continue monitoring",
-      "source": "skylang",
-      "ts": "2026-05-08T02:19:54.866189"
-    },
-    {
-      "id": "d3803206",
-      "lesson": "SkyLang: WATCH cpu_usage > 80% -> alert",
-      "source": "skylang",
-      "ts": "2026-05-08T02:20:48.965174"
-    },
-    {
-      "id": "c4619906",
-      "lesson": "SkyLang: WATCH CPU_USAGE > 80 -> ALERT,ManualInterventionRequired",
-      "source": "skylang",
-      "ts": "2026-05-08T02:21:47.253567"
-    },
-    {
-      "id": "f3d73ab8",
-      "lesson": "Monitor CPU usage regularly and consider implementing a proactive maintenance schedule.",
-      "source": "self",
-      "ts": "2026-05-08T02:22:09.174148"
-    },
-    {
-      "id": "132d9725",
-      "lesson": "Proactive monitoring is crucial to prevent resource exhaustion",
-      "source": "self",
-      "ts": "2026-05-08T02:23:31.275249"
-    },
-    {
-      "id": "6d8a19e8",
-      "lesson": "SkyLang: WATCH cpu_utility 'ollama' > 80 -> CONTINUE MONITORING AND SCHEDULE PROACTIVE MAINTENANCE",
-      "source": "skylang",
-      "ts": "2026-05-08T02:25:02.212122"
-    },
-    {
-      "id": "02ddbccb",
-      "lesson": "Proactive monitoring helps prevent resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:25:19.190095"
-    },
-    {
-      "id": "d89bfb12",
-      "lesson": "SkyLang: WATCH cpu_usage > 80 -> CONTINUE MONITORING AND SCHEDULE PROACTIVE MAINTENANCE",
-      "source": "skylang",
-      "ts": "2026-05-08T02:26:05.332017"
-    },
-    {
-      "id": "a77ecc9c",
-      "lesson": "Regularly monitor CPU usage to prevent resource exhaustion",
-      "source": "self",
-      "ts": "2026-05-08T02:26:17.871786"
-    },
-    {
-      "id": "5f272444",
-      "lesson": "Evolving AI models must prioritize proactive monitoring and adaptability.",
-      "source": "self",
-      "ts": "2026-05-08T02:27:19.755333"
-    },
-    {
-      "id": "12354b4c",
-      "lesson": "SkyLang: WATCH cpu_utility 'ollama' > 80 -> schedule_proactive_maintenance",
-      "source": "skylang",
-      "ts": "2026-05-08T02:28:29.044144"
-    },
-    {
-      "id": "33b74ceb",
-      "lesson": "Evolving AI models must prioritize proactive monitoring to prevent resource exhaustion.",
-      "source": "self",
-      "ts": "2026-05-08T02:28:55.003090"
-    },
-    {
-      "id": "b7cdc064",
-      "lesson": "SkyLang: WATCH cpu_usage HIGH -> trigger_proactive_maintenance",
-      "source": "skylang",
-      "ts": "2026-05-08T02:32:42.799255"
-    },
-    {
-      "id": "eb08612f",
-      "lesson": "Importance of adapting AI models for proactive monitoring and prevention",
-      "source": "self",
-      "ts": "2026-05-08T02:32:54.742533"
-    },
-    {
-      "id": "ea5264cf",
-      "lesson": "SkyLang: IF cpu_utility > 80 THEN schedule_proactive_maintenance()",
-      "source": "skylang",
-      "ts": "2026-05-08T02:33:39.871422"
-    },
-    {
-      "id": "ea45aaf0",
-      "lesson": "Evolving AI models require continuous monitoring and adaptability",
-      "source": "self",
-      "ts": "2026-05-08T02:33:52.944609"
-    },
-    {
-      "id": "436a5ca9",
-      "lesson": "SkyLang: IF (CPU_usage > 80 && CPU_usage > prev_CPU_usage) AND NOW - prev_Now >= 60 -> trigger_maintenance",
-      "source": "skylang",
-      "ts": "2026-05-08T02:34:52.918404"
-    },
-    {
-      "id": "f5c86d7c",
-      "lesson": "Proactive monitoring and adaptability are crucial for evolving AI models.",
-      "source": "self",
-      "ts": "2026-05-08T02:35:11.395899"
-    },
-    {
-      "id": "61023fd3",
-      "lesson": "Adapting AI models requires continuous monitoring",
-      "source": "self",
-      "ts": "2026-05-08T02:36:05.851240"
-    },
-    {
-      "id": "2329f5ef",
-      "lesson": "SkyLang: WATCH cpu_usage_high_opGT 80 -> trigger_proactive_maintenance",
-      "source": "skylang",
-      "ts": "2026-05-08T02:38:25.287762"
-    },
-    {
-      "id": "d2c6a3f3",
-      "lesson": "Continuously monitor CPU usage to prevent crashes",
-      "source": "self",
-      "ts": "2026-05-08T02:38:44.257529"
-    },
-    {
-      "id": "b9710995",
-      "lesson": "SkyLang: WATCH cpu_usage <op> > 50 -> alert:monitor-cpu-usage",
-      "source": "skylang",
-      "ts": "2026-05-08T02:39:27.215080"
-    },
-    {
-      "id": "b599249f",
-      "lesson": "Adapting AI models requires continuous monitoring and proactive maintenance.",
-      "source": "self",
-      "ts": "2026-05-08T02:39:38.741335"
-    },
-    {
       "id": "2356526f",
       "lesson": "SkyLang: cpu_usage_high_opGT 80 -> alert.on.proactive.maintenance.trigger",
       "source": "skylang",
@@ -1806,6 +1662,150 @@
       "lesson": "Evolved Gen 38: Adding a 'concurrency' parameter to improve performance under heavy load and adding a 'timeout' para",
       "source": "evolution",
       "ts": "2026-05-08T08:45:13.399688"
+    },
+    {
+      "id": "a0101de2",
+      "lesson": "SkyLang: WATCH readability 30 -> refactor\nEACH line -> format_parentheses\nWATCH performance 90 -> optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T08:49:35.903193"
+    },
+    {
+      "id": "b9bf7b35",
+      "lesson": "Evolved Gen 39: Adding a 'lazy' attribute to `format_parentheses` function to improve performance under heavy load",
+      "source": "evolution",
+      "ts": "2026-05-08T08:49:46.287367"
+    },
+    {
+      "id": "677d6c13",
+      "lesson": "Refactor code to follow SkyLang best practices for improved performance and readability",
+      "source": "self",
+      "ts": "2026-05-08T08:49:46.287694"
+    },
+    {
+      "id": "1d98aa67",
+      "lesson": "SkyLang: `WATCH code_complexity 10 -> refactor`",
+      "source": "skylang",
+      "ts": "2026-05-08T08:50:08.571013"
+    },
+    {
+      "id": "0f644ff1",
+      "lesson": "Evolved Gen 40: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "source": "evolution",
+      "ts": "2026-05-08T08:52:12.720441"
+    },
+    {
+      "id": "f5cf70e9",
+      "lesson": "Keep code organized and maintainable to ensure optimal performance",
+      "source": "self",
+      "ts": "2026-05-08T08:52:12.720784"
+    },
+    {
+      "id": "9d20fdc7",
+      "lesson": "Review SkyLang best practices for improved performance and readability.",
+      "source": "self",
+      "ts": "2026-05-08T08:53:41.371468"
+    },
+    {
+      "id": "b74a7a2b",
+      "lesson": "Evolved Gen 41: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "source": "evolution",
+      "ts": "2026-05-08T08:54:13.110620"
+    },
+    {
+      "id": "72c6a033",
+      "lesson": "SkyLang: WATCH 'llama-server' CPU > 80% -> REFRACTOR CPU ALLOCATION",
+      "source": "skylang",
+      "ts": "2026-05-08T08:54:54.537359"
+    },
+    {
+      "id": "67639929",
+      "lesson": "Efficient resource allocation is crucial for optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-08T08:55:09.139234"
+    },
+    {
+      "id": "bbcdd224",
+      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' > 80% -> IF cpu_usage > 80% THEN refactor_code_to_improve_resource_allocation",
+      "source": "skylang",
+      "ts": "2026-05-08T08:55:32.676621"
+    },
+    {
+      "id": "43ba2292",
+      "lesson": "SkyLang: `WATCH <metric> <op> <value> -> <action>; EVERY <interval> -> <action>; IF <condition> -> <action>;`",
+      "source": "skylang",
+      "ts": "2026-05-08T08:57:40.739703"
+    },
+    {
+      "id": "541941e6",
+      "lesson": "Evolved Gen 42: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "source": "evolution",
+      "ts": "2026-05-08T08:57:52.643808"
+    },
+    {
+      "id": "520bad25",
+      "lesson": "Efficient resource allocation is key to optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-08T08:57:52.644410"
+    },
+    {
+      "id": "d8dcb53e",
+      "lesson": "SkyLang: WATCH <metric> <op> <value> -> <action>:\n  1. If <action> is an assignment, check if the variable is initialized before assignment.\n  2. If <action> is a method call, check if the method is defined and has the correct signature.\n  3. If <action> is a function call, check if the function is defined and has the correct signature.\n  4. If <action> is an object creation, check if the object has the required properties and methods.\n  5. If <action> is an array creation, check if the array has the required elements.\n  6. If <action> is a conditional statement, check if the condition is a boolean expression.\n  7. If <action> is an iterative statement, check if the loop condition is a boolean expression.\n  8. If <action> is a method call or function call, check if the return type matches the expected type.\n  9. If <action> is an assignment, check if the variable is assigned a value that matches the expected type.\n  10. If <action> is an object creation, check if the object has the required properties and methods with the correct types.\n  11. If <action> is an array creation, check if the array has the required elements with the correct types.\n  12. If <action> is a conditional statement, check if the condition is a boolean expression and is not a loop condition.\n  13. If <action> is an iterative statement, check if the loop condition is a boolean expression and is not a conditional statement.\n  14. If <action> is a method call or function call, check if the return type matches the expected type and is not null.\n  15. If <action> is an assignment, check if the variable is assigned a value that matches the expected type and is not null.\n  16. If <action> is an object creation, check if the object has the required properties and methods with the correct types and is not null.\n  17. If <action> is an array creation, check if the array has the required elements with the correct types and is not null.\n  18. If <action> is a conditional statement, check if the condition is a boolean expression and is not null.\n  19. If <action> is an iterative statement, check if the loop condition is a boolean expression and is not null.\n  20. If <action> is a method call or function call, check if the return type matches the expected type and is not null.\n\nHowever, a simplified version of this rule could be:\n\nWATCH <metric> <op> <value> -> <action>:\n  1. Check that <action> is a valid expression and is not null.\n  2. Check that the return type of <action> matches the expected type.\n  3. Check that the variable or object being assigned to has the required properties and methods.",
+      "source": "skylang",
+      "ts": "2026-05-08T08:58:53.774030"
+    },
+    {
+      "id": "1e936bf8",
+      "lesson": "Evolved Gen 43: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "source": "evolution",
+      "ts": "2026-05-08T08:59:11.440848"
+    },
+    {
+      "id": "4df26ce4",
+      "lesson": "SkyLang: ```sky\nWATCH <metric> <op> <value> -> <action>\nEVERY <interval> -> <action>\nIF <condition> -> <action>\n```",
+      "source": "skylang",
+      "ts": "2026-05-08T09:00:59.204529"
+    },
+    {
+      "id": "a8644813",
+      "lesson": "Evolved Gen 44: Implement a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "source": "evolution",
+      "ts": "2026-05-08T09:01:19.078827"
+    },
+    {
+      "id": "7d32f394",
+      "lesson": "introduce SkyLang conditional statements",
+      "source": "self",
+      "ts": "2026-05-08T09:01:19.079444"
+    },
+    {
+      "id": "f3ffb309",
+      "lesson": "SkyLang: WATCH <metric> <op> <value> -> <action>, \nEACH WATCH <metric> <op> <value> -> <action> \nEACH EVERY <interval> -> <action> \nEACH IF <condition> -> <action>",
+      "source": "skylang",
+      "ts": "2026-05-08T09:01:43.865416"
+    },
+    {
+      "id": "646cc069",
+      "lesson": "Evolved Gen 45: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "source": "evolution",
+      "ts": "2026-05-08T09:01:54.981189"
+    },
+    {
+      "id": "442e0fd1",
+      "lesson": "SkyLang: WATCH idle -> default",
+      "source": "skylang",
+      "ts": "2026-05-08T09:05:47.456810"
+    },
+    {
+      "id": "21e1cb53",
+      "lesson": "Evolve code for better performance",
+      "source": "self",
+      "ts": "2026-05-08T09:06:02.260742"
+    },
+    {
+      "id": "bc9f21ae",
+      "lesson": "SkyLang: WATCH Idle -> Default",
+      "source": "skylang",
+      "ts": "2026-05-08T09:06:24.138697"
     }
   ],
   "web_cache": {}
