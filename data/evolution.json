@@ -1,5 +1,5 @@
 {
-  "generation": 38,
+  "generation": 45,
   "mutations": [
     {
       "gen": 1,
@@ -266,6 +266,55 @@
       "desc": "Adding a 'concurrency' parameter to improve performance under heavy load and adding a 'timeout' parameter for more predictable execution",
       "benefit": "Improved performance and reduced latency under heavy load, with added predictability through 'timeout' parameter",
       "ts": "2026-05-08T08:45:13.399627"
+    },
+    {
+      "gen": 39,
+      "type": "python",
+      "desc": "Adding a 'lazy' attribute to `format_parentheses` function to improve performance under heavy load",
+      "benefit": "Reduced memory allocation and garbage collection overhead",
+      "ts": "2026-05-08T08:49:46.287330"
+    },
+    {
+      "gen": 40,
+      "type": "python|new_capability",
+      "desc": "Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeated formatting",
+      "benefit": "Reduced CPU usage due to minimized repeated formatting",
+      "ts": "2026-05-08T08:52:12.720379"
+    },
+    {
+      "gen": 41,
+      "type": "python|c_asm",
+      "desc": "Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "benefit": "Reduced CPU usage and improved performance",
+      "ts": "2026-05-08T08:54:13.110569"
+    },
+    {
+      "gen": 42,
+      "type": "python",
+      "desc": "Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "benefit": "Improved performance by reducing repeated function calls",
+      "ts": "2026-05-08T08:57:52.643721"
+    },
+    {
+      "gen": 43,
+      "type": "python",
+      "desc": "Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "benefit": "Reduced overhead of repeated function calls",
+      "ts": "2026-05-08T08:59:11.440766"
+    },
+    {
+      "gen": 44,
+      "type": "python",
+      "desc": "Implement a caching mechanism for the `format_parentheses` function to reduce the overhead of repeated formatting",
+      "benefit": "Reduced CPU usage due to reduced formatting overhead",
+      "ts": "2026-05-08T09:01:19.078753"
+    },
+    {
+      "gen": 45,
+      "type": "python",
+      "desc": "Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
+      "benefit": "reduced overhead due to caching",
+      "ts": "2026-05-08T09:01:54.981125"
     }
   ],
   "benchmarks": {}
