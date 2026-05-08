@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.1,
-    "memory_percent": 12.8,
-    "memory_used_gb": 8.6,
+    "cpu_percent": 0.2,
+    "memory_percent": 12.9,
+    "memory_used_gb": 8.66,
     "memory_total_gb": 67.07,
     "disk_percent": 10.2,
     "disk_used_gb": 47.17,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 70.0
+          "current": 54.0
         },
         {
           "label": "",
@@ -27,7 +27,7 @@
         },
         {
           "label": "",
-          "current": 51.0
+          "current": 48.0
         },
         {
           "label": "",
@@ -35,11 +35,11 @@
         },
         {
           "label": "",
-          "current": 38.0
+          "current": 39.0
         },
         {
           "label": "",
-          "current": 34.0
+          "current": 35.0
         },
         {
           "label": "",
@@ -61,23 +61,23 @@
         },
         {
           "label": "Sensor 2",
-          "current": 34.85
+          "current": 35.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 32.0
+          "current": 35.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 53.0
+          "current": 54.0
         },
         {
           "label": "Core 0",
-          "current": 46.0
+          "current": 47.0
         },
         {
           "label": "Core 1",
@@ -85,11 +85,11 @@
         },
         {
           "label": "Core 2",
-          "current": 49.0
+          "current": 50.0
         },
         {
           "label": "Core 3",
-          "current": 48.0
+          "current": 50.0
         },
         {
           "label": "Core 4",
@@ -97,11 +97,11 @@
         },
         {
           "label": "Core 5",
-          "current": 43.0
+          "current": 45.0
         },
         {
           "label": "Core 6",
-          "current": 48.0
+          "current": 50.0
         },
         {
           "label": "Core 7",
@@ -111,38 +111,38 @@
     },
     "top_processes": [
       {
-        "name": "llama-server",
-        "cpu_percent": 454.2,
-        "pid": 2313394,
-        "memory_percent": 8.70006683029289
+        "name": "kworker/5:0-events",
+        "cpu_percent": 0.3,
+        "pid": 52,
+        "memory_percent": 0.0
       },
       {
-        "name": "kworker/3:0-events",
+        "name": "kworker/6:0-events",
         "cpu_percent": 0.2,
-        "pid": 2314149,
+        "pid": 288772,
         "memory_percent": 0.0
       },
       {
-        "name": "kworker/10:1-events",
-        "cpu_percent": 0.1,
-        "pid": 171,
+        "name": "kworker/7:1-events",
+        "cpu_percent": 0.2,
+        "pid": 2312631,
         "memory_percent": 0.0
       },
       {
-        "name": "kworker/4:0-events",
+        "name": "tailscaled",
         "cpu_percent": 0.1,
-        "pid": 2271053,
-        "memory_percent": 0.0
+        "pid": 801,
+        "memory_percent": 0.13777678950888378
       },
       {
-        "name": "kworker/9:0-mld",
+        "name": "python3",
         "cpu_percent": 0.1,
-        "pid": 2310185,
-        "memory_percent": 0.0
+        "pid": 2312642,
+        "memory_percent": 0.06188351986230139
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T09:06:23.839888"
+    "timestamp": "2026-05-08T09:07:16.532969"
   },
   "decision": {
     "status": "ok",
@@ -154,9 +154,9 @@
     "web_query": null,
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": true,
+    "should_evolve": false,
     "evolve_reason": "New generation available for improvement",
-    "should_write_skylang": true,
+    "should_write_skylang": false,
     "skylang_situation": "Idle",
     "skylang_behavior": "Default",
     "new_lesson": "Evolve code for better performance",
@@ -164,5 +164,5 @@
   },
   "generation": 45,
   "knowledge_count": 300,
-  "updated": "2026-05-08T09:06:33.377813"
+  "updated": "2026-05-08T09:07:16.534066"
 }
