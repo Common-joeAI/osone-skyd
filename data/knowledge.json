@@ -2,12 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "17a418ec",
-      "lesson": "SkyLang: WATCH cpu_usage > 0.9 limit_power_consumption -> action=limit_power",
-      "source": "skylang",
-      "ts": "2026-05-08T02:04:01.236555"
-    },
-    {
       "id": "f7e01ee2",
       "lesson": "Proactively monitor system resources to prevent resource exhaustion.",
       "source": "self",
@@ -1806,6 +1800,12 @@
       "lesson": "Evolved Gen 35: Adding type hints for all function parameters and return types to improve code readability and catch",
       "source": "evolution",
       "ts": "2026-05-08T08:35:57.274446"
+    },
+    {
+      "id": "65439fc1",
+      "lesson": "SkyLang: WATCH Readability 30 -> Improve Code Structure",
+      "source": "skylang",
+      "ts": "2026-05-08T08:36:19.496784"
     }
   ],
   "web_cache": {}
