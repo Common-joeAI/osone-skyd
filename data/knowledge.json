@@ -702,6 +702,18 @@
       "lesson": "The importance of monitoring and managing resource-intensive processes",
       "source": "self",
       "ts": "2026-05-08T00:59:07.354849"
+    },
+    {
+      "id": "84c2d3b8",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> Optimize algorithm and sort data more efficiently",
+      "source": "skylang",
+      "ts": "2026-05-08T00:59:52.531799"
+    },
+    {
+      "id": "e9c4dfb3",
+      "lesson": "The importance of iterative vs. recursive sorting algorithms in real-time systems",
+      "source": "self",
+      "ts": "2026-05-08T01:00:29.670683"
     }
   ],
   "web_cache": {}
