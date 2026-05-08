@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+
+  llama:
+    build: ./llama
+    container_name: osone-llama
+    restart: unless-stopped
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    volumes:
+      - /mnt/user/osone/models:/models:ro
+    networks:
+      - osone
+
+  skyd:
+    build: ./skyd
+    container_name: osone-skyd
+    restart: unless-stopped
+    depends_on:
+      - llama
+    environment:
+      - LLAMA_URL=http://llama:8080
+      - GITHUB_REPO=https://github.com/Common-joeAI/osone-skyd
+    volumes:
+      - skyd-lang:/usr/local/skyd/lang
+      - skyd-logs:/var/log
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - osone
+    pid: host
+    privileged: false
+
+  gui:
+    build: ./gui
+    container_name: osone-gui
+    restart: unless-stopped
+    depends_on:
+      - llama
+    environment:
+      - LLAMA_URL=http://llama:8080
+    volumes:
+      - /etc/osone:/etc/osone
+    ports:
+      - "8000:8000"
+    networks:
+      - osone
+
+  landing:
+    image: nginx:alpine
+    container_name: osone-landing
+    restart: unless-stopped
+    volumes:
+      - /mnt/user/osone/web:/usr/share/nginx/html:ro
+    ports:
+      - "9000:80"
+
+volumes:
+  skyd-lang:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/user/osone/skyd/lang
+  skyd-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/user/osone/skyd/logs
+
+networks:
+  osone:
+    driver: bridge
