@@ -1,6 +1,6 @@
 {
   "system": {
-    "cpu_percent": 0.7,
+    "cpu_percent": 0.2,
     "memory_percent": 6.2,
     "memory_used_gb": 4.18,
     "memory_total_gb": 67.07,
@@ -19,11 +19,11 @@
         },
         {
           "label": "",
-          "current": 25.0
+          "current": 27.0
         },
         {
           "label": "",
-          "current": 45.0
+          "current": 44.0
         },
         {
           "label": "",
@@ -43,7 +43,7 @@
         },
         {
           "label": "",
-          "current": 40.0
+          "current": 39.0
         },
         {
           "label": "",
@@ -61,7 +61,7 @@
         },
         {
           "label": "Sensor 2",
-          "current": 32.85
+          "current": 33.85
         }
       ],
       "iwlwifi_1": [
@@ -81,15 +81,15 @@
         },
         {
           "label": "Core 1",
-          "current": 41.0
+          "current": 42.0
         },
         {
           "label": "Core 2",
-          "current": 45.0
+          "current": 40.0
         },
         {
           "label": "Core 3",
-          "current": 42.0
+          "current": 39.0
         },
         {
           "label": "Core 4",
@@ -105,44 +105,44 @@
         },
         {
           "label": "Core 7",
-          "current": 39.0
+          "current": 38.0
         }
       ]
     },
     "top_processes": [
       {
-        "name": "kworker/3:1-mm_percpu_wq",
-        "memory_percent": 0.0,
-        "cpu_percent": 0.4,
-        "pid": 146
-      },
-      {
-        "name": "kworker/5:0-events",
+        "name": "kworker/5:0-mm_percpu_wq",
         "memory_percent": 0.0,
         "cpu_percent": 0.3,
         "pid": 52
       },
       {
-        "name": "tailscaled",
-        "memory_percent": 0.09982710112199529,
-        "cpu_percent": 0.1,
-        "pid": 801
+        "name": "kworker/3:2+events",
+        "memory_percent": 0.0,
+        "cpu_percent": 0.3,
+        "pid": 2296606
       },
       {
-        "name": "kworker/4:0-mm_percpu_wq",
+        "name": "kworker/u64:2-events_unbound",
         "memory_percent": 0.0,
-        "cpu_percent": 0.1,
-        "pid": 2271053
-      },
-      {
-        "name": "kworker/u64:2-pm",
-        "memory_percent": 0.0,
-        "cpu_percent": 0.1,
+        "cpu_percent": 0.2,
         "pid": 2279642
+      },
+      {
+        "name": "python3",
+        "memory_percent": 0.05543439354486427,
+        "cpu_percent": 0.2,
+        "pid": 2296588
+      },
+      {
+        "name": "systemd",
+        "memory_percent": 0.023738403405187555,
+        "cpu_percent": 0.1,
+        "pid": 1
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T07:33:23.628085"
+    "timestamp": "2026-05-08T07:33:45.217113"
   },
   "decision": {
     "status": "ok",
@@ -163,5 +163,5 @@
   },
   "generation": 26,
   "knowledge_count": 300,
-  "updated": "2026-05-08T07:33:23.629193"
+  "updated": "2026-05-08T07:35:25.082362"
 }
