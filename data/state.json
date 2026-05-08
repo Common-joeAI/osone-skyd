@@ -1,8 +1,8 @@
 {
   "system": {
     "cpu_percent": 0.1,
-    "memory_percent": 13.9,
-    "memory_used_gb": 9.35,
+    "memory_percent": 15.7,
+    "memory_used_gb": 10.52,
     "memory_total_gb": 67.07,
     "disk_percent": 10.2,
     "disk_used_gb": 47.17,
@@ -23,7 +23,7 @@
         },
         {
           "label": "",
-          "current": 51.0
+          "current": 50.0
         },
         {
           "label": "",
@@ -35,15 +35,15 @@
         },
         {
           "label": "",
-          "current": 39.0
+          "current": 38.0
         },
         {
           "label": "",
-          "current": 35.0
+          "current": 34.0
         },
         {
           "label": "",
-          "current": 43.0
+          "current": 42.0
         },
         {
           "label": "",
@@ -53,21 +53,21 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 36.85
+          "current": 35.85
         },
         {
           "label": "Sensor 1",
-          "current": 36.85
+          "current": 35.85
         },
         {
           "label": "Sensor 2",
-          "current": 36.85
+          "current": 35.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 33.0
+          "current": 32.0
         }
       ],
       "coretemp": [
@@ -77,11 +77,11 @@
         },
         {
           "label": "Core 0",
-          "current": 44.0
+          "current": 46.0
         },
         {
           "label": "Core 1",
-          "current": 47.0
+          "current": 48.0
         },
         {
           "label": "Core 2",
@@ -93,15 +93,15 @@
         },
         {
           "label": "Core 4",
-          "current": 45.0
+          "current": 46.0
         },
         {
           "label": "Core 5",
-          "current": 43.0
+          "current": 42.0
         },
         {
           "label": "Core 6",
-          "current": 49.0
+          "current": 48.0
         },
         {
           "label": "Core 7",
@@ -111,28 +111,28 @@
     },
     "top_processes": [
       {
-        "name": "kworker/7:1-events",
+        "name": "kworker/6:0-events",
         "cpu_percent": 0.4,
-        "pid": 2312631,
-        "memory_percent": 0.0
-      },
-      {
-        "name": "kworker/4:0-events",
-        "cpu_percent": 0.2,
-        "pid": 2271053,
-        "memory_percent": 0.0
-      },
-      {
-        "name": "kworker/6:0-mm_percpu_wq",
-        "cpu_percent": 0.1,
         "pid": 288772,
+        "memory_percent": 0.0
+      },
+      {
+        "name": "kworker/10:1-events",
+        "cpu_percent": 0.1,
+        "pid": 171,
+        "memory_percent": 0.0
+      },
+      {
+        "name": "kworker/13:2-events",
+        "cpu_percent": 0.1,
+        "pid": 2312436,
         "memory_percent": 0.0
       },
       {
         "name": "python3",
         "cpu_percent": 0.1,
         "pid": 2312642,
-        "memory_percent": 0.06210948356849946
+        "memory_percent": 0.062451482691393854
       },
       {
         "name": "systemd",
@@ -142,14 +142,14 @@
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T09:18:57.139398"
+    "timestamp": "2026-05-08T09:36:55.086792"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resources are within normal limits.",
+    "observation": "System resources are within normal ranges.",
     "action": "none",
-    "reason": "No system resource usage exceeds 50% threshold.",
-    "optimization_tip": "Regularly check system resource usage to catch potential issues.",
+    "reason": "No system resource usage is currently outside normal ranges.",
+    "optimization_tip": "Regularly monitor system resources to ensure optimal performance.",
     "should_search_web": false,
     "web_query": null,
     "should_write_asm": false,
@@ -159,9 +159,9 @@
     "should_write_skylang": false,
     "skylang_situation": null,
     "skylang_behavior": null,
-    "new_lesson": null
+    "new_lesson": "Understanding system resource usage is crucial for optimal performance."
   },
   "generation": 45,
   "knowledge_count": 300,
-  "updated": "2026-05-08T09:18:57.140486"
+  "updated": "2026-05-08T09:36:55.087893"
 }
