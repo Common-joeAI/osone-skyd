@@ -1,6 +1,6 @@
 {
   "system": {
-    "cpu_percent": 0.0,
+    "cpu_percent": 0.1,
     "memory_percent": 6.3,
     "memory_used_gb": 4.21,
     "memory_total_gb": 67.07,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 64.0
+          "current": 65.0
         },
         {
           "label": "",
@@ -67,13 +67,13 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 34.0
+          "current": 37.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 58.0
+          "current": 59.0
         },
         {
           "label": "Core 0",
@@ -81,7 +81,7 @@
         },
         {
           "label": "Core 1",
-          "current": 55.0
+          "current": 54.0
         },
         {
           "label": "Core 2",
@@ -93,7 +93,7 @@
         },
         {
           "label": "Core 4",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "Core 5",
@@ -101,7 +101,7 @@
         },
         {
           "label": "Core 6",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "Core 7",
@@ -111,59 +111,57 @@
     },
     "top_processes": [
       {
-        "memory_percent": 4.0365179334874,
-        "cpu_percent": 494.7,
+        "memory_percent": 4.036548469123372,
+        "cpu_percent": 408.2,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.2084606796585212,
-        "cpu_percent": 0.7,
+        "memory_percent": 0.20403911956967227,
+        "cpu_percent": 0.8,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/1:0-events",
-        "pid": 214115
+        "name": "kworker/14:1-events",
+        "pid": 158
+      },
+      {
+        "memory_percent": 0.04021543257606382,
+        "cpu_percent": 0.2,
+        "name": "python3",
+        "pid": 300472
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/4:1-events",
-        "pid": 154
-      },
-      {
-        "memory_percent": 0.0,
-        "cpu_percent": 0.1,
-        "name": "kworker/10:1-mm_percpu_wq",
-        "pid": 171
+        "name": "kworker/3:1-events",
+        "pid": 146
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T03:00:51.186553"
+    "timestamp": "2026-05-08T03:01:36.141236"
   },
   "decision": {
     "status": "ok",
-    "observation": "Current CPU usage is at 494.7%, which exceeds the safe threshold, indicating a potential system overload.",
-    "action": "systemctl limit cpu 70%",
-    "reason": "Prevent potential system crashes due to high CPU usage.",
-    "optimization_tip": "Regularly check and adjust resource allocation based on system load.",
-    "should_search_web": true,
-    "web_query": "SkyLang: WATCH \"system_load\" > 0.9",
+    "observation": "parse error",
+    "action": "none",
+    "reason": "fallback",
+    "optimization_tip": "",
+    "should_search_web": false,
+    "web_query": null,
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": false,
-    "evolve_reason": "No specific reason to evolve, but maintaining code adaptability.",
-    "should_write_skylang": true,
-    "skylang_situation": "System overload detected",
-    "skylang_behavior": "Alert system administrators and take corrective actions promptly",
-    "new_lesson": "Regularly monitor system load and adjust resource allocation accordingly.",
-    "action_result": "blocked",
-    "skylang_rule": "WATCH SYSTEM_LOAD > 90 -> ALERT ADMINISTRATORS, REBOOT SERVER IMMEDIATELY"
+    "evolve_reason": null,
+    "should_write_skylang": false,
+    "skylang_situation": null,
+    "skylang_behavior": null,
+    "new_lesson": null
   },
   "generation": 7,
   "knowledge_count": 239,
-  "updated": "2026-05-08T03:01:15.052411"
+  "updated": "2026-05-08T03:01:57.615457"
 }
