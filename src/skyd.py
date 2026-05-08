@@ -104,6 +104,44 @@ def _is_suppressed(action_key, cycle):
     until = _suppressed_actions.get(action_key, 0)
     return cycle < until
 # ── END LOOP DETECTOR ────────────────────────────────────────────
+# ── SMART THINK CACHE ────────────────────────────────────────────
+import hashlib as _hashlib
+
+_last_think_fp   = None   # fingerprint of last state we queried Ollama for
+_last_think_resp = None   # cached response
+_skip_think_count = 0     # how many cycles we've skipped
+
+def _state_fingerprint(state):
+    """Hash the parts of state that actually matter for decisions."""
+    key = {
+        "cpu_bucket":  int(state.get("cpu_percent", 0) // 10),   # bucket by 10%
+        "mem_bucket":  int(state.get("memory_percent", 0) // 10),
+        "disk_bucket": int(state.get("disk_percent", 0) // 5),
+        "swap_bucket": int(state.get("swap_percent", 0) // 10),
+        "failed":      sorted(state.get("failed_services", []) or []),
+    }
+    return _hashlib.md5(str(key).encode()).hexdigest()[:12]
+
+def smart_think(state, kb, ev, cycle):
+    """Only call Ollama when system state meaningfully changes."""
+    global _last_think_fp, _last_think_resp, _skip_think_count
+
+    fp = _state_fingerprint(state)
+    force_every = 5  # always call Ollama at least every 5 cycles regardless
+
+    if fp == _last_think_fp and _last_think_resp and (cycle % force_every != 0):
+        _skip_think_count += 1
+        log.info(f"🧠 State unchanged (fp={fp}) — reusing last decision [skip #{_skip_think_count}]")
+        return _last_think_resp
+
+    # State changed or forced refresh — call Ollama
+    _skip_think_count = 0
+    resp = think(state, kb, ev)
+    _last_think_fp   = fp
+    _last_think_resp = resp
+    return resp
+# ── END SMART THINK CACHE ─────────────────────────────────────────
+
 
 
 
@@ -469,7 +507,7 @@ Respond ONLY in JSON:
   "new_lesson": "lesson learned or null"
 }}"""
     try:
-        r = requests.post(OLLAMA_URL, json={"model": MODEL, "prompt": prompt, "stream": False}, timeout=90)
+        r = requests.post(OLLAMA_URL, json={"model": MODEL, "prompt": prompt, "stream": False}, timeout=30)
         resp = r.json()["response"].strip()
         if "```" in resp:
             resp = resp.split("```")[1].replace("json","").strip()
@@ -559,7 +597,7 @@ IF service failed -> RESTART service
                         main._last_renice_cycle = cycle
                     except: pass
 
-        decision = think(state, kb, ev)
+        decision = smart_think(state, kb, ev, cycle)
         obs    = decision.get("observation", "")
         action = decision.get("action", "none")
         log.info(f"[{decision.get('status','?').upper()}] {obs}")
