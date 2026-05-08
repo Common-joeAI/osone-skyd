@@ -2,36 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "2356526f",
-      "lesson": "SkyLang: cpu_usage_high_opGT 80 -> alert.on.proactive.maintenance.trigger",
-      "source": "skylang",
-      "ts": "2026-05-08T02:40:36.959563"
-    },
-    {
-      "id": "10fbfee6",
-      "lesson": "continuously monitor high CPU usage",
-      "source": "self",
-      "ts": "2026-05-08T02:40:53.952962"
-    },
-    {
-      "id": "400aa638",
-      "lesson": "SkyLang: WATCH cpu_utility == 0.5 THEN maintain_model_performance ONCE EVERY 10 seconds",
-      "source": "skylang",
-      "ts": "2026-05-08T02:41:35.501707"
-    },
-    {
-      "id": "06811946",
-      "lesson": "Evolved Gen 6: Improving Python caching for performance-critical functions",
-      "source": "evolution",
-      "ts": "2026-05-08T02:41:48.218238"
-    },
-    {
-      "id": "61d9dfb2",
-      "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> alert.on.proactive.maintenance.trigger",
-      "source": "skylang",
-      "ts": "2026-05-08T02:43:24.468144"
-    },
-    {
       "id": "fba63cbb",
       "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> if cpu_usage_high > 90 then trigger_proactive_maintenance_and_alert_system_administrator",
       "source": "skylang",
@@ -1806,6 +1776,36 @@
       "lesson": "SkyLang: WATCH Idle -> Default",
       "source": "skylang",
       "ts": "2026-05-08T09:06:24.138697"
+    },
+    {
+      "id": "34d82bfb",
+      "lesson": "SkyLang: WATCH idle_system_critical_issues none ->",
+      "source": "skylang",
+      "ts": "2026-05-08T09:08:15.422434"
+    },
+    {
+      "id": "09d99124",
+      "lesson": "Regular system monitoring is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T09:08:25.553026"
+    },
+    {
+      "id": "9bd19430",
+      "lesson": "SkyLang: WATCH idle_system.state \"OK\" -> no_action",
+      "source": "skylang",
+      "ts": "2026-05-08T09:08:47.785737"
+    },
+    {
+      "id": "9b274b61",
+      "lesson": "SkyLang: WATCH idle_system DEFAULT -> reset",
+      "source": "skylang",
+      "ts": "2026-05-08T09:12:54.333225"
+    },
+    {
+      "id": "23125d61",
+      "lesson": "SkyLang: WATCH idle_system -> DEFAULT",
+      "source": "skylang",
+      "ts": "2026-05-08T09:13:26.833757"
     }
   ],
   "web_cache": {}
