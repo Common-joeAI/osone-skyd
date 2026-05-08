@@ -2,36 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "de1aa0e6",
-      "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> notifyMonitoringTeam",
-      "source": "skylang",
-      "ts": "2026-05-08T01:49:23.231817"
-    },
-    {
-      "id": "0593943a",
-      "lesson": "Review of SkyLang rules for effective resource management",
-      "source": "self",
-      "ts": "2026-05-08T01:49:36.740150"
-    },
-    {
-      "id": "e44dc417",
-      "lesson": "Regularly monitor system resources and adjust as necessary",
-      "source": "self",
-      "ts": "2026-05-08T01:50:34.001294"
-    },
-    {
-      "id": "5a828b10",
-      "lesson": "SkyLang: WATCH CPU_USAGE <<= 80% -> ACTION alert and log;",
-      "source": "skylang",
-      "ts": "2026-05-08T01:51:15.099536"
-    },
-    {
-      "id": "48760c13",
-      "lesson": "The importance of regular monitoring for optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-08T01:51:27.482098"
-    },
-    {
       "id": "be2551ab",
       "lesson": "The importance of proactive resource monitoring and limiting CPU usage to maintain system stability.",
       "source": "self",
@@ -1806,6 +1776,36 @@
       "lesson": "Evolved Gen 27: Introduce a guardrail to prevent repetition of inefficient actions by utilizing the 'memoize' functi",
       "source": "evolution",
       "ts": "2026-05-08T07:44:05.985884"
+    },
+    {
+      "id": "782c0709",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> disk_optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T08:08:25.237102"
+    },
+    {
+      "id": "f821add5",
+      "lesson": "Evolved Gen 28: Implement a caching mechanism to store the results of expensive disk operations to prevent repeated ",
+      "source": "evolution",
+      "ts": "2026-05-08T08:08:39.300235"
+    },
+    {
+      "id": "90149480",
+      "lesson": "Regularly monitor system resource usage and take action before it becomes critical",
+      "source": "self",
+      "ts": "2026-05-08T08:08:39.300544"
+    },
+    {
+      "id": "87274a88",
+      "lesson": "SkyLang: WATCH disk_usage > 80 -> disk_optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T08:09:01.832725"
+    },
+    {
+      "id": "810eca00",
+      "lesson": "Regularly monitor system resource usage to prevent critical situations",
+      "source": "self",
+      "ts": "2026-05-08T08:13:26.410899"
     }
   ],
   "web_cache": {}
