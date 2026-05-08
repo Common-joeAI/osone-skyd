@@ -1,0 +1,4 @@
+# OSONE boot: if on tty1, launch the web desktop
+if [ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ]; then
+    exec startx -- -nocursor 2>/tmp/xorg.log
+fi

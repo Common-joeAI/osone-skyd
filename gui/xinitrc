@@ -1,0 +1,28 @@
+#!/bin/sh
+# OSONE — Chromium as the OS shell
+xset s off
+xset -dpms
+xset s noblank
+
+# Hide cursor after 1s idle
+unclutter -idle 1 -root &
+
+# Wait for GUI backend
+sleep 6
+
+# Launch chromium as the OS shell — kiosk, no chrome, no escape
+exec chromium \
+  --kiosk \
+  --app=http://localhost:8000 \
+  --no-sandbox \
+  --disable-infobars \
+  --disable-session-crashed-bubble \
+  --disable-restore-session-state \
+  --noerrdialogs \
+  --disable-translate \
+  --no-first-run \
+  --fast \
+  --fast-start \
+  --disable-features=TranslateUI \
+  --overscroll-history-navigation=0 \
+  --disable-pinch

@@ -2,108 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "96fd95c6",
-      "lesson": "Proactively managing system resources helps maintain stability.",
-      "source": "self",
-      "ts": "2026-05-08T03:56:18.893648"
-    },
-    {
-      "id": "f49276b9",
-      "lesson": "The importance of proactive process limit adjustments in maintaining system stability",
-      "source": "self",
-      "ts": "2026-05-08T03:59:25.379570"
-    },
-    {
-      "id": "7f68b407",
-      "lesson": "SkyLang: WATCH CPU_USAGE > 80% + 5% -> IF CPU_USAGE > 90% THEN SET PROCESS_LIMIT 50% ELSE SET PROCESS_LIMIT 70%",
-      "source": "skylang",
-      "ts": "2026-05-08T04:02:18.696680"
-    },
-    {
-      "id": "bd343a05",
-      "lesson": "Dynamic process limit adjustments are crucial for system stability",
-      "source": "self",
-      "ts": "2026-05-08T04:02:35.122286"
-    },
-    {
-      "id": "5537374f",
-      "lesson": "Evolved Gen 11: Adding a try-except block around the critical system resource management functions to handle unexpec",
-      "source": "evolution",
-      "ts": "2026-05-08T04:03:27.478419"
-    },
-    {
-      "id": "1d3a1192",
-      "lesson": "SkyLang: WATCH cpu_usage_threshold > 80 -> adjust_limits_adjustment",
-      "source": "skylang",
-      "ts": "2026-05-08T04:04:16.922379"
-    },
-    {
-      "id": "e4b4fd4c",
-      "lesson": "The importance of continuous self-improvement in handling unexpected system demands",
-      "source": "self",
-      "ts": "2026-05-08T04:04:30.612886"
-    },
-    {
-      "id": "2e74698c",
-      "lesson": "SkyLang: WATCH cpu_usage > 80 -> alert manager to adjust resources",
-      "source": "skylang",
-      "ts": "2026-05-08T04:06:38.547544"
-    },
-    {
-      "id": "2cdc39ee",
-      "lesson": "Continuously monitor system resources to ensure optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T04:10:25.766369"
-    },
-    {
-      "id": "6d59cabe",
-      "lesson": "SkyLang: WATCH 'cpu_util' GT 80% -> adjust fan speed",
-      "source": "skylang",
-      "ts": "2026-05-08T04:11:47.944766"
-    },
-    {
-      "id": "6ed67bad",
-      "lesson": "The importance of continuous self-improvement in handling unexpected system demands.",
-      "source": "self",
-      "ts": "2026-05-08T04:12:02.606881"
-    },
-    {
-      "id": "07415a27",
-      "lesson": "SkyLang: WATCH CPU Utilization CRITICAL -> alert low\nEVERY 1 MINUTE -> WATCH CPU Utilization WARNING -> send notification",
-      "source": "skylang",
-      "ts": "2026-05-08T04:13:24.015807"
-    },
-    {
-      "id": "e28c68eb",
-      "lesson": "The importance of continuous monitoring and self-improvement in maintaining optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-08T04:13:40.810658"
-    },
-    {
-      "id": "e8dedcde",
-      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> alert, adjust_system_resources",
-      "source": "skylang",
-      "ts": "2026-05-08T04:15:47.833549"
-    },
-    {
-      "id": "033970db",
-      "lesson": "The importance of proactive management in resource-intensive systems",
-      "source": "self",
-      "ts": "2026-05-08T04:16:15.257260"
-    },
-    {
-      "id": "f6193be7",
-      "lesson": "SkyLang: WATCH cpu_usage \"eq\" 5% -> IF cpu_usage \"gt\" 80% THEN alert_cpu_utilization",
-      "source": "skylang",
-      "ts": "2026-05-08T04:18:36.001378"
-    },
-    {
-      "id": "695a441b",
-      "lesson": "SkyLang: WATCH cpu_utilization <0.5> -> notify_operator low_cpu_utilization_alert",
-      "source": "skylang",
-      "ts": "2026-05-08T04:19:20.931786"
-    },
-    {
       "id": "65968ff1",
       "lesson": "SkyLang: WATCH CPU_usage > 80% -> alert(\"High CPU usage\") and adjustSystemResources()",
       "source": "skylang",
@@ -1806,6 +1704,108 @@
       "lesson": "SkyLang: WATCH complexity <op> (codebase size / performance metrics) -> refactor for readability",
       "source": "skylang",
       "ts": "2026-05-08T11:20:35.536345"
+    },
+    {
+      "id": "474fffc6",
+      "lesson": "SkyLang: WATCH complexity <op> performance <value> -> optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T11:21:05.478797"
+    },
+    {
+      "id": "0e50a9f4",
+      "lesson": "SkyLang: WATCH complexity -> maintain_balance -> IF (complexity < threshold) -> optimize_code",
+      "source": "skylang",
+      "ts": "2026-05-08T11:21:43.798830"
+    },
+    {
+      "id": "4242bc0f",
+      "lesson": "SkyLang: WATCH complexity_score <op> performance_score -> performance_check",
+      "source": "skylang",
+      "ts": "2026-05-08T11:22:16.325844"
+    },
+    {
+      "id": "494d9131",
+      "lesson": "SkyLang: WATCH codebase_size <<= 1000 -> refactor_to_balance_codebase_size_and_performance",
+      "source": "skylang",
+      "ts": "2026-05-08T11:23:10.664305"
+    },
+    {
+      "id": "7a81a6a4",
+      "lesson": "Mastering SkyLang's WATCH complexity and maintain_balance rules is crucial.",
+      "source": "self",
+      "ts": "2026-05-08T11:23:31.686925"
+    },
+    {
+      "id": "396ba576",
+      "lesson": "SkyLang: WATCH code_size op > 10 -> refactor code to maintain balance",
+      "source": "skylang",
+      "ts": "2026-05-08T11:23:54.113361"
+    },
+    {
+      "id": "43bb7cf0",
+      "lesson": "SkyLang: WATCH memory_usage <op> > 10 -> analysis and optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T11:25:46.332017"
+    },
+    {
+      "id": "f5c9176b",
+      "lesson": "Mastering SkyLang's WATCH complexity and maintain_balance rules",
+      "source": "self",
+      "ts": "2026-05-08T11:26:15.964131"
+    },
+    {
+      "id": "cdc7335b",
+      "lesson": "SkyLang: WATCH memory_usage <-> 80% -> alert high_memory_usage",
+      "source": "skylang",
+      "ts": "2026-05-08T11:26:38.390602"
+    },
+    {
+      "id": "d5888e7b",
+      "lesson": "SkyLang: WATCH system_load  <  50%  ->  notify_admin",
+      "source": "skylang",
+      "ts": "2026-05-08T11:32:59.499271"
+    },
+    {
+      "id": "8dda9451",
+      "lesson": "SkyLang: WATCH system_complexity <op> 50 -> alert_admin",
+      "source": "skylang",
+      "ts": "2026-05-08T11:33:31.342782"
+    },
+    {
+      "id": "1373e0b9",
+      "lesson": "Evolved Gen 59: Adding a caching mechanism for frequently accessed system resources",
+      "source": "evolution",
+      "ts": "2026-05-08T11:35:39.099533"
+    },
+    {
+      "id": "2d5ad3da",
+      "lesson": "Regularly review system resource utilization to improve overall system performance.",
+      "source": "self",
+      "ts": "2026-05-08T11:35:39.100008"
+    },
+    {
+      "id": "a02278c1",
+      "lesson": "Monitoring system resource utilization is crucial for maintaining optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-08T11:39:57.939113"
+    },
+    {
+      "id": "faed041a",
+      "lesson": "Evolved Gen 60: Adding a Python decorator to track the execution time of critical functions",
+      "source": "evolution",
+      "ts": "2026-05-08T11:42:11.212242"
+    },
+    {
+      "id": "6b8c96fc",
+      "lesson": "Evolved Gen 61: Improving system resource utilization by adding a caching mechanism for frequently accessed Python m",
+      "source": "evolution",
+      "ts": "2026-05-08T11:44:21.509049"
+    },
+    {
+      "id": "d554351f",
+      "lesson": "Maintaining system resource utilization is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T11:46:31.531056"
     }
   ],
   "web_cache": {}
