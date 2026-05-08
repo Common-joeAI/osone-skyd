@@ -1,0 +1,3 @@
+# Evolved rule — Gen 55
+# Adding runtime type checking for SkyLang functions
+WATCH runtime_type_check enabled -> EVERY 0 -> IF defined(func) -> print("Runtime type checking enabled for user-defined functions")

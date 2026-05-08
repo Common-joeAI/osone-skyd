@@ -1,0 +1,13 @@
+[Unit]
+Description=OSONE GUI Backend
+After=network.target llama-server.service skyd.service
+
+[Service]
+ExecStart=/usr/bin/python3 -m uvicorn server:app --host 0.0.0.0 --port 8000 --workers 2
+WorkingDirectory=/opt/osone-gui
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

@@ -2,36 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "66b4855b",
-      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustProcessLimits",
-      "source": "skylang",
-      "ts": "2026-05-08T03:52:29.262565"
-    },
-    {
-      "id": "127525ad",
-      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustProcessLimits PreventSystemCrashes",
-      "source": "skylang",
-      "ts": "2026-05-08T03:53:31.950159"
-    },
-    {
-      "id": "53e8eccf",
-      "lesson": "Monitoring system resources in real-time is crucial for preventing system resource bottlenecks.",
-      "source": "self",
-      "ts": "2026-05-08T03:53:48.712014"
-    },
-    {
-      "id": "4064033f",
-      "lesson": "Understanding the importance of dynamic process limit adjustments in maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T03:55:15.244188"
-    },
-    {
-      "id": "f610f299",
-      "lesson": "SkyLang: WATCH CPU_USAGE >= 0.75 -> UPDATE_AUTO scalers TO 1.25",
-      "source": "skylang",
-      "ts": "2026-05-08T03:55:59.060309"
-    },
-    {
       "id": "96fd95c6",
       "lesson": "Proactively managing system resources helps maintain stability.",
       "source": "self",
@@ -1806,6 +1776,36 @@
       "lesson": "Code maintainability and performance are crucial for efficient system operation.",
       "source": "self",
       "ts": "2026-05-08T11:11:22.947716"
+    },
+    {
+      "id": "43199505",
+      "lesson": "Maintain a balance between code complexity and performance",
+      "source": "self",
+      "ts": "2026-05-08T11:15:42.246274"
+    },
+    {
+      "id": "7e1d33b7",
+      "lesson": "Evolved Gen 57: Adding a 'memory_profiler' integration to track memory usage for each function call",
+      "source": "evolution",
+      "ts": "2026-05-08T11:18:01.333152"
+    },
+    {
+      "id": "1fe2a8be",
+      "lesson": "SkyLang: WATCH complexity <op> <value> -> maintain balanced performance",
+      "source": "skylang",
+      "ts": "2026-05-08T11:20:05.523927"
+    },
+    {
+      "id": "468bc522",
+      "lesson": "Evolved Gen 58: Adding a 'memory_profiler' integration to track memory usage for each function call",
+      "source": "evolution",
+      "ts": "2026-05-08T11:20:12.631504"
+    },
+    {
+      "id": "5daed2d1",
+      "lesson": "SkyLang: WATCH complexity <op> (codebase size / performance metrics) -> refactor for readability",
+      "source": "skylang",
+      "ts": "2026-05-08T11:20:35.536345"
     }
   ],
   "web_cache": {}

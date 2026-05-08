@@ -1,0 +1,9 @@
+# Evolved rule — Gen 52
+# Introduce a new SkyLang rule to improve error handling and logging
+def skyd_error_handler(error, error_location):
+  # Log the error with a meaningful message
+  with open('error_log.txt', 'a') as log_file:
+    log_file.write(f'Error at {error_location}: {error}
+')
+  # Return the error message for further handling
+  return error

@@ -1,0 +1,3 @@
+# AUTO-GUARDRAIL — skyd self-healing
+# Pattern detected: none::CPU utilization is w
+WATCH self_in_loop == 'none::CPU utilization is w' -> SUPPRESS FOR 10 cycles

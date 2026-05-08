@@ -1,0 +1,3 @@
+# Evolved rule — Gen 54
+# Introduce a new SkyLang rule to enable runtime type checking for user-defined functions
+function my_function(a: INT, b: INT) -> INT: return a + b
