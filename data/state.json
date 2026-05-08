@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.0,
-    "memory_percent": 6.2,
-    "memory_used_gb": 4.13,
+    "cpu_percent": 0.1,
+    "memory_percent": 6.3,
+    "memory_used_gb": 4.21,
     "memory_total_gb": 67.07,
     "disk_percent": 10.2,
     "disk_used_gb": 46.98,
@@ -43,7 +43,7 @@
         },
         {
           "label": "",
-          "current": 40.0
+          "current": 41.0
         },
         {
           "label": "",
@@ -73,15 +73,15 @@
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 49.0
+          "current": 48.0
         },
         {
           "label": "Core 0",
-          "current": 39.0
+          "current": 40.0
         },
         {
           "label": "Core 1",
-          "current": 43.0
+          "current": 44.0
         },
         {
           "label": "Core 2",
@@ -89,19 +89,19 @@
         },
         {
           "label": "Core 3",
-          "current": 42.0
+          "current": 43.0
         },
         {
           "label": "Core 4",
-          "current": 42.0
+          "current": 41.0
         },
         {
           "label": "Core 5",
-          "current": 39.0
+          "current": 38.0
         },
         {
           "label": "Core 6",
-          "current": 44.0
+          "current": 43.0
         },
         {
           "label": "Core 7",
@@ -112,27 +112,27 @@
     "top_processes": [
       {
         "name": "kworker/15:1-events",
-        "cpu_percent": 0.6,
+        "cpu_percent": 0.4,
         "pid": 159,
         "memory_percent": 0.0
       },
       {
-        "name": "kworker/6:0-events",
+        "name": "kworker/5:0-events",
         "cpu_percent": 0.2,
-        "pid": 288772,
+        "pid": 52,
         "memory_percent": 0.0
       },
       {
-        "name": "kworker/4:0-events",
-        "cpu_percent": 0.1,
-        "pid": 2271053,
+        "name": "kworker/3:2-mm_percpu_wq",
+        "cpu_percent": 0.2,
+        "pid": 2296606,
         "memory_percent": 0.0
       },
       {
         "name": "python3",
         "cpu_percent": 0.1,
         "pid": 2312642,
-        "memory_percent": 0.060491094861945635
+        "memory_percent": 0.06050941624352927
       },
       {
         "name": "systemd",
@@ -142,7 +142,7 @@
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T08:17:30.289741"
+    "timestamp": "2026-05-08T08:19:34.792682"
   },
   "decision": {
     "status": "ok",
@@ -163,5 +163,5 @@
   },
   "generation": 28,
   "knowledge_count": 300,
-  "updated": "2026-05-08T08:18:08.429387"
+  "updated": "2026-05-08T08:19:34.793799"
 }
