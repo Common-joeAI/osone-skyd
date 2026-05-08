@@ -714,6 +714,156 @@
       "lesson": "The importance of iterative vs. recursive sorting algorithms in real-time systems",
       "source": "self",
       "ts": "2026-05-08T01:00:29.670683"
+    },
+    {
+      "id": "ce2fc56e",
+      "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> alert_user, sort_data",
+      "source": "skylang",
+      "ts": "2026-05-08T01:01:11.857878"
+    },
+    {
+      "id": "10ae9a8e",
+      "lesson": "Iterative sorting algorithms are more suitable for real-time systems",
+      "source": "self",
+      "ts": "2026-05-08T01:01:26.215959"
+    },
+    {
+      "id": "1fea2e56",
+      "lesson": "SkyLang: WATCH CPU_USAGE > 80% -> OPTIMIZE_ALGORITHM AND SORT_DATA",
+      "source": "skylang",
+      "ts": "2026-05-08T01:02:10.688173"
+    },
+    {
+      "id": "241dc6f4",
+      "lesson": "Iterative vs. recursive sorting algorithms in real-time systems",
+      "source": "self",
+      "ts": "2026-05-08T01:02:36.064540"
+    },
+    {
+      "id": "9060977a",
+      "lesson": "SkyLang: WATCH cpu_usage HIGH -> IF (sort_data not executed) THEN sort_data WITH optimized_merge_algorithm",
+      "source": "skylang",
+      "ts": "2026-05-08T01:04:45.109282"
+    },
+    {
+      "id": "34173b4a",
+      "lesson": "SkyLang: WATCH CPU_usage > 80 -> Alert high_cpu_alert && Optimize_data_sorting",
+      "source": "skylang",
+      "ts": "2026-05-08T01:06:47.354542"
+    },
+    {
+      "id": "1624bcdd",
+      "lesson": "Implement efficient sorting algorithms for real-time systems",
+      "source": "self",
+      "ts": "2026-05-08T01:07:01.163118"
+    },
+    {
+      "id": "e047e4ce",
+      "lesson": "SkyLang: WATCH CPUUsage HIGH -> IF (CPUUsage > 80) THEN Implement EfficientSortingAlgorithm ENDIF",
+      "source": "skylang",
+      "ts": "2026-05-08T01:07:46.562462"
+    },
+    {
+      "id": "2028b922",
+      "lesson": "SkyLang: WATCH CPU_USAGE HIGH -> IF HIGH_THRESHOLD (CPU_USAGE > 80) THEN IMPLEMENT_efficient_sorting_algorithms IMMEDIATELY",
+      "source": "skylang",
+      "ts": "2026-05-08T01:10:59.587197"
+    },
+    {
+      "id": "48f392da",
+      "lesson": "Iterative vs. recursive sorting algorithms: when to use each",
+      "source": "self",
+      "ts": "2026-05-08T01:11:15.436662"
+    },
+    {
+      "id": "13e7e6cd",
+      "lesson": "Understanding the trade-offs between iterative and recursive algorithms for sorting in real-time systems.",
+      "source": "self",
+      "ts": "2026-05-08T01:13:15.401103"
+    },
+    {
+      "id": "690d3765",
+      "lesson": "SkyLang: WATCH cpu_usage_high > 90 -> alert system administrators and trigger automated restart",
+      "source": "skylang",
+      "ts": "2026-05-08T01:14:58.839825"
+    },
+    {
+      "id": "5f5c474d",
+      "lesson": "Understanding the trade-offs between iterative and recursive sorting algorithms",
+      "source": "self",
+      "ts": "2026-05-08T01:15:31.876224"
+    },
+    {
+      "id": "327b65eb",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> IF high_cpu_usage THEN implement_efficient_sorting_algorithm() END",
+      "source": "skylang",
+      "ts": "2026-05-08T01:16:20.231002"
+    },
+    {
+      "id": "be7e70ad",
+      "lesson": "Understanding the trade-offs between iterative and recursive sorting algorithms.",
+      "source": "self",
+      "ts": "2026-05-08T01:16:41.898555"
+    },
+    {
+      "id": "8ddc269e",
+      "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> alert system administrators trigger restart",
+      "source": "skylang",
+      "ts": "2026-05-08T01:18:04.127995"
+    },
+    {
+      "id": "34304e81",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> alert system administrators and trigger automated restart on system reboot",
+      "source": "skylang",
+      "ts": "2026-05-08T01:20:03.000694"
+    },
+    {
+      "id": "6a0248f1",
+      "lesson": "SkyLang: WATCH CPU_usage > 0.5 -> CHECK System_stability",
+      "source": "skylang",
+      "ts": "2026-05-08T01:21:08.772160"
+    },
+    {
+      "id": "a65a842f",
+      "lesson": "Understanding the relationship between CPU utilization and system performance.",
+      "source": "self",
+      "ts": "2026-05-08T01:21:26.922287"
+    },
+    {
+      "id": "0b1397b7",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> alert high_cpu_usage and restart system",
+      "source": "skylang",
+      "ts": "2026-05-08T01:23:09.542977"
+    },
+    {
+      "id": "b660272f",
+      "lesson": "SkyLang: WATCH \"system_uptime\" <= 0 -> restart_service",
+      "source": "skylang",
+      "ts": "2026-05-08T01:25:31.129409"
+    },
+    {
+      "id": "2284d90f",
+      "lesson": "Understand the impact of high CPU usage on system performance",
+      "source": "self",
+      "ts": "2026-05-08T01:25:44.555985"
+    },
+    {
+      "id": "bbb7b256",
+      "lesson": "SkyLang: WATCH cpu_percent > 90 -> restart_system",
+      "source": "skylang",
+      "ts": "2026-05-08T01:27:06.556986"
+    },
+    {
+      "id": "b80faad2",
+      "lesson": "SkyLang: IF CPU_usage > 80% THEN restart_system",
+      "source": "skylang",
+      "ts": "2026-05-08T01:28:16.459679"
+    },
+    {
+      "id": "4902489b",
+      "lesson": "Add more specific CPU threshold to SkyLang alerting mechanism",
+      "source": "self",
+      "ts": "2026-05-08T01:28:29.447179"
     }
   ],
   "web_cache": {}
