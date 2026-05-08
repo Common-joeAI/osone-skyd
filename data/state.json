@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.1,
+    "cpu_percent": 0.2,
     "memory_percent": 6.3,
-    "memory_used_gb": 4.21,
+    "memory_used_gb": 4.22,
     "memory_total_gb": 67.07,
     "disk_percent": 2.5,
     "disk_used_gb": 11.43,
@@ -23,11 +23,11 @@
         },
         {
           "label": "",
-          "current": 58.0
+          "current": 59.0
         },
         {
           "label": "",
-          "current": 55.0
+          "current": 56.0
         },
         {
           "label": "",
@@ -67,17 +67,17 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 35.0
+          "current": 37.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 61.0
+          "current": 59.0
         },
         {
           "label": "Core 0",
-          "current": 53.0
+          "current": 50.0
         },
         {
           "label": "Core 1",
@@ -85,7 +85,7 @@
         },
         {
           "label": "Core 2",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "Core 3",
@@ -93,11 +93,11 @@
         },
         {
           "label": "Core 4",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "Core 5",
-          "current": 52.0
+          "current": 50.0
         },
         {
           "label": "Core 6",
@@ -111,13 +111,13 @@
     },
     "top_processes": [
       {
-        "memory_percent": 4.029213809362727,
-        "cpu_percent": 372.3,
+        "memory_percent": 4.029226023617116,
+        "cpu_percent": 380.7,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.2083324299874358,
+        "memory_percent": 0.2144639856907567,
         "cpu_percent": 0.4,
         "name": "ollama",
         "pid": 695
@@ -129,20 +129,20 @@
         "pid": 159
       },
       {
-        "memory_percent": 0.0,
-        "cpu_percent": 0.2,
-        "name": "kworker/10:1-events",
-        "pid": 171
+        "memory_percent": 0.04018489694009109,
+        "cpu_percent": 0.3,
+        "name": "python3",
+        "pid": 300472
       },
       {
-        "memory_percent": 0.061407163941127045,
-        "cpu_percent": 0.1,
-        "name": "python3",
-        "pid": 42537
+        "memory_percent": 0.13094902130538502,
+        "cpu_percent": 0.2,
+        "name": "tailscaled",
+        "pid": 801
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T02:30:39.123343"
+    "timestamp": "2026-05-08T02:31:20.168079"
   },
   "decision": {
     "status": "ok",
@@ -163,5 +163,5 @@
   },
   "generation": 5,
   "knowledge_count": 209,
-  "updated": "2026-05-08T02:30:59.068732"
+  "updated": "2026-05-08T02:31:42.043017"
 }
