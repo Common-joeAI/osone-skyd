@@ -1074,6 +1074,12 @@
       "lesson": "Monitor CPU resources regularly to prevent resource exhaustion.",
       "source": "self",
       "ts": "2026-05-08T01:59:06.588763"
+    },
+    {
+      "id": "9f8e6753",
+      "lesson": "The importance of monitoring system resources to prevent resource exhaustion.",
+      "source": "self",
+      "ts": "2026-05-08T02:00:57.896367"
     }
   ],
   "web_cache": {}
