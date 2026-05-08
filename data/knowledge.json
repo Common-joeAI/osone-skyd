@@ -2,60 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "bbb7b256",
-      "lesson": "SkyLang: WATCH cpu_percent > 90 -> restart_system",
-      "source": "skylang",
-      "ts": "2026-05-08T01:27:06.556986"
-    },
-    {
-      "id": "b80faad2",
-      "lesson": "SkyLang: IF CPU_usage > 80% THEN restart_system",
-      "source": "skylang",
-      "ts": "2026-05-08T01:28:16.459679"
-    },
-    {
-      "id": "4902489b",
-      "lesson": "Add more specific CPU threshold to SkyLang alerting mechanism",
-      "source": "self",
-      "ts": "2026-05-08T01:28:29.447179"
-    },
-    {
-      "id": "f576ed0f",
-      "lesson": "SkyLang: WATCH cpu_usage > 80 -> INVESTIGATE_SYSTEM_LOGS",
-      "source": "skylang",
-      "ts": "2026-05-08T01:31:31.041058"
-    },
-    {
-      "id": "a006978c",
-      "lesson": "Regularly monitor system performance and address issues promptly to prevent degradation",
-      "source": "self",
-      "ts": "2026-05-08T01:32:25.304932"
-    },
-    {
-      "id": "79e35cb1",
-      "lesson": "Improved SkyLang alerting mechanism can help prevent system degradation",
-      "source": "self",
-      "ts": "2026-05-08T01:34:07.787908"
-    },
-    {
-      "id": "1de70863",
-      "lesson": "SkyLang: WATCH load_average > 80 -> alert(\"System Load Threshold Exceeded\")",
-      "source": "skylang",
-      "ts": "2026-05-08T01:36:30.613532"
-    },
-    {
-      "id": "6653ef39",
-      "lesson": "Regularly monitoring system performance can help prevent degradation and improve overall stability.",
-      "source": "self",
-      "ts": "2026-05-08T01:36:30.613589"
-    },
-    {
-      "id": "2515cf66",
-      "lesson": "SkyLang: WATCH cpu_utilization > 90 -> Investigate and address potential performance bottlenecks immediately.",
-      "source": "skylang",
-      "ts": "2026-05-08T01:37:16.011733"
-    },
-    {
       "id": "7157d4f8",
       "lesson": "SkyLang: WATCH load_avg \"gt\" 80 -> alert.system\nWATCH cpu_util \"gt\" 90 -> alert.system",
       "source": "skylang",
@@ -1800,6 +1746,60 @@
       "lesson": "Regularly monitor resource utilization to catch issues early.",
       "source": "self",
       "ts": "2026-05-08T06:47:03.435270"
+    },
+    {
+      "id": "30dc4121",
+      "lesson": "SkyLang: cpu_usage_high -> if cpu_usage > 80 then restart_process",
+      "source": "skylang",
+      "ts": "2026-05-08T06:47:48.071340"
+    },
+    {
+      "id": "5874ee54",
+      "lesson": "The importance of watching CPU usage closely cannot be overstated.",
+      "source": "self",
+      "ts": "2026-05-08T06:48:03.907584"
+    },
+    {
+      "id": "5176bec1",
+      "lesson": "SkyLang: IF cpu_usage(ollama) > 80 THEN restart_process(ollama)",
+      "source": "skylang",
+      "ts": "2026-05-08T06:53:17.533025"
+    },
+    {
+      "id": "2c4bf240",
+      "lesson": "SkyLang: WATCH cpu_usage ollama > 80 -> restart_process(ollama)",
+      "source": "skylang",
+      "ts": "2026-05-08T06:55:26.782743"
+    },
+    {
+      "id": "709041e0",
+      "lesson": "Evolved Gen 26: Improving the CPU usage monitoring by adding a threshold for low utilization",
+      "source": "evolution",
+      "ts": "2026-05-08T06:56:42.519290"
+    },
+    {
+      "id": "32cfd7fd",
+      "lesson": "The importance of closely monitoring CPU usage cannot be overstated.",
+      "source": "self",
+      "ts": "2026-05-08T06:58:51.893681"
+    },
+    {
+      "id": "ae90ca28",
+      "lesson": "Regularly monitoring CPU usage is essential for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-08T07:01:10.855510"
+    },
+    {
+      "id": "571d6ba7",
+      "lesson": "Understanding the importance of CPU usage monitoring",
+      "source": "self",
+      "ts": "2026-05-08T07:02:24.380576"
+    },
+    {
+      "id": "282b6934",
+      "lesson": "Understanding the importance of monitoring CPU usage for system stability.",
+      "source": "self",
+      "ts": "2026-05-08T07:04:14.751351"
     }
   ],
   "web_cache": {}
