@@ -13,7 +13,7 @@ import subprocess, requests, json, time, logging, os, sys, psutil
 import urllib.request, urllib.parse, hashlib, tempfile, stat
 from datetime import datetime
 
-OLLAMA_URL  = "http://localhost:11434/api/generate"
+OLLAMA_URL  = "http://127.0.0.1:8080/v1/chat/completions"
 MODEL       = "llama3.2"
 LOG_FILE    = "/var/log/skyd.log"
 STATE_FILE  = "/var/log/skyd_state.json"
