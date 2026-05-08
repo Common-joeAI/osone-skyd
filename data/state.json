@@ -1,6 +1,6 @@
 {
   "system": {
-    "cpu_percent": 0.0,
+    "cpu_percent": 0.1,
     "memory_percent": 6.3,
     "memory_used_gb": 4.22,
     "memory_total_gb": 67.07,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 67.0
+          "current": 63.0
         },
         {
           "label": "",
@@ -27,7 +27,7 @@
         },
         {
           "label": "",
-          "current": 56.0
+          "current": 54.0
         },
         {
           "label": "",
@@ -73,27 +73,27 @@
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 59.0
+          "current": 57.0
         },
         {
           "label": "Core 0",
-          "current": 51.0
+          "current": 50.0
         },
         {
           "label": "Core 1",
-          "current": 55.0
-        },
-        {
-          "label": "Core 2",
           "current": 54.0
         },
         {
+          "label": "Core 2",
+          "current": 52.0
+        },
+        {
           "label": "Core 3",
-          "current": 53.0
+          "current": 52.0
         },
         {
           "label": "Core 4",
-          "current": 53.0
+          "current": 51.0
         },
         {
           "label": "Core 5",
@@ -101,7 +101,7 @@
         },
         {
           "label": "Core 6",
-          "current": 55.0
+          "current": 53.0
         },
         {
           "label": "Core 7",
@@ -111,58 +111,59 @@
     },
     "top_processes": [
       {
-        "memory_percent": 4.036811075592738,
-        "cpu_percent": 358.7,
+        "memory_percent": 4.041715098729956,
+        "cpu_percent": 499.5,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.20741636090825438,
-        "cpu_percent": 0.4,
+        "memory_percent": 0.2116180644180998,
+        "cpu_percent": 0.7,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/2:0-events",
-        "pid": 269060
-      },
-      {
-        "memory_percent": 0.0,
-        "cpu_percent": 0.2,
-        "name": "kworker/6:0-events_freezable",
-        "pid": 288772
+        "name": "kworker/12:1-events",
+        "pid": 156
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/4:1-events",
-        "pid": 154
+        "name": "kworker/5:0-events",
+        "pid": 52
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.1,
+        "name": "kworker/15:1-events",
+        "pid": 159
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T04:01:55.812368"
+    "timestamp": "2026-05-08T04:31:05.264908"
   },
   "decision": {
-    "status": "ok",
-    "observation": "No critical system resource failures detected at this time.",
-    "action": "none",
-    "reason": "System resources are within safe limits.",
-    "optimization_tip": "Monitor system resources regularly to prevent bottlenecks.",
+    "status": "critical",
+    "observation": "CPU usage has reached 499.5%, indicating a high risk of system failure.",
+    "action": "safe shell command: service ollama restart",
+    "reason": "Proactive monitoring is crucial to prevent critical CPU usage issues.",
+    "optimization_tip": "Regularly monitor CPU usage and adjust resources as needed.",
     "should_search_web": true,
-    "web_query": "system resource usage trends over the past hour",
+    "web_query": "CPU usage > 80% over the past hour",
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": true,
-    "evolve_reason": "Improved optimization for system resource monitoring could be applied now.",
+    "evolve_reason": "High CPU usage indicates a need for system optimization.",
     "should_write_skylang": true,
-    "skylang_situation": "CPU usage is high, but not critical",
-    "skylang_behavior": "Implement dynamic process limit adjustments to maintain stability",
-    "new_lesson": "Dynamic process limit adjustments are crucial for system stability",
-    "skylang_rule": "WATCH CPU_USAGE > 80% + 5% -> IF CPU_USAGE > 90% THEN SET PROCESS_LIMIT 50% ELSE SET PROCESS_LIMIT 70%"
+    "skylang_situation": "CPU usage is too high, alerting and adjusting resources is necessary.",
+    "skylang_behavior": "Monitor CPU usage closely and adjust resources as needed to prevent system failure.",
+    "new_lesson": "Understanding the importance of proactive monitoring in resource utilization",
+    "action_result": "blocked",
+    "skylang_rule": "WATCH CPUUsage > 80 -> adjustResources & alertSystemAdministrator"
   },
-  "generation": 10,
-  "knowledge_count": 285,
-  "updated": "2026-05-08T04:02:35.124120"
+  "generation": 11,
+  "knowledge_count": 300,
+  "updated": "2026-05-08T04:31:47.312509"
 }
