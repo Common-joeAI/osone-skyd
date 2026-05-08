@@ -1,5 +1,5 @@
 {
-  "generation": 55,
+  "generation": 56,
   "mutations": [
     {
       "gen": 1,
@@ -385,6 +385,13 @@
       "desc": "Introduce a new SkyLang rule to enable runtime type checking for user-defined functions",
       "benefit": "Improved code readability and reduced type-related errors",
       "ts": "2026-05-08T10:44:52.127610"
+    },
+    {
+      "gen": 56,
+      "type": "skylang",
+      "desc": "Adding runtime type checking for SkyLang functions",
+      "benefit": "Improved code maintainability and reduced runtime errors",
+      "ts": "2026-05-08T11:11:22.947278"
     }
   ],
   "benchmarks": {}
