@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.1,
-    "memory_percent": 6.2,
-    "memory_used_gb": 4.17,
+    "cpu_percent": 0.0,
+    "memory_percent": 6.3,
+    "memory_used_gb": 4.22,
     "memory_total_gb": 67.07,
     "disk_percent": 2.5,
     "disk_used_gb": 11.43,
@@ -73,7 +73,7 @@
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 57.0
+          "current": 59.0
         },
         {
           "label": "Core 0",
@@ -85,7 +85,7 @@
         },
         {
           "label": "Core 2",
-          "current": 53.0
+          "current": 55.0
         },
         {
           "label": "Core 3",
@@ -97,7 +97,7 @@
         },
         {
           "label": "Core 5",
-          "current": 52.0
+          "current": 50.0
         },
         {
           "label": "Core 6",
@@ -105,65 +105,63 @@
         },
         {
           "label": "Core 7",
-          "current": 50.0
+          "current": 51.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 4.028926774384583,
-        "cpu_percent": 493.7,
+        "memory_percent": 4.028816846095082,
+        "cpu_percent": 404.7,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.20437501156537213,
-        "cpu_percent": 1.0,
+        "memory_percent": 0.21280895422103563,
+        "cpu_percent": 0.4,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
-        "cpu_percent": 0.1,
-        "name": "kworker/5:0-events",
-        "pid": 52
+        "cpu_percent": 0.2,
+        "name": "kworker/15:1-events",
+        "pid": 159
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.2,
+        "name": "kworker/9:2-events",
+        "pid": 168
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/11:1-events",
-        "pid": 169
-      },
-      {
-        "memory_percent": 0.0,
-        "cpu_percent": 0.1,
-        "name": "kworker/8:2-events",
-        "pid": 624
+        "name": "kworker/12:1-events",
+        "pid": 156
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T00:59:28.444700"
+    "timestamp": "2026-05-08T01:29:34.179984"
   },
   "decision": {
     "status": "warning",
-    "observation": "CPU usage is high at 493.7%, potentially impacting performance.",
-    "action": "kill -9 ollama & restart_unnecessary_processes",
-    "reason": "Resource-intensive process is consuming excessive CPU resources.",
-    "optimization_tip": "Consider using a more efficient sorting algorithm, such as quicksort or mergesort.",
+    "observation": "High CPU usage (404.7%) detected, possible system overload.",
+    "action": "none",
+    "reason": "System resources are being utilized at an extremely high level, potentially causing instability.",
+    "optimization_tip": "Monitor and manage resource utilization to prevent overloading.",
     "should_search_web": true,
-    "web_query": "What are the benefits of iterative vs. recursive sorting algorithms?",
+    "web_query": "What causes high CPU usage?",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": true,
-    "evolve_reason": "High CPU usage is indicative of potential performance issues that require code evolution.",
-    "should_write_skylang": true,
-    "skylang_situation": "CPU usage > 80%",
-    "skylang_behavior": "Optimize algorithm and sort data more efficiently",
-    "new_lesson": "The importance of iterative vs. recursive sorting algorithms in real-time systems",
-    "action_result": "blocked",
-    "skylang_rule": "WATCH cpu_usage > 80% -> Optimize algorithm and sort data more efficiently"
+    "should_evolve": false,
+    "evolve_reason": null,
+    "should_write_skylang": false,
+    "skylang_situation": null,
+    "skylang_behavior": null,
+    "new_lesson": null
   },
   "generation": 3,
-  "knowledge_count": 119,
-  "updated": "2026-05-08T01:00:29.671678"
+  "knowledge_count": 144,
+  "updated": "2026-05-08T01:30:07.185448"
 }
