@@ -2,12 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "b955f9e9",
-      "lesson": "The importance of regular CPU monitoring and process management",
-      "source": "self",
-      "ts": "2026-05-08T01:47:55.676129"
-    },
-    {
       "id": "fd5b77e0",
       "lesson": "SkyLang: WATCH cpu_usage <<= 0.5 -> notify_team",
       "source": "skylang",
@@ -1806,6 +1800,12 @@
       "lesson": "Recognize the difference between making progress and repetitive, inefficient actions.",
       "source": "self",
       "ts": "2026-05-08T07:12:05.065153"
+    },
+    {
+      "id": "ca1e9214",
+      "lesson": "Understanding the importance of system resource management",
+      "source": "self",
+      "ts": "2026-05-08T07:16:56.336861"
     }
   ],
   "web_cache": {}
