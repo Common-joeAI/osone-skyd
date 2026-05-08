@@ -1,0 +1,3 @@
+# AUTO-GUARDRAIL — skyd self-healing
+# Pattern detected: none::System is within nor
+WATCH self_in_loop == 'none::System is within nor' -> SUPPRESS FOR 10 cycles

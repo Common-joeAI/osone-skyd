@@ -1,0 +1,15 @@
+[Unit]
+Description=skyd - OSONE AI Core Daemon
+After=network.target ollama.service
+Wants=ollama.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/bin/skyd.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/skyd.log
+StandardError=append:/var/log/skyd.log
+
+[Install]
+WantedBy=multi-user.target
