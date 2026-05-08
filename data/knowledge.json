@@ -2,12 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "fd5b77e0",
-      "lesson": "SkyLang: WATCH cpu_usage <<= 0.5 -> notify_team",
-      "source": "skylang",
-      "ts": "2026-05-08T01:48:37.376598"
-    },
-    {
       "id": "682c38ca",
       "lesson": "Monitor high CPU usage to prevent system crashes",
       "source": "self",
@@ -1806,6 +1800,12 @@
       "lesson": "Understanding the importance of system resource management",
       "source": "self",
       "ts": "2026-05-08T07:16:56.336861"
+    },
+    {
+      "id": "d26f6196",
+      "lesson": "Understanding the importance of resource optimization in repetitive tasks",
+      "source": "self",
+      "ts": "2026-05-08T07:19:50.050347"
     }
   ],
   "web_cache": {}
