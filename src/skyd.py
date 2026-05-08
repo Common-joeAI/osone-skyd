@@ -492,8 +492,31 @@ IF service failed -> RESTART service
         log.info(f"━━━ Cycle {cycle} | Gen {ev['generation']} @ {datetime.now().strftime('%H:%M:%S')} ━━━")
 
         state = get_system_state()
+
+        # Wolf Spider CPU guard — if Ollama is the culprit, renice it, don't loop on it
+        cpu = state.get("cpu_percent", 0)
+        top_procs = state.get("top_processes", [])
+        for proc in top_procs:
+            if "ollama" in proc.get("name","").lower() and (proc.get("cpu_percent") or 0) > 150:
+                import subprocess as _sp
+                try:
+                    pid = proc["pid"]
+                    _sp.run(f"renice -n 15 -p {pid}", shell=True, capture_output=True)
+                    log.info(f"🕷️  Auto-reniced ollama (PID {pid}) — CPU hog detected")
+                except: pass
+
         decision = think(state, kb, ev)
         log.info(f"[{decision.get('status','?').upper()}] {decision.get('observation')}")
+
+        # Suppress ASM writes when CPU is already high — don't make it worse
+        if cpu > 70 and decision.get("should_write_asm"):
+            decision["should_write_asm"] = False
+            log.info(f"🕷️  ASM write suppressed — CPU at {cpu:.1f}%, waiting for headroom")
+
+        # Suppress evolution when CPU is high
+        if cpu > 70 and decision.get("should_evolve"):
+            decision["should_evolve"] = False
+            log.info(f"🕷️  Evolution suppressed — CPU at {cpu:.1f}%, waiting for headroom")
 
         # System action
         decision = act(decision.get("action","none"), decision)
@@ -539,7 +562,10 @@ IF service failed -> RESTART service
 
         save_kb(kb)
         save_state(state, decision, kb, ev)
-        time.sleep(LOOP_INTERVAL)
+        # Dynamic interval — back off when CPU is hot
+        _cpu_now = psutil.cpu_percent(interval=0.5)
+        _sleep_time = LOOP_INTERVAL if _cpu_now < 60 else LOOP_INTERVAL * 2
+        time.sleep(_sleep_time)
 
 if __name__ == "__main__":
     main()
