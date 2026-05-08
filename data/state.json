@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.1,
+    "cpu_percent": 0.0,
     "memory_percent": 6.3,
-    "memory_used_gb": 4.21,
+    "memory_used_gb": 4.23,
     "memory_total_gb": 67.07,
     "disk_percent": 2.5,
     "disk_used_gb": 11.44,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 65.0
+          "current": 63.0
         },
         {
           "label": "",
@@ -27,7 +27,7 @@
         },
         {
           "label": "",
-          "current": 55.0
+          "current": 54.0
         },
         {
           "label": "",
@@ -67,13 +67,13 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 37.0
+          "current": 34.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 59.0
+          "current": 58.0
         },
         {
           "label": "Core 0",
@@ -81,7 +81,7 @@
         },
         {
           "label": "Core 1",
-          "current": 54.0
+          "current": 56.0
         },
         {
           "label": "Core 2",
@@ -97,7 +97,7 @@
         },
         {
           "label": "Core 5",
-          "current": 49.0
+          "current": 50.0
         },
         {
           "label": "Core 6",
@@ -105,44 +105,44 @@
         },
         {
           "label": "Core 7",
-          "current": 51.0
+          "current": 50.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 4.036548469123372,
-        "cpu_percent": 408.2,
+        "memory_percent": 4.036603433268123,
+        "cpu_percent": 532.8,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.20403911956967227,
-        "cpu_percent": 0.8,
+        "memory_percent": 0.20679954106160559,
+        "cpu_percent": 0.9,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.2,
-        "name": "kworker/14:1-events",
-        "pid": 158
-      },
-      {
-        "memory_percent": 0.04021543257606382,
-        "cpu_percent": 0.2,
-        "name": "python3",
-        "pid": 300472
+        "name": "kworker/2:0-events",
+        "pid": 269060
       },
       {
         "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/3:1-events",
-        "pid": 146
+        "name": "kworker/5:0-events",
+        "pid": 52
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.1,
+        "name": "kworker/4:1-events",
+        "pid": 154
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T03:01:36.141236"
+    "timestamp": "2026-05-08T03:31:09.610091"
   },
   "decision": {
     "status": "ok",
@@ -161,7 +161,7 @@
     "skylang_behavior": null,
     "new_lesson": null
   },
-  "generation": 7,
-  "knowledge_count": 239,
-  "updated": "2026-05-08T03:01:57.615457"
+  "generation": 9,
+  "knowledge_count": 259,
+  "updated": "2026-05-08T03:31:46.985818"
 }
