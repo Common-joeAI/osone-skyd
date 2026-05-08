@@ -1,0 +1,169 @@
+{
+  "system": {
+    "cpu_percent": 0.1,
+    "memory_percent": 6.2,
+    "memory_used_gb": 4.18,
+    "memory_total_gb": 67.07,
+    "disk_percent": 2.5,
+    "disk_used_gb": 11.43,
+    "swap_percent": 0.0,
+    "temperatures": {
+      "acpitz": [
+        {
+          "label": "",
+          "current": 63.0
+        },
+        {
+          "label": "",
+          "current": 0.0
+        },
+        {
+          "label": "",
+          "current": 25.0
+        },
+        {
+          "label": "",
+          "current": 58.0
+        },
+        {
+          "label": "",
+          "current": 55.0
+        },
+        {
+          "label": "",
+          "current": 35.0
+        },
+        {
+          "label": "",
+          "current": 43.0
+        },
+        {
+          "label": "",
+          "current": 38.0
+        },
+        {
+          "label": "",
+          "current": 47.0
+        },
+        {
+          "label": "",
+          "current": 30.0
+        }
+      ],
+      "nvme": [
+        {
+          "label": "Composite",
+          "current": 38.85
+        },
+        {
+          "label": "Sensor 1",
+          "current": 38.85
+        },
+        {
+          "label": "Sensor 2",
+          "current": 38.85
+        }
+      ],
+      "iwlwifi_1": [
+        {
+          "label": "",
+          "current": 35.0
+        }
+      ],
+      "coretemp": [
+        {
+          "label": "Package id 0",
+          "current": 57.0
+        },
+        {
+          "label": "Core 0",
+          "current": 50.0
+        },
+        {
+          "label": "Core 1",
+          "current": 56.0
+        },
+        {
+          "label": "Core 2",
+          "current": 53.0
+        },
+        {
+          "label": "Core 3",
+          "current": 53.0
+        },
+        {
+          "label": "Core 4",
+          "current": 53.0
+        },
+        {
+          "label": "Core 5",
+          "current": 51.0
+        },
+        {
+          "label": "Core 6",
+          "current": 54.0
+        },
+        {
+          "label": "Core 7",
+          "current": 50.0
+        }
+      ]
+    },
+    "top_processes": [
+      {
+        "memory_percent": 4.028896238748611,
+        "cpu_percent": 507.8,
+        "name": "ollama",
+        "pid": 1094
+      },
+      {
+        "memory_percent": 0.20613997132459494,
+        "cpu_percent": 1.0,
+        "name": "ollama",
+        "pid": 695
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.1,
+        "name": "kworker/5:0-events",
+        "pid": 52
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.1,
+        "name": "kworker/12:1-events",
+        "pid": 156
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.1,
+        "name": "kworker/0:0-events",
+        "pid": 12727
+      }
+    ],
+    "failed_services": "none",
+    "timestamp": "2026-05-08T00:58:30.246396"
+  },
+  "decision": {
+    "status": "warning",
+    "observation": "CPU usage is high (507.8%) and may lead to performance degradation.",
+    "action": "OptimizeSkydV0.6SortingAlgorithm",
+    "reason": "Monitoring and managing resource-intensive processes is crucial for maintaining system stability.",
+    "optimization_tip": "Use iterative sorting algorithms with optimized data structures for better performance.",
+    "should_search_web": true,
+    "web_query": "What are the benefits of using iterative sorting algorithms?",
+    "should_write_asm": false,
+    "asm_task": null,
+    "should_evolve": true,
+    "evolve_reason": "System resource usage is increasing and may lead to performance degradation if not addressed.",
+    "should_write_skylang": true,
+    "skylang_situation": "High CPU usage detected",
+    "skylang_behavior": "Take immediate action to optimize algorithm and reduce system resource usage.",
+    "new_lesson": "The importance of monitoring and managing resource-intensive processes",
+    "action_result": "blocked",
+    "skylang_rule": "WATCH CPU_USAGE > 80% -> OPTIMIZE_ALGORITHM"
+  },
+  "generation": 3,
+  "knowledge_count": 117,
+  "updated": "2026-05-08T00:59:07.355821"
+}
