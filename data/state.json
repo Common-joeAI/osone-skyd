@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.2,
+    "cpu_percent": 0.1,
     "memory_percent": 7.7,
-    "memory_used_gb": 5.14,
+    "memory_used_gb": 5.19,
     "memory_total_gb": 67.07,
     "disk_percent": 10.2,
     "disk_used_gb": 46.98,
@@ -67,17 +67,17 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 29.0
+          "current": 32.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 53.0
+          "current": 54.0
         },
         {
           "label": "Core 0",
-          "current": 45.0
+          "current": 46.0
         },
         {
           "label": "Core 1",
@@ -85,7 +85,7 @@
         },
         {
           "label": "Core 2",
-          "current": 48.0
+          "current": 47.0
         },
         {
           "label": "Core 3",
@@ -93,11 +93,11 @@
         },
         {
           "label": "Core 4",
-          "current": 46.0
+          "current": 47.0
         },
         {
           "label": "Core 5",
-          "current": 43.0
+          "current": 44.0
         },
         {
           "label": "Core 6",
@@ -105,21 +105,33 @@
         },
         {
           "label": "Core 7",
-          "current": 44.0
+          "current": 45.0
         }
       ]
     },
     "top_processes": [
       {
         "name": "llama-server",
-        "cpu_percent": 140.6,
+        "cpu_percent": 122.6,
         "pid": 2312261,
-        "memory_percent": 7.883892030632617
+        "memory_percent": 7.916101019456636
+      },
+      {
+        "name": "kworker/10:1-mm_percpu_wq",
+        "cpu_percent": 0.2,
+        "pid": 171,
+        "memory_percent": 0.0
       },
       {
         "name": "kworker/2:1-events",
-        "cpu_percent": 0.5,
+        "cpu_percent": 0.2,
         "pid": 2274725,
+        "memory_percent": 0.0
+      },
+      {
+        "name": "kworker/3:2-events",
+        "cpu_percent": 0.2,
+        "pid": 2296606,
         "memory_percent": 0.0
       },
       {
@@ -127,22 +139,10 @@
         "cpu_percent": 0.1,
         "pid": 52,
         "memory_percent": 0.0
-      },
-      {
-        "name": "khugepaged",
-        "cpu_percent": 0.1,
-        "pid": 125,
-        "memory_percent": 0.0
-      },
-      {
-        "name": "tailscaled",
-        "cpu_percent": 0.1,
-        "pid": 801,
-        "memory_percent": 0.11392235068699991
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T08:35:47.697309"
+    "timestamp": "2026-05-08T08:36:18.865617"
   },
   "decision": {
     "status": "ok",
@@ -160,9 +160,9 @@
     "skylang_situation": "Code is in need of improvement",
     "skylang_behavior": "Desired behavior is to improve code readability and catch potential type-related errors",
     "new_lesson": "Adding type hints to improve code readability and catch potential type-related errors",
-    "skylang_rule": "WATCH readability <op> improve -> refactor code"
+    "skylang_rule": "WATCH Readability 30 -> Improve Code Structure"
   },
   "generation": 35,
   "knowledge_count": 300,
-  "updated": "2026-05-08T08:35:57.275835"
+  "updated": "2026-05-08T08:36:35.039541"
 }
