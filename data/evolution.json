@@ -1,5 +1,5 @@
 {
-  "generation": 3,
+  "generation": 5,
   "mutations": [
     {
       "gen": 1,
@@ -21,6 +21,20 @@
       "desc": "Implement a single-threaded, iterative approach to sorting arrays in Skyd V0.5, replacing the current multi-threaded implementation for improved CPU efficiency.",
       "benefit": "Reduced CPU usage by up to 30% due to the elimination of thread context switching.",
       "ts": "2026-05-08T00:55:08.735782"
+    },
+    {
+      "gen": 4,
+      "type": "skylang|new_capability",
+      "desc": "Introduce a new SkyLang rule to monitor and adjust CPU power consumption based on the current resource usage.",
+      "benefit": "Improved system stability and performance by preventing CPU overload.",
+      "ts": "2026-05-08T01:56:11.939843"
+    },
+    {
+      "gen": 5,
+      "type": "python",
+      "desc": "Improve CPU power consumption adjustment by utilizing NumPy's vectorized operations for faster computations.",
+      "benefit": "Faster and more efficient CPU power consumption adjustments",
+      "ts": "2026-05-08T01:58:08.264130"
     }
   ],
   "benchmarks": {}
