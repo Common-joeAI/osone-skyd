@@ -13,7 +13,7 @@ import subprocess, requests, json, time, logging, os, sys, psutil
 import urllib.request, urllib.parse, hashlib, tempfile, stat
 from datetime import datetime
 
-OLLAMA_URL  = "http://127.0.0.1:8080/v1/chat/completions"
+LLAMA_URL  = "http://127.0.0.1:8080/v1/chat/completions"
 MODEL       = "llama3.2"
 LOG_FILE    = "/var/log/skyd.log"
 STATE_FILE  = "/var/log/skyd_state.json"
@@ -226,12 +226,13 @@ def parse_skylang(script_path):
 
 def ask_llm(prompt, model=None):
     try:
-        r = requests.post(OLLAMA_URL, json={
-            "model": model or MODEL,
-            "prompt": prompt,
-            "stream": False
-        }, timeout=120)
-        return r.json()["response"].strip()
+        r = requests.post(LLAMA_URL, json={
+            "model": MODEL,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 1024,
+            "temperature": 0.7
+        }, timeout=60)
+        return r.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"error: {e}"
 
@@ -341,8 +342,8 @@ Respond in JSON:
 }}"""
     
     try:
-        r = requests.post(OLLAMA_URL, json={"model": MODEL, "prompt": prompt, "stream": False}, timeout=120)
-        resp = r.json()["response"].strip()
+        r = requests.post(LLAMA_URL, json={"model": MODEL, "messages": [{"role": "user", "content": prompt}], "max_tokens": 512, "temperature": 0.7}, timeout=60)
+        resp = r.json()["choices"][0]["message"]["content"].strip()
         if "```" in resp:
             resp = resp.split("```")[1].replace("json","").strip()
         return json.loads(resp)
@@ -507,8 +508,8 @@ Respond ONLY in JSON:
   "new_lesson": "lesson learned or null"
 }}"""
     try:
-        r = requests.post(OLLAMA_URL, json={"model": MODEL, "prompt": prompt, "stream": False}, timeout=30)
-        resp = r.json()["response"].strip()
+        r = requests.post(LLAMA_URL, json={"model": MODEL, "messages": [{"role": "user", "content": prompt}], "max_tokens": 512, "temperature": 0.7}, timeout=30)
+        resp = r.json()["choices"][0]["message"]["content"].strip()
         if "```" in resp:
             resp = resp.split("```")[1].replace("json","").strip()
         return json.loads(resp)
