@@ -1,0 +1,19 @@
+{
+  "name": "OSONE — True Open-Source AI",
+  "short_name": "OSONE",
+  "description": "The People's AI. Share idle compute, get unlimited AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#7c6fff",
+  "orientation": "any",
+  "icons": [
+    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ],
+  "categories": ["productivity", "utilities"],
+  "shortcuts": [
+    {"name": "Open AI Chat", "url": "/#chat", "description": "Talk to OSONE AI"},
+    {"name": "Hive Status",  "url": "/#hive",  "description": "View hive nodes"}
+  ]
+}

@@ -1,0 +1,3 @@
+# Evolved rule — Gen 65
+# Optimizing CPU-bound SkyLang functions
+WATCH cpu_usage OPTIMIZE 70 -> RESIZE_CACHED_MEMORY; WATCH cache_hit_ratio OPTIMIZE 80 -> PRECACHE_CACHED_MEMORY
