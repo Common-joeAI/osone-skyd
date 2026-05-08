@@ -2,12 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "682c38ca",
-      "lesson": "Monitor high CPU usage to prevent system crashes",
-      "source": "self",
-      "ts": "2026-05-08T01:48:37.376659"
-    },
-    {
       "id": "de1aa0e6",
       "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> notifyMonitoringTeam",
       "source": "skylang",
@@ -1806,6 +1800,12 @@
       "lesson": "Understanding the importance of resource optimization in repetitive tasks",
       "source": "self",
       "ts": "2026-05-08T07:19:50.050347"
+    },
+    {
+      "id": "b0622802",
+      "lesson": "Evolved Gen 27: Introduce a guardrail to prevent repetition of inefficient actions by utilizing the 'memoize' functi",
+      "source": "evolution",
+      "ts": "2026-05-08T07:44:05.985884"
     }
   ],
   "web_cache": {}
