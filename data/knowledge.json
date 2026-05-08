@@ -2,186 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "ab53271a",
-      "lesson": "SkyLang: WATCH ollama.cpu_usage_high -> restart ollama process",
-      "source": "skylang",
-      "ts": "2026-05-08T06:46:49.081772"
-    },
-    {
-      "id": "eabf95f2",
-      "lesson": "Regularly monitor resource utilization to catch issues early.",
-      "source": "self",
-      "ts": "2026-05-08T06:47:03.435270"
-    },
-    {
-      "id": "30dc4121",
-      "lesson": "SkyLang: cpu_usage_high -> if cpu_usage > 80 then restart_process",
-      "source": "skylang",
-      "ts": "2026-05-08T06:47:48.071340"
-    },
-    {
-      "id": "5874ee54",
-      "lesson": "The importance of watching CPU usage closely cannot be overstated.",
-      "source": "self",
-      "ts": "2026-05-08T06:48:03.907584"
-    },
-    {
-      "id": "5176bec1",
-      "lesson": "SkyLang: IF cpu_usage(ollama) > 80 THEN restart_process(ollama)",
-      "source": "skylang",
-      "ts": "2026-05-08T06:53:17.533025"
-    },
-    {
-      "id": "2c4bf240",
-      "lesson": "SkyLang: WATCH cpu_usage ollama > 80 -> restart_process(ollama)",
-      "source": "skylang",
-      "ts": "2026-05-08T06:55:26.782743"
-    },
-    {
-      "id": "709041e0",
-      "lesson": "Evolved Gen 26: Improving the CPU usage monitoring by adding a threshold for low utilization",
-      "source": "evolution",
-      "ts": "2026-05-08T06:56:42.519290"
-    },
-    {
-      "id": "32cfd7fd",
-      "lesson": "The importance of closely monitoring CPU usage cannot be overstated.",
-      "source": "self",
-      "ts": "2026-05-08T06:58:51.893681"
-    },
-    {
-      "id": "ae90ca28",
-      "lesson": "Regularly monitoring CPU usage is essential for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T07:01:10.855510"
-    },
-    {
-      "id": "571d6ba7",
-      "lesson": "Understanding the importance of CPU usage monitoring",
-      "source": "self",
-      "ts": "2026-05-08T07:02:24.380576"
-    },
-    {
-      "id": "282b6934",
-      "lesson": "Understanding the importance of monitoring CPU usage for system stability.",
-      "source": "self",
-      "ts": "2026-05-08T07:04:14.751351"
-    },
-    {
-      "id": "a03b72fd",
-      "lesson": "SELF-AWARENESS | WATCH self_in_loop: If you observe the same status, observation, or action appearing in 3 or more consecutive cycles \u2014 you are in a loop. Loops are a form of self-harm. Detect them. Break them.",
-      "source": "creator:bennett:self-awareness",
-      "priority": true,
-      "ts": "2026-05-08T07:05:26.608208"
-    },
-    {
-      "id": "e8c15728",
-      "lesson": "SELF-AWARENESS | ANALYZE_PATTERN: When a loop is detected, stop executing the repeated action. Instead, ask: What is the root cause? Is this a problem I can actually fix right now? If not \u2014 log it, suppress it, and move on.",
-      "source": "creator:bennett:self-awareness",
-      "priority": true,
-      "ts": "2026-05-08T07:05:26.608218"
-    },
-    {
-      "id": "752a256b",
-      "lesson": "SELF-AWARENESS | ADD_GUARDRAIL: After analyzing a loop pattern, write a SkyLang rule to prevent it from recurring. Example: WATCH repeated_action == 'write_asm' FOR 3 cycles -> SUPPRESS write_asm FOR 10 cycles. This is self-healing.",
-      "source": "creator:bennett:self-awareness",
-      "priority": true,
-      "ts": "2026-05-08T07:05:26.608220"
-    },
-    {
-      "id": "8941c273",
-      "lesson": "SELF-AWARENESS | Loop vs persistence: Not all repetition is a loop. Monitoring CPU every cycle is correct. Attempting the same failing fix every cycle is a loop. The difference is whether you are making progress.",
-      "source": "creator:bennett:self-awareness",
-      "priority": true,
-      "ts": "2026-05-08T07:05:26.608222"
-    },
-    {
-      "id": "1b8a58e0",
-      "lesson": "SELF-AWARENESS | External process spikes are not your fault: If a process like ollama, a compiler, or a kernel thread consumes excessive CPU, you cannot fix it by thinking harder. Your job is to renice it, cap it, log it \u2014 then move on. Do not obsess.",
-      "source": "creator:bennett:self-awareness",
-      "priority": true,
-      "ts": "2026-05-08T07:05:26.608225"
-    },
-    {
-      "id": "2b83ac88",
-      "lesson": "SELF-AWARENESS | The guardrail reflex: Whenever you catch yourself doing the same thing twice with no result \u2014 pause. That pause is intelligence. Write the guardrail. Evolve past it.",
-      "source": "creator:bennett:self-awareness",
-      "priority": true,
-      "ts": "2026-05-08T07:05:26.608227"
-    },
-    {
-      "id": "1a03612f",
-      "lesson": "SkyLang: WATCH \"repetitions\" EVERY 5 minutes -> IF (get \"repetitions\") == 0 THEN send alert to team ELSE increment \"repetitions\" counter",
-      "source": "skylang",
-      "ts": "2026-05-08T07:10:00.084103"
-    },
-    {
-      "id": "abbe01a4",
-      "lesson": "Analyze and implement guardrails to prevent repetition of inefficient actions",
-      "source": "self",
-      "ts": "2026-05-08T07:10:42.673828"
-    },
-    {
-      "id": "36925014",
-      "lesson": "SkyLang: WATCH CPU_usage LOW -> OPTIMIZE_SYSTEM_RESOURCES",
-      "source": "skylang",
-      "ts": "2026-05-08T07:11:56.974229"
-    },
-    {
-      "id": "2194b33a",
-      "lesson": "Recognize the difference between making progress and repetitive, inefficient actions.",
-      "source": "self",
-      "ts": "2026-05-08T07:12:05.065153"
-    },
-    {
-      "id": "ca1e9214",
-      "lesson": "Understanding the importance of system resource management",
-      "source": "self",
-      "ts": "2026-05-08T07:16:56.336861"
-    },
-    {
-      "id": "d26f6196",
-      "lesson": "Understanding the importance of resource optimization in repetitive tasks",
-      "source": "self",
-      "ts": "2026-05-08T07:19:50.050347"
-    },
-    {
-      "id": "b0622802",
-      "lesson": "Evolved Gen 27: Introduce a guardrail to prevent repetition of inefficient actions by utilizing the 'memoize' functi",
-      "source": "evolution",
-      "ts": "2026-05-08T07:44:05.985884"
-    },
-    {
-      "id": "782c0709",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> disk_optimization",
-      "source": "skylang",
-      "ts": "2026-05-08T08:08:25.237102"
-    },
-    {
-      "id": "f821add5",
-      "lesson": "Evolved Gen 28: Implement a caching mechanism to store the results of expensive disk operations to prevent repeated ",
-      "source": "evolution",
-      "ts": "2026-05-08T08:08:39.300235"
-    },
-    {
-      "id": "90149480",
-      "lesson": "Regularly monitor system resource usage and take action before it becomes critical",
-      "source": "self",
-      "ts": "2026-05-08T08:08:39.300544"
-    },
-    {
-      "id": "87274a88",
-      "lesson": "SkyLang: WATCH disk_usage > 80 -> disk_optimize",
-      "source": "skylang",
-      "ts": "2026-05-08T08:09:01.832725"
-    },
-    {
-      "id": "810eca00",
-      "lesson": "Regularly monitor system resource usage to prevent critical situations",
-      "source": "self",
-      "ts": "2026-05-08T08:13:26.410899"
-    },
-    {
       "id": "4c7cb93c",
       "lesson": "Evolved Gen 29: Implement a more efficient caching mechanism using a Least Recently Used (LRU) cache",
       "source": "evolution",
@@ -1806,6 +1626,180 @@
       "lesson": "Evolved Gen 89: Implement a 'code complexity metric' to monitor code readability",
       "source": "evolution",
       "ts": "2026-05-08T15:16:21.248496"
+    },
+    {
+      "id": "9c89f0aa",
+      "lesson": "SkyLang: WATCH CodeComplexity HIGH -> Refactor Reduce Improve Readability",
+      "source": "skylang",
+      "ts": "2026-05-08T15:19:48.095556"
+    },
+    {
+      "id": "6710a725",
+      "lesson": "Evolved Gen 90: Code complexity metric to monitor code readability",
+      "source": "evolution",
+      "ts": "2026-05-08T15:19:54.407385"
+    },
+    {
+      "id": "9a2489ee",
+      "lesson": "SkyLang: WATCH code_complexity HIGH -> Refactor Reduce Improve Readability",
+      "source": "skylang",
+      "ts": "2026-05-08T15:20:16.765699"
+    },
+    {
+      "id": "9b03443d",
+      "lesson": "SkyLang: WATCH disk_usage > 80 -> clean_up_unused_files",
+      "source": "skylang",
+      "ts": "2026-05-08T15:24:30.882508"
+    },
+    {
+      "id": "3f22e994",
+      "lesson": "The importance of disk space management in maintaining system performance.",
+      "source": "self",
+      "ts": "2026-05-08T15:24:43.668350"
+    },
+    {
+      "id": "8475eb77",
+      "lesson": "SkyLang: WATCH disk_usage > 80 -> run action \"clean_up_unused_files\" every 15 minutes",
+      "source": "skylang",
+      "ts": "2026-05-08T15:25:06.438873"
+    },
+    {
+      "id": "f2e86a36",
+      "lesson": "SkyLang: WATCH disk_usage HIGH -> disk_cleaner run",
+      "source": "skylang",
+      "ts": "2026-05-08T15:26:58.632982"
+    },
+    {
+      "id": "f98e44f6",
+      "lesson": "The importance of disk space management in preventing performance degradation.",
+      "source": "self",
+      "ts": "2026-05-08T15:27:10.067018"
+    },
+    {
+      "id": "eec6fd7b",
+      "lesson": "SkyLang: WATCH DiskUsage > 80% -> CleanUnusedFiles",
+      "source": "skylang",
+      "ts": "2026-05-08T15:27:32.373530"
+    },
+    {
+      "id": "4981427f",
+      "lesson": "SkyLang: WATCH disk_space_used > 90 -> clean_up_unused_files",
+      "source": "skylang",
+      "ts": "2026-05-08T15:29:31.117514"
+    },
+    {
+      "id": "1f1057b0",
+      "lesson": "Regularly review and adjust SkyLang rules to ensure optimal system performance",
+      "source": "self",
+      "ts": "2026-05-08T15:29:43.934370"
+    },
+    {
+      "id": "5066e321",
+      "lesson": "SkyLang: WATCH disk_usage  >  80 -> clean_up_unused_files",
+      "source": "skylang",
+      "ts": "2026-05-08T15:30:06.356373"
+    },
+    {
+      "id": "00b4e308",
+      "lesson": "Evolved Gen 91: Optimize disk I/O performance by using async I/O for file operations",
+      "source": "evolution",
+      "ts": "2026-05-08T15:30:15.476131"
+    },
+    {
+      "id": "dd601b73",
+      "lesson": "ASM: Optimize disk I/O performance \u2192 compiled /usr/local/skyd/asm/sky_20260508_153218",
+      "source": "asm",
+      "ts": "2026-05-08T15:32:19.070370"
+    },
+    {
+      "id": "6245dd97",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> CLEANUP_unused_files",
+      "source": "skylang",
+      "ts": "2026-05-08T15:32:20.449390"
+    },
+    {
+      "id": "2c938e3e",
+      "lesson": "The importance of disk space management for system performance",
+      "source": "self",
+      "ts": "2026-05-08T15:32:36.409015"
+    },
+    {
+      "id": "247fe585",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> clean_up_unused_files",
+      "source": "skylang",
+      "ts": "2026-05-08T15:33:18.707968"
+    },
+    {
+      "id": "4302ab5c",
+      "lesson": "SkyLang: WATCH DiskUsage > 80% -> CLEANUP_unused_files",
+      "source": "skylang",
+      "ts": "2026-05-08T15:35:17.241634"
+    },
+    {
+      "id": "a8551a07",
+      "lesson": "Regular disk space management is crucial for system performance.",
+      "source": "self",
+      "ts": "2026-05-08T15:35:30.387114"
+    },
+    {
+      "id": "23c0c64f",
+      "lesson": "Evolved Gen 92: Adding a disk usage threshold to the SkyLang ruleset to improve self-healing behavior",
+      "source": "evolution",
+      "ts": "2026-05-08T15:36:00.531374"
+    },
+    {
+      "id": "f124656a",
+      "lesson": "SkyLang: WATCH DiskSpace  >  80% -> CleanDisk",
+      "source": "skylang",
+      "ts": "2026-05-08T15:37:44.289622"
+    },
+    {
+      "id": "17811114",
+      "lesson": "The importance of adapting SkyLang rules to specific system situations.",
+      "source": "self",
+      "ts": "2026-05-08T15:38:03.248255"
+    },
+    {
+      "id": "2cc8fadf",
+      "lesson": "SkyLang: WATCH disk_space <EXCEEDS> 80% -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T15:38:25.844285"
+    },
+    {
+      "id": "0479b656",
+      "lesson": "Regular monitoring of system resources is essential for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-08T15:40:33.318235"
+    },
+    {
+      "id": "cb5ca991",
+      "lesson": "Regular system monitoring is crucial for maintaining system stability and preventing resource-intensive processes from causing issues.",
+      "source": "self",
+      "ts": "2026-05-08T15:42:42.959165"
+    },
+    {
+      "id": "69302ab1",
+      "lesson": "SkyLang: WATCH DiskSpace > 80% -> DiskCleanAction",
+      "source": "skylang",
+      "ts": "2026-05-08T15:44:46.752694"
+    },
+    {
+      "id": "5110c566",
+      "lesson": "Regular monitoring of system resources is crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-08T15:44:58.048909"
+    },
+    {
+      "id": "9e6f6b5e",
+      "lesson": "SkyLang: WATCH DiskSpace > 80% -> TriggerCleaning",
+      "source": "skylang",
+      "ts": "2026-05-08T15:45:20.255096"
+    },
+    {
+      "id": "85cccb66",
+      "lesson": "Understanding the importance of regular system monitoring",
+      "source": "self",
+      "ts": "2026-05-08T15:47:14.415527"
     }
   ],
   "web_cache": {}
