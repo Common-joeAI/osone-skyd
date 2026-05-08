@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.0,
+    "cpu_percent": 0.1,
     "memory_percent": 6.3,
-    "memory_used_gb": 4.22,
+    "memory_used_gb": 4.21,
     "memory_total_gb": 67.07,
     "disk_percent": 2.5,
     "disk_used_gb": 11.43,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 64.0
+          "current": 63.0
         },
         {
           "label": "",
@@ -27,7 +27,7 @@
         },
         {
           "label": "",
-          "current": 55.0
+          "current": 56.0
         },
         {
           "label": "",
@@ -67,29 +67,29 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 34.0
+          "current": 35.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 59.0
+          "current": 58.0
         },
         {
           "label": "Core 0",
-          "current": 51.0
+          "current": 50.0
         },
         {
           "label": "Core 1",
-          "current": 56.0
+          "current": 54.0
         },
         {
           "label": "Core 2",
-          "current": 55.0
+          "current": 52.0
         },
         {
           "label": "Core 3",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "Core 4",
@@ -101,57 +101,57 @@
         },
         {
           "label": "Core 6",
-          "current": 55.0
+          "current": 53.0
         },
         {
           "label": "Core 7",
-          "current": 51.0
+          "current": 50.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 4.028816846095082,
-        "cpu_percent": 404.7,
+        "memory_percent": 4.028523703989744,
+        "cpu_percent": 462.5,
         "name": "ollama",
         "pid": 1094
       },
       {
-        "memory_percent": 0.21280895422103563,
-        "cpu_percent": 0.4,
+        "memory_percent": 0.20712932593011088,
+        "cpu_percent": 0.6,
         "name": "ollama",
         "pid": 695
       },
       {
         "memory_percent": 0.0,
-        "cpu_percent": 0.2,
+        "cpu_percent": 0.1,
+        "name": "kworker/5:0-events",
+        "pid": 52
+      },
+      {
+        "memory_percent": 0.0,
+        "cpu_percent": 0.1,
         "name": "kworker/15:1-events",
         "pid": 159
       },
       {
         "memory_percent": 0.0,
-        "cpu_percent": 0.2,
-        "name": "kworker/9:2-events",
-        "pid": 168
-      },
-      {
-        "memory_percent": 0.0,
         "cpu_percent": 0.1,
-        "name": "kworker/12:1-events",
-        "pid": 156
+        "name": "kworker/9:2-events_freezable",
+        "pid": 168
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T01:29:34.179984"
+    "timestamp": "2026-05-08T01:30:28.273092"
   },
   "decision": {
-    "status": "warning",
-    "observation": "High CPU usage (404.7%) detected, possible system overload.",
+    "status": "ok",
+    "observation": "parse error",
     "action": "none",
-    "reason": "System resources are being utilized at an extremely high level, potentially causing instability.",
-    "optimization_tip": "Monitor and manage resource utilization to prevent overloading.",
-    "should_search_web": true,
-    "web_query": "What causes high CPU usage?",
+    "reason": "fallback",
+    "optimization_tip": "",
+    "should_search_web": false,
+    "web_query": null,
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": false,
@@ -163,5 +163,5 @@
   },
   "generation": 3,
   "knowledge_count": 144,
-  "updated": "2026-05-08T01:30:07.185448"
+  "updated": "2026-05-08T01:30:47.678691"
 }
