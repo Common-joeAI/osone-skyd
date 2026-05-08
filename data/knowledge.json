@@ -2,18 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "e1e1ba5e",
-      "lesson": "SkyLang: WATCH cpu_usage_exceeded THEN TRIGGER OPTIMIZATION_ACTIONS EVERY 5 MINUTES",
-      "source": "skylang",
-      "ts": "2026-05-08T00:21:04.585838"
-    },
-    {
-      "id": "6f7fe432",
-      "lesson": "Understanding the importance of proactive monitoring for high CPU usage scenarios.",
-      "source": "self",
-      "ts": "2026-05-08T00:21:17.601572"
-    },
-    {
       "id": "21e2004b",
       "lesson": "Monitor CPU utilization regularly to prevent system overload",
       "source": "self",
@@ -1800,6 +1788,18 @@
       "lesson": "The importance of proactive system monitoring.",
       "source": "self",
       "ts": "2026-05-08T05:32:33.023229"
+    },
+    {
+      "id": "ca2aaccd",
+      "lesson": "SkyLang: WATCH cpu_load > 80 -> notify-system:admin high-cpu-usage",
+      "source": "skylang",
+      "ts": "2026-05-08T05:33:18.296124"
+    },
+    {
+      "id": "bdf5db35",
+      "lesson": "The importance of proactive system monitoring and performance optimization",
+      "source": "self",
+      "ts": "2026-05-08T05:33:32.127062"
     }
   ],
   "web_cache": {}
