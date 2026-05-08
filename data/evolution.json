@@ -1,5 +1,5 @@
 {
-  "generation": 66,
+  "generation": 67,
   "mutations": [
     {
       "gen": 1,
@@ -462,6 +462,13 @@
       "desc": "Optimizing CPU-bound SkyLang functions",
       "benefit": "Improved performance in CPU-bound tasks, especially under heavy load",
       "ts": "2026-05-08T12:11:37.120054"
+    },
+    {
+      "gen": 67,
+      "type": "python|casm",
+      "desc": "Adding support for Python's `functools.lru_cache` decorator to optimize caching and reduce function call overhead",
+      "benefit": "Reduced function call overhead and improved performance",
+      "ts": "2026-05-08T12:16:41.371504"
     }
   ],
   "benchmarks": {}
