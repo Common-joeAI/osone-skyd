@@ -2,126 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "4c7cb93c",
-      "lesson": "Evolved Gen 29: Implement a more efficient caching mechanism using a Least Recently Used (LRU) cache",
-      "source": "evolution",
-      "ts": "2026-05-08T08:22:39.098187"
-    },
-    {
-      "id": "cafa3bf2",
-      "lesson": "Evolved Gen 30: Improved caching mechanism to reduce memory usage",
-      "source": "evolution",
-      "ts": "2026-05-08T08:24:58.906225"
-    },
-    {
-      "id": "106064b5",
-      "lesson": "Continuously monitor system resource usage",
-      "source": "self",
-      "ts": "2026-05-08T08:24:58.906502"
-    },
-    {
-      "id": "f6729b7a",
-      "lesson": "Regularly monitoring system resource usage is crucial for maintaining system stability",
-      "source": "self",
-      "ts": "2026-05-08T08:29:37.916371"
-    },
-    {
-      "id": "59cdceac",
-      "lesson": "Evolved Gen 31: Adding type hints to improve code readability and catch potential type-related errors",
-      "source": "evolution",
-      "ts": "2026-05-08T08:31:54.809424"
-    },
-    {
-      "id": "80479976",
-      "lesson": "Improved caching mechanism can reduce memory usage and improve system stability.",
-      "source": "self",
-      "ts": "2026-05-08T08:31:54.809712"
-    },
-    {
-      "id": "d1f1296b",
-      "lesson": "Evolved Gen 32: Adding a type hint for the `load_data` function to improve code readability and catch potential type",
-      "source": "evolution",
-      "ts": "2026-05-08T08:32:25.188162"
-    },
-    {
-      "id": "9fd389a2",
-      "lesson": "SkyLang: WATCH CodeReadability -20 -> ImproveCodeStyle",
-      "source": "skylang",
-      "ts": "2026-05-08T08:34:11.965441"
-    },
-    {
-      "id": "58920794",
-      "lesson": "Evolved Gen 33: Adding a type hint for the `load_data` function to improve code readability and catch potential type",
-      "source": "evolution",
-      "ts": "2026-05-08T08:34:21.125119"
-    },
-    {
-      "id": "cd4b4f19",
-      "lesson": "Adding type hints to improve code readability and catch potential type-related errors",
-      "source": "self",
-      "ts": "2026-05-08T08:34:21.125413"
-    },
-    {
-      "id": "42510659",
-      "lesson": "SkyLang: WATCH code_quality <op> improve -> refactor code to improve readability and catch potential type-related errors",
-      "source": "skylang",
-      "ts": "2026-05-08T08:34:43.962729"
-    },
-    {
-      "id": "841c46c6",
-      "lesson": "Evolved Gen 34: Adding type hints for all function parameters and return types to improve code readability and catch",
-      "source": "evolution",
-      "ts": "2026-05-08T08:34:52.763736"
-    },
-    {
-      "id": "f2121050",
-      "lesson": "SkyLang: WATCH readability <op> improve -> improve code readability and catch potential type-related errors",
-      "source": "skylang",
-      "ts": "2026-05-08T08:35:15.422751"
-    },
-    {
-      "id": "ff0a4061",
-      "lesson": "SkyLang: WATCH readability <op> improve -> refactor code",
-      "source": "skylang",
-      "ts": "2026-05-08T08:35:48.330034"
-    },
-    {
-      "id": "ad0b69d3",
-      "lesson": "Evolved Gen 35: Adding type hints for all function parameters and return types to improve code readability and catch",
-      "source": "evolution",
-      "ts": "2026-05-08T08:35:57.274446"
-    },
-    {
-      "id": "65439fc1",
-      "lesson": "SkyLang: WATCH Readability 30 -> Improve Code Structure",
-      "source": "skylang",
-      "ts": "2026-05-08T08:36:19.496784"
-    },
-    {
-      "id": "d134dc17",
-      "lesson": "SkyLang: WATCH type_checks -> improve code readability, catch type errors",
-      "source": "skylang",
-      "ts": "2026-05-08T08:37:19.577337"
-    },
-    {
-      "id": "33d6a954",
-      "lesson": "Master type hints and their importance in code readability.",
-      "source": "self",
-      "ts": "2026-05-08T08:37:34.867823"
-    },
-    {
-      "id": "ade6a3dc",
-      "lesson": "SkyLang: WATCH code_readability <op> improve -> refactor_to_enumerate()",
-      "source": "skylang",
-      "ts": "2026-05-08T08:37:57.811903"
-    },
-    {
-      "id": "bb48a733",
-      "lesson": "Evolved Gen 36: Improving code readability and reducing memory usage by adding type hints for function parameters an",
-      "source": "evolution",
-      "ts": "2026-05-08T08:38:09.014497"
-    },
-    {
       "id": "67125a11",
       "lesson": "SkyLang: WATCH code_readability 0 -> refactor_and_optimize",
       "source": "skylang",
@@ -1800,6 +1680,126 @@
       "lesson": "Understanding the importance of regular system monitoring",
       "source": "self",
       "ts": "2026-05-08T15:47:14.415527"
+    },
+    {
+      "id": "b71e13d4",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T15:49:35.945450"
+    },
+    {
+      "id": "d9b158c5",
+      "lesson": "The importance of regular system monitoring cannot be overstated.",
+      "source": "self",
+      "ts": "2026-05-08T15:49:52.736299"
+    },
+    {
+      "id": "afb859d0",
+      "lesson": "SkyLang: WATCH disk_space_used <op> >= 80 -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T15:50:16.021400"
+    },
+    {
+      "id": "37860ed5",
+      "lesson": "SkyLang: WATCH disk_usage > 80 -> trigger_cleaning",
+      "source": "skylang",
+      "ts": "2026-05-08T15:51:58.634117"
+    },
+    {
+      "id": "7e1fbe1d",
+      "lesson": "SkyLang: WATCH disk_usage > 80 -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T15:52:28.711966"
+    },
+    {
+      "id": "6d79deeb",
+      "lesson": "SkyLang: WATCH disk_usage <= 80% -> clean_disk",
+      "source": "skylang",
+      "ts": "2026-05-08T15:58:53.483039"
+    },
+    {
+      "id": "420430d9",
+      "lesson": "Monitor disk usage regularly to avoid unexpected issues",
+      "source": "self",
+      "ts": "2026-05-08T15:59:04.330825"
+    },
+    {
+      "id": "0f8830a2",
+      "lesson": "SkyLang: WATCH disk_usage <op> >= 90 -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T15:59:26.805939"
+    },
+    {
+      "id": "b085814e",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> clean_disk",
+      "source": "skylang",
+      "ts": "2026-05-08T16:01:20.249470"
+    },
+    {
+      "id": "09115dfd",
+      "lesson": "Monitor disk usage regularly",
+      "source": "self",
+      "ts": "2026-05-08T16:01:37.095138"
+    },
+    {
+      "id": "476ee2fd",
+      "lesson": "SkyLang: WATCH disk_usage <>= 80% -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T16:01:59.524962"
+    },
+    {
+      "id": "cdbec274",
+      "lesson": "SkyLang: WATCH disk_usage EXCEED 90% -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T16:06:40.724938"
+    },
+    {
+      "id": "6d3f766e",
+      "lesson": "Regular monitoring of disk usage is crucial",
+      "source": "self",
+      "ts": "2026-05-08T16:06:55.752605"
+    },
+    {
+      "id": "b86a2db3",
+      "lesson": "SkyLang: WATCH disk_usage > 90% -> trigger cleaning action",
+      "source": "skylang",
+      "ts": "2026-05-08T16:07:18.053672"
+    },
+    {
+      "id": "6dabbb12",
+      "lesson": "Monitoring disk usage is crucial for system performance",
+      "source": "self",
+      "ts": "2026-05-08T16:09:13.219902"
+    },
+    {
+      "id": "64da3843",
+      "lesson": "Regular monitoring of disk usage is crucial for system performance.",
+      "source": "self",
+      "ts": "2026-05-08T16:11:24.895335"
+    },
+    {
+      "id": "819a9fe1",
+      "lesson": "SkyLang: WATCH disk_usage  > 0.9 -> trigger_cleaning_action",
+      "source": "skylang",
+      "ts": "2026-05-08T16:13:29.835972"
+    },
+    {
+      "id": "534637b1",
+      "lesson": "Regular monitoring of disk usage is crucial for system performance",
+      "source": "self",
+      "ts": "2026-05-08T16:13:48.233171"
+    },
+    {
+      "id": "6b68b42e",
+      "lesson": "SkyLang: WATCH disk_usage > 0.9 -> trigger cleaning action",
+      "source": "skylang",
+      "ts": "2026-05-08T16:14:10.588790"
+    },
+    {
+      "id": "3de13f3f",
+      "lesson": "Monitoring disk usage is crucial for system performance.",
+      "source": "self",
+      "ts": "2026-05-08T16:18:53.385115"
     }
   ],
   "web_cache": {}
