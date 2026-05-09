@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 9.1,
-    "memory_percent": 30.1,
-    "memory_used_gb": 20.16,
+    "cpu_percent": 2.4,
+    "memory_percent": 15.8,
+    "memory_used_gb": 10.62,
     "memory_total_gb": 67.07,
-    "disk_percent": 32.4,
-    "disk_used_gb": 149.25,
+    "disk_percent": 36.4,
+    "disk_used_gb": 167.71,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 76.0
+          "current": 70.0
         },
         {
           "label": "",
@@ -19,15 +19,15 @@
         },
         {
           "label": "",
-          "current": 68.0
+          "current": 25.0
         },
         {
           "label": "",
-          "current": 63.0
+          "current": 58.0
         },
         {
           "label": "",
-          "current": 59.0
+          "current": 56.0
         },
         {
           "label": "",
@@ -43,7 +43,7 @@
         },
         {
           "label": "",
-          "current": 47.0
+          "current": 48.0
         },
         {
           "label": "",
@@ -61,122 +61,108 @@
         },
         {
           "label": "Sensor 2",
-          "current": 43.85
-        }
-      ],
-      "amdgpu": [
-        {
-          "label": "edge",
-          "current": 67.0
-        },
-        {
-          "label": "junction",
-          "current": 71.0
-        },
-        {
-          "label": "mem",
-          "current": 70.0
+          "current": 41.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 41.0
+          "current": 49.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 72.0
+          "current": 57.0
         },
         {
           "label": "Core 0",
-          "current": 67.0
+          "current": 55.0
         },
         {
           "label": "Core 1",
-          "current": 72.0
+          "current": 56.0
         },
         {
           "label": "Core 2",
-          "current": 70.0
+          "current": 55.0
         },
         {
           "label": "Core 3",
-          "current": 72.0
+          "current": 55.0
         },
         {
           "label": "Core 4",
-          "current": 71.0
+          "current": 53.0
         },
         {
           "label": "Core 5",
-          "current": 72.0
+          "current": 52.0
         },
         {
           "label": "Core 6",
-          "current": 70.0
+          "current": 55.0
         },
         {
           "label": "Core 7",
-          "current": 70.0
+          "current": 53.0
         }
       ]
     },
     "top_processes": [
       {
-        "pid": 782,
-        "memory_percent": 17.580785369084776,
+        "cpu_percent": 361.5,
         "name": "llama-server",
-        "cpu_percent": 340.0
+        "pid": 809,
+        "memory_percent": 11.348431980208026
       },
       {
-        "pid": 13980,
-        "memory_percent": 5.2996418659126725,
-        "name": "MythRetold",
-        "cpu_percent": 205.0
+        "cpu_percent": 24.5,
+        "name": "steam",
+        "pid": 1302,
+        "memory_percent": 0.6352082514596794
       },
       {
-        "pid": 13900,
-        "memory_percent": 0.027329389188456996,
-        "name": "wineserver",
-        "cpu_percent": 5.1
+        "cpu_percent": 1.9,
+        "name": "steamwebhelper",
+        "pid": 1683,
+        "memory_percent": 0.5957623265461792
       },
       {
-        "pid": 13972,
-        "memory_percent": 0.36314803783535604,
-        "name": "xalia.exe",
-        "cpu_percent": 2.8
+        "cpu_percent": 0.6,
+        "name": "steamwebhelper",
+        "pid": 1597,
+        "memory_percent": 0.5360712799283512
       },
       {
-        "pid": 907,
-        "memory_percent": 0.12560526199754077,
-        "name": "sway",
-        "cpu_percent": 2.1
+        "cpu_percent": 0.2,
+        "name": "irq/9-acpi",
+        "pid": 130,
+        "memory_percent": 0.0
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T12:26:37.638588"
+    "timestamp": "2026-05-09T12:58:48.859310"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resources are currently within acceptable thresholds.",
+    "observation": "System resources are within acceptable limits, no immediate action required.",
     "action": "none",
-    "reason": "No immediate actions are necessary based on the current system status.",
-    "optimization_tip": "Regularly monitor system resource utilization to prevent potential issues.",
+    "reason": "System resources are within acceptable limits, no immediate action required.",
+    "optimization_tip": "Regularly review system monitoring scripts to ensure they are up-to-date and performing as expected.",
     "should_search_web": true,
-    "web_query": "query for recent Linux resource optimization techniques",
+    "web_query": "What are the latest best practices for system monitoring script reviews?",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": true,
-    "evolve_reason": "To improve media library intelligence and enhance system stability.",
-    "should_write_skylang": true,
-    "skylang_situation": "disk_space_utilization approaching 32.4%",
-    "skylang_behavior": "Perform maintenance tasks when disk_space_utilization exceeds 32.2",
-    "new_lesson": "Understanding the importance of proactive disk space utilization monitoring in media server stacks.",
-    "skylang_rule": "WATCH disk_space_utilization > 32.2 -> perform_maintenance_tasks"
+    "should_evolve": false,
+    "evolve_reason": "To improve system monitoring script reviews and updates, and enhance overall system stability.",
+    "should_write_skylang": false,
+    "skylang_situation": "System monitoring script reviews and updates are due for review.",
+    "skylang_behavior": "Schedule a review of system monitoring scripts every 2 weeks.",
+    "new_lesson": "The importance of regular system monitoring script reviews and updates in maintaining system stability.",
+    "skylang_rule": "EVERY 2W -> REVIEW SCRIPTS"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T12:27:39.713163"
+  "updated": "2026-05-09T12:58:51.449269"
 }
