@@ -2,162 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "73e8af9d",
-      "lesson": "SkyLang: WATCH AI_CORE_PERFORMANCE <op> 0.7 -> IF AI_CORE_PERFORMANCE < 0.7 THEN AdjustSystemMemory true ELSE AdjustSystemMemory false",
-      "source": "skylang",
-      "ts": "2026-05-08T18:30:58.139248"
-    },
-    {
-      "id": "0f5cbf51",
-      "lesson": "SkyLang: WATCH CPUUtilization high -> IF CPUUtilization > 0.8 -> AdjustSystemMemory true",
-      "source": "skylang",
-      "ts": "2026-05-08T18:33:04.216882"
-    },
-    {
-      "id": "41bacc97",
-      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustSystemMemory true",
-      "source": "skylang",
-      "ts": "2026-05-08T18:33:40.148837"
-    },
-    {
-      "id": "61998a4c",
-      "lesson": "Continuously assess system resource utilization to prevent potential performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T18:35:30.868300"
-    },
-    {
-      "id": "02e8fd8f",
-      "lesson": "Continuously monitor system resource allocation for AI core performance optimization.",
-      "source": "self",
-      "ts": "2026-05-08T18:37:46.542287"
-    },
-    {
-      "id": "28a2f8e0",
-      "lesson": "Continuously monitor system resource utilization to prevent potential performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T18:40:12.174599"
-    },
-    {
-      "id": "28d0ab44",
-      "lesson": "SkyLang: WATCH CPU Utilization > 80% IF High -> Adjust System Memory",
-      "source": "skylang",
-      "ts": "2026-05-08T18:48:03.872145"
-    },
-    {
-      "id": "c70a00cf",
-      "lesson": "Monitor system resources frequently to prevent performance degradation.",
-      "source": "self",
-      "ts": "2026-05-08T18:48:20.612739"
-    },
-    {
-      "id": "c11b0ac3",
-      "lesson": "SkyLang: WATCH cpu_utilization < op = -10 > 80 -> adjust_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T18:48:43.149333"
-    },
-    {
-      "id": "2c83d49a",
-      "lesson": "Continuously monitor system resource allocation to prevent performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T18:50:35.885696"
-    },
-    {
-      "id": "6f328e8b",
-      "lesson": "SkyLang: WATCH CPUUtilization > 80% -> AdjustSystemMemory",
-      "source": "skylang",
-      "ts": "2026-05-08T18:52:19.276797"
-    },
-    {
-      "id": "872dfa69",
-      "lesson": "Continuously monitor system resource utilization to prevent performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T18:52:27.043773"
-    },
-    {
-      "id": "ceef9d4f",
-      "lesson": "SkyLang: WATCH CPU_utilization > 80% -> Adjust_system_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T18:52:49.410590"
-    },
-    {
-      "id": "3d881806",
-      "lesson": "Monitoring system resource utilization is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T18:56:59.597235"
-    },
-    {
-      "id": "2bd6abfd",
-      "lesson": "Revisit SkyLang WATCH statements for proper implementation.",
-      "source": "self",
-      "ts": "2026-05-08T18:57:48.766964"
-    },
-    {
-      "id": "7ad2db56",
-      "lesson": "Continuously monitoring system resource utilization is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T19:08:40.663035"
-    },
-    {
-      "id": "cf39f5fb",
-      "lesson": "SkyLang: WATCH system_memory_threshold 1 -> Adjust_system_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T19:13:05.172336"
-    },
-    {
-      "id": "53e5d10b",
-      "lesson": "SkyLang: WATCH system_memory Utilization 90% -> Adjust_system_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T19:13:36.600272"
-    },
-    {
-      "id": "ec5adf44",
-      "lesson": "SkyLang: WATCH system_memory_usage op near 90% -> adjust_system_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T19:14:12.083345"
-    },
-    {
-      "id": "78af6962",
-      "lesson": "SkyLang: WATCH system_memory_threshold <= 80% -> Adjust_system_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T19:14:51.273780"
-    },
-    {
-      "id": "967106ef",
-      "lesson": "SkyLang: WATCH system_memory_threshold <op> (system_memory - acceptable_threshold) -> Adjust_system_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T19:15:31.198184"
-    },
-    {
-      "id": "3d5d7857",
-      "lesson": "Regularly monitoring system resources is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T19:16:38.559652"
-    },
-    {
-      "id": "7abbff47",
-      "lesson": "Understanding system resource utilization thresholds",
-      "source": "self",
-      "ts": "2026-05-08T19:17:05.848643"
-    },
-    {
-      "id": "254ea163",
-      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80 -> log \"CPU usage is high, consider scaling\"",
-      "source": "skylang",
-      "ts": "2026-05-08T19:19:54.486021"
-    },
-    {
-      "id": "83e82d36",
-      "lesson": "Understanding system resource utilization thresholds is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T19:20:14.674508"
-    },
-    {
-      "id": "cc91f47b",
-      "lesson": "SkyLang: WATCH cpu.utilization('llama-server') > 80 -> alert 'High CPU usage by llama-server process', escalate to sysadmin",
-      "source": "skylang",
-      "ts": "2026-05-08T19:21:00.257769"
-    },
-    {
       "id": "4fcbad0b",
       "lesson": "SkyLang: WATCH 'llama-server' CPU_usage > 80 -> alert administrator and kill process",
       "source": "skylang",
@@ -1800,6 +1644,162 @@
       "lesson": "Reviewing system resource limits and adjusting them as needed can significantly improve system performance and stability.",
       "source": "self",
       "ts": "2026-05-09T13:26:33.043521"
+    },
+    {
+      "id": "0648498d",
+      "lesson": "SkyLang: WATCH CPU Usage > 80% -> OptimizeSystemResources",
+      "source": "skylang",
+      "ts": "2026-05-09T13:30:23.629805"
+    },
+    {
+      "id": "99781e2a",
+      "lesson": "The importance of regular monitoring and optimization in Linux environments.",
+      "source": "self",
+      "ts": "2026-05-09T13:30:42.896711"
+    },
+    {
+      "id": "f2dd61fc",
+      "lesson": "SkyLang: WATCH cpu_usage <>= 90 -> MONITOR and OPTIMIZE cpu_affinity and increase_num_cores",
+      "source": "skylang",
+      "ts": "2026-05-09T13:31:06.153827"
+    },
+    {
+      "id": "73037456",
+      "lesson": "SkyLang: WATCH resource_usage <desc> > 80 -> OptimizeSystemResources",
+      "source": "skylang",
+      "ts": "2026-05-09T13:33:27.103629"
+    },
+    {
+      "id": "66fc2366",
+      "lesson": "Regular monitoring and optimization are crucial for maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T13:34:00.763772"
+    },
+    {
+      "id": "b35126d8",
+      "lesson": "SkyLang: WATCH resource_usage -> optimize_system_resources if resource_usage > 80",
+      "source": "skylang",
+      "ts": "2026-05-09T13:34:24.273607"
+    },
+    {
+      "id": "f5f97276",
+      "lesson": "SkyLang: WATCH resource_usage <monitor> -> log and optimize resource_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T13:36:42.828633"
+    },
+    {
+      "id": "25c295f8",
+      "lesson": "The importance of proactive system monitoring",
+      "source": "self",
+      "ts": "2026-05-09T13:37:08.971739"
+    },
+    {
+      "id": "602e83a9",
+      "lesson": "SkyLang: WATCH resource_usage monitor -> optimize_if_critical",
+      "source": "skylang",
+      "ts": "2026-05-09T13:37:37.508629"
+    },
+    {
+      "id": "a0b6b300",
+      "lesson": "SkyLang: WATCH resource_usage_over_time <op> average -> optimalization_task",
+      "source": "skylang",
+      "ts": "2026-05-09T13:40:05.774457"
+    },
+    {
+      "id": "135891a1",
+      "lesson": "The importance of proactive system monitoring to prevent potential issues.",
+      "source": "self",
+      "ts": "2026-05-09T13:40:27.356377"
+    },
+    {
+      "id": "607e54a0",
+      "lesson": "SkyLang: WATCH disk_usage <op> >= 80% -> EVERY 1h run disk_cleanup.sh",
+      "source": "skylang",
+      "ts": "2026-05-09T13:41:54.908919"
+    },
+    {
+      "id": "0d13f32a",
+      "lesson": "The importance of regular disk cleanup for maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T13:42:14.729609"
+    },
+    {
+      "id": "e9ec8f53",
+      "lesson": "SkyLang: WATCH disk_usage <op> >= 80% -> IF disk_usage > 90% THEN run_disk_cleanup",
+      "source": "skylang",
+      "ts": "2026-05-09T13:42:39.713288"
+    },
+    {
+      "id": "544da09a",
+      "lesson": "SkyLang: WATCH disk_usage <op> > 80 -> EVERY 30m IF disk_usage > 90 THEN disk_cleanup",
+      "source": "skylang",
+      "ts": "2026-05-09T13:43:34.473820"
+    },
+    {
+      "id": "44bb616d",
+      "lesson": "SkyLang: WATCH disk_usage  > 90% -> EVERY 1h RUN /path/to/disk_cleanup.sh",
+      "source": "skylang",
+      "ts": "2026-05-09T13:44:36.091225"
+    },
+    {
+      "id": "1a2b353e",
+      "lesson": "The importance of proactive system monitoring and regular disk cleanup for maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T13:45:03.723064"
+    },
+    {
+      "id": "3b4948df",
+      "lesson": "SkyLang: WATCH disk_usage > 0.9 -> EVERY 1h -> RUN /path/to/disk_cleanup.sh",
+      "source": "skylang",
+      "ts": "2026-05-09T13:45:28.378864"
+    },
+    {
+      "id": "a009e1c0",
+      "lesson": "SkyLang: WATCH disk_usage_threshold {0..80} -> IF disk_usage > 80 THEN adjust_threshold\nEVERY 15m -> WATCH disk_usage_threshold {0..80}",
+      "source": "skylang",
+      "ts": "2026-05-09T13:50:17.103302"
+    },
+    {
+      "id": "137d8754",
+      "lesson": "Proactive disk cleanup can significantly improve system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T13:50:41.320279"
+    },
+    {
+      "id": "f405b835",
+      "lesson": "SkyLang: WATCH disk_usage_threshold { EVERY 1M -> IF disk_usage_threshold > 80% then alert_operator }",
+      "source": "skylang",
+      "ts": "2026-05-09T13:51:07.593677"
+    },
+    {
+      "id": "84dcbdeb",
+      "lesson": "SkyLang: WATCH disk_usage_threshold <SET> 30 -> SET disk_usage_threshold 30",
+      "source": "skylang",
+      "ts": "2026-05-09T13:53:33.946030"
+    },
+    {
+      "id": "642e269b",
+      "lesson": "Regular disk cleanup can help prevent system crashes",
+      "source": "self",
+      "ts": "2026-05-09T13:53:51.695960"
+    },
+    {
+      "id": "bdf8dec1",
+      "lesson": "SkyLang: WATCH disk_usage > 30% -> SET disk_usage_threshold 30%",
+      "source": "skylang",
+      "ts": "2026-05-09T13:54:14.560885"
+    },
+    {
+      "id": "7d0f3747",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> SET threshold 80%",
+      "source": "skylang",
+      "ts": "2026-05-09T13:58:58.545767"
+    },
+    {
+      "id": "061585db",
+      "lesson": "SkyLang: WATCH disk_usage 80% -> SET disk_usage_threshold 80%",
+      "source": "skylang",
+      "ts": "2026-05-09T13:59:39.842283"
     }
   ],
   "web_cache": {}
