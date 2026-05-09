@@ -2,60 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "88538440",
-      "lesson": "The importance of regular disk cleanup for maintaining system stability",
-      "source": "self",
-      "ts": "2026-05-08T16:32:43.246900"
-    },
-    {
-      "id": "8a08e50a",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> disk_clean",
-      "source": "skylang",
-      "ts": "2026-05-08T16:33:05.745164"
-    },
-    {
-      "id": "d7abee7b",
-      "lesson": "Regular disk checks are unnecessary, and frequent disk checks are not necessary",
-      "source": "self",
-      "ts": "2026-05-08T16:35:07.958755"
-    },
-    {
-      "id": "0b72feff",
-      "lesson": "The importance of regular disk cleanup for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T16:44:03.802360"
-    },
-    {
-      "id": "26a6ca6d",
-      "lesson": "SkyLang: WATCH resource_usage OVER 80 -> CHECK_RESOURCE_HEALTH",
-      "source": "skylang",
-      "ts": "2026-05-08T16:48:58.809975"
-    },
-    {
-      "id": "2b4617cb",
-      "lesson": "Regular disk checks are unnecessary and can lead to unnecessary disk checks",
-      "source": "self",
-      "ts": "2026-05-08T16:49:14.621657"
-    },
-    {
-      "id": "d5247a0b",
-      "lesson": "SkyLang: WATCH CPU usage 1 -> send alert to administrator",
-      "source": "skylang",
-      "ts": "2026-05-08T16:49:36.862322"
-    },
-    {
-      "id": "b6960ed1",
-      "lesson": "Frequent disk checks are unnecessary and do not contribute to system stability.",
-      "source": "self",
-      "ts": "2026-05-08T16:51:39.748284"
-    },
-    {
-      "id": "6fde82e6",
-      "lesson": "Regularly reviewing and updating system resources and monitoring for potential issues can help maintain system stability.",
-      "source": "self",
-      "ts": "2026-05-08T16:56:13.191715"
-    },
-    {
       "id": "985821ca",
       "lesson": "Review the importance of system monitoring in maintaining stability.",
       "source": "self",
@@ -1800,6 +1746,60 @@
       "lesson": "SkyLang: WATCH disk.utilization 32.2% AND disk.utilization < 10% -> performMaintenance",
       "source": "skylang",
       "ts": "2026-05-09T12:12:49.476585"
+    },
+    {
+      "id": "2c3c6be7",
+      "lesson": "SkyLang: WATCH disk_utilization 32.2% < AND > disk_space_utilization 10% -> PERFORM maintenance_tasks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:13:38.583932"
+    },
+    {
+      "id": "601c0e55",
+      "lesson": "SkyLang: WATCH disk_utilization <= 32.2 AND disk_space_utilization <= 10% -> PERFORM maintenance_tasks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:18:11.416696"
+    },
+    {
+      "id": "f6d6d605",
+      "lesson": "The importance of monitoring disk space utilization to prevent potential issues.",
+      "source": "self",
+      "ts": "2026-05-09T12:18:29.794974"
+    },
+    {
+      "id": "e938097a",
+      "lesson": "SkyLang: WATCH disk_utilization > 32.2 AND disk_space_utilization < 10% -> PERFORM maintenance_tasks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:18:53.280343"
+    },
+    {
+      "id": "49b920e3",
+      "lesson": "SkyLang: WATCH disk_space_utilization <0> -> alert and trigger disk space maintenance",
+      "source": "skylang",
+      "ts": "2026-05-09T12:23:42.562227"
+    },
+    {
+      "id": "67807e62",
+      "lesson": "Understanding the importance of disk space utilization in media server stacks.",
+      "source": "self",
+      "ts": "2026-05-09T12:24:10.279668"
+    },
+    {
+      "id": "55ef2c78",
+      "lesson": "SkyLang: WATCH disk_space_utilization_threshold <op> 80% -> alert_operator alert_disk_space_threshold",
+      "source": "skylang",
+      "ts": "2026-05-09T12:24:34.470968"
+    },
+    {
+      "id": "b09cea88",
+      "lesson": "SkyLang: WATCH disk_space_utilization > 32.2 -> perform_maintenance_tasks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:27:02.761671"
+    },
+    {
+      "id": "d50d6e59",
+      "lesson": "Understanding the importance of proactive disk space utilization monitoring in media server stacks.",
+      "source": "self",
+      "ts": "2026-05-09T12:27:39.710941"
     }
   ],
   "web_cache": {}
