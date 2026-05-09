@@ -1,8 +1,8 @@
 {
   "system": {
-    "cpu_percent": 0.5,
-    "memory_percent": 13.2,
-    "memory_used_gb": 8.86,
+    "cpu_percent": 0.4,
+    "memory_percent": 15.3,
+    "memory_used_gb": 10.25,
     "memory_total_gb": 67.07,
     "disk_percent": 10.6,
     "disk_used_gb": 48.81,
@@ -11,7 +11,7 @@
       "acpitz": [
         {
           "label": "",
-          "current": 56.0
+          "current": 54.0
         },
         {
           "label": "",
@@ -23,7 +23,7 @@
         },
         {
           "label": "",
-          "current": 52.0
+          "current": 53.0
         },
         {
           "label": "",
@@ -31,19 +31,19 @@
         },
         {
           "label": "",
-          "current": 34.0
+          "current": 36.0
         },
         {
           "label": "",
-          "current": 40.0
+          "current": 41.0
         },
         {
           "label": "",
-          "current": 35.0
+          "current": 38.0
         },
         {
           "label": "",
-          "current": 43.0
+          "current": 45.0
         },
         {
           "label": "",
@@ -53,27 +53,27 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 36.85
+          "current": 38.85
         },
         {
           "label": "Sensor 1",
-          "current": 36.85
+          "current": 38.85
         },
         {
           "label": "Sensor 2",
-          "current": 36.85
+          "current": 38.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 36.0
+          "current": 38.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 54.0
+          "current": 52.0
         },
         {
           "label": "Core 0",
@@ -85,7 +85,7 @@
         },
         {
           "label": "Core 2",
-          "current": 50.0
+          "current": 48.0
         },
         {
           "label": "Core 3",
@@ -101,68 +101,68 @@
         },
         {
           "label": "Core 6",
-          "current": 49.0
+          "current": 50.0
         },
         {
           "label": "Core 7",
-          "current": 45.0
+          "current": 46.0
         }
       ]
     },
     "top_processes": [
       {
-        "memory_percent": 10.401925845565195,
-        "pid": 789,
-        "name": "llama-server",
-        "cpu_percent": 341.2
+        "memory_percent": 0.21305320027452754,
+        "pid": 1746,
+        "name": "chromium",
+        "cpu_percent": 0.9
       },
       {
-        "memory_percent": 0.14101354108636246,
+        "memory_percent": 0.17733872698422665,
+        "pid": 1701,
+        "name": "chromium",
+        "cpu_percent": 0.6
+      },
+      {
+        "memory_percent": 0.07551461392520017,
+        "pid": 968,
+        "name": "cloudflared",
+        "cpu_percent": 0.5
+      },
+      {
+        "memory_percent": 0.12112873858410189,
         "pid": 1643,
         "name": "Xorg",
         "cpu_percent": 0.5
       },
       {
-        "memory_percent": 0.17572033857418393,
-        "pid": 1701,
+        "memory_percent": 0.3638686787122807,
+        "pid": 1662,
         "name": "chromium",
         "cpu_percent": 0.5
-      },
-      {
-        "memory_percent": 0.06325761189140504,
-        "pid": 968,
-        "name": "cloudflared",
-        "cpu_percent": 0.4
-      },
-      {
-        "memory_percent": 0.2106469926007282,
-        "pid": 1746,
-        "name": "chromium",
-        "cpu_percent": 0.4
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T19:29:18.090759"
+    "timestamp": "2026-05-08T19:59:56.210246"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resource utilization is within acceptable thresholds.",
+    "observation": "System resources are within acceptable ranges, but CPU usage by 'llama-server' is high, indicating potential performance degradation.",
     "action": "none",
-    "reason": "No issues detected",
-    "optimization_tip": "Monitor system resources regularly to ensure optimal performance",
-    "should_search_web": false,
-    "web_query": null,
+    "reason": "to prevent potential performance issues",
+    "optimization_tip": "Monitor CPU usage regularly and adjust workload as needed to maintain optimal performance.",
+    "should_search_web": true,
+    "web_query": "http://api.example.com/disk_usage",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": true,
-    "evolve_reason": "To improve media library intelligence",
-    "should_write_skylang": true,
-    "skylang_situation": "System is stable, but could benefit from improved media library intelligence",
-    "skylang_behavior": "Continue to learn and improve media library intelligence",
-    "new_lesson": "Understanding system resource utilization thresholds is crucial for optimal performance",
-    "skylang_rule": "WATCH media_library_intelligence EVERY 30m -> train_model"
+    "should_evolve": false,
+    "evolve_reason": "to improve media library intelligence and system stability monitoring",
+    "should_write_skylang": false,
+    "skylang_situation": null,
+    "skylang_behavior": null,
+    "new_lesson": "Regularly review and adjust workload on resource-intensive containers to maintain optimal performance.",
+    "action_result": "blocked"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-08T19:29:42.077285"
+  "updated": "2026-05-08T19:59:56.482260"
 }
