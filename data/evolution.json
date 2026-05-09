@@ -1,5 +1,5 @@
 {
-  "generation": 94,
+  "generation": 95,
   "mutations": [
     {
       "gen": 1,
@@ -658,6 +658,13 @@
       "desc": "Adding a more efficient way to monitor disk usage to avoid frequent disk checks",
       "benefit": "Reduced disk check frequency, improved system stability",
       "ts": "2026-05-08T16:32:43.246105"
+    },
+    {
+      "gen": 95,
+      "type": "python",
+      "desc": "Adding a try-except block to the `get_system_resources()` function to handle potential exceptions and provide more informative error messages.",
+      "benefit": "Improved system resource monitoring with more informative error messages",
+      "ts": "2026-05-08T17:05:45.225620"
     }
   ],
   "benchmarks": {}
