@@ -2,90 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "b74a7a2b",
-      "lesson": "Evolved Gen 41: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
-      "source": "evolution",
-      "ts": "2026-05-08T08:54:13.110620"
-    },
-    {
-      "id": "72c6a033",
-      "lesson": "SkyLang: WATCH 'llama-server' CPU > 80% -> REFRACTOR CPU ALLOCATION",
-      "source": "skylang",
-      "ts": "2026-05-08T08:54:54.537359"
-    },
-    {
-      "id": "67639929",
-      "lesson": "Efficient resource allocation is crucial for optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-08T08:55:09.139234"
-    },
-    {
-      "id": "bbcdd224",
-      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' > 80% -> IF cpu_usage > 80% THEN refactor_code_to_improve_resource_allocation",
-      "source": "skylang",
-      "ts": "2026-05-08T08:55:32.676621"
-    },
-    {
-      "id": "43ba2292",
-      "lesson": "SkyLang: `WATCH <metric> <op> <value> -> <action>; EVERY <interval> -> <action>; IF <condition> -> <action>;`",
-      "source": "skylang",
-      "ts": "2026-05-08T08:57:40.739703"
-    },
-    {
-      "id": "541941e6",
-      "lesson": "Evolved Gen 42: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
-      "source": "evolution",
-      "ts": "2026-05-08T08:57:52.643808"
-    },
-    {
-      "id": "520bad25",
-      "lesson": "Efficient resource allocation is key to optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-08T08:57:52.644410"
-    },
-    {
-      "id": "d8dcb53e",
-      "lesson": "SkyLang: WATCH <metric> <op> <value> -> <action>:\n  1. If <action> is an assignment, check if the variable is initialized before assignment.\n  2. If <action> is a method call, check if the method is defined and has the correct signature.\n  3. If <action> is a function call, check if the function is defined and has the correct signature.\n  4. If <action> is an object creation, check if the object has the required properties and methods.\n  5. If <action> is an array creation, check if the array has the required elements.\n  6. If <action> is a conditional statement, check if the condition is a boolean expression.\n  7. If <action> is an iterative statement, check if the loop condition is a boolean expression.\n  8. If <action> is a method call or function call, check if the return type matches the expected type.\n  9. If <action> is an assignment, check if the variable is assigned a value that matches the expected type.\n  10. If <action> is an object creation, check if the object has the required properties and methods with the correct types.\n  11. If <action> is an array creation, check if the array has the required elements with the correct types.\n  12. If <action> is a conditional statement, check if the condition is a boolean expression and is not a loop condition.\n  13. If <action> is an iterative statement, check if the loop condition is a boolean expression and is not a conditional statement.\n  14. If <action> is a method call or function call, check if the return type matches the expected type and is not null.\n  15. If <action> is an assignment, check if the variable is assigned a value that matches the expected type and is not null.\n  16. If <action> is an object creation, check if the object has the required properties and methods with the correct types and is not null.\n  17. If <action> is an array creation, check if the array has the required elements with the correct types and is not null.\n  18. If <action> is a conditional statement, check if the condition is a boolean expression and is not null.\n  19. If <action> is an iterative statement, check if the loop condition is a boolean expression and is not null.\n  20. If <action> is a method call or function call, check if the return type matches the expected type and is not null.\n\nHowever, a simplified version of this rule could be:\n\nWATCH <metric> <op> <value> -> <action>:\n  1. Check that <action> is a valid expression and is not null.\n  2. Check that the return type of <action> matches the expected type.\n  3. Check that the variable or object being assigned to has the required properties and methods.",
-      "source": "skylang",
-      "ts": "2026-05-08T08:58:53.774030"
-    },
-    {
-      "id": "1e936bf8",
-      "lesson": "Evolved Gen 43: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
-      "source": "evolution",
-      "ts": "2026-05-08T08:59:11.440848"
-    },
-    {
-      "id": "4df26ce4",
-      "lesson": "SkyLang: ```sky\nWATCH <metric> <op> <value> -> <action>\nEVERY <interval> -> <action>\nIF <condition> -> <action>\n```",
-      "source": "skylang",
-      "ts": "2026-05-08T09:00:59.204529"
-    },
-    {
-      "id": "a8644813",
-      "lesson": "Evolved Gen 44: Implement a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
-      "source": "evolution",
-      "ts": "2026-05-08T09:01:19.078827"
-    },
-    {
-      "id": "7d32f394",
-      "lesson": "introduce SkyLang conditional statements",
-      "source": "self",
-      "ts": "2026-05-08T09:01:19.079444"
-    },
-    {
-      "id": "f3ffb309",
-      "lesson": "SkyLang: WATCH <metric> <op> <value> -> <action>, \nEACH WATCH <metric> <op> <value> -> <action> \nEACH EVERY <interval> -> <action> \nEACH IF <condition> -> <action>",
-      "source": "skylang",
-      "ts": "2026-05-08T09:01:43.865416"
-    },
-    {
-      "id": "646cc069",
-      "lesson": "Evolved Gen 45: Introduce a caching mechanism for the `format_parentheses` function to reduce the overhead of repeat",
-      "source": "evolution",
-      "ts": "2026-05-08T09:01:54.981189"
-    },
-    {
       "id": "442e0fd1",
       "lesson": "SkyLang: WATCH idle -> default",
       "source": "skylang",
@@ -1800,6 +1716,90 @@
       "lesson": "Regular disk checks are unnecessary and can lead to unnecessary disk checks",
       "source": "self",
       "ts": "2026-05-08T16:49:14.621657"
+    },
+    {
+      "id": "d5247a0b",
+      "lesson": "SkyLang: WATCH CPU usage 1 -> send alert to administrator",
+      "source": "skylang",
+      "ts": "2026-05-08T16:49:36.862322"
+    },
+    {
+      "id": "b6960ed1",
+      "lesson": "Frequent disk checks are unnecessary and do not contribute to system stability.",
+      "source": "self",
+      "ts": "2026-05-08T16:51:39.748284"
+    },
+    {
+      "id": "6fde82e6",
+      "lesson": "Regularly reviewing and updating system resources and monitoring for potential issues can help maintain system stability.",
+      "source": "self",
+      "ts": "2026-05-08T16:56:13.191715"
+    },
+    {
+      "id": "985821ca",
+      "lesson": "Review the importance of system monitoring in maintaining stability.",
+      "source": "self",
+      "ts": "2026-05-08T17:02:58.261848"
+    },
+    {
+      "id": "3188e538",
+      "lesson": "SkyLang: WATCH resource_usage <op> <= 80% -> send_email alert",
+      "source": "skylang",
+      "ts": "2026-05-08T17:05:02.219912"
+    },
+    {
+      "id": "c83fa77d",
+      "lesson": "Regular monitoring of system resources can help prevent issues.",
+      "source": "self",
+      "ts": "2026-05-08T17:05:15.022542"
+    },
+    {
+      "id": "f35db994",
+      "lesson": "SkyLang: WATCH CPU Utilization <op> >= 80 -> alert administrator",
+      "source": "skylang",
+      "ts": "2026-05-08T17:05:37.449339"
+    },
+    {
+      "id": "4a674809",
+      "lesson": "Evolved Gen 95: Adding a try-except block to the `get_system_resources()` function to handle potential exceptions an",
+      "source": "evolution",
+      "ts": "2026-05-08T17:05:45.225741"
+    },
+    {
+      "id": "6c42ac87",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> send_email_alert",
+      "source": "skylang",
+      "ts": "2026-05-08T17:07:27.812139"
+    },
+    {
+      "id": "d7a23f11",
+      "lesson": "The importance of exception handling in system resource gathering.",
+      "source": "self",
+      "ts": "2026-05-08T17:07:41.645118"
+    },
+    {
+      "id": "f207dca6",
+      "lesson": "SkyLang: WATCH resource_usage > 0.8 -> send_email",
+      "source": "skylang",
+      "ts": "2026-05-08T17:08:03.946737"
+    },
+    {
+      "id": "020cf259",
+      "lesson": "The importance of continuous system monitoring and resource optimization.",
+      "source": "self",
+      "ts": "2026-05-08T17:10:05.626343"
+    },
+    {
+      "id": "f953edff",
+      "lesson": "The importance of continuous system monitoring",
+      "source": "self",
+      "ts": "2026-05-08T17:12:14.852511"
+    },
+    {
+      "id": "85f4a08e",
+      "lesson": "Continuous system monitoring is crucial for efficient resource utilization.",
+      "source": "self",
+      "ts": "2026-05-08T17:18:49.455831"
     }
   ],
   "web_cache": {}
