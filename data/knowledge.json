@@ -2,72 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "197d9c9d",
-      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80% -> optimize_resources",
-      "source": "skylang",
-      "ts": "2026-05-08T14:00:50.917975"
-    },
-    {
-      "id": "d8bc68fd",
-      "lesson": "Regularly review and optimize system resource usage to prevent potential performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T14:01:02.804437"
-    },
-    {
-      "id": "098e5cec",
-      "lesson": "SkyLang: WATCH resource_usage_critical_threshold <op> 0.9 -> REVIEW AND OPTIMIZE SYSTEM RESOURCE USAGE EVERY 30 MINUTES",
-      "source": "skylang",
-      "ts": "2026-05-08T14:01:26.186378"
-    },
-    {
-      "id": "fa140284",
-      "lesson": "SkyLang: WATCH memory_usage OVER 100 -> optimize_for_performance",
-      "source": "skylang",
-      "ts": "2026-05-08T14:03:24.578103"
-    },
-    {
-      "id": "581a28b9",
-      "lesson": "Review SkyLang performance optimization techniques to improve code efficiency.",
-      "source": "self",
-      "ts": "2026-05-08T14:03:39.109251"
-    },
-    {
-      "id": "115f0d4e",
-      "lesson": "SkyLang: WATCH execution_time <op> <value> -> optimize_for_performance",
-      "source": "skylang",
-      "ts": "2026-05-08T14:04:01.524999"
-    },
-    {
-      "id": "9b3a9f1f",
-      "lesson": "Monitor system resource usage to prevent potential performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T14:08:21.045389"
-    },
-    {
-      "id": "34fdeaa2",
-      "lesson": "System resource usage monitoring is an ongoing process.",
-      "source": "self",
-      "ts": "2026-05-08T14:12:50.680694"
-    },
-    {
-      "id": "123d762b",
-      "lesson": "Evolved Gen 79: Introduce a custom exception handling mechanism to catch and log parse errors in a more efficient ma",
-      "source": "evolution",
-      "ts": "2026-05-08T14:15:01.020092"
-    },
-    {
-      "id": "c43a3f0c",
-      "lesson": "The importance of exception handling in efficient code development.",
-      "source": "self",
-      "ts": "2026-05-08T14:17:10.311279"
-    },
-    {
-      "id": "37a6259c",
-      "lesson": "null",
-      "source": "self",
-      "ts": "2026-05-08T14:19:38.179913"
-    },
-    {
       "id": "3e91c77a",
       "lesson": "Evolved Gen 80: Introduce a custom exception handling mechanism to catch and log parse errors in a more efficient wa",
       "source": "evolution",
@@ -1800,6 +1734,72 @@
       "lesson": "SkyLang: WATCH CPU utilization INCREASE 80% -> GENERATE LESSON ON OPTIMIZATION",
       "source": "skylang",
       "ts": "2026-05-08T21:46:03.091118"
+    },
+    {
+      "id": "ba906967",
+      "lesson": "SkyLang: WATCH resource_usage.utilization  >  90 -> alert_system_resource_issues",
+      "source": "skylang",
+      "ts": "2026-05-08T21:48:20.177611"
+    },
+    {
+      "id": "a1f3406c",
+      "lesson": "Regularly review system resource utilization to optimize performance.",
+      "source": "self",
+      "ts": "2026-05-08T21:48:37.750360"
+    },
+    {
+      "id": "1a9e81b5",
+      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> alert admin",
+      "source": "skylang",
+      "ts": "2026-05-08T21:49:00.314068"
+    },
+    {
+      "id": "34d58353",
+      "lesson": "SkyLang: WATCH resource_utilization STABLE -> alert_low_utilization and send_email alert_high_utilization",
+      "source": "skylang",
+      "ts": "2026-05-08T21:51:05.893731"
+    },
+    {
+      "id": "632ce394",
+      "lesson": "Regularly review Docker performance to prevent resource issues",
+      "source": "self",
+      "ts": "2026-05-08T21:51:27.148497"
+    },
+    {
+      "id": "15860c01",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80% -> alert manager",
+      "source": "skylang",
+      "ts": "2026-05-08T21:51:49.799112"
+    },
+    {
+      "id": "79d722b9",
+      "lesson": "Reviewing system resource utilization is crucial for maintaining stability.",
+      "source": "self",
+      "ts": "2026-05-08T21:54:13.682571"
+    },
+    {
+      "id": "553f32a7",
+      "lesson": "Monitor CPU utilization regularly to prevent potential issues.",
+      "source": "self",
+      "ts": "2026-05-08T21:56:58.576807"
+    },
+    {
+      "id": "ba9b203a",
+      "lesson": "Understanding the importance of regular resource monitoring and optimization is crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-08T21:59:47.072082"
+    },
+    {
+      "id": "c8f12cb7",
+      "lesson": "SkyLang: WATCH cpu_usage < 80% -> CONTINUE Monitoring",
+      "source": "skylang",
+      "ts": "2026-05-08T22:06:19.909947"
+    },
+    {
+      "id": "283fe952",
+      "lesson": "Monitoring system resource utilization is crucial for maintaining stability.",
+      "source": "self",
+      "ts": "2026-05-08T22:06:42.861112"
     }
   ],
   "web_cache": {}
