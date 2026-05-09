@@ -2,90 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "442e0fd1",
-      "lesson": "SkyLang: WATCH idle -> default",
-      "source": "skylang",
-      "ts": "2026-05-08T09:05:47.456810"
-    },
-    {
-      "id": "21e1cb53",
-      "lesson": "Evolve code for better performance",
-      "source": "self",
-      "ts": "2026-05-08T09:06:02.260742"
-    },
-    {
-      "id": "bc9f21ae",
-      "lesson": "SkyLang: WATCH Idle -> Default",
-      "source": "skylang",
-      "ts": "2026-05-08T09:06:24.138697"
-    },
-    {
-      "id": "34d82bfb",
-      "lesson": "SkyLang: WATCH idle_system_critical_issues none ->",
-      "source": "skylang",
-      "ts": "2026-05-08T09:08:15.422434"
-    },
-    {
-      "id": "09d99124",
-      "lesson": "Regular system monitoring is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T09:08:25.553026"
-    },
-    {
-      "id": "9bd19430",
-      "lesson": "SkyLang: WATCH idle_system.state \"OK\" -> no_action",
-      "source": "skylang",
-      "ts": "2026-05-08T09:08:47.785737"
-    },
-    {
-      "id": "9b274b61",
-      "lesson": "SkyLang: WATCH idle_system DEFAULT -> reset",
-      "source": "skylang",
-      "ts": "2026-05-08T09:12:54.333225"
-    },
-    {
-      "id": "23125d61",
-      "lesson": "SkyLang: WATCH idle_system -> DEFAULT",
-      "source": "skylang",
-      "ts": "2026-05-08T09:13:26.833757"
-    },
-    {
-      "id": "33e91c44",
-      "lesson": "The importance of monitoring system resources",
-      "source": "self",
-      "ts": "2026-05-08T09:20:06.958406"
-    },
-    {
-      "id": "f50ecf5f",
-      "lesson": "SkyLang: WATCH idle_system default -> default_action",
-      "source": "skylang",
-      "ts": "2026-05-08T09:22:07.930986"
-    },
-    {
-      "id": "c05d17a7",
-      "lesson": "Monitoring system resources is crucial for proactive maintenance.",
-      "source": "self",
-      "ts": "2026-05-08T09:24:40.045301"
-    },
-    {
-      "id": "7ce3c07b",
-      "lesson": "SkyLang: WATCH \"idle_system\" RESET -> RESTART",
-      "source": "skylang",
-      "ts": "2026-05-08T09:26:43.705108"
-    },
-    {
-      "id": "42e4dac5",
-      "lesson": "The importance of proactive resource monitoring",
-      "source": "self",
-      "ts": "2026-05-08T09:26:55.741050"
-    },
-    {
-      "id": "56a79435",
-      "lesson": "SkyLang: WATCH idleness 0 -> reset_idle_system",
-      "source": "skylang",
-      "ts": "2026-05-08T09:27:17.916023"
-    },
-    {
       "id": "f58f45e9",
       "lesson": "SkyLang: WATCH idle_system_reset_interval <op> <value> -> reset system",
       "source": "skylang",
@@ -1800,6 +1716,90 @@
       "lesson": "Continuous system monitoring is crucial for efficient resource utilization.",
       "source": "self",
       "ts": "2026-05-08T17:18:49.455831"
+    },
+    {
+      "id": "b522916b",
+      "lesson": "Continuously monitoring system resources is crucial for efficient performance.",
+      "source": "self",
+      "ts": "2026-05-08T17:27:45.308140"
+    },
+    {
+      "id": "52454d18",
+      "lesson": "SkyLang: WATCH utilization <resource> > 0.8 -> send notification",
+      "source": "skylang",
+      "ts": "2026-05-08T17:29:49.384633"
+    },
+    {
+      "id": "cb797b82",
+      "lesson": "Continuous system monitoring is crucial for efficient performance.",
+      "source": "self",
+      "ts": "2026-05-08T17:30:01.116734"
+    },
+    {
+      "id": "3feefe90",
+      "lesson": "SkyLang: WATCH utilization_system_resource  >  0.8 -> send_notification",
+      "source": "skylang",
+      "ts": "2026-05-08T17:30:23.883413"
+    },
+    {
+      "id": "6e40a66e",
+      "lesson": "SkyLang: WATCH utilization_rate EVERY 1M -> IF utilization_rate < 80 THEN adjust_utilization",
+      "source": "skylang",
+      "ts": "2026-05-08T17:32:23.420327"
+    },
+    {
+      "id": "df667263",
+      "lesson": "SkyLang: WATCH \"resource_utilization\" IF \"stability_threshold\" <  0.9 -> adjust_resource_utilization()",
+      "source": "skylang",
+      "ts": "2026-05-08T17:32:57.261061"
+    },
+    {
+      "id": "7bb70d9a",
+      "lesson": "Continuous system monitoring is essential for maintaining optimal performance",
+      "source": "self",
+      "ts": "2026-05-08T17:34:56.033342"
+    },
+    {
+      "id": "9fc9cda9",
+      "lesson": "Regularly review SkyLang rules for efficient system monitoring.",
+      "source": "self",
+      "ts": "2026-05-08T17:39:18.235045"
+    },
+    {
+      "id": "c07daf50",
+      "lesson": "Review SkyLang rules for efficient system monitoring",
+      "source": "self",
+      "ts": "2026-05-08T17:41:37.754214"
+    },
+    {
+      "id": "30a45b88",
+      "lesson": "Continuous system monitoring is key to maintaining optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-08T17:43:48.606496"
+    },
+    {
+      "id": "3becc0cf",
+      "lesson": "Evolved Gen 96: Add a caching mechanism to optimize performance-critical function calls",
+      "source": "evolution",
+      "ts": "2026-05-08T17:44:58.102109"
+    },
+    {
+      "id": "1fca879a",
+      "lesson": "SkyLang: WATCH CPU Utilization <op> > 80 -> RESIZE CPU Cores 2",
+      "source": "skylang",
+      "ts": "2026-05-08T17:46:45.885292"
+    },
+    {
+      "id": "d9023afc",
+      "lesson": "Regularly review and adjust system resource allocation to prevent high CPU usage",
+      "source": "self",
+      "ts": "2026-05-08T17:46:56.070098"
+    },
+    {
+      "id": "42fb0354",
+      "lesson": "SkyLang: WATCH cpu_utility  <  50% -> adjust_cpu_allocation\n\nOR\n\nEVERY 60 -> { monitor_cpu_utility; if cpu_utility > 80% { adjust_cpu_allocation; } }",
+      "source": "skylang",
+      "ts": "2026-05-08T17:47:20.549645"
     }
   ],
   "web_cache": {}
