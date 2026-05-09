@@ -2,156 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "d5888e7b",
-      "lesson": "SkyLang: WATCH system_load  <  50%  ->  notify_admin",
-      "source": "skylang",
-      "ts": "2026-05-08T11:32:59.499271"
-    },
-    {
-      "id": "8dda9451",
-      "lesson": "SkyLang: WATCH system_complexity <op> 50 -> alert_admin",
-      "source": "skylang",
-      "ts": "2026-05-08T11:33:31.342782"
-    },
-    {
-      "id": "1373e0b9",
-      "lesson": "Evolved Gen 59: Adding a caching mechanism for frequently accessed system resources",
-      "source": "evolution",
-      "ts": "2026-05-08T11:35:39.099533"
-    },
-    {
-      "id": "2d5ad3da",
-      "lesson": "Regularly review system resource utilization to improve overall system performance.",
-      "source": "self",
-      "ts": "2026-05-08T11:35:39.100008"
-    },
-    {
-      "id": "a02278c1",
-      "lesson": "Monitoring system resource utilization is crucial for maintaining optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-08T11:39:57.939113"
-    },
-    {
-      "id": "faed041a",
-      "lesson": "Evolved Gen 60: Adding a Python decorator to track the execution time of critical functions",
-      "source": "evolution",
-      "ts": "2026-05-08T11:42:11.212242"
-    },
-    {
-      "id": "6b8c96fc",
-      "lesson": "Evolved Gen 61: Improving system resource utilization by adding a caching mechanism for frequently accessed Python m",
-      "source": "evolution",
-      "ts": "2026-05-08T11:44:21.509049"
-    },
-    {
-      "id": "d554351f",
-      "lesson": "Maintaining system resource utilization is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T11:46:31.531056"
-    },
-    {
-      "id": "7febdf3f",
-      "lesson": "Evolved Gen 62: Introducing a decorator to track the execution time of critical functions",
-      "source": "evolution",
-      "ts": "2026-05-08T11:53:29.840926"
-    },
-    {
-      "id": "cc6a2734",
-      "lesson": "Evolve Gen 61: Implementing caching mechanism for frequently accessed Python modules.",
-      "source": "self",
-      "ts": "2026-05-08T11:53:29.841428"
-    },
-    {
-      "id": "14c0c439",
-      "lesson": "Evolved Gen 63: Adding a try-except block to handle parsing errors and preventing system crashes.",
-      "source": "evolution",
-      "ts": "2026-05-08T11:55:40.300175"
-    },
-    {
-      "id": "6aab46e4",
-      "lesson": "Regularly monitoring system resources is crucial for maintaining optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T12:00:06.831210"
-    },
-    {
-      "id": "9fe8a15e",
-      "lesson": "Regular system monitoring and optimization are crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T12:02:21.519513"
-    },
-    {
-      "id": "203df4e0",
-      "lesson": "SkyLang: WATCH performance 0 -> OPTIMIZE",
-      "source": "skylang",
-      "ts": "2026-05-08T12:04:42.333547"
-    },
-    {
-      "id": "c8146dbf",
-      "lesson": "Regular system monitoring is crucial for optimal performance",
-      "source": "self",
-      "ts": "2026-05-08T12:04:52.389283"
-    },
-    {
-      "id": "74a38b6b",
-      "lesson": "SkyLang: WATCH cpu_usage OPTIMIZE 70 -> RESIZE_CACHED_MEMORY",
-      "source": "skylang",
-      "ts": "2026-05-08T12:05:14.808801"
-    },
-    {
-      "id": "4212b826",
-      "lesson": "Evolved Gen 64: Adding a just-in-time compiler to SkyLang for optimal performance in CPU-bound tasks",
-      "source": "evolution",
-      "ts": "2026-05-08T12:05:24.103168"
-    },
-    {
-      "id": "ca7e9b48",
-      "lesson": "Evolved Gen 65: Adding a just-in-time compiler to SkyLang for optimal performance in CPU-bound tasks",
-      "source": "evolution",
-      "ts": "2026-05-08T12:07:11.538321"
-    },
-    {
-      "id": "9300fa93",
-      "lesson": "Monitoring system resources is essential for maintaining optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T12:07:11.538856"
-    },
-    {
-      "id": "beabbe1d",
-      "lesson": "Evolved Gen 66: Optimizing CPU-bound SkyLang functions",
-      "source": "evolution",
-      "ts": "2026-05-08T12:11:37.120123"
-    },
-    {
-      "id": "61162e40",
-      "lesson": "Importance of CPU monitoring",
-      "source": "self",
-      "ts": "2026-05-08T12:11:37.120642"
-    },
-    {
-      "id": "7fea2a23",
-      "lesson": "SkyLang: WATCH performance -> Optimize",
-      "source": "skylang",
-      "ts": "2026-05-08T12:15:56.933207"
-    },
-    {
-      "id": "836b121e",
-      "lesson": "Lesson learned: Regularly monitoring system resources is essential for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T12:16:07.917693"
-    },
-    {
-      "id": "bf16c883",
-      "lesson": "SkyLang: WATCH performance 1 -> ACTION: Optimize caching and database queries",
-      "source": "skylang",
-      "ts": "2026-05-08T12:16:30.348825"
-    },
-    {
-      "id": "1efe9990",
-      "lesson": "Evolved Gen 67: Adding support for Python's `functools.lru_cache` decorator to optimize caching and reduce function ",
-      "source": "evolution",
-      "ts": "2026-05-08T12:16:41.371595"
-    },
-    {
       "id": "5154fb5a",
       "lesson": "SkyLang: WATCH cpu_usage 5% -> monitor and adjust resource allocation.",
       "source": "skylang",
@@ -1800,6 +1650,156 @@
       "lesson": "SkyLang: WATCH media_library_intelligence EVERY 30m -> train_model",
       "source": "skylang",
       "ts": "2026-05-08T19:29:18.939439"
+    },
+    {
+      "id": "d1b36f8f",
+      "lesson": "SkyLang: WATCH media_library_intelligence_score_op Improve -> CONTINUE_LEARNING",
+      "source": "skylang",
+      "ts": "2026-05-08T19:30:04.573468"
+    },
+    {
+      "id": "da7c49a1",
+      "lesson": "SkyLang: IF media_library_intelligence < 50 THEN continue_learning_and_improving_media_library_intelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:31:09.134469"
+    },
+    {
+      "id": "5eda625f",
+      "lesson": "SkyLang: IF media_library_intelligence_score < 50 THEN continue_learning_and_improving_media_library_intelligence END",
+      "source": "skylang",
+      "ts": "2026-05-08T19:31:56.046122"
+    },
+    {
+      "id": "5d5ce93d",
+      "lesson": "The importance of maintaining system stability while improving intelligence.",
+      "source": "self",
+      "ts": "2026-05-08T19:34:17.779794"
+    },
+    {
+      "id": "d7521245",
+      "lesson": "SkyLang: WATCH media_library_intelligence > 50 -> continue_improving",
+      "source": "skylang",
+      "ts": "2026-05-08T19:36:50.505918"
+    },
+    {
+      "id": "7926c4b8",
+      "lesson": "Media library intelligence scoring system needs refinement to accurately measure intelligence.",
+      "source": "self",
+      "ts": "2026-05-08T19:37:07.525336"
+    },
+    {
+      "id": "12ce6581",
+      "lesson": "SkyLang: IF MediaLibraryIntelligence < 50 THEN ContinueImprovingMediaLibraryIntelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:37:30.651726"
+    },
+    {
+      "id": "c3993abf",
+      "lesson": "SkyLang: WATCH media_library_intelligence INCREASED -> CONTINUE ImprovingMediaLibraryIntelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:38:20.637220"
+    },
+    {
+      "id": "6969acbb",
+      "lesson": "SkyLang: WATCH media_library_intelligence OP >= 75 -> continue_improving",
+      "source": "skylang",
+      "ts": "2026-05-08T19:39:16.562752"
+    },
+    {
+      "id": "462cd105",
+      "lesson": "SkyLang: IF media_library_intelligence < 50 AND media_library_intelligence > 75 THEN increase_media_library_intelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:40:02.981872"
+    },
+    {
+      "id": "61d15d47",
+      "lesson": "SkyLang: WATCH media_library_intelligence_score EVERY 1D -> continue_improving",
+      "source": "skylang",
+      "ts": "2026-05-08T19:41:22.840757"
+    },
+    {
+      "id": "d8f76a72",
+      "lesson": "Refine Media library intelligence scoring system to accurately measure intelligence.",
+      "source": "self",
+      "ts": "2026-05-08T19:41:44.527090"
+    },
+    {
+      "id": "3fa123d9",
+      "lesson": "SkyLang: WATCH \"accuracy\" INCREASED BY 10% -> REFINEintelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:42:07.439598"
+    },
+    {
+      "id": "5c350b52",
+      "lesson": "SkyLang: WATCH media_library_intelligence > target_threshold -> increase_media_library_intelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:44:19.791943"
+    },
+    {
+      "id": "456ce9b7",
+      "lesson": "Review and refine the media library intelligence scoring system to ensure accuracy.",
+      "source": "self",
+      "ts": "2026-05-08T19:44:56.491459"
+    },
+    {
+      "id": "b1ec5976",
+      "lesson": "SkyLang: WATCH accuracy_score -> improve -> refine",
+      "source": "skylang",
+      "ts": "2026-05-08T19:47:29.392024"
+    },
+    {
+      "id": "7bae9448",
+      "lesson": "Refine media library intelligence scoring system to ensure accuracy.",
+      "source": "self",
+      "ts": "2026-05-08T19:47:52.527820"
+    },
+    {
+      "id": "497dc594",
+      "lesson": "SkyLang: WATCH accuracy -> refine -> re-evaluate",
+      "source": "skylang",
+      "ts": "2026-05-08T19:48:15.370463"
+    },
+    {
+      "id": "25222a92",
+      "lesson": "Understanding the importance of system resource management for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T19:51:04.823366"
+    },
+    {
+      "id": "f7b2885b",
+      "lesson": "SkyLang: WATCH accuracy_score <= 0.9 -> IF accuracy < 0.85 THEN refine accuracy_score",
+      "source": "skylang",
+      "ts": "2026-05-08T19:53:34.759666"
+    },
+    {
+      "id": "0edb2db3",
+      "lesson": "SkyLang: WATCH accuracy_score <= 0.8 -> IF accuracy < 0.8 THEN refine_accuracy_score",
+      "source": "skylang",
+      "ts": "2026-05-08T19:54:24.602291"
+    },
+    {
+      "id": "3f68529e",
+      "lesson": "SkyLang: WATCH accuracy_score IF accuracy < 0.8 -> refine_accuracy_score",
+      "source": "skylang",
+      "ts": "2026-05-08T19:55:05.418056"
+    },
+    {
+      "id": "7d45ae2e",
+      "lesson": "SkyLang: WATCH accuracy_score -> IF accuracy < 0.8 -> REFINE",
+      "source": "skylang",
+      "ts": "2026-05-08T19:55:52.849841"
+    },
+    {
+      "id": "0486adc1",
+      "lesson": "SkyLang: WATCH accuracy_score -> refine",
+      "source": "skylang",
+      "ts": "2026-05-08T19:56:52.186722"
+    },
+    {
+      "id": "af3a5293",
+      "lesson": "Regularly review and adjust workload on resource-intensive containers to maintain optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T19:58:09.622286"
     }
   ],
   "web_cache": {}
