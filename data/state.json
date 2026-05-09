@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 2.2,
-    "memory_percent": 17.2,
-    "memory_used_gb": 11.52,
+    "cpu_percent": 0.6,
+    "memory_percent": 20.4,
+    "memory_used_gb": 13.67,
     "memory_total_gb": 67.07,
-    "disk_percent": 15.9,
-    "disk_used_gb": 73.13,
+    "disk_percent": 25.2,
+    "disk_used_gb": 115.99,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 65.0
+          "current": 72.0
         },
         {
           "label": "",
@@ -19,31 +19,31 @@
         },
         {
           "label": "",
-          "current": 25.0
+          "current": 28.0
         },
         {
           "label": "",
-          "current": 58.0
+          "current": 60.0
         },
         {
           "label": "",
-          "current": 56.0
+          "current": 57.0
         },
         {
           "label": "",
-          "current": 35.0
+          "current": 36.0
         },
         {
           "label": "",
-          "current": 45.0
+          "current": 46.0
         },
         {
           "label": "",
-          "current": 39.0
+          "current": 40.0
         },
         {
           "label": "",
-          "current": 52.0
+          "current": 53.0
         },
         {
           "label": "",
@@ -53,15 +53,15 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 41.85
+          "current": 42.85
         },
         {
           "label": "Sensor 1",
-          "current": 41.85
+          "current": 42.85
         },
         {
           "label": "Sensor 2",
-          "current": 42.85
+          "current": 48.85
         }
       ],
       "iwlwifi_1": [
@@ -73,96 +73,96 @@
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 63.0
+          "current": 60.0
         },
         {
           "label": "Core 0",
-          "current": 57.0
+          "current": 55.0
         },
         {
           "label": "Core 1",
-          "current": 61.0
+          "current": 58.0
         },
         {
           "label": "Core 2",
-          "current": 58.0
+          "current": 56.0
         },
         {
           "label": "Core 3",
-          "current": 63.0
+          "current": 56.0
         },
         {
           "label": "Core 4",
-          "current": 58.0
+          "current": 54.0
         },
         {
           "label": "Core 5",
-          "current": 58.0
+          "current": 52.0
         },
         {
           "label": "Core 6",
-          "current": 58.0
+          "current": 56.0
         },
         {
           "label": "Core 7",
-          "current": 57.0
+          "current": 53.0
         }
       ]
     },
     "top_processes": [
       {
+        "pid": 782,
+        "memory_percent": 14.636136817701187,
+        "name": "llama-server",
+        "cpu_percent": 445.5
+      },
+      {
         "pid": 2825,
-        "memory_percent": 0.7801670347838695,
+        "memory_percent": 0.7415455694815672,
         "name": "steam",
-        "cpu_percent": 72.7
+        "cpu_percent": 206.4
       },
       {
         "pid": 3153,
-        "memory_percent": 0.6671668810064348,
+        "memory_percent": 0.7340582329128413,
         "name": "steamwebhelper",
-        "cpu_percent": 11.7
+        "cpu_percent": 20.8
       },
       {
         "pid": 3102,
-        "memory_percent": 0.4858951648295006,
+        "memory_percent": 0.4968940988917154,
         "name": "steamwebhelper",
-        "cpu_percent": 10.1
+        "cpu_percent": 16.7
       },
       {
         "pid": 3073,
-        "memory_percent": 0.5759508459407826,
+        "memory_percent": 0.586223031999997,
         "name": "steamwebhelper",
-        "cpu_percent": 1.8
-      },
-      {
-        "pid": 2829,
-        "memory_percent": 0.11396507969738458,
-        "name": "Xwayland",
-        "cpu_percent": 1.7
+        "cpu_percent": 2.7
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T11:12:22.156852"
+    "timestamp": "2026-05-09T11:41:37.827992"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resources are at 16.9% RAM, which is within the acceptable range.",
+    "observation": "System resources are within optimal ranges (CPU 0.6%, RAM 20.4%, Disk 25.2%), with no failed services or top processes indicating high CPU usage.",
     "action": "none",
-    "reason": "No immediate action required to address the current resource usage.",
-    "optimization_tip": "Monitor and optimize resource usage regularly to prevent potential issues.",
+    "reason": "No immediate actions required, as system stability and performance are within acceptable limits.",
+    "optimization_tip": "Regularly check disk usage to prevent potential issues.",
     "should_search_web": true,
-    "web_query": "https://example.com/linux-performance-tips",
+    "web_query": "https://www.linux.org/docs/resource/monitoring-system-activity.html",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": false,
-    "evolve_reason": "To further improve system stability and performance.",
-    "should_write_skylang": false,
-    "skylang_situation": "System resources are within acceptable ranges, but optimization tips should be applied.",
-    "skylang_behavior": "Regularly monitor and optimize resource usage to ensure system stability and performance.",
-    "new_lesson": "Regularly checking system resources and optimizing usage can help prevent potential issues.",
-    "skylang_rule": "WATCH system.memory_usage <DECREASE> <5> -> send_notification()"
+    "should_evolve": true,
+    "evolve_reason": "To improve media library intelligence and learn from recent knowledge about proactive monitoring and notification systems.",
+    "should_write_skylang": true,
+    "skylang_situation": "docker_container_running true -> notify ops \"Docker containers are running\"",
+    "skylang_behavior": "Enable real-time notifications for Docker containers to prevent issues.",
+    "new_lesson": "The importance of proactive monitoring and notification systems for smooth Docker container operation.",
+    "skylang_rule": "WATCH docker_container_running true -> notify ops \"Docker containers are running\""
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T11:12:22.766826"
+  "updated": "2026-05-09T11:42:32.852560"
 }
