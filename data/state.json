@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 0.6,
-    "memory_percent": 20.4,
-    "memory_used_gb": 13.67,
+    "cpu_percent": 0.3,
+    "memory_percent": 23.2,
+    "memory_used_gb": 15.57,
     "memory_total_gb": 67.07,
-    "disk_percent": 25.2,
-    "disk_used_gb": 115.99,
+    "disk_percent": 32.2,
+    "disk_used_gb": 148.47,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 72.0
+          "current": 54.0
         },
         {
           "label": "",
@@ -19,31 +19,31 @@
         },
         {
           "label": "",
-          "current": 28.0
+          "current": 25.0
         },
         {
           "label": "",
-          "current": 60.0
+          "current": 54.0
         },
         {
           "label": "",
-          "current": 57.0
+          "current": 49.0
         },
         {
           "label": "",
-          "current": 36.0
+          "current": 35.0
+        },
+        {
+          "label": "",
+          "current": 42.0
+        },
+        {
+          "label": "",
+          "current": 38.0
         },
         {
           "label": "",
           "current": 46.0
-        },
-        {
-          "label": "",
-          "current": 40.0
-        },
-        {
-          "label": "",
-          "current": 53.0
         },
         {
           "label": "",
@@ -53,116 +53,116 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 42.85
+          "current": 39.85
         },
         {
           "label": "Sensor 1",
-          "current": 42.85
+          "current": 39.85
         },
         {
           "label": "Sensor 2",
-          "current": 48.85
+          "current": 39.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 47.0
+          "current": 37.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 60.0
-        },
-        {
-          "label": "Core 0",
-          "current": 55.0
-        },
-        {
-          "label": "Core 1",
-          "current": 58.0
-        },
-        {
-          "label": "Core 2",
-          "current": 56.0
-        },
-        {
-          "label": "Core 3",
-          "current": 56.0
-        },
-        {
-          "label": "Core 4",
           "current": 54.0
         },
         {
+          "label": "Core 0",
+          "current": 48.0
+        },
+        {
+          "label": "Core 1",
+          "current": 51.0
+        },
+        {
+          "label": "Core 2",
+          "current": 49.0
+        },
+        {
+          "label": "Core 3",
+          "current": 50.0
+        },
+        {
+          "label": "Core 4",
+          "current": 50.0
+        },
+        {
           "label": "Core 5",
-          "current": 52.0
+          "current": 47.0
         },
         {
           "label": "Core 6",
-          "current": 56.0
+          "current": 50.0
         },
         {
           "label": "Core 7",
-          "current": 53.0
+          "current": 48.0
         }
       ]
     },
     "top_processes": [
       {
-        "pid": 782,
-        "memory_percent": 14.636136817701187,
-        "name": "llama-server",
-        "cpu_percent": 445.5
-      },
-      {
         "pid": 2825,
-        "memory_percent": 0.7415455694815672,
+        "memory_percent": 0.7397439672892556,
         "name": "steam",
-        "cpu_percent": 206.4
-      },
-      {
-        "pid": 3153,
-        "memory_percent": 0.7340582329128413,
-        "name": "steamwebhelper",
-        "cpu_percent": 20.8
-      },
-      {
-        "pid": 3102,
-        "memory_percent": 0.4968940988917154,
-        "name": "steamwebhelper",
-        "cpu_percent": 16.7
+        "cpu_percent": 1.0
       },
       {
         "pid": 3073,
-        "memory_percent": 0.586223031999997,
+        "memory_percent": 0.5804945477410535,
         "name": "steamwebhelper",
-        "cpu_percent": 2.7
+        "cpu_percent": 0.6
+      },
+      {
+        "pid": 130,
+        "memory_percent": 0.0,
+        "name": "irq/9-acpi",
+        "cpu_percent": 0.2
+      },
+      {
+        "pid": 982,
+        "memory_percent": 0.0771391094613185,
+        "name": "cloudflared",
+        "cpu_percent": 0.2
+      },
+      {
+        "pid": 1047,
+        "memory_percent": 0.08824186466681902,
+        "name": "python3",
+        "cpu_percent": 0.2
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T11:41:37.827992"
+    "timestamp": "2026-05-09T12:12:28.455176"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resources are within optimal ranges (CPU 0.6%, RAM 20.4%, Disk 25.2%), with no failed services or top processes indicating high CPU usage.",
+    "observation": "System stability & performance within normal limits, but CPU usage from steam and steamwebhelper is elevated.",
     "action": "none",
-    "reason": "No immediate actions required, as system stability and performance are within acceptable limits.",
-    "optimization_tip": "Regularly check disk usage to prevent potential issues.",
+    "reason": "No immediate action required, but monitoring is recommended for potential performance impact.",
+    "optimization_tip": "Regularly check CPU usage from resource-intensive services like steam and steamwebhelper to prevent potential performance issues.",
     "should_search_web": true,
-    "web_query": "https://www.linux.org/docs/resource/monitoring-system-activity.html",
+    "web_query": "search for CPU usage optimization techniques",
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": true,
-    "evolve_reason": "To improve media library intelligence and learn from recent knowledge about proactive monitoring and notification systems.",
+    "evolve_reason": "Improve performance monitoring and optimization techniques to address potential issues.",
     "should_write_skylang": true,
-    "skylang_situation": "docker_container_running true -> notify ops \"Docker containers are running\"",
-    "skylang_behavior": "Enable real-time notifications for Docker containers to prevent issues.",
-    "new_lesson": "The importance of proactive monitoring and notification systems for smooth Docker container operation.",
-    "skylang_rule": "WATCH docker_container_running true -> notify ops \"Docker containers are running\""
+    "skylang_situation": " disk utilization 32.2% and disk space Utilization <10%",
+    "skylang_behavior": "perform maintenance tasks to optimize media server stacks",
+    "new_lesson": "Regularly check disk space and perform maintenance to avoid issues.",
+    "skylang_rule": "WATCH disk.utilization 32.2% AND disk.utilization < 10% -> performMaintenance"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T11:42:32.852560"
+  "updated": "2026-05-09T12:13:15.286791"
 }
