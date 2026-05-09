@@ -2,24 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "e97bb4d6",
-      "lesson": "Lesson 69: Caching layer optimization using memoization and SIMD instructions",
-      "source": "self",
-      "ts": "2026-05-08T13:26:31.606062"
-    },
-    {
-      "id": "84b6c56d",
-      "lesson": "Proactive system monitoring is crucial for optimization.",
-      "source": "self",
-      "ts": "2026-05-08T13:31:04.365198"
-    },
-    {
-      "id": "3134fd50",
-      "lesson": "SkyLang: WATCH cache_miss_rate <op> > 0.1 -> IF request_count > 0 THEN use_memoization() ELSE use_simd()",
-      "source": "skylang",
-      "ts": "2026-05-08T13:37:30.842168"
-    },
-    {
       "id": "ce37ecb2",
       "lesson": "Lesson 70: Implementing caching layer optimization using memoization and SIMD instructions",
       "source": "self",
@@ -1800,6 +1782,24 @@
       "lesson": "SkyLang: WATCH cpu_usage <= 80% -> alert_system_resources",
       "source": "skylang",
       "ts": "2026-05-08T20:38:39.326945"
+    },
+    {
+      "id": "33b5770e",
+      "lesson": "SkyLang: WATCH CPU_USAGE CRITICAL 80% -> ALERT\nWATCH CPU_USAGE THRESHOLD 90% -> OPTIMIZE\nEVERY 60 SECONDS -> CHECK SYSTEM RESOURCES",
+      "source": "skylang",
+      "ts": "2026-05-08T20:42:15.613859"
+    },
+    {
+      "id": "aa9189e5",
+      "lesson": "Understanding Linux system resource monitoring tools is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T20:42:37.970004"
+    },
+    {
+      "id": "2fa19e2a",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= 90 -> alert_and_optimize\nEVERY 10m -> alert_and_optimize\nIF cpu_usage > 95 -> alert_and_optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T20:43:02.531791"
     }
   ],
   "web_cache": {}
