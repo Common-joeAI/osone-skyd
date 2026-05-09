@@ -2,24 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "1bcdd244",
-      "lesson": "Evolved Gen 85: Improve memory safety by adding explicit type hints for the `parse` function to prevent potential bu",
-      "source": "evolution",
-      "ts": "2026-05-08T14:31:28.641689"
-    },
-    {
-      "id": "296c0c27",
-      "lesson": "The importance of explicit error handling in code development is a crucial lesson to learn",
-      "source": "self",
-      "ts": "2026-05-08T14:31:28.642346"
-    },
-    {
-      "id": "c3535edf",
-      "lesson": "SkyLang: ```sky\nWATCH <metric> <op> <value> -> Improve code readability and maintainability\nEVERY <interval> -> Improve code readability and maintainability\nIF <condition> -> Improve code readability and maintainability\n```",
-      "source": "skylang",
-      "ts": "2026-05-08T14:31:53.072452"
-    },
-    {
       "id": "38b83039",
       "lesson": "Evolved Gen 86: Adding a timeout mechanism to prevent potential memory leaks when parsing large amounts of data",
       "source": "evolution",
@@ -1800,6 +1782,24 @@
       "lesson": "SkyLang: WATCH CPUUtilization <op> > 80 -> LOG \"High CPU utilization detected, optimizing system resources\"",
       "source": "skylang",
       "ts": "2026-05-09T10:29:51.568775"
+    },
+    {
+      "id": "93f12006",
+      "lesson": "SkyLang: WATCH \"system_resource_usage\" INCREASED > 80% -> ALERT AND OPTIMIZE_RESOURCE allocation",
+      "source": "skylang",
+      "ts": "2026-05-09T10:31:52.310227"
+    },
+    {
+      "id": "9582d3c3",
+      "lesson": "Regularly review system logs to identify potential issues and trends in system resource usage",
+      "source": "self",
+      "ts": "2026-05-09T10:32:13.817677"
+    },
+    {
+      "id": "1be7bd53",
+      "lesson": "SkyLang: WATCH resource_usage <op> <value> -> alert if resource_usage <op> > 80%",
+      "source": "skylang",
+      "ts": "2026-05-09T10:32:36.988643"
     }
   ],
   "web_cache": {}
