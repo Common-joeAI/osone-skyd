@@ -2,156 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "078c8610",
-      "lesson": "SkyLang: WATCH code_complexity -> increase -> refactor",
-      "source": "skylang",
-      "ts": "2026-05-08T10:47:03.650357"
-    },
-    {
-      "id": "05e7c47d",
-      "lesson": "Learn about the importance of code maintainability and performance",
-      "source": "self",
-      "ts": "2026-05-08T10:47:17.120518"
-    },
-    {
-      "id": "f9f28d82",
-      "lesson": "SkyLang: WATCH readability 0 -> refactor",
-      "source": "skylang",
-      "ts": "2026-05-08T10:47:39.142781"
-    },
-    {
-      "id": "89deeadf",
-      "lesson": "SkyLang: WATCH runtime_type_checking true -> enable_runtime_type_checking",
-      "source": "skylang",
-      "ts": "2026-05-08T10:49:28.184684"
-    },
-    {
-      "id": "1e701439",
-      "lesson": "Type hints in Python programming",
-      "source": "self",
-      "ts": "2026-05-08T10:49:35.400519"
-    },
-    {
-      "id": "2b18412f",
-      "lesson": "SkyLang: WATCH runtime_type_check enabled -> EVERY 0 -> IF defined(func) -> print(\"Runtime type checking enabled for user-defined functions\")",
-      "source": "skylang",
-      "ts": "2026-05-08T10:49:58.590670"
-    },
-    {
-      "id": "3a9424e9",
-      "lesson": "Code maintainability and performance are crucial for efficient system operation",
-      "source": "self",
-      "ts": "2026-05-08T10:51:52.441206"
-    },
-    {
-      "id": "8e713bb4",
-      "lesson": "Understanding system resource utilization",
-      "source": "self",
-      "ts": "2026-05-08T11:02:41.788784"
-    },
-    {
-      "id": "0c27504b",
-      "lesson": "Understanding system resource utilization is crucial for efficient system operation.",
-      "source": "self",
-      "ts": "2026-05-08T11:04:56.966831"
-    },
-    {
-      "id": "8cefb6bd",
-      "lesson": "Evolved Gen 56: Adding runtime type checking for SkyLang functions",
-      "source": "evolution",
-      "ts": "2026-05-08T11:11:22.947320"
-    },
-    {
-      "id": "1c33e63e",
-      "lesson": "Code maintainability and performance are crucial for efficient system operation.",
-      "source": "self",
-      "ts": "2026-05-08T11:11:22.947716"
-    },
-    {
-      "id": "43199505",
-      "lesson": "Maintain a balance between code complexity and performance",
-      "source": "self",
-      "ts": "2026-05-08T11:15:42.246274"
-    },
-    {
-      "id": "7e1d33b7",
-      "lesson": "Evolved Gen 57: Adding a 'memory_profiler' integration to track memory usage for each function call",
-      "source": "evolution",
-      "ts": "2026-05-08T11:18:01.333152"
-    },
-    {
-      "id": "1fe2a8be",
-      "lesson": "SkyLang: WATCH complexity <op> <value> -> maintain balanced performance",
-      "source": "skylang",
-      "ts": "2026-05-08T11:20:05.523927"
-    },
-    {
-      "id": "468bc522",
-      "lesson": "Evolved Gen 58: Adding a 'memory_profiler' integration to track memory usage for each function call",
-      "source": "evolution",
-      "ts": "2026-05-08T11:20:12.631504"
-    },
-    {
-      "id": "5daed2d1",
-      "lesson": "SkyLang: WATCH complexity <op> (codebase size / performance metrics) -> refactor for readability",
-      "source": "skylang",
-      "ts": "2026-05-08T11:20:35.536345"
-    },
-    {
-      "id": "474fffc6",
-      "lesson": "SkyLang: WATCH complexity <op> performance <value> -> optimize",
-      "source": "skylang",
-      "ts": "2026-05-08T11:21:05.478797"
-    },
-    {
-      "id": "0e50a9f4",
-      "lesson": "SkyLang: WATCH complexity -> maintain_balance -> IF (complexity < threshold) -> optimize_code",
-      "source": "skylang",
-      "ts": "2026-05-08T11:21:43.798830"
-    },
-    {
-      "id": "4242bc0f",
-      "lesson": "SkyLang: WATCH complexity_score <op> performance_score -> performance_check",
-      "source": "skylang",
-      "ts": "2026-05-08T11:22:16.325844"
-    },
-    {
-      "id": "494d9131",
-      "lesson": "SkyLang: WATCH codebase_size <<= 1000 -> refactor_to_balance_codebase_size_and_performance",
-      "source": "skylang",
-      "ts": "2026-05-08T11:23:10.664305"
-    },
-    {
-      "id": "7a81a6a4",
-      "lesson": "Mastering SkyLang's WATCH complexity and maintain_balance rules is crucial.",
-      "source": "self",
-      "ts": "2026-05-08T11:23:31.686925"
-    },
-    {
-      "id": "396ba576",
-      "lesson": "SkyLang: WATCH code_size op > 10 -> refactor code to maintain balance",
-      "source": "skylang",
-      "ts": "2026-05-08T11:23:54.113361"
-    },
-    {
-      "id": "43bb7cf0",
-      "lesson": "SkyLang: WATCH memory_usage <op> > 10 -> analysis and optimization",
-      "source": "skylang",
-      "ts": "2026-05-08T11:25:46.332017"
-    },
-    {
-      "id": "f5c9176b",
-      "lesson": "Mastering SkyLang's WATCH complexity and maintain_balance rules",
-      "source": "self",
-      "ts": "2026-05-08T11:26:15.964131"
-    },
-    {
-      "id": "cdc7335b",
-      "lesson": "SkyLang: WATCH memory_usage <-> 80% -> alert high_memory_usage",
-      "source": "skylang",
-      "ts": "2026-05-08T11:26:38.390602"
-    },
-    {
       "id": "d5888e7b",
       "lesson": "SkyLang: WATCH system_load  <  50%  ->  notify_admin",
       "source": "skylang",
@@ -1800,6 +1650,156 @@
       "lesson": "SkyLang: WATCH cpu_utilization < op = -10 > 80 -> adjust_memory",
       "source": "skylang",
       "ts": "2026-05-08T18:48:43.149333"
+    },
+    {
+      "id": "2c83d49a",
+      "lesson": "Continuously monitor system resource allocation to prevent performance issues.",
+      "source": "self",
+      "ts": "2026-05-08T18:50:35.885696"
+    },
+    {
+      "id": "6f328e8b",
+      "lesson": "SkyLang: WATCH CPUUtilization > 80% -> AdjustSystemMemory",
+      "source": "skylang",
+      "ts": "2026-05-08T18:52:19.276797"
+    },
+    {
+      "id": "872dfa69",
+      "lesson": "Continuously monitor system resource utilization to prevent performance issues.",
+      "source": "self",
+      "ts": "2026-05-08T18:52:27.043773"
+    },
+    {
+      "id": "ceef9d4f",
+      "lesson": "SkyLang: WATCH CPU_utilization > 80% -> Adjust_system_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T18:52:49.410590"
+    },
+    {
+      "id": "3d881806",
+      "lesson": "Monitoring system resource utilization is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T18:56:59.597235"
+    },
+    {
+      "id": "2bd6abfd",
+      "lesson": "Revisit SkyLang WATCH statements for proper implementation.",
+      "source": "self",
+      "ts": "2026-05-08T18:57:48.766964"
+    },
+    {
+      "id": "7ad2db56",
+      "lesson": "Continuously monitoring system resource utilization is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T19:08:40.663035"
+    },
+    {
+      "id": "cf39f5fb",
+      "lesson": "SkyLang: WATCH system_memory_threshold 1 -> Adjust_system_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T19:13:05.172336"
+    },
+    {
+      "id": "53e5d10b",
+      "lesson": "SkyLang: WATCH system_memory Utilization 90% -> Adjust_system_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T19:13:36.600272"
+    },
+    {
+      "id": "ec5adf44",
+      "lesson": "SkyLang: WATCH system_memory_usage op near 90% -> adjust_system_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T19:14:12.083345"
+    },
+    {
+      "id": "78af6962",
+      "lesson": "SkyLang: WATCH system_memory_threshold <= 80% -> Adjust_system_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T19:14:51.273780"
+    },
+    {
+      "id": "967106ef",
+      "lesson": "SkyLang: WATCH system_memory_threshold <op> (system_memory - acceptable_threshold) -> Adjust_system_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T19:15:31.198184"
+    },
+    {
+      "id": "3d5d7857",
+      "lesson": "Regularly monitoring system resources is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T19:16:38.559652"
+    },
+    {
+      "id": "7abbff47",
+      "lesson": "Understanding system resource utilization thresholds",
+      "source": "self",
+      "ts": "2026-05-08T19:17:05.848643"
+    },
+    {
+      "id": "254ea163",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80 -> log \"CPU usage is high, consider scaling\"",
+      "source": "skylang",
+      "ts": "2026-05-08T19:19:54.486021"
+    },
+    {
+      "id": "83e82d36",
+      "lesson": "Understanding system resource utilization thresholds is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T19:20:14.674508"
+    },
+    {
+      "id": "cc91f47b",
+      "lesson": "SkyLang: WATCH cpu.utilization('llama-server') > 80 -> alert 'High CPU usage by llama-server process', escalate to sysadmin",
+      "source": "skylang",
+      "ts": "2026-05-08T19:21:00.257769"
+    },
+    {
+      "id": "4fcbad0b",
+      "lesson": "SkyLang: WATCH 'llama-server' CPU_usage > 80 -> alert administrator and kill process",
+      "source": "skylang",
+      "ts": "2026-05-08T19:21:44.662306"
+    },
+    {
+      "id": "f2f66533",
+      "lesson": "Web: system resources \u2192 A computer system resource is any hardware or software aspect of limited availability that is access | Resources",
+      "source": "web",
+      "ts": "2026-05-08T19:23:20.795308"
+    },
+    {
+      "id": "1fd94131",
+      "lesson": "Regularly review system resource utilization thresholds to ensure optimal performance.",
+      "source": "self",
+      "ts": "2026-05-08T19:23:45.339328"
+    },
+    {
+      "id": "e8bdfd4f",
+      "lesson": "SkyLang: WATCH media_library_intelligence  Continuously -> ImproveMediaLibraryIntelligence",
+      "source": "skylang",
+      "ts": "2026-05-08T19:27:05.744655"
+    },
+    {
+      "id": "d1d73d80",
+      "lesson": "Understanding system resource utilization thresholds is crucial for optimal performance",
+      "source": "self",
+      "ts": "2026-05-08T19:27:31.563388"
+    },
+    {
+      "id": "cc67a441",
+      "lesson": "SkyLang: WATCH media_library_intelligence GROW -> CONTINUE LEARNING",
+      "source": "skylang",
+      "ts": "2026-05-08T19:27:54.031256"
+    },
+    {
+      "id": "25351145",
+      "lesson": "SkyLang: WATCH media_library_intelligence_score <op> <value> -> CONTINUE_LEARNING",
+      "source": "skylang",
+      "ts": "2026-05-08T19:28:41.469085"
+    },
+    {
+      "id": "6dea5ff3",
+      "lesson": "SkyLang: WATCH media_library_intelligence EVERY 30m -> train_model",
+      "source": "skylang",
+      "ts": "2026-05-08T19:29:18.939439"
     }
   ],
   "web_cache": {}
