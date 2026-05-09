@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 0.4,
-    "memory_percent": 11.1,
-    "memory_used_gb": 7.43,
+    "cpu_percent": 0.2,
+    "memory_percent": 9.2,
+    "memory_used_gb": 6.16,
     "memory_total_gb": 67.07,
     "disk_percent": 10.7,
-    "disk_used_gb": 49.47,
+    "disk_used_gb": 49.49,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 60.0
+          "current": 61.0
         },
         {
           "label": "",
@@ -19,31 +19,31 @@
         },
         {
           "label": "",
-          "current": 25.0
+          "current": 34.0
         },
         {
           "label": "",
-          "current": 53.0
+          "current": 54.0
         },
         {
           "label": "",
-          "current": 50.0
+          "current": 51.0
         },
         {
           "label": "",
-          "current": 28.0
+          "current": 29.0
         },
         {
           "label": "",
-          "current": 36.0
+          "current": 38.0
         },
         {
           "label": "",
-          "current": 33.0
+          "current": 35.0
         },
         {
           "label": "",
-          "current": 40.0
+          "current": 42.0
         },
         {
           "label": "",
@@ -53,31 +53,31 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 34.85
+          "current": 36.85
         },
         {
           "label": "Sensor 1",
-          "current": 34.85
+          "current": 36.85
         },
         {
           "label": "Sensor 2",
-          "current": 34.85
+          "current": 37.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 33.0
+          "current": 35.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 55.0
+          "current": 56.0
         },
         {
           "label": "Core 0",
-          "current": 47.0
+          "current": 48.0
         },
         {
           "label": "Core 1",
@@ -85,7 +85,7 @@
         },
         {
           "label": "Core 2",
-          "current": 49.0
+          "current": 51.0
         },
         {
           "label": "Core 3",
@@ -93,76 +93,76 @@
         },
         {
           "label": "Core 4",
-          "current": 48.0
+          "current": 50.0
         },
         {
           "label": "Core 5",
-          "current": 46.0
+          "current": 48.0
         },
         {
           "label": "Core 6",
-          "current": 49.0
+          "current": 53.0
         },
         {
           "label": "Core 7",
-          "current": 47.0
+          "current": 49.0
         }
       ]
     },
     "top_processes": [
       {
+        "cpu_percent": 527.4,
+        "memory_percent": 6.826092766256618,
         "name": "llama-server",
-        "cpu_percent": 458.4,
-        "memory_percent": 8.631335639465568,
-        "pid": 792
+        "pid": 782
       },
       {
+        "cpu_percent": 0.3,
+        "memory_percent": 0.072687005674008,
         "name": "cloudflared",
-        "cpu_percent": 0.3,
-        "memory_percent": 0.06750206451396987,
-        "pid": 997
+        "pid": 969
       },
       {
-        "name": "python3",
-        "cpu_percent": 0.3,
-        "memory_percent": 0.08852279246629813,
-        "pid": 1052
-      },
-      {
-        "name": "systemd",
         "cpu_percent": 0.2,
-        "memory_percent": 0.023133793574497227,
+        "memory_percent": 0.022095579442829857,
+        "name": "systemd",
         "pid": 1
       },
       {
-        "name": "kworker/6:1-events",
         "cpu_percent": 0.2,
-        "memory_percent": 0.0,
-        "pid": 156
+        "memory_percent": 0.1552003760034923,
+        "name": "tailscaled",
+        "pid": 788
+      },
+      {
+        "cpu_percent": 0.2,
+        "memory_percent": 0.040972703836911414,
+        "name": "python3",
+        "pid": 973
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T10:29:49.957120"
+    "timestamp": "2026-05-09T10:32:35.412931"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resource utilization is within acceptable limits.",
+    "observation": "System resources are within normal bounds, 7.0% CPU, 9.1% RAM, and 10.7% Disk usage.",
     "action": "none",
-    "reason": "All system resource utilization percentages are below 80%.",
-    "optimization_tip": "Regularly monitoring resource utilization is crucial for maintaining system stability.",
+    "reason": "no issues detected that require immediate attention",
+    "optimization_tip": "Regularly monitor system resource usage to catch potential issues before they become critical.",
     "should_search_web": true,
-    "web_query": "What are the best practices for system monitoring in Linux environments?",
+    "web_query": "system resource usage over time",
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": true,
-    "evolve_reason": "To improve media management capabilities.",
+    "evolve_reason": "to improve media library intelligence and system resource optimization",
     "should_write_skylang": true,
-    "skylang_situation": "Normal operation, no immediate concerns.",
-    "skylang_behavior": "Continue monitoring and optimizing system resources.",
-    "new_lesson": "Understanding the importance of regular system monitoring and optimization.",
-    "skylang_rule": "WATCH CPUUtilization <op> > 80 -> LOG \"High CPU utilization detected, optimizing system resources\""
+    "skylang_situation": "stable system resources, but opportunities for improvement exist",
+    "skylang_behavior": "proactive monitoring and optimization to ensure system stability and performance",
+    "new_lesson": "Regularly review system logs to identify potential issues and trends in system resource usage",
+    "skylang_rule": "WATCH resource_usage <op> <value> -> alert if resource_usage <op> > 80%"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T10:30:11.589774"
+  "updated": "2026-05-09T10:32:55.995576"
 }
