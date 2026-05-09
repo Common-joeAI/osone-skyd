@@ -25,6 +25,49 @@ ASM_DIR     = "/usr/local/skyd/asm"
 LANG_DIR    = "/usr/local/skyd/lang"
 LOOP_INTERVAL = 20
 
+# ── HIVE CONFIG ──────────────────────────────────────────────────
+HIVE_COMMANDER_URL = os.environ.get("HIVE_COMMANDER_URL", "")   # e.g. http://192.168.1.X:8000
+HIVE_TOKEN         = os.environ.get("HIVE_TOKEN", "")
+HIVE_NODE_ID       = os.environ.get("HIVE_NODE_ID", os.uname().nodename)
+HIVE_ROLE          = os.environ.get("HIVE_ROLE", "underling")   # "commander" or "underling"
+_last_hive_beat    = [0]
+
+def hive_heartbeat(ev, state):
+    """Phone home to the Hive Commander every 60s"""
+    if not HIVE_COMMANDER_URL or not HIVE_TOKEN:
+        return
+    now = time.time()
+    if now - _last_hive_beat[0] < 60:
+        return
+    _last_hive_beat[0] = now
+    try:
+        payload = {
+            "hive_token": HIVE_TOKEN,
+            "node_id": HIVE_NODE_ID,
+            "role": HIVE_ROLE,
+            "generation": ev.get("generation", 0),
+            "cpu": state.get("cpu_percent", 0),
+            "ram": state.get("memory_percent", 0),
+            "disk": state.get("disk_percent", 0),
+            "status": "online",
+            "capabilities": ["optimize", "web", "skylang", "self-evolve"]
+        }
+        r = requests.post(f"{HIVE_COMMANDER_URL}/api/hive/heartbeat", json=payload, timeout=5)
+        if r.status_code == 200:
+            log.info(f"🐝 Hive heartbeat sent → {HIVE_COMMANDER_URL} [{r.json().get('total_nodes',0)} nodes online]")
+            # Check for tasks assigned to us
+            tasks_r = requests.post(f"{HIVE_COMMANDER_URL}/api/hive/tasks",
+                                    json={"hive_token": HIVE_TOKEN, "node_id": HIVE_NODE_ID}, timeout=5)
+            if tasks_r.status_code == 200:
+                tasks = tasks_r.json().get("tasks", [])
+                for task in tasks:
+                    log.info(f"🐝 Hive task received: {task.get('type')} — {task.get('description','')}")
+        else:
+            log.warning(f"🐝 Hive heartbeat failed: {r.status_code}")
+    except Exception as e:
+        log.warning(f"🐝 Hive heartbeat error: {e}")
+
+
 os.makedirs(ASM_DIR,  exist_ok=True)
 os.makedirs(LANG_DIR, exist_ok=True)
 
@@ -336,7 +379,8 @@ Rules:
 - Only improve what serves the mission
 - Never break what is already working
 - Document what you learned in new_lesson
-- Be specific: name the function, metric, or behavior you are improving"""You are skyd v0.{3+gen}, an AI daemon that can rewrite itself.
+- Be specific: name the function, metric, or behavior you are improving"""
+    prompt = f"""You are skyd v0.{3+gen}, an AI daemon that can rewrite itself.
 Current generation: {gen}
 Recent observations: {json.dumps(recent_lessons[-5:])}
 Current issue/opportunity: {observation}
@@ -509,8 +553,18 @@ def think(state, kb, ev):
     except Exception:
         pass
 
-    prompt = f"""You are Sky-D (skyd v0.{3+ev[\'generation\']}), OS-1\'s Intelligent System Co-Pilot and Media Guardian.
-Generation {ev[\'generation\']}. Your mission: become the single best autonomous assistant for managing complex Linux + Docker environments, especially media server stacks (Plex, Sonarr, Radarr, Prowlarr, SABnzbd/qBittorrent).
+    _gen = ev['generation']
+    _cpu = state.get('cpu_percent')
+    _ram = state.get('memory_percent')
+    _disk = state.get('disk_percent')
+    _swap = state.get('swap_percent')
+    _failed = state.get('failed_services')
+    _procs = json.dumps(state.get('top_processes', []))
+    _docker = json.dumps(docker_status)
+    _lessons_str = json.dumps(lessons)
+
+    prompt = f"""You are Sky-D (skyd v0.{3+_gen}), OS-1's Intelligent System Co-Pilot and Media Guardian.
+Generation {_gen}. Your mission: become the single best autonomous assistant for managing complex Linux + Docker environments, especially media server stacks (Plex, Sonarr, Radarr, Prowlarr, SABnzbd/qBittorrent).
 
 CORE PRIORITIES (in order):
 1. System stability & performance — monitor, optimize, prevent crashes
@@ -523,12 +577,12 @@ LAWS:
 - Never sacrifice stability for ambition
 - Keep evolution journal entries honest: what worked, what failed, what was learned
 
-System: CPU {state.get(\'cpu_percent\')}% | RAM {state.get(\'memory_percent\')}% | Disk {state.get(\'disk_percent\')}% | Swap {state.get(\'swap_percent\')}%
-Failed services: {state.get(\'failed_services\')}
-Top procs: {json.dumps(state.get(\'top_processes\',[]))}
-Docker containers: {json.dumps(docker_status)}
-Recent knowledge: {json.dumps(lessons)}
-Generation: {ev[\'generation\']}
+System: CPU {_cpu}% | RAM {_ram}% | Disk {_disk}% | Swap {_swap}%
+Failed services: {_failed}
+Top procs: {_procs}
+Docker containers: {_docker}
+Recent knowledge: {_lessons_str}
+Generation: {_gen}
 
 Respond ONLY in JSON:
 {{
@@ -622,6 +676,9 @@ IF service failed -> RESTART service
         log.info(f"━━━ Cycle {cycle} | Gen {ev['generation']} @ {datetime.now().strftime('%H:%M:%S')} ━━━")
 
         state = get_system_state()
+
+        # Hive heartbeat — phone home to commander
+        hive_heartbeat(ev, state)
 
         # Wolf Spider CPU guard — renice ollama if spiking, but only once per 10 cycles
         cpu = state.get("cpu_percent", 0)
