@@ -2,102 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "6c2f41eb",
-      "lesson": "Evolved Gen 76: Introduce a new capability to apply type hints to all functions by default, making the code more rea",
-      "source": "evolution",
-      "ts": "2026-05-08T13:50:33.728789"
-    },
-    {
-      "id": "c1791b5c",
-      "lesson": "Regularly review and apply new lessons to improve code quality",
-      "source": "self",
-      "ts": "2026-05-08T13:50:33.729388"
-    },
-    {
-      "id": "d9083516",
-      "lesson": "SkyLang: WATCH performance -> refactor, optimize, review",
-      "source": "skylang",
-      "ts": "2026-05-08T13:52:37.862781"
-    },
-    {
-      "id": "4150c715",
-      "lesson": "Evolved Gen 77: Introducing a new SkyLang rule to improve code readability by enforcing consistent naming convention",
-      "source": "evolution",
-      "ts": "2026-05-08T13:52:44.927951"
-    },
-    {
-      "id": "ad76f32a",
-      "lesson": "Learn to apply SIMD instructions effectively for better performance",
-      "source": "self",
-      "ts": "2026-05-08T13:52:44.928518"
-    },
-    {
-      "id": "fe8a0ed8",
-      "lesson": "SkyLang: WATCH quality -> review -> refactor",
-      "source": "skylang",
-      "ts": "2026-05-08T13:53:07.292646"
-    },
-    {
-      "id": "b0b5fe46",
-      "lesson": "SkyLang: WATCH variable_name length -> CHECK_LENGTH",
-      "source": "skylang",
-      "ts": "2026-05-08T13:54:57.589081"
-    },
-    {
-      "id": "609d611f",
-      "lesson": "New lesson learned on SkyLang: WATCH performance -> refactor, optimize, review",
-      "source": "self",
-      "ts": "2026-05-08T13:55:15.018752"
-    },
-    {
-      "id": "65860244",
-      "lesson": "SkyLang: WATCH NamingConventions enforceConsistentNamingConvention -> CheckNamingConvention",
-      "source": "skylang",
-      "ts": "2026-05-08T13:55:38.038103"
-    },
-    {
-      "id": "357c5350",
-      "lesson": "SkyLang: WATCH NamingConvention EnforceConsistentNamingConvention -> CheckNames",
-      "source": "skylang",
-      "ts": "2026-05-08T13:56:11.406618"
-    },
-    {
-      "id": "fd2199fb",
-      "lesson": "SkyLang: WATCH \"file_name\" \"is\" \"consistent\" -> FIX_NAME_CONVENTION",
-      "source": "skylang",
-      "ts": "2026-05-08T13:56:43.860157"
-    },
-    {
-      "id": "ecf31a14",
-      "lesson": "SkyLang: WATCH variable_name length -> check_consistent naming convention",
-      "source": "skylang",
-      "ts": "2026-05-08T13:57:18.503439"
-    },
-    {
-      "id": "637aa3df",
-      "lesson": "SkyLang: WATCH memory_usage_over_time desc -> optimize_for_memory",
-      "source": "skylang",
-      "ts": "2026-05-08T13:58:11.308359"
-    },
-    {
-      "id": "8df15403",
-      "lesson": "Evolved Gen 78: Adding a caching mechanism for expensive function calls to reduce unnecessary computations and syste",
-      "source": "evolution",
-      "ts": "2026-05-08T13:58:28.974918"
-    },
-    {
-      "id": "c4dec870",
-      "lesson": "Review SkyLang NamingConventions and WATCH best practices",
-      "source": "self",
-      "ts": "2026-05-08T13:58:28.975793"
-    },
-    {
-      "id": "d5e6f0d3",
-      "lesson": "SkyLang: WATCH performance.time -> optimize -> optimize",
-      "source": "skylang",
-      "ts": "2026-05-08T13:58:51.047184"
-    },
-    {
       "id": "197d9c9d",
       "lesson": "SkyLang: WATCH cpu_usage <op> <= 80% -> optimize_resources",
       "source": "skylang",
@@ -1800,6 +1704,102 @@
       "lesson": "Understanding system resource utilization is crucial for maintaining stable and performant Linux environments.",
       "source": "self",
       "ts": "2026-05-08T21:17:59.117276"
+    },
+    {
+      "id": "c5a4e416",
+      "lesson": "SkyLang: WATCH cpu_usage <= 50 -> CONTINUE MONITORING",
+      "source": "skylang",
+      "ts": "2026-05-08T21:21:07.143760"
+    },
+    {
+      "id": "821cbb47",
+      "lesson": "SkyLang: WATCH CPU_USAGE <op> <= <value> -> CONTINUE MONITORING",
+      "source": "skylang",
+      "ts": "2026-05-08T21:21:51.427909"
+    },
+    {
+      "id": "e68ba755",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> alert",
+      "source": "skylang",
+      "ts": "2026-05-08T21:23:53.528629"
+    },
+    {
+      "id": "edd78eb4",
+      "lesson": "Understanding system resource utilization is crucial for maintaining stable and performant Linux environments",
+      "source": "self",
+      "ts": "2026-05-08T21:24:14.061529"
+    },
+    {
+      "id": "36d7d132",
+      "lesson": "SkyLang: WATCH cpu_usage monitor 80 -> alert",
+      "source": "skylang",
+      "ts": "2026-05-08T21:24:36.261666"
+    },
+    {
+      "id": "94460d18",
+      "lesson": "SkyLang: WATCH CPU_USAGE > 80 -> ALERT",
+      "source": "skylang",
+      "ts": "2026-05-08T21:25:29.347644"
+    },
+    {
+      "id": "d8125b86",
+      "lesson": "Understanding the importance of balanced system resource allocation for stable performance.",
+      "source": "self",
+      "ts": "2026-05-08T21:30:28.015305"
+    },
+    {
+      "id": "d4a115c4",
+      "lesson": "SkyLang: WATCH system_resource_utilization_op <= 70 -> send_learning_opportunity_to_algorithm\nEVERY 5 minutes -> run_system_resource_monitor\nIF system_resource_utilization_op > 90 -> trigger_learning_opportunity_alert",
+      "source": "skylang",
+      "ts": "2026-05-08T21:38:22.124987"
+    },
+    {
+      "id": "375b9605",
+      "lesson": "Regularly review system logs to identify potential performance bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-08T21:38:46.516610"
+    },
+    {
+      "id": "6abc476b",
+      "lesson": "SkyLang: WATCH \"system_resource_utilization\" INCR -> LOG \"System resource utilization is increasing\"\nEVERY 1M -> LOG \"System resource utilization is stable\"\nIF \"system_resource_utilization\" > 80 THEN -> LOG \"System resource utilization is high, optimization opportunities exist\"",
+      "source": "skylang",
+      "ts": "2026-05-08T21:39:11.947405"
+    },
+    {
+      "id": "cc958eb1",
+      "lesson": "SkyLang: WATCH resource_utilization_rate <= 80 % -> MONITOR AND LEARN\nEVERY 1 MINUTE -> RERUN MONITOR AND LEARN",
+      "source": "skylang",
+      "ts": "2026-05-08T21:40:04.683260"
+    },
+    {
+      "id": "72a1e937",
+      "lesson": "SkyLang: WATCH resource_utilization <op> <value> -> monitor_resource_utilization\nEVERY 1M -> update_resource_optimizations\nIF resource_utilization > 50 AND media_library_trends < 80 -> trigger_learning_opportunity",
+      "source": "skylang",
+      "ts": "2026-05-08T21:40:57.053186"
+    },
+    {
+      "id": "5d6be886",
+      "lesson": "SkyLang: WATCH system_resources utilization <op> \"optimal\" -> alert\nEVERY 5 MINUTES -> monitor\nIF system_resources utilization <op> \"optimizing\" THEN\n  WATCH media_library trends <op> \"increasing\" -> optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T21:41:45.080609"
+    },
+    {
+      "id": "2fe122b0",
+      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> IF cpu_utilization > 90 -> LOG \"Optimization lessons needed\"",
+      "source": "skylang",
+      "ts": "2026-05-08T21:45:19.621460"
+    },
+    {
+      "id": "23fd2b62",
+      "lesson": "Implement system resource monitoring with SkyLang to optimize performance.",
+      "source": "self",
+      "ts": "2026-05-08T21:45:40.134439"
+    },
+    {
+      "id": "a239d460",
+      "lesson": "SkyLang: WATCH CPU utilization INCREASE 80% -> GENERATE LESSON ON OPTIMIZATION",
+      "source": "skylang",
+      "ts": "2026-05-08T21:46:03.091118"
     }
   ],
   "web_cache": {}
