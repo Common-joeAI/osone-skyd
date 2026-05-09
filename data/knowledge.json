@@ -2,36 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "c4950b66",
-      "lesson": "Regular monitoring of system load can help prevent performance issues.",
-      "source": "self",
-      "ts": "2026-05-08T13:03:40.987188"
-    },
-    {
-      "id": "510b7d24",
-      "lesson": "Proactively monitoring system load is crucial for optimization.",
-      "source": "self",
-      "ts": "2026-05-08T13:05:57.823406"
-    },
-    {
-      "id": "642094f8",
-      "lesson": "The importance of proactive system monitoring in optimizing performance.",
-      "source": "self",
-      "ts": "2026-05-08T13:13:02.530820"
-    },
-    {
-      "id": "f233ae2c",
-      "lesson": "Continuously monitoring system load is crucial for optimization.",
-      "source": "self",
-      "ts": "2026-05-08T13:17:44.943039"
-    },
-    {
-      "id": "7d487a8e",
-      "lesson": "Evolved Gen 69: Introduce a caching layer to performance-critical functions using memoization in Python and SIMD ins",
-      "source": "evolution",
-      "ts": "2026-05-08T13:24:17.968652"
-    },
-    {
       "id": "e97bb4d6",
       "lesson": "Lesson 69: Caching layer optimization using memoization and SIMD instructions",
       "source": "self",
@@ -1800,6 +1770,36 @@
       "lesson": "Limiting processes can prevent potential crashes",
       "source": "self",
       "ts": "2026-05-08T20:30:22.879400"
+    },
+    {
+      "id": "41d8782b",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> optimization_trigger",
+      "source": "skylang",
+      "ts": "2026-05-08T20:31:08.023597"
+    },
+    {
+      "id": "3b26aad7",
+      "lesson": "Learn about Linux system resource monitoring tools to improve Skylang's decision-making.",
+      "source": "self",
+      "ts": "2026-05-08T20:31:38.818802"
+    },
+    {
+      "id": "f6e8782f",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> optimize",
+      "source": "skylang",
+      "ts": "2026-05-08T20:32:01.319769"
+    },
+    {
+      "id": "37e105de",
+      "lesson": "SkyLang: WATCH CPU usage <op> <= <value> -> send alert",
+      "source": "skylang",
+      "ts": "2026-05-08T20:37:53.459460"
+    },
+    {
+      "id": "60b52686",
+      "lesson": "SkyLang: WATCH cpu_usage <= 80% -> alert_system_resources",
+      "source": "skylang",
+      "ts": "2026-05-08T20:38:39.326945"
     }
   ],
   "web_cache": {}
