@@ -572,7 +572,7 @@ IF service failed -> RESTART service
     has_gcc = gcc_check.returncode == 0
     if not has_gcc:
         log.warning("⚠️  gcc not found — installing...")
-        subprocess.run(["pacman","-S","--noconfirm","gcc"], capture_output=True)
+        subprocess.run(["apt-get","install","-y","gcc"], capture_output=True)
 
     cycle = 0
     while True:
