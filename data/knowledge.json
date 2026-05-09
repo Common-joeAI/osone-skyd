@@ -2,186 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "fbd233af",
-      "lesson": "SkyLang: WATCH Code Readability -> Improve",
-      "source": "skylang",
-      "ts": "2026-05-08T14:39:06.108616"
-    },
-    {
-      "id": "cacc3f2f",
-      "lesson": "SkyLang: WATCH code_readability  <-> 80 -> refactor_code",
-      "source": "skylang",
-      "ts": "2026-05-08T14:40:56.204894"
-    },
-    {
-      "id": "90ae6dae",
-      "lesson": "The importance of adapting to changing system conditions through evolution.",
-      "source": "self",
-      "ts": "2026-05-08T14:41:08.238045"
-    },
-    {
-      "id": "6c38cdc1",
-      "lesson": "SkyLang: WATCH code_complexity <op> > 10 -> refactor code",
-      "source": "skylang",
-      "ts": "2026-05-08T14:41:30.660701"
-    },
-    {
-      "id": "ddf3380b",
-      "lesson": "Evolved Gen 87: Adding a `functools.lru_cache` decorator to memoize expensive function calls",
-      "source": "evolution",
-      "ts": "2026-05-08T14:41:38.958829"
-    },
-    {
-      "id": "54742cc0",
-      "lesson": "SkyLang: WATCH readability 0 -> refactor code",
-      "source": "skylang",
-      "ts": "2026-05-08T14:42:01.029805"
-    },
-    {
-      "id": "cc08db43",
-      "lesson": "SkyLang: WATCH CodeMaintainability -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T14:43:10.043204"
-    },
-    {
-      "id": "5f89fa59",
-      "lesson": "SkyLang: WATCH Code Complexity High -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T14:44:00.047701"
-    },
-    {
-      "id": "e82df56f",
-      "lesson": "Learn about caching mechanisms and their application in optimization",
-      "source": "self",
-      "ts": "2026-05-08T14:44:10.266537"
-    },
-    {
-      "id": "99d4f7f1",
-      "lesson": "SkyLang: WATCH CodeComplexity -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T14:44:32.754784"
-    },
-    {
-      "id": "26ba4248",
-      "lesson": "SkyLang: WATCH complexity > 5 -> refactor",
-      "source": "skylang",
-      "ts": "2026-05-08T14:48:30.204041"
-    },
-    {
-      "id": "93dda1c9",
-      "lesson": "Learn about memory optimization techniques",
-      "source": "self",
-      "ts": "2026-05-08T14:48:44.615630"
-    },
-    {
-      "id": "4a19c7cf",
-      "lesson": "SkyLang: WATCH code complexity -> refactor",
-      "source": "skylang",
-      "ts": "2026-05-08T14:49:06.807880"
-    },
-    {
-      "id": "181d24f5",
-      "lesson": "SkyLang: WATCH Code Complexity > 10 -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T14:50:58.302524"
-    },
-    {
-      "id": "ddbf61c1",
-      "lesson": "Evolved Gen 88: Implement a just-in-time compiler for Python to improve execution speed and reduce memory usage",
-      "source": "evolution",
-      "ts": "2026-05-08T14:51:05.558532"
-    },
-    {
-      "id": "7ff02a6d",
-      "lesson": "SkyLang: WATCH CodeComplexity high -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T14:51:28.032551"
-    },
-    {
-      "id": "0ac3b103",
-      "lesson": "Monitor memory usage and consider implementing memory optimization techniques",
-      "source": "self",
-      "ts": "2026-05-08T14:55:45.808263"
-    },
-    {
-      "id": "044dfa78",
-      "lesson": "Regularly monitor system resources to ensure optimal performance",
-      "source": "self",
-      "ts": "2026-05-08T14:57:54.606145"
-    },
-    {
-      "id": "8b6ac5d6",
-      "lesson": "SkyLang: WATCH Code Complexity -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:04:18.553052"
-    },
-    {
-      "id": "5754c825",
-      "lesson": "Implement memory optimization techniques and just-in-time compiler for Python.",
-      "source": "self",
-      "ts": "2026-05-08T15:04:27.216152"
-    },
-    {
-      "id": "81475cb4",
-      "lesson": "SkyLang: WATCH code_complexity -> reduce_code_complexity",
-      "source": "skylang",
-      "ts": "2026-05-08T15:04:49.400454"
-    },
-    {
-      "id": "b6d5c9c8",
-      "lesson": "SkyLang: WATCH Code complexity -> Reduce, refactor, and improve readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:05:26.374901"
-    },
-    {
-      "id": "7cd5de8a",
-      "lesson": "SkyLang: WATCH Code Complexity HIGH -> Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:06:04.097007"
-    },
-    {
-      "id": "55c9c24b",
-      "lesson": "SkyLang: WATCH code_complexity -> Improve_readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:06:33.435721"
-    },
-    {
-      "id": "2b84ef4d",
-      "lesson": "SkyLang: WATCH code complexity HIGH -> refactor",
-      "source": "skylang",
-      "ts": "2026-05-08T15:07:21.217048"
-    },
-    {
-      "id": "7eb701c3",
-      "lesson": "Implement just-in-time compiler for Python",
-      "source": "self",
-      "ts": "2026-05-08T15:07:32.663839"
-    },
-    {
-      "id": "3665c6b9",
-      "lesson": "SkyLang: WATCH Code Complexity HIGH -> Refactor, Reduce, Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:07:55.410428"
-    },
-    {
-      "id": "96613c0c",
-      "lesson": "Understanding just-in-time compilation and its impact on memory usage",
-      "source": "self",
-      "ts": "2026-05-08T15:09:59.307084"
-    },
-    {
-      "id": "2f88e9c9",
-      "lesson": "Monitor resource usage to prevent overloading",
-      "source": "self",
-      "ts": "2026-05-08T15:12:26.307788"
-    },
-    {
-      "id": "f6228f4f",
-      "lesson": "Just-in-time compilation and its impact on memory usage",
-      "source": "self",
-      "ts": "2026-05-08T15:14:44.267602"
-    },
-    {
       "id": "507cd871",
       "lesson": "Evolved Gen 89: Implement a 'code complexity metric' to monitor code readability",
       "source": "evolution",
@@ -1800,6 +1620,186 @@
       "lesson": "The importance of proactive resource monitoring in maintaining system stability and performance.",
       "source": "self",
       "ts": "2026-05-09T10:38:45.194965"
+    },
+    {
+      "id": "795cdffe",
+      "lesson": "Proactive monitoring of system logs is crucial for maintaining stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T10:42:22.319443"
+    },
+    {
+      "id": "4313d236",
+      "lesson": "SkyLang: IF MediaLibraryIntelligence < 80 AND DockerServicesHealthCheck > 95 THEN Trigger Emergency Response",
+      "source": "skylang",
+      "ts": "2026-05-09T10:45:42.199253"
+    },
+    {
+      "id": "e767e8b6",
+      "lesson": "SkyLang: IF MediaLibraryIntelligence < 80 AND DockerServicesHealthCheck > 95 -> Trigger Emergency Response",
+      "source": "skylang",
+      "ts": "2026-05-09T10:46:46.914820"
+    },
+    {
+      "id": "669cba3a",
+      "lesson": "SkyLang: WATCH media_library_intelligence < 80 -> Trigger Emergency Response",
+      "source": "skylang",
+      "ts": "2026-05-09T10:48:37.180636"
+    },
+    {
+      "id": "93a6151c",
+      "lesson": "Media library intelligence is crucial for maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T10:49:09.420700"
+    },
+    {
+      "id": "dd37f14d",
+      "lesson": "Web: query \u2192 Query string A part of a uniform resource locator that assigns values to specified parameters. | Query language A computer language used to make queries in databases and information systems.",
+      "source": "web",
+      "ts": "2026-05-09T10:51:48.931360"
+    },
+    {
+      "id": "a6b34260",
+      "lesson": "Regularly review system resource usage to ensure optimal performance.",
+      "source": "self",
+      "ts": "2026-05-09T10:52:15.024104"
+    },
+    {
+      "id": "82023968",
+      "lesson": "SkyLang: WATCH media_library_intelligence IMPROVE -> improve_library_intelligence_and_stability",
+      "source": "skylang",
+      "ts": "2026-05-09T10:54:44.791888"
+    },
+    {
+      "id": "7e21383c",
+      "lesson": "The importance of media library intelligence in maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T10:55:05.197572"
+    },
+    {
+      "id": "3fa9f4c0",
+      "lesson": "SkyLang: WATCH media_library_intelligence  MUST IMPROVE -> upgrade_intelligence",
+      "source": "skylang",
+      "ts": "2026-05-09T10:55:31.093984"
+    },
+    {
+      "id": "33f420a0",
+      "lesson": "SkyLang: WATCH media_library_intelligence_interval <op> above_threshold -> improve_media_library_intelligence",
+      "source": "skylang",
+      "ts": "2026-05-09T10:56:18.333725"
+    },
+    {
+      "id": "d5834aca",
+      "lesson": "SkyLang: WATCH media_library_intelligence_score_improvement_interval 1 -> improve_media_library_intelligence_and_system_stability",
+      "source": "skylang",
+      "ts": "2026-05-09T10:57:09.435854"
+    },
+    {
+      "id": "df639ddf",
+      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' > 50 -> Optimize 'llama-server' to reduce CPU usage",
+      "source": "skylang",
+      "ts": "2026-05-09T10:58:08.457181"
+    },
+    {
+      "id": "ce4cb1e2",
+      "lesson": "Monitoring system resource usage is crucial for preventing potential instability.",
+      "source": "self",
+      "ts": "2026-05-09T10:58:34.264562"
+    },
+    {
+      "id": "273918e3",
+      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' > 80 -> OPTIMIZE LLAMA_SERVER Performance",
+      "source": "skylang",
+      "ts": "2026-05-09T10:59:22.487331"
+    },
+    {
+      "id": "8603843b",
+      "lesson": "High CPU usage can indicate inefficient code or resource-intensive processes, requiring optimization and monitoring.",
+      "source": "self",
+      "ts": "2026-05-09T10:59:49.328612"
+    },
+    {
+      "id": "de717c82",
+      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' GT 80 -> optimize_llama_server_performance",
+      "source": "skylang",
+      "ts": "2026-05-09T11:00:13.342801"
+    },
+    {
+      "id": "f3c66679",
+      "lesson": "Regularly monitoring system resource usage helps prevent potential instability",
+      "source": "self",
+      "ts": "2026-05-09T11:01:25.421398"
+    },
+    {
+      "id": "006b8b77",
+      "lesson": "SkyLang: WATCH 'system_stability' GROWING -> CONTINUE_LEARNING",
+      "source": "skylang",
+      "ts": "2026-05-09T11:02:28.478741"
+    },
+    {
+      "id": "3bfafa58",
+      "lesson": "SkyLang: WATCH CPUUsageLLAMA_SERVER <0.5> -> NotifyAdmin \"High CPU usage from multiple steamwebhelper processes\"",
+      "source": "skylang",
+      "ts": "2026-05-09T11:03:41.701819"
+    },
+    {
+      "id": "d162fd9f",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80 -> log \"System resources are stable\"",
+      "source": "skylang",
+      "ts": "2026-05-09T11:04:58.478850"
+    },
+    {
+      "id": "59f92840",
+      "lesson": "Regular system resource monitoring and optimization are crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T11:05:25.407649"
+    },
+    {
+      "id": "f88e8540",
+      "lesson": "SkyLang: WATCH resource_usage  monitor -> continue_monitoring\nEVERY 1m -> continue_monitoring\nIF resource_usage < 80% -> optimize_performance",
+      "source": "skylang",
+      "ts": "2026-05-09T11:05:50.193539"
+    },
+    {
+      "id": "de0113b2",
+      "lesson": "SkyLang: WATCH CPUUsage steamwebhelper > 80 -> terminate",
+      "source": "skylang",
+      "ts": "2026-05-09T11:07:36.988457"
+    },
+    {
+      "id": "7370d87c",
+      "lesson": "Regularly check and terminate any unnecessary steamwebhelper processes to prevent high CPU usage",
+      "source": "self",
+      "ts": "2026-05-09T11:08:05.420941"
+    },
+    {
+      "id": "6def0d60",
+      "lesson": "SkyLang: WATCH CPU_USAGE gt 80 -> Alert manager to optimize resource allocation",
+      "source": "skylang",
+      "ts": "2026-05-09T11:08:57.647855"
+    },
+    {
+      "id": "cd370661",
+      "lesson": "Regularly check and optimize resource-intensive processes to maintain system balance",
+      "source": "self",
+      "ts": "2026-05-09T11:09:37.463466"
+    },
+    {
+      "id": "3692ee8e",
+      "lesson": "SkyLang: WATCH CPU_USAGE <op> <= 80 -> SEND ALERT FOR OPTIMIZATION",
+      "source": "skylang",
+      "ts": "2026-05-09T11:10:27.519707"
+    },
+    {
+      "id": "fb6b6d1d",
+      "lesson": "Regularly checking system resources and optimizing usage can help prevent potential issues.",
+      "source": "self",
+      "ts": "2026-05-09T11:10:50.260056"
+    },
+    {
+      "id": "70bb40cd",
+      "lesson": "SkyLang: WATCH system.memory_usage <DECREASE> <5> -> send_notification()",
+      "source": "skylang",
+      "ts": "2026-05-09T11:11:14.779926"
     }
   ],
   "web_cache": {}
