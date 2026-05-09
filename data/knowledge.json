@@ -2,114 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "4fcbad0b",
-      "lesson": "SkyLang: WATCH 'llama-server' CPU_usage > 80 -> alert administrator and kill process",
-      "source": "skylang",
-      "ts": "2026-05-08T19:21:44.662306"
-    },
-    {
-      "id": "f2f66533",
-      "lesson": "Web: system resources \u2192 A computer system resource is any hardware or software aspect of limited availability that is access | Resources",
-      "source": "web",
-      "ts": "2026-05-08T19:23:20.795308"
-    },
-    {
-      "id": "1fd94131",
-      "lesson": "Regularly review system resource utilization thresholds to ensure optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T19:23:45.339328"
-    },
-    {
-      "id": "e8bdfd4f",
-      "lesson": "SkyLang: WATCH media_library_intelligence  Continuously -> ImproveMediaLibraryIntelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:27:05.744655"
-    },
-    {
-      "id": "d1d73d80",
-      "lesson": "Understanding system resource utilization thresholds is crucial for optimal performance",
-      "source": "self",
-      "ts": "2026-05-08T19:27:31.563388"
-    },
-    {
-      "id": "cc67a441",
-      "lesson": "SkyLang: WATCH media_library_intelligence GROW -> CONTINUE LEARNING",
-      "source": "skylang",
-      "ts": "2026-05-08T19:27:54.031256"
-    },
-    {
-      "id": "25351145",
-      "lesson": "SkyLang: WATCH media_library_intelligence_score <op> <value> -> CONTINUE_LEARNING",
-      "source": "skylang",
-      "ts": "2026-05-08T19:28:41.469085"
-    },
-    {
-      "id": "6dea5ff3",
-      "lesson": "SkyLang: WATCH media_library_intelligence EVERY 30m -> train_model",
-      "source": "skylang",
-      "ts": "2026-05-08T19:29:18.939439"
-    },
-    {
-      "id": "d1b36f8f",
-      "lesson": "SkyLang: WATCH media_library_intelligence_score_op Improve -> CONTINUE_LEARNING",
-      "source": "skylang",
-      "ts": "2026-05-08T19:30:04.573468"
-    },
-    {
-      "id": "da7c49a1",
-      "lesson": "SkyLang: IF media_library_intelligence < 50 THEN continue_learning_and_improving_media_library_intelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:31:09.134469"
-    },
-    {
-      "id": "5eda625f",
-      "lesson": "SkyLang: IF media_library_intelligence_score < 50 THEN continue_learning_and_improving_media_library_intelligence END",
-      "source": "skylang",
-      "ts": "2026-05-08T19:31:56.046122"
-    },
-    {
-      "id": "5d5ce93d",
-      "lesson": "The importance of maintaining system stability while improving intelligence.",
-      "source": "self",
-      "ts": "2026-05-08T19:34:17.779794"
-    },
-    {
-      "id": "d7521245",
-      "lesson": "SkyLang: WATCH media_library_intelligence > 50 -> continue_improving",
-      "source": "skylang",
-      "ts": "2026-05-08T19:36:50.505918"
-    },
-    {
-      "id": "7926c4b8",
-      "lesson": "Media library intelligence scoring system needs refinement to accurately measure intelligence.",
-      "source": "self",
-      "ts": "2026-05-08T19:37:07.525336"
-    },
-    {
-      "id": "12ce6581",
-      "lesson": "SkyLang: IF MediaLibraryIntelligence < 50 THEN ContinueImprovingMediaLibraryIntelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:37:30.651726"
-    },
-    {
-      "id": "c3993abf",
-      "lesson": "SkyLang: WATCH media_library_intelligence INCREASED -> CONTINUE ImprovingMediaLibraryIntelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:38:20.637220"
-    },
-    {
-      "id": "6969acbb",
-      "lesson": "SkyLang: WATCH media_library_intelligence OP >= 75 -> continue_improving",
-      "source": "skylang",
-      "ts": "2026-05-08T19:39:16.562752"
-    },
-    {
-      "id": "462cd105",
-      "lesson": "SkyLang: IF media_library_intelligence < 50 AND media_library_intelligence > 75 THEN increase_media_library_intelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:40:02.981872"
-    },
-    {
       "id": "61d15d47",
       "lesson": "SkyLang: WATCH media_library_intelligence_score EVERY 1D -> continue_improving",
       "source": "skylang",
@@ -1800,6 +1692,114 @@
       "lesson": "SkyLang: WATCH disk_usage 80% -> SET disk_usage_threshold 80%",
       "source": "skylang",
       "ts": "2026-05-09T13:59:39.842283"
+    },
+    {
+      "id": "8de2607d",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> notify_operator alert_disk_usage_exceeded",
+      "source": "skylang",
+      "ts": "2026-05-09T14:04:22.772716"
+    },
+    {
+      "id": "2ef21641",
+      "lesson": "Monitoring disk usage is crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T14:04:40.026789"
+    },
+    {
+      "id": "b3dd7c3c",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> alert administrator",
+      "source": "skylang",
+      "ts": "2026-05-09T14:05:03.822988"
+    },
+    {
+      "id": "0901c574",
+      "lesson": "Regularly review disk usage thresholds and adjust as needed.",
+      "source": "self",
+      "ts": "2026-05-09T14:07:08.540372"
+    },
+    {
+      "id": "98d67aa8",
+      "lesson": "SkyLang: WATCH CPU Utilization <10%> -> MONITOR & OPTIMIZE SYSTEM RESOURCES",
+      "source": "skylang",
+      "ts": "2026-05-09T14:07:50.670193"
+    },
+    {
+      "id": "95e2b185",
+      "lesson": "Regularly reviewing disk usage thresholds and adjusting them as needed is crucial for maintaining optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-09T14:08:26.360472"
+    },
+    {
+      "id": "c96f4218",
+      "lesson": "SkyLang: WATCH disk_usage <op> <= 43.9% -> IF disk_usage <= 90% -> ALERT, WATCH disk_usage <op> >= 10% -> RESET",
+      "source": "skylang",
+      "ts": "2026-05-09T14:09:10.793585"
+    },
+    {
+      "id": "adbfae90",
+      "lesson": "The importance of adaptability in media management and system stability.",
+      "source": "self",
+      "ts": "2026-05-09T14:09:37.481311"
+    },
+    {
+      "id": "b5f8d142",
+      "lesson": "SkyLang: WATCH disk_usage_rate op <= 43.9 -> CONTINUE_MONITORING",
+      "source": "skylang",
+      "ts": "2026-05-09T14:10:05.949746"
+    },
+    {
+      "id": "20140b5a",
+      "lesson": "SkyLang: WATCH disk_usage  > 0.8 -> CONTINUE Monitoring",
+      "source": "skylang",
+      "ts": "2026-05-09T14:12:16.137926"
+    },
+    {
+      "id": "89415c03",
+      "lesson": "Adaptability in media management and system stability is crucial.",
+      "source": "self",
+      "ts": "2026-05-09T14:12:46.834185"
+    },
+    {
+      "id": "53f417d1",
+      "lesson": "SkyLang: WATCH disk_usage_threshold > 80 -> IF disk_usage_threshold > 90 THEN alert_disk_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T14:13:11.907005"
+    },
+    {
+      "id": "9ff205c5",
+      "lesson": "The importance of proactive system monitoring in maintaining stability and performance",
+      "source": "self",
+      "ts": "2026-05-09T14:15:45.463761"
+    },
+    {
+      "id": "9a6fa45f",
+      "lesson": "Regularly review system resource utilization to prevent resource-related issues.",
+      "source": "self",
+      "ts": "2026-05-09T14:16:47.707545"
+    },
+    {
+      "id": "1234dce1",
+      "lesson": "SkyLang: WATCH disk_usage > 90% -> ALERT, RECOMMEND_STORAGE_upgrade",
+      "source": "skylang",
+      "ts": "2026-05-09T14:18:33.377052"
+    },
+    {
+      "id": "689839bc",
+      "lesson": "The importance of proactive disk space management in Linux",
+      "source": "self",
+      "ts": "2026-05-09T14:18:53.412008"
+    },
+    {
+      "id": "334d683a",
+      "lesson": "SkyLang: WATCH disk_usage  greater_than 80% -> alert, recommend_upgrade",
+      "source": "skylang",
+      "ts": "2026-05-09T14:19:16.897888"
+    },
+    {
+      "id": "f882792d",
+      "lesson": "Monitoring system resources proactively can help prevent resource-related issues.",
+      "source": "self",
+      "ts": "2026-05-09T14:21:43.371888"
     }
   ],
   "web_cache": {}
