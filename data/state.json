@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 2.1,
-    "memory_percent": 18.5,
-    "memory_used_gb": 12.4,
+    "cpu_percent": 2.4,
+    "memory_percent": 22.3,
+    "memory_used_gb": 14.95,
     "memory_total_gb": 67.07,
-    "disk_percent": 38.7,
-    "disk_used_gb": 178.32,
+    "disk_percent": 42.9,
+    "disk_used_gb": 197.72,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 67.0
+          "current": 64.0
         },
         {
           "label": "",
@@ -27,7 +27,7 @@
         },
         {
           "label": "",
-          "current": 56.0
+          "current": 55.0
         },
         {
           "label": "",
@@ -43,7 +43,7 @@
         },
         {
           "label": "",
-          "current": 48.0
+          "current": 47.0
         },
         {
           "label": "",
@@ -61,107 +61,108 @@
         },
         {
           "label": "Sensor 2",
-          "current": 44.85
+          "current": 43.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 50.0
+          "current": 51.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 59.0
+          "current": 60.0
         },
         {
           "label": "Core 0",
-          "current": 54.0
+          "current": 56.0
         },
         {
           "label": "Core 1",
-          "current": 57.0
+          "current": 60.0
         },
         {
           "label": "Core 2",
-          "current": 55.0
+          "current": 57.0
         },
         {
           "label": "Core 3",
-          "current": 58.0
+          "current": 59.0
         },
         {
           "label": "Core 4",
-          "current": 54.0
+          "current": 57.0
         },
         {
           "label": "Core 5",
-          "current": 52.0
+          "current": 57.0
         },
         {
           "label": "Core 6",
-          "current": 55.0
+          "current": 57.0
         },
         {
           "label": "Core 7",
-          "current": 52.0
+          "current": 58.0
         }
       ]
     },
     "top_processes": [
       {
-        "cpu_percent": 403.3,
-        "name": "llama-server",
-        "pid": 809,
-        "memory_percent": 13.750108019785866
-      },
-      {
-        "cpu_percent": 88.0,
+        "cpu_percent": 29.4,
         "name": "steam",
         "pid": 1302,
-        "memory_percent": 0.6438437272032449
+        "memory_percent": 0.671148686219851
       },
       {
-        "cpu_percent": 1.7,
+        "cpu_percent": 1.2,
         "name": "steamwebhelper",
         "pid": 1683,
-        "memory_percent": 0.596489074504796
+        "memory_percent": 0.6246795667482884
       },
       {
-        "cpu_percent": 0.7,
+        "cpu_percent": 0.5,
         "name": "steamwebhelper",
         "pid": 1597,
-        "memory_percent": 0.5369384917781294
+        "memory_percent": 0.5058226863230615
       },
       {
         "cpu_percent": 0.3,
-        "name": "kworker/u65:3-rb_allocator",
-        "pid": 6906,
+        "name": "irq/184-iwlwifi:default_queue",
+        "pid": 645,
+        "memory_percent": 0.0
+      },
+      {
+        "cpu_percent": 0.3,
+        "name": "irq/195-iwlwifi:queue_11",
+        "pid": 656,
         "memory_percent": 0.0
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T13:29:16.691232"
+    "timestamp": "2026-05-09T14:00:46.164087"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resource usage is within healthy boundaries, but CPU utilization is slightly elevated at 26.4%.",
+    "observation": "System stability & performance are within optimal ranges, with 2.2% CPU usage, 22.4% RAM usage, 42.6% disk usage, and 0.0% swap usage.",
     "action": "none",
-    "reason": "No immediate action required, but monitoring will continue to ensure system stability.",
-    "optimization_tip": "Regularly review and adjust system resource limits to prevent future CPU utilization issues.",
+    "reason": "No actions required at this time.",
+    "optimization_tip": "Regularly check disk usage and consider implementing proactive disk cleanup to maintain optimal system performance.",
     "should_search_web": true,
-    "web_query": "What are best practices for adjusting system resource limits in Linux?",
+    "web_query": "Can proactive disk cleanup be implemented for optimal performance?",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": true,
-    "evolve_reason": "To improve performance optimization techniques and enhance system stability monitoring.",
+    "should_evolve": false,
+    "evolve_reason": "To improve media library intelligence and learn from recent knowledge.",
     "should_write_skylang": false,
-    "skylang_situation": null,
-    "skylang_behavior": null,
-    "new_lesson": "Reviewing system resource limits and adjusting them as needed can significantly improve system performance and stability."
+    "skylang_situation": "disk usage is approaching 80% threshold",
+    "skylang_behavior": "Set disk usage threshold to 80% to prevent potential issues.",
+    "new_lesson": "Proactive disk cleanup can significantly improve system stability and performance.",
+    "skylang_rule": "WATCH disk_usage 80% -> SET disk_usage_threshold 80%"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T13:29:41.093676"
+  "updated": "2026-05-09T14:00:49.178970"
 }
