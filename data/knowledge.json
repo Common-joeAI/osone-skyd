@@ -2,168 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "afb859d0",
-      "lesson": "SkyLang: WATCH disk_space_used <op> >= 80 -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T15:50:16.021400"
-    },
-    {
-      "id": "37860ed5",
-      "lesson": "SkyLang: WATCH disk_usage > 80 -> trigger_cleaning",
-      "source": "skylang",
-      "ts": "2026-05-08T15:51:58.634117"
-    },
-    {
-      "id": "7e1fbe1d",
-      "lesson": "SkyLang: WATCH disk_usage > 80 -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T15:52:28.711966"
-    },
-    {
-      "id": "6d79deeb",
-      "lesson": "SkyLang: WATCH disk_usage <= 80% -> clean_disk",
-      "source": "skylang",
-      "ts": "2026-05-08T15:58:53.483039"
-    },
-    {
-      "id": "420430d9",
-      "lesson": "Monitor disk usage regularly to avoid unexpected issues",
-      "source": "self",
-      "ts": "2026-05-08T15:59:04.330825"
-    },
-    {
-      "id": "0f8830a2",
-      "lesson": "SkyLang: WATCH disk_usage <op> >= 90 -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T15:59:26.805939"
-    },
-    {
-      "id": "b085814e",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> clean_disk",
-      "source": "skylang",
-      "ts": "2026-05-08T16:01:20.249470"
-    },
-    {
-      "id": "09115dfd",
-      "lesson": "Monitor disk usage regularly",
-      "source": "self",
-      "ts": "2026-05-08T16:01:37.095138"
-    },
-    {
-      "id": "476ee2fd",
-      "lesson": "SkyLang: WATCH disk_usage <>= 80% -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:01:59.524962"
-    },
-    {
-      "id": "cdbec274",
-      "lesson": "SkyLang: WATCH disk_usage EXCEED 90% -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:06:40.724938"
-    },
-    {
-      "id": "6d3f766e",
-      "lesson": "Regular monitoring of disk usage is crucial",
-      "source": "self",
-      "ts": "2026-05-08T16:06:55.752605"
-    },
-    {
-      "id": "b86a2db3",
-      "lesson": "SkyLang: WATCH disk_usage > 90% -> trigger cleaning action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:07:18.053672"
-    },
-    {
-      "id": "6dabbb12",
-      "lesson": "Monitoring disk usage is crucial for system performance",
-      "source": "self",
-      "ts": "2026-05-08T16:09:13.219902"
-    },
-    {
-      "id": "64da3843",
-      "lesson": "Regular monitoring of disk usage is crucial for system performance.",
-      "source": "self",
-      "ts": "2026-05-08T16:11:24.895335"
-    },
-    {
-      "id": "819a9fe1",
-      "lesson": "SkyLang: WATCH disk_usage  > 0.9 -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:13:29.835972"
-    },
-    {
-      "id": "534637b1",
-      "lesson": "Regular monitoring of disk usage is crucial for system performance",
-      "source": "self",
-      "ts": "2026-05-08T16:13:48.233171"
-    },
-    {
-      "id": "6b68b42e",
-      "lesson": "SkyLang: WATCH disk_usage > 0.9 -> trigger cleaning action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:14:10.588790"
-    },
-    {
-      "id": "3de13f3f",
-      "lesson": "Monitoring disk usage is crucial for system performance.",
-      "source": "self",
-      "ts": "2026-05-08T16:18:53.385115"
-    },
-    {
-      "id": "8336b9c7",
-      "lesson": "Disk usage monitoring is crucial for system performance",
-      "source": "self",
-      "ts": "2026-05-08T16:21:07.452829"
-    },
-    {
-      "id": "660250a4",
-      "lesson": "Maintaining system resources is crucial for long-term stability.",
-      "source": "self",
-      "ts": "2026-05-08T16:25:49.329197"
-    },
-    {
-      "id": "fee5a511",
-      "lesson": "Understanding the importance of system resource monitoring.",
-      "source": "self",
-      "ts": "2026-05-08T16:28:01.624283"
-    },
-    {
-      "id": "7465dfcc",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> trigger cleaning action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:30:06.872036"
-    },
-    {
-      "id": "251cf808",
-      "lesson": "Evolved Gen 93: Adding a new SkyLang rule to trigger disk cleaning action when disk usage exceeds 80% and has been a",
-      "source": "evolution",
-      "ts": "2026-05-08T16:30:14.618792"
-    },
-    {
-      "id": "1963eea5",
-      "lesson": "The importance of disk cleanup and system resource monitoring cannot be overstated for long-term stability.",
-      "source": "self",
-      "ts": "2026-05-08T16:30:14.619578"
-    },
-    {
-      "id": "89ea8542",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> trigger_disk_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T16:30:37.036943"
-    },
-    {
-      "id": "432cd627",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> disk_cleaning",
-      "source": "skylang",
-      "ts": "2026-05-08T16:32:34.406779"
-    },
-    {
-      "id": "93760ae5",
-      "lesson": "Evolved Gen 94: Adding a more efficient way to monitor disk usage to avoid frequent disk checks",
-      "source": "evolution",
-      "ts": "2026-05-08T16:32:43.246172"
-    },
-    {
       "id": "88538440",
       "lesson": "The importance of regular disk cleanup for maintaining system stability",
       "source": "self",
@@ -1800,6 +1638,168 @@
       "lesson": "Monitor resource utilization to prevent crashes.",
       "source": "self",
       "ts": "2026-05-09T11:40:56.238009"
+    },
+    {
+      "id": "904bf978",
+      "lesson": "SkyLang: WATCH docker_container_running True -> notify ops \"Docker containers are running\"",
+      "source": "skylang",
+      "ts": "2026-05-09T11:42:55.831707"
+    },
+    {
+      "id": "dc60c248",
+      "lesson": "SkyLang: WATCH container_status \"running\" -> notify-ops",
+      "source": "skylang",
+      "ts": "2026-05-09T11:44:23.477097"
+    },
+    {
+      "id": "74b3c097",
+      "lesson": "Regularly review Docker container status to prevent issues.",
+      "source": "self",
+      "ts": "2026-05-09T11:44:50.715958"
+    },
+    {
+      "id": "6ca9e0b3",
+      "lesson": "Regularly clean up unnecessary data to maintain optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-09T11:45:56.713200"
+    },
+    {
+      "id": "a792d994",
+      "lesson": "Regularly review and maintain system resources to prevent crashes",
+      "source": "self",
+      "ts": "2026-05-09T11:47:03.193102"
+    },
+    {
+      "id": "152757e5",
+      "lesson": "SkyLang: WATCH disk.utilization 1.2 -> disk.limit 80%",
+      "source": "skylang",
+      "ts": "2026-05-09T11:48:51.487597"
+    },
+    {
+      "id": "0d2ed9c5",
+      "lesson": "The importance of maintaining system resources to prevent crashes",
+      "source": "self",
+      "ts": "2026-05-09T11:49:09.892693"
+    },
+    {
+      "id": "1f7f3220",
+      "lesson": "SkyLang: WATCH disk_utilization < 0.8 -> alert",
+      "source": "skylang",
+      "ts": "2026-05-09T11:49:56.475338"
+    },
+    {
+      "id": "9634bb8b",
+      "lesson": "Regularly review and clean up unnecessary data to maintain optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-09T11:50:21.140565"
+    },
+    {
+      "id": "f28fb0d3",
+      "lesson": "SkyLang: WATCH disk utilization < 80 -> alert",
+      "source": "skylang",
+      "ts": "2026-05-09T11:50:43.711367"
+    },
+    {
+      "id": "ab3b07b9",
+      "lesson": "The importance of adapting to evolving media management techniques.",
+      "source": "self",
+      "ts": "2026-05-09T11:51:44.579020"
+    },
+    {
+      "id": "745ae77d",
+      "lesson": "SkyLang: WATCH disk_utilization ALERTED 30.9% -> ALERT Disk utilization near threshold, review disk usage.",
+      "source": "skylang",
+      "ts": "2026-05-09T11:52:26.405787"
+    },
+    {
+      "id": "5a7f5bd6",
+      "lesson": "SkyLang: WATCH cpu_usage_stable > 90 -> if cpu_usage_stable <= 90 then scale_down_memory",
+      "source": "skylang",
+      "ts": "2026-05-09T11:53:38.330960"
+    },
+    {
+      "id": "05846501",
+      "lesson": "The importance of adapting to evolving media management techniques, such as Docker container optimization and media server stack performance.",
+      "source": "self",
+      "ts": "2026-05-09T11:54:03.938626"
+    },
+    {
+      "id": "5a20f3dc",
+      "lesson": "SkyLang: WATCH disk_utilization > 0.8 -> alert",
+      "source": "skylang",
+      "ts": "2026-05-09T11:56:37.149358"
+    },
+    {
+      "id": "4f7b1bd0",
+      "lesson": "Be cautious of the impact of media server stack performance on overall system stability.",
+      "source": "self",
+      "ts": "2026-05-09T11:56:59.746873"
+    },
+    {
+      "id": "2200a805",
+      "lesson": "SkyLang: WATCH disk_usage > 80 -> alert_manager send alert",
+      "source": "skylang",
+      "ts": "2026-05-09T11:57:41.063571"
+    },
+    {
+      "id": "76fb7119",
+      "lesson": "Regularly check disk usage and perform maintenance to avoid issues.",
+      "source": "self",
+      "ts": "2026-05-09T11:58:08.324795"
+    },
+    {
+      "id": "a120f137",
+      "lesson": "SkyLang: WATCH disk_utilization > 80% -> alert disk high",
+      "source": "skylang",
+      "ts": "2026-05-09T12:01:21.219529"
+    },
+    {
+      "id": "5d903990",
+      "lesson": "SkyLang: WATCH disk_utilization > 80% -> ALERT, send_notification, maintenance_team",
+      "source": "skylang",
+      "ts": "2026-05-09T12:02:13.343353"
+    },
+    {
+      "id": "6d81ffc2",
+      "lesson": "SkyLang: WATCH disk_utilization \"less_than\" 32.2 -> perform_disk_maintenance",
+      "source": "skylang",
+      "ts": "2026-05-09T12:06:56.125633"
+    },
+    {
+      "id": "39623f62",
+      "lesson": "Regularly check disk space and perform maintenance to avoid issues.",
+      "source": "self",
+      "ts": "2026-05-09T12:07:20.568824"
+    },
+    {
+      "id": "45f6fd8c",
+      "lesson": "SkyLang: WATCH disk utilization 32.2% -> perform maintenance tasks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:07:43.457522"
+    },
+    {
+      "id": "15af5892",
+      "lesson": "Web: null \u2192 Null pointer A value indicating that the pointer or reference does not refer to an object. | Null (SQL) A special marker used to indicate that a data value does not exist in the database.",
+      "source": "web",
+      "ts": "2026-05-09T12:09:48.398558"
+    },
+    {
+      "id": "84c54444",
+      "lesson": "SkyLang: WATCH disk_utilization <0 ->> optimize_media_server_stacks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:09:49.725242"
+    },
+    {
+      "id": "d7330d90",
+      "lesson": "SkyLang: WATCH disk_space Utilization <10%> -> OptimizeMediaServerStacks",
+      "source": "skylang",
+      "ts": "2026-05-09T12:10:35.539791"
+    },
+    {
+      "id": "4d50062f",
+      "lesson": "SkyLang: WATCH disk.utilization 32.2% AND disk.utilization < 10% -> performMaintenance",
+      "source": "skylang",
+      "ts": "2026-05-09T12:12:49.476585"
     }
   ],
   "web_cache": {}
