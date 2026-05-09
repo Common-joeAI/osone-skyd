@@ -312,8 +312,8 @@ async def hive_nodes_list(admin=Depends(require_admin)):
 # ── Static & Agent files ──────────────────────────────────────────────────────
 @app.get("/agent/{filename}")
 async def serve_agent(filename: str):
-    path = f"/opt/osone-gui/agent/{filename}"
+    path = f"/app/agent/{filename}"
     if os.path.exists(path): return FileResponse(path)
     return {"error": "not found"}
 
-app.mount("/", StaticFiles(directory="/opt/osone-gui/frontend/dist", html=True), name="static")
+app.mount("/", StaticFiles(directory="/app/frontend/dist", html=True), name="static")
