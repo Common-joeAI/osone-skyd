@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 0.4,
-    "memory_percent": 15.3,
-    "memory_used_gb": 10.25,
+    "cpu_percent": 0.3,
+    "memory_percent": 19.8,
+    "memory_used_gb": 13.25,
     "memory_total_gb": 67.07,
     "disk_percent": 10.6,
-    "disk_used_gb": 48.81,
+    "disk_used_gb": 48.83,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 54.0
+          "current": 53.0
         },
         {
           "label": "",
@@ -19,11 +19,11 @@
         },
         {
           "label": "",
-          "current": 25.0
+          "current": 53.0
         },
         {
           "label": "",
-          "current": 53.0
+          "current": 54.0
         },
         {
           "label": "",
@@ -31,19 +31,19 @@
         },
         {
           "label": "",
-          "current": 36.0
+          "current": 37.0
         },
         {
           "label": "",
-          "current": 41.0
+          "current": 43.0
         },
         {
           "label": "",
-          "current": 38.0
+          "current": 39.0
         },
         {
           "label": "",
-          "current": 45.0
+          "current": 47.0
         },
         {
           "label": "",
@@ -53,15 +53,29 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 38.85
+          "current": 39.85
         },
         {
           "label": "Sensor 1",
-          "current": 38.85
+          "current": 39.85
         },
         {
           "label": "Sensor 2",
-          "current": 38.85
+          "current": 40.85
+        }
+      ],
+      "amdgpu": [
+        {
+          "label": "edge",
+          "current": 52.0
+        },
+        {
+          "label": "junction",
+          "current": 52.0
+        },
+        {
+          "label": "mem",
+          "current": 52.0
         }
       ],
       "iwlwifi_1": [
@@ -73,15 +87,15 @@
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 52.0
+          "current": 54.0
         },
         {
           "label": "Core 0",
-          "current": 47.0
+          "current": 45.0
         },
         {
           "label": "Core 1",
-          "current": 51.0
+          "current": 49.0
         },
         {
           "label": "Core 2",
@@ -89,7 +103,7 @@
         },
         {
           "label": "Core 3",
-          "current": 50.0
+          "current": 48.0
         },
         {
           "label": "Core 4",
@@ -97,11 +111,11 @@
         },
         {
           "label": "Core 5",
-          "current": 45.0
+          "current": 46.0
         },
         {
           "label": "Core 6",
-          "current": 50.0
+          "current": 49.0
         },
         {
           "label": "Core 7",
@@ -111,58 +125,59 @@
     },
     "top_processes": [
       {
-        "memory_percent": 0.21305320027452754,
-        "pid": 1746,
-        "name": "chromium",
-        "cpu_percent": 0.9
+        "memory_percent": 0.08355159184073299,
+        "pid": 6123,
+        "name": "python3",
+        "cpu_percent": 0.7
       },
       {
-        "memory_percent": 0.17733872698422665,
-        "pid": 1701,
+        "memory_percent": 0.22698355485304605,
+        "pid": 6969,
         "name": "chromium",
-        "cpu_percent": 0.6
+        "cpu_percent": 0.7
       },
       {
-        "memory_percent": 0.07551461392520017,
+        "memory_percent": 0.3394829242922788,
+        "pid": 6924,
+        "name": "chromium",
+        "cpu_percent": 0.5
+      },
+      {
+        "memory_percent": 0.0,
+        "pid": 130,
+        "name": "irq/9-acpi",
+        "cpu_percent": 0.4
+      },
+      {
+        "memory_percent": 0.07549018542089764,
         "pid": 968,
         "name": "cloudflared",
-        "cpu_percent": 0.5
-      },
-      {
-        "memory_percent": 0.12112873858410189,
-        "pid": 1643,
-        "name": "Xorg",
-        "cpu_percent": 0.5
-      },
-      {
-        "memory_percent": 0.3638686787122807,
-        "pid": 1662,
-        "name": "chromium",
-        "cpu_percent": 0.5
+        "cpu_percent": 0.4
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-08T19:59:56.210246"
+    "timestamp": "2026-05-08T20:29:26.671096"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resources are within acceptable ranges, but CPU usage by 'llama-server' is high, indicating potential performance degradation.",
-    "action": "none",
-    "reason": "to prevent potential performance issues",
-    "optimization_tip": "Monitor CPU usage regularly and adjust workload as needed to maintain optimal performance.",
+    "observation": "CPU usage is high with chromium processes consuming 0.7 CPU each, while python3 process is at 0.7 as well.",
+    "action": "safe shell command: ps -ef | grep chromium | awk '{print $2}' | xargs kill -9",
+    "reason": "to prevent potential crashes due to high CPU usage",
+    "optimization_tip": "Monitor and limit resource-intensive processes",
     "should_search_web": true,
-    "web_query": "http://api.example.com/disk_usage",
+    "web_query": "crimson high cpu usage",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": false,
-    "evolve_reason": "to improve media library intelligence and system stability monitoring",
-    "should_write_skylang": false,
-    "skylang_situation": null,
-    "skylang_behavior": null,
-    "new_lesson": "Regularly review and adjust workload on resource-intensive containers to maintain optimal performance.",
-    "action_result": "blocked"
+    "should_evolve": true,
+    "evolve_reason": "to improve monitoring and optimization for high CPU usage",
+    "should_write_skylang": true,
+    "skylang_situation": "multiple chromium processes",
+    "skylang_behavior": "limit resource-intensive processes",
+    "new_lesson": "Limiting processes can prevent potential crashes",
+    "action_result": "blocked",
+    "skylang_rule": "WATCH chromium_processes -avg -lt 1 -> limit_resources"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-08T19:59:56.482260"
+  "updated": "2026-05-08T20:30:22.881492"
 }
