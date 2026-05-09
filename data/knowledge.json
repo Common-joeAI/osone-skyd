@@ -2,114 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "9c87280f",
-      "lesson": "Understanding proactive monitoring's benefits.",
-      "source": "self",
-      "ts": "2026-05-08T10:26:59.930362"
-    },
-    {
-      "id": "a5cf11f1",
-      "lesson": "Evolved Gen 46: Improving code readability by utilizing type hints for function parameters",
-      "source": "evolution",
-      "ts": "2026-05-08T10:27:28.814798"
-    },
-    {
-      "id": "93994d44",
-      "lesson": "Evolved Gen 47: Adding type hints for function return types to improve code readability and prevent type-related err",
-      "source": "evolution",
-      "ts": "2026-05-08T10:29:14.082670"
-    },
-    {
-      "id": "2c4530b2",
-      "lesson": "Maintain proactive monitoring of system resources.",
-      "source": "self",
-      "ts": "2026-05-08T10:29:14.083100"
-    },
-    {
-      "id": "4b3378ee",
-      "lesson": "Evolved Gen 48: Adding type hints for function return types to improve code readability and prevent type-related err",
-      "source": "evolution",
-      "ts": "2026-05-08T10:31:35.075959"
-    },
-    {
-      "id": "67a42733",
-      "lesson": "Regularly review system logs to identify potential issues.",
-      "source": "self",
-      "ts": "2026-05-08T10:31:35.076402"
-    },
-    {
-      "id": "847c900e",
-      "lesson": "Evolved Gen 49: Add type hints for function return types to improve code readability and prevent type-related errors",
-      "source": "evolution",
-      "ts": "2026-05-08T10:33:43.180753"
-    },
-    {
-      "id": "488f4ced",
-      "lesson": "Understanding the importance of type hints in improving code quality.",
-      "source": "self",
-      "ts": "2026-05-08T10:33:43.181188"
-    },
-    {
-      "id": "50c3cbe0",
-      "lesson": "Evolved Gen 50: Adding type hints for function return types to improve code readability and prevent type-related err",
-      "source": "evolution",
-      "ts": "2026-05-08T10:34:11.795638"
-    },
-    {
-      "id": "d0ecb733",
-      "lesson": "Evolved Gen 51: Adding a new capability to improve code readability and maintainability by introducing a 'type hint ",
-      "source": "evolution",
-      "ts": "2026-05-08T10:36:01.461147"
-    },
-    {
-      "id": "f4e59b15",
-      "lesson": "SkyLang: WATCH type_hints -> Introduce type hints",
-      "source": "skylang",
-      "ts": "2026-05-08T10:38:06.579344"
-    },
-    {
-      "id": "98950ac0",
-      "lesson": "The importance of type hints in preventing type-related errors",
-      "source": "self",
-      "ts": "2026-05-08T10:38:15.467059"
-    },
-    {
-      "id": "ac3d0c05",
-      "lesson": "SkyLang: WATCH type_hint INT <expression> -> type_hint INT",
-      "source": "skylang",
-      "ts": "2026-05-08T10:38:38.137068"
-    },
-    {
-      "id": "3ab8b70f",
-      "lesson": "Evolved Gen 52: Introduce type hints for function return types to improve code readability and prevent type-related ",
-      "source": "evolution",
-      "ts": "2026-05-08T10:38:44.925399"
-    },
-    {
-      "id": "1d3c46ff",
-      "lesson": "Evolved Gen 53: Introduce a new SkyLang rule to improve error handling and logging",
-      "source": "evolution",
-      "ts": "2026-05-08T10:40:36.978849"
-    },
-    {
-      "id": "2e41bc0e",
-      "lesson": "Evolved Gen 54: Introduce a new SkyLang rule to improve error handling and logging",
-      "source": "evolution",
-      "ts": "2026-05-08T10:42:43.409233"
-    },
-    {
-      "id": "bb2fa90d",
-      "lesson": "Evolved Gen 55: Introduce a new SkyLang rule to enable runtime type checking for user-defined functions",
-      "source": "evolution",
-      "ts": "2026-05-08T10:44:52.127663"
-    },
-    {
-      "id": "ad758375",
-      "lesson": "Learn about the importance of type hints in preventing type-related errors.",
-      "source": "self",
-      "ts": "2026-05-08T10:44:52.128110"
-    },
-    {
       "id": "078c8610",
       "lesson": "SkyLang: WATCH code_complexity -> increase -> refactor",
       "source": "skylang",
@@ -1800,6 +1692,114 @@
       "lesson": "SkyLang: WATCH cpu_usage 0 -> resize_cpu_cores_to_2",
       "source": "skylang",
       "ts": "2026-05-08T18:16:32.062444"
+    },
+    {
+      "id": "f35e73c5",
+      "lesson": "The importance of monitoring system resources in real-time",
+      "source": "self",
+      "ts": "2026-05-08T18:20:56.550881"
+    },
+    {
+      "id": "c229ff31",
+      "lesson": "Understanding the importance of monitoring system resources in real-time",
+      "source": "self",
+      "ts": "2026-05-08T18:23:17.716293"
+    },
+    {
+      "id": "55b2f36a",
+      "lesson": "Understanding system resource monitoring is crucial for AI core performance.",
+      "source": "self",
+      "ts": "2026-05-08T18:25:32.130721"
+    },
+    {
+      "id": "2bf43e5e",
+      "lesson": "Evolved Gen 98: Add a SkyLang rule to monitor and adjust the system's memory allocation based on the AI core's perfo",
+      "source": "evolution",
+      "ts": "2026-05-08T18:26:00.536675"
+    },
+    {
+      "id": "7ee37cb2",
+      "lesson": "SkyLang: WATCH CPU_CORES_SIZE increase -> Resize CPU cores to 2",
+      "source": "skylang",
+      "ts": "2026-05-08T18:27:43.925559"
+    },
+    {
+      "id": "0471d07f",
+      "lesson": "Evolved Gen 99: Optimize system resource-intensive functions by leveraging Python's `multiprocessing` module to util",
+      "source": "evolution",
+      "ts": "2026-05-08T18:27:57.615292"
+    },
+    {
+      "id": "cc916b45",
+      "lesson": "SkyLang: WATCH cpu_cores 2 -> resize_cpu_cores 2",
+      "source": "skylang",
+      "ts": "2026-05-08T18:28:19.914754"
+    },
+    {
+      "id": "d88a2775",
+      "lesson": "SkyLang: WATCH AI_CORE_PERFORMANCE <op> <value> -> IF (value < 50) THEN ADJUST_MEMORY_ALLOCATION (value = <adjusted_value>) END",
+      "source": "skylang",
+      "ts": "2026-05-08T18:30:13.705183"
+    },
+    {
+      "id": "24fb6093",
+      "lesson": "Understanding system resource allocation is crucial for AI core performance.",
+      "source": "self",
+      "ts": "2026-05-08T18:30:34.544236"
+    },
+    {
+      "id": "73e8af9d",
+      "lesson": "SkyLang: WATCH AI_CORE_PERFORMANCE <op> 0.7 -> IF AI_CORE_PERFORMANCE < 0.7 THEN AdjustSystemMemory true ELSE AdjustSystemMemory false",
+      "source": "skylang",
+      "ts": "2026-05-08T18:30:58.139248"
+    },
+    {
+      "id": "0f5cbf51",
+      "lesson": "SkyLang: WATCH CPUUtilization high -> IF CPUUtilization > 0.8 -> AdjustSystemMemory true",
+      "source": "skylang",
+      "ts": "2026-05-08T18:33:04.216882"
+    },
+    {
+      "id": "41bacc97",
+      "lesson": "SkyLang: WATCH CPUUtilization > 80 -> AdjustSystemMemory true",
+      "source": "skylang",
+      "ts": "2026-05-08T18:33:40.148837"
+    },
+    {
+      "id": "61998a4c",
+      "lesson": "Continuously assess system resource utilization to prevent potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-08T18:35:30.868300"
+    },
+    {
+      "id": "02e8fd8f",
+      "lesson": "Continuously monitor system resource allocation for AI core performance optimization.",
+      "source": "self",
+      "ts": "2026-05-08T18:37:46.542287"
+    },
+    {
+      "id": "28a2f8e0",
+      "lesson": "Continuously monitor system resource utilization to prevent potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-08T18:40:12.174599"
+    },
+    {
+      "id": "28d0ab44",
+      "lesson": "SkyLang: WATCH CPU Utilization > 80% IF High -> Adjust System Memory",
+      "source": "skylang",
+      "ts": "2026-05-08T18:48:03.872145"
+    },
+    {
+      "id": "c70a00cf",
+      "lesson": "Monitor system resources frequently to prevent performance degradation.",
+      "source": "self",
+      "ts": "2026-05-08T18:48:20.612739"
+    },
+    {
+      "id": "c11b0ac3",
+      "lesson": "SkyLang: WATCH cpu_utilization < op = -10 > 80 -> adjust_memory",
+      "source": "skylang",
+      "ts": "2026-05-08T18:48:43.149333"
     }
   ],
   "web_cache": {}
