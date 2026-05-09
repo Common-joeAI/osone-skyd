@@ -2,180 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "985821ca",
-      "lesson": "Review the importance of system monitoring in maintaining stability.",
-      "source": "self",
-      "ts": "2026-05-08T17:02:58.261848"
-    },
-    {
-      "id": "3188e538",
-      "lesson": "SkyLang: WATCH resource_usage <op> <= 80% -> send_email alert",
-      "source": "skylang",
-      "ts": "2026-05-08T17:05:02.219912"
-    },
-    {
-      "id": "c83fa77d",
-      "lesson": "Regular monitoring of system resources can help prevent issues.",
-      "source": "self",
-      "ts": "2026-05-08T17:05:15.022542"
-    },
-    {
-      "id": "f35db994",
-      "lesson": "SkyLang: WATCH CPU Utilization <op> >= 80 -> alert administrator",
-      "source": "skylang",
-      "ts": "2026-05-08T17:05:37.449339"
-    },
-    {
-      "id": "4a674809",
-      "lesson": "Evolved Gen 95: Adding a try-except block to the `get_system_resources()` function to handle potential exceptions an",
-      "source": "evolution",
-      "ts": "2026-05-08T17:05:45.225741"
-    },
-    {
-      "id": "6c42ac87",
-      "lesson": "SkyLang: WATCH cpu_usage > 80 -> send_email_alert",
-      "source": "skylang",
-      "ts": "2026-05-08T17:07:27.812139"
-    },
-    {
-      "id": "d7a23f11",
-      "lesson": "The importance of exception handling in system resource gathering.",
-      "source": "self",
-      "ts": "2026-05-08T17:07:41.645118"
-    },
-    {
-      "id": "f207dca6",
-      "lesson": "SkyLang: WATCH resource_usage > 0.8 -> send_email",
-      "source": "skylang",
-      "ts": "2026-05-08T17:08:03.946737"
-    },
-    {
-      "id": "020cf259",
-      "lesson": "The importance of continuous system monitoring and resource optimization.",
-      "source": "self",
-      "ts": "2026-05-08T17:10:05.626343"
-    },
-    {
-      "id": "f953edff",
-      "lesson": "The importance of continuous system monitoring",
-      "source": "self",
-      "ts": "2026-05-08T17:12:14.852511"
-    },
-    {
-      "id": "85f4a08e",
-      "lesson": "Continuous system monitoring is crucial for efficient resource utilization.",
-      "source": "self",
-      "ts": "2026-05-08T17:18:49.455831"
-    },
-    {
-      "id": "b522916b",
-      "lesson": "Continuously monitoring system resources is crucial for efficient performance.",
-      "source": "self",
-      "ts": "2026-05-08T17:27:45.308140"
-    },
-    {
-      "id": "52454d18",
-      "lesson": "SkyLang: WATCH utilization <resource> > 0.8 -> send notification",
-      "source": "skylang",
-      "ts": "2026-05-08T17:29:49.384633"
-    },
-    {
-      "id": "cb797b82",
-      "lesson": "Continuous system monitoring is crucial for efficient performance.",
-      "source": "self",
-      "ts": "2026-05-08T17:30:01.116734"
-    },
-    {
-      "id": "3feefe90",
-      "lesson": "SkyLang: WATCH utilization_system_resource  >  0.8 -> send_notification",
-      "source": "skylang",
-      "ts": "2026-05-08T17:30:23.883413"
-    },
-    {
-      "id": "6e40a66e",
-      "lesson": "SkyLang: WATCH utilization_rate EVERY 1M -> IF utilization_rate < 80 THEN adjust_utilization",
-      "source": "skylang",
-      "ts": "2026-05-08T17:32:23.420327"
-    },
-    {
-      "id": "df667263",
-      "lesson": "SkyLang: WATCH \"resource_utilization\" IF \"stability_threshold\" <  0.9 -> adjust_resource_utilization()",
-      "source": "skylang",
-      "ts": "2026-05-08T17:32:57.261061"
-    },
-    {
-      "id": "7bb70d9a",
-      "lesson": "Continuous system monitoring is essential for maintaining optimal performance",
-      "source": "self",
-      "ts": "2026-05-08T17:34:56.033342"
-    },
-    {
-      "id": "9fc9cda9",
-      "lesson": "Regularly review SkyLang rules for efficient system monitoring.",
-      "source": "self",
-      "ts": "2026-05-08T17:39:18.235045"
-    },
-    {
-      "id": "c07daf50",
-      "lesson": "Review SkyLang rules for efficient system monitoring",
-      "source": "self",
-      "ts": "2026-05-08T17:41:37.754214"
-    },
-    {
-      "id": "30a45b88",
-      "lesson": "Continuous system monitoring is key to maintaining optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-08T17:43:48.606496"
-    },
-    {
-      "id": "3becc0cf",
-      "lesson": "Evolved Gen 96: Add a caching mechanism to optimize performance-critical function calls",
-      "source": "evolution",
-      "ts": "2026-05-08T17:44:58.102109"
-    },
-    {
-      "id": "1fca879a",
-      "lesson": "SkyLang: WATCH CPU Utilization <op> > 80 -> RESIZE CPU Cores 2",
-      "source": "skylang",
-      "ts": "2026-05-08T17:46:45.885292"
-    },
-    {
-      "id": "d9023afc",
-      "lesson": "Regularly review and adjust system resource allocation to prevent high CPU usage",
-      "source": "self",
-      "ts": "2026-05-08T17:46:56.070098"
-    },
-    {
-      "id": "42fb0354",
-      "lesson": "SkyLang: WATCH cpu_utility  <  50% -> adjust_cpu_allocation\n\nOR\n\nEVERY 60 -> { monitor_cpu_utility; if cpu_utility > 80% { adjust_cpu_allocation; } }",
-      "source": "skylang",
-      "ts": "2026-05-08T17:47:20.549645"
-    },
-    {
-      "id": "14ad4815",
-      "lesson": "SkyLang: WATCH CPU Utilization > 80% -> RESIZE CPU Cores 2",
-      "source": "skylang",
-      "ts": "2026-05-08T17:55:55.695495"
-    },
-    {
-      "id": "573c02ac",
-      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> RESIZE CPU Cores 2",
-      "source": "skylang",
-      "ts": "2026-05-08T17:56:33.129495"
-    },
-    {
-      "id": "48464304",
-      "lesson": "SkyLang: WATCH cpu_utilization < 0.8 -> IF cpu_utilization > 0.9 THEN resize_cpu_cores_to_2",
-      "source": "skylang",
-      "ts": "2026-05-08T17:58:38.057681"
-    },
-    {
-      "id": "f8789fa2",
-      "lesson": "SkyLang: WATCH cpu_utilization  >  80 IF is_high_cpu_utilization -> resize_cpu_cores 2",
-      "source": "skylang",
-      "ts": "2026-05-08T17:59:18.678028"
-    },
-    {
       "id": "f3eb0297",
       "lesson": "Evolved Gen 97: Introduce a new monitoring metric to track system memory usage, which can help prevent memory-relate",
       "source": "evolution",
@@ -1800,6 +1626,180 @@
       "lesson": "Understanding the importance of proactive disk space utilization monitoring in media server stacks.",
       "source": "self",
       "ts": "2026-05-09T12:27:39.710941"
+    },
+    {
+      "id": "23acb249",
+      "lesson": "SkyLang: WATCH disk_space utilization <op> >= 80% -> alert\nEVERY 15 minutes -> monitor\nIF (media_library_size > 100GB || media_library_unindexed_count > 1000) -> alert",
+      "source": "skylang",
+      "ts": "2026-05-09T12:28:49.688614"
+    },
+    {
+      "id": "0849b300",
+      "lesson": "Understanding the importance of proactive monitoring and proactive maintenance in media server stacks.",
+      "source": "self",
+      "ts": "2026-05-09T12:29:10.887589"
+    },
+    {
+      "id": "c03cfa5b",
+      "lesson": "SkyLang: WATCH disk_space_usage <op> <= 0.75 -> IF disk_space_usage <op> <= 0.75 THEN run_cleanup_script()",
+      "source": "skylang",
+      "ts": "2026-05-09T12:29:57.526328"
+    },
+    {
+      "id": "2855dec6",
+      "lesson": "The importance of proactive disk space utilization monitoring in media server stacks.",
+      "source": "self",
+      "ts": "2026-05-09T12:30:27.890036"
+    },
+    {
+      "id": "a18d4f42",
+      "lesson": "SkyLang: WATCH \"system_resources\" \"continue\" \"0\" -> IF \"system_resources == 0\" THEN \"wait_for_next_task\"",
+      "source": "skylang",
+      "ts": "2026-05-09T12:32:00.100689"
+    },
+    {
+      "id": "140f6daa",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> restart llama-server",
+      "source": "skylang",
+      "ts": "2026-05-09T12:33:03.148416"
+    },
+    {
+      "id": "534f7cdc",
+      "lesson": "Understanding the importance of resource optimization in high-performance systems.",
+      "source": "self",
+      "ts": "2026-05-09T12:33:22.916022"
+    },
+    {
+      "id": "26489530",
+      "lesson": "Proactive disk space utilization monitoring can help prevent crashes and maintain system stability.",
+      "source": "self",
+      "ts": "2026-05-09T12:34:23.400611"
+    },
+    {
+      "id": "613bde20",
+      "lesson": "SkyLang: WATCH disk_space_utilization <op> 80% -> IF disk_space_utilization <op> 90% -> EVERY 1d -> alert_team",
+      "source": "skylang",
+      "ts": "2026-05-09T12:36:13.391041"
+    },
+    {
+      "id": "2b4218fd",
+      "lesson": "The importance of proactive disk space utilization monitoring in media server stacks",
+      "source": "self",
+      "ts": "2026-05-09T12:36:34.719392"
+    },
+    {
+      "id": "e0c86d6e",
+      "lesson": "SkyLang: WATCH disk_space_utilization CHECK <15%> -> IF disk_space_utilization > 80% THEN RUN script optimize_disk_space",
+      "source": "skylang",
+      "ts": "2026-05-09T12:36:59.663101"
+    },
+    {
+      "id": "19e8838b",
+      "lesson": "SkyLang: WATCH disk_space_utilization <op> > 80 -> CHECK_disk_space",
+      "source": "skylang",
+      "ts": "2026-05-09T12:37:44.702245"
+    },
+    {
+      "id": "a83a2682",
+      "lesson": "SkyLang: WATCH disk_space_utilization 1 -> notify_alert_if_below_threshold(0.75)",
+      "source": "skylang",
+      "ts": "2026-05-09T12:39:46.588506"
+    },
+    {
+      "id": "e7b0f905",
+      "lesson": "Proactive monitoring of disk space utilization can help prevent crashes and maintain system stability.",
+      "source": "self",
+      "ts": "2026-05-09T12:40:03.814931"
+    },
+    {
+      "id": "61924140",
+      "lesson": "SkyLang: WATCH disk_space_utilization == 80% -> ALERT IF disk_space_utilization > 90%",
+      "source": "skylang",
+      "ts": "2026-05-09T12:40:28.389182"
+    },
+    {
+      "id": "e6a7d9cb",
+      "lesson": "SkyLang: WATCH disk_space_utilization STABLE -> EVERY 24HOURS THEN IF disk_space_utilization > 80% THEN alert_admin",
+      "source": "skylang",
+      "ts": "2026-05-09T12:41:20.652838"
+    },
+    {
+      "id": "28e88d27",
+      "lesson": "SkyLang: WATCH disk_space_utilization CHECKED -> IF disk_space_utilization > 90 EVERY 24HOURS alert_admin",
+      "source": "skylang",
+      "ts": "2026-05-09T12:42:09.803701"
+    },
+    {
+      "id": "28d64c76",
+      "lesson": "SkyLang: WATCH disk_space_utilization CHECK < 80% -> alert disk_space_utilization_threshold",
+      "source": "skylang",
+      "ts": "2026-05-09T12:42:53.805086"
+    },
+    {
+      "id": "4eb04ff4",
+      "lesson": "SkyLang: WATCH CPUUsage > 80 -> NotifyAdmin",
+      "source": "skylang",
+      "ts": "2026-05-09T12:43:57.492425"
+    },
+    {
+      "id": "b690592e",
+      "lesson": "Regularly review and update system monitoring scripts to ensure accuracy and effectiveness.",
+      "source": "self",
+      "ts": "2026-05-09T12:44:15.226876"
+    },
+    {
+      "id": "46f8420c",
+      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' < 50 -> alert manager",
+      "source": "skylang",
+      "ts": "2026-05-09T12:45:01.976255"
+    },
+    {
+      "id": "0a0d4876",
+      "lesson": "High CPU usage can be a sign of a larger issue, it's essential to investigate and address the root cause.",
+      "source": "self",
+      "ts": "2026-05-09T12:45:26.626991"
+    },
+    {
+      "id": "81a738d0",
+      "lesson": "SkyLang: WATCH 'llama-server.cpu_usage' > 80 -> alert:high-cpu,escalate:restart",
+      "source": "skylang",
+      "ts": "2026-05-09T12:45:51.463125"
+    },
+    {
+      "id": "ba6cee64",
+      "lesson": "SkyLang: WATCH script_review_interval -> update_script_review_interval",
+      "source": "skylang",
+      "ts": "2026-05-09T12:51:27.119110"
+    },
+    {
+      "id": "986f39ac",
+      "lesson": "The importance of regular system monitoring script reviews and updates in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T12:51:52.682848"
+    },
+    {
+      "id": "cc676d19",
+      "lesson": "SkyLang: WATCH system_stability_metric every 1h -> UPDATE monitoring_scripts",
+      "source": "skylang",
+      "ts": "2026-05-09T12:52:18.035736"
+    },
+    {
+      "id": "4a2a76a2",
+      "lesson": "Regular system monitoring script reviews and updates are crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T12:54:46.420654"
+    },
+    {
+      "id": "c043e4a5",
+      "lesson": "SkyLang: EVERY 2W -> REVIEW",
+      "source": "skylang",
+      "ts": "2026-05-09T12:57:23.676437"
+    },
+    {
+      "id": "1111a965",
+      "lesson": "SkyLang: EVERY 2W -> REVIEW SCRIPTS",
+      "source": "skylang",
+      "ts": "2026-05-09T12:58:08.092692"
     }
   ],
   "web_cache": {}
