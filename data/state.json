@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 0.1,
-    "memory_percent": 10.0,
-    "memory_used_gb": 6.71,
+    "cpu_percent": 2.2,
+    "memory_percent": 17.2,
+    "memory_used_gb": 11.52,
     "memory_total_gb": 67.07,
-    "disk_percent": 10.9,
-    "disk_used_gb": 50.41,
+    "disk_percent": 15.9,
+    "disk_used_gb": 73.13,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 59.0
+          "current": 65.0
         },
         {
           "label": "",
@@ -23,19 +23,11 @@
         },
         {
           "label": "",
-          "current": 52.0
+          "current": 58.0
         },
         {
           "label": "",
-          "current": 47.0
-        },
-        {
-          "label": "",
-          "current": 30.0
-        },
-        {
-          "label": "",
-          "current": 38.0
+          "current": 56.0
         },
         {
           "label": "",
@@ -43,7 +35,15 @@
         },
         {
           "label": "",
-          "current": 42.0
+          "current": 45.0
+        },
+        {
+          "label": "",
+          "current": 39.0
+        },
+        {
+          "label": "",
+          "current": 52.0
         },
         {
           "label": "",
@@ -53,115 +53,116 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 36.85
+          "current": 41.85
         },
         {
           "label": "Sensor 1",
-          "current": 36.85
+          "current": 41.85
         },
         {
           "label": "Sensor 2",
-          "current": 37.85
+          "current": 42.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 37.0
+          "current": 47.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 52.0
+          "current": 63.0
         },
         {
           "label": "Core 0",
-          "current": 45.0
+          "current": 57.0
         },
         {
           "label": "Core 1",
-          "current": 49.0
+          "current": 61.0
         },
         {
           "label": "Core 2",
-          "current": 48.0
+          "current": 58.0
         },
         {
           "label": "Core 3",
-          "current": 46.0
+          "current": 63.0
         },
         {
           "label": "Core 4",
-          "current": 46.0
+          "current": 58.0
         },
         {
           "label": "Core 5",
-          "current": 45.0
+          "current": 58.0
         },
         {
           "label": "Core 6",
-          "current": 47.0
+          "current": 58.0
         },
         {
           "label": "Core 7",
-          "current": 44.0
+          "current": 57.0
         }
       ]
     },
     "top_processes": [
       {
-        "cpu_percent": 1.5,
-        "name": "tailscaled",
-        "pid": 762,
-        "memory_percent": 0.17374771562977043
+        "pid": 2825,
+        "memory_percent": 0.7801670347838695,
+        "name": "steam",
+        "cpu_percent": 72.7
       },
       {
-        "cpu_percent": 0.7,
-        "name": "systemd",
-        "pid": 1,
-        "memory_percent": 0.023005541116954138
+        "pid": 3153,
+        "memory_percent": 0.6671668810064348,
+        "name": "steamwebhelper",
+        "cpu_percent": 11.7
       },
       {
-        "cpu_percent": 0.5,
-        "name": "waybar",
-        "pid": 1093,
-        "memory_percent": 0.06861966020443236
+        "pid": 3102,
+        "memory_percent": 0.4858951648295006,
+        "name": "steamwebhelper",
+        "cpu_percent": 10.1
       },
       {
-        "cpu_percent": 0.4,
-        "name": "systemd",
-        "pid": 888,
-        "memory_percent": 0.019750443316227682
+        "pid": 3073,
+        "memory_percent": 0.5759508459407826,
+        "name": "steamwebhelper",
+        "cpu_percent": 1.8
       },
       {
-        "cpu_percent": 0.3,
-        "name": "cloudflared",
-        "pid": 1001,
-        "memory_percent": 0.06725777125591079
+        "pid": 2829,
+        "memory_percent": 0.11396507969738458,
+        "name": "Xwayland",
+        "cpu_percent": 1.7
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T10:38:08.338304"
+    "timestamp": "2026-05-09T11:12:22.156852"
   },
   "decision": {
     "status": "ok",
-    "observation": "System is currently within normal resource utilization limits.",
+    "observation": "System resources are at 16.9% RAM, which is within the acceptable range.",
     "action": "none",
-    "reason": "No immediate concerns require action, but will continue to monitor resource usage.",
-    "optimization_tip": "Consider enabling resource monitoring to improve system stability and performance.",
+    "reason": "No immediate action required to address the current resource usage.",
+    "optimization_tip": "Monitor and optimize resource usage regularly to prevent potential issues.",
     "should_search_web": true,
-    "web_query": "what are best practices for resource monitoring in Linux?",
+    "web_query": "https://example.com/linux-performance-tips",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": true,
-    "evolve_reason": "To improve media management and enhance overall system stability.",
+    "should_evolve": false,
+    "evolve_reason": "To further improve system stability and performance.",
     "should_write_skylang": false,
-    "skylang_situation": null,
-    "skylang_behavior": null,
-    "new_lesson": "The importance of proactive resource monitoring in maintaining system stability and performance."
+    "skylang_situation": "System resources are within acceptable ranges, but optimization tips should be applied.",
+    "skylang_behavior": "Regularly monitor and optimize resource usage to ensure system stability and performance.",
+    "new_lesson": "Regularly checking system resources and optimizing usage can help prevent potential issues.",
+    "skylang_rule": "WATCH system.memory_usage <DECREASE> <5> -> send_notification()"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T10:38:45.196949"
+  "updated": "2026-05-09T11:12:22.766826"
 }
