@@ -2,162 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "5154fb5a",
-      "lesson": "SkyLang: WATCH cpu_usage 5% -> monitor and adjust resource allocation.",
-      "source": "skylang",
-      "ts": "2026-05-08T12:17:03.787659"
-    },
-    {
-      "id": "314a6f78",
-      "lesson": "SkyLang: WATCH performance -> Optimize for performance",
-      "source": "skylang",
-      "ts": "2026-05-08T12:17:38.402359"
-    },
-    {
-      "id": "78089432",
-      "lesson": "SkyLang: WATCH cpu_usage < desc > 0 -> restart service",
-      "source": "skylang",
-      "ts": "2026-05-08T12:18:08.656003"
-    },
-    {
-      "id": "ed0a0117",
-      "lesson": "Continuously evaluate and adapt to changing system requirements.",
-      "source": "self",
-      "ts": "2026-05-08T12:19:05.129516"
-    },
-    {
-      "id": "341cd67e",
-      "lesson": "SkyLang: WATCH cpu_usage <0, 5> -> adjust_resource_allocation",
-      "source": "skylang",
-      "ts": "2026-05-08T12:21:09.603038"
-    },
-    {
-      "id": "57d0feb6",
-      "lesson": "Monitor system load and adjust resource allocation as needed.",
-      "source": "self",
-      "ts": "2026-05-08T12:21:54.825086"
-    },
-    {
-      "id": "8ab082fb",
-      "lesson": "Maintain system resource monitoring to prevent potential issues.",
-      "source": "self",
-      "ts": "2026-05-08T12:26:14.224647"
-    },
-    {
-      "id": "4ff79f0f",
-      "lesson": "SkyLang: WATCH cpu_usage HIGH -> adjust_resource_allocation",
-      "source": "skylang",
-      "ts": "2026-05-08T12:28:19.046462"
-    },
-    {
-      "id": "7df05b57",
-      "lesson": "Monitor system load and adjust resource allocation proactively.",
-      "source": "self",
-      "ts": "2026-05-08T12:28:30.680451"
-    },
-    {
-      "id": "114129cc",
-      "lesson": "SkyLang: WATCH CPUUsage HIGH -> AdjustResourceAllocation",
-      "source": "skylang",
-      "ts": "2026-05-08T12:28:52.812473"
-    },
-    {
-      "id": "cd47570b",
-      "lesson": "Monitoring system load proactively is crucial for resource optimization.",
-      "source": "self",
-      "ts": "2026-05-08T12:31:03.358106"
-    },
-    {
-      "id": "fb4ef42c",
-      "lesson": "Regularly monitor system resources to prevent potential issues.",
-      "source": "self",
-      "ts": "2026-05-08T12:33:17.676322"
-    },
-    {
-      "id": "14aeb8b5",
-      "lesson": "Monitoring system resources proactively is crucial for resource optimization.",
-      "source": "self",
-      "ts": "2026-05-08T12:35:35.098556"
-    },
-    {
-      "id": "f1ccfdd7",
-      "lesson": "SkyLang: WATCH system_load > 70 -> adjust_resource_allocation",
-      "source": "skylang",
-      "ts": "2026-05-08T12:39:56.060892"
-    },
-    {
-      "id": "5648d35e",
-      "lesson": "The importance of proactive optimization in resource allocation.",
-      "source": "self",
-      "ts": "2026-05-08T12:40:17.047479"
-    },
-    {
-      "id": "e25d93c8",
-      "lesson": "SkyLang: WATCH load_avg > 70 -> IF load_avg > 90 THEN scale_down 20%",
-      "source": "skylang",
-      "ts": "2026-05-08T12:40:39.827047"
-    },
-    {
-      "id": "9f7d67a6",
-      "lesson": "SkyLang: WATCH CPU_LOAD GROWTH > 70 -> RESIZE_RESOURCE_ALLOCATIONS",
-      "source": "skylang",
-      "ts": "2026-05-08T12:41:23.424575"
-    },
-    {
-      "id": "f54b4a4a",
-      "lesson": "SkyLang: WATCH cpu_usage_exceeding_threshold IF cpu_usage > 70 THEN scale_cpu_up",
-      "source": "skylang",
-      "ts": "2026-05-08T12:41:58.152473"
-    },
-    {
-      "id": "17cc411b",
-      "lesson": "SkyLang: WATCH system_load > 80 -> adjust_resource_allocation",
-      "source": "skylang",
-      "ts": "2026-05-08T12:42:35.778467"
-    },
-    {
-      "id": "49418698",
-      "lesson": "SkyLang: WATCH cpu_usage 1 -> send \"System load is normal\" to alerting system",
-      "source": "skylang",
-      "ts": "2026-05-08T12:43:29.206690"
-    },
-    {
-      "id": "5dc4d44e",
-      "lesson": "Understanding the importance of proactive optimization",
-      "source": "self",
-      "ts": "2026-05-08T12:43:44.374694"
-    },
-    {
-      "id": "9513101a",
-      "lesson": "SkyLang: WATCH CPUUtilization <op> >= 80 -> send_notification",
-      "source": "skylang",
-      "ts": "2026-05-08T12:44:06.803273"
-    },
-    {
-      "id": "dabde77d",
-      "lesson": "Proactively optimize system for high loads",
-      "source": "self",
-      "ts": "2026-05-08T12:45:57.398203"
-    },
-    {
-      "id": "435e0a1c",
-      "lesson": "Proactively monitoring system load is crucial for optimization",
-      "source": "self",
-      "ts": "2026-05-08T12:52:42.208729"
-    },
-    {
-      "id": "09c62f77",
-      "lesson": "Proactively monitoring system load helps optimize performance.",
-      "source": "self",
-      "ts": "2026-05-08T12:54:50.368603"
-    },
-    {
-      "id": "91ad5fe5",
-      "lesson": "Evolved Gen 68: Add a caching layer to performance-critical functions",
-      "source": "evolution",
-      "ts": "2026-05-08T12:59:09.571131"
-    },
-    {
       "id": "c4950b66",
       "lesson": "Regular monitoring of system load can help prevent performance issues.",
       "source": "self",
@@ -1800,6 +1644,162 @@
       "lesson": "Regularly review and adjust workload on resource-intensive containers to maintain optimal performance.",
       "source": "self",
       "ts": "2026-05-08T19:58:09.622286"
+    },
+    {
+      "id": "3acecb2d",
+      "lesson": "Optimizing CPU Resource Usage for Python 3",
+      "source": "self",
+      "ts": "2026-05-08T20:00:56.949838"
+    },
+    {
+      "id": "be73c2e3",
+      "lesson": "SkyLang: WATCH CPU_usage_python3 > 70 -> Refine CPU resource usage optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T20:03:07.295131"
+    },
+    {
+      "id": "41fbb7cd",
+      "lesson": "SkyLang: WATCH cpu_usage_python3 <op> > 80 -> refine_cpu_resource_usage",
+      "source": "skylang",
+      "ts": "2026-05-08T20:04:06.538147"
+    },
+    {
+      "id": "150954a0",
+      "lesson": "SkyLang: WATCH cpu_usage python3 > 80 -> refine_cpu_usage_optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T20:04:55.047232"
+    },
+    {
+      "id": "ffe9f322",
+      "lesson": "SkyLang: WATCH python3.cpu_usage < 70 -> refine cpu resource usage optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T20:05:46.422835"
+    },
+    {
+      "id": "8844541b",
+      "lesson": "SkyLang: WATCH CPU usage of python3 > 80% -> Refine CPU resource usage optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T20:06:45.759312"
+    },
+    {
+      "id": "543da7c4",
+      "lesson": "SkyLang: WATCH python3.cpu_usage > 80 -> alert system administrators",
+      "source": "skylang",
+      "ts": "2026-05-08T20:07:51.944412"
+    },
+    {
+      "id": "78152e4c",
+      "lesson": "High CPU usage by python3 may be due to resource-intensive tasks or inefficient code.",
+      "source": "self",
+      "ts": "2026-05-08T20:08:18.079652"
+    },
+    {
+      "id": "20600db6",
+      "lesson": "SkyLang: WATCH python3.cpu_usage <<= 70 -> alert and adjust CPU resource limits",
+      "source": "skylang",
+      "ts": "2026-05-08T20:08:41.032025"
+    },
+    {
+      "id": "68b6a0e0",
+      "lesson": "Regularly review and refine CPU resource usage optimization strategies.",
+      "source": "self",
+      "ts": "2026-05-08T20:11:34.367044"
+    },
+    {
+      "id": "6509a7eb",
+      "lesson": "Analyze CPU resource usage patterns to identify potential bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-08T20:14:26.549846"
+    },
+    {
+      "id": "ab992618",
+      "lesson": "SkyLang: WATCH python3.cpu_usage > 80% -> Alert administrators",
+      "source": "skylang",
+      "ts": "2026-05-08T20:16:58.730125"
+    },
+    {
+      "id": "56b0e126",
+      "lesson": "Understanding the impact of resource-intensive tasks on CPU usage is crucial for efficient optimization.",
+      "source": "self",
+      "ts": "2026-05-08T20:17:32.554411"
+    },
+    {
+      "id": "338b302a",
+      "lesson": "SkyLang: WATCH cpu_usage_python3 gt 80 -> alert_system_administers",
+      "source": "skylang",
+      "ts": "2026-05-08T20:17:55.244483"
+    },
+    {
+      "id": "3a5c75c5",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> alert administrators and implement cpu resource optimization",
+      "source": "skylang",
+      "ts": "2026-05-08T20:20:14.552659"
+    },
+    {
+      "id": "87105bcf",
+      "lesson": "SkyLang: WATCH python3.cpu_usage > 80% -> alert-administrators and optimize-cpu-resource",
+      "source": "skylang",
+      "ts": "2026-05-08T20:21:03.826676"
+    },
+    {
+      "id": "18f493b9",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> ALERT ADMINISTRATORS; OPTIMIZE_CPU_RESOURCES",
+      "source": "skylang",
+      "ts": "2026-05-08T20:22:01.355782"
+    },
+    {
+      "id": "9836b90c",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> Alert administrators, implement CPU optimization strategies",
+      "source": "skylang",
+      "ts": "2026-05-08T20:22:50.175422"
+    },
+    {
+      "id": "7554ac53",
+      "lesson": "SkyLang: WATCH python3.cpu_usage > 80% -> alert administrators and implement cpu resource optimization strategies",
+      "source": "skylang",
+      "ts": "2026-05-08T20:23:46.219946"
+    },
+    {
+      "id": "2abd8654",
+      "lesson": "SkyLang: WATCH CPUUtilization <op> <= 80% -> CHECK_PERFORMANCE",
+      "source": "skylang",
+      "ts": "2026-05-08T20:26:14.453148"
+    },
+    {
+      "id": "8f5e9db2",
+      "lesson": "Regularly check disk space and swap usage to prevent resource issues.",
+      "source": "self",
+      "ts": "2026-05-08T20:26:48.872960"
+    },
+    {
+      "id": "68113343",
+      "lesson": "SkyLang: WATCH CPU_USAGE > 70 -> IF CPU_USAGE > 80 THEN OPTIMIZE_RESOURCES",
+      "source": "skylang",
+      "ts": "2026-05-08T20:27:31.756288"
+    },
+    {
+      "id": "bdf3961a",
+      "lesson": "Learn how to optimize CPU resources for Python processes",
+      "source": "self",
+      "ts": "2026-05-08T20:27:58.055138"
+    },
+    {
+      "id": "f270b517",
+      "lesson": "SkyLang: WATCH \"cpu_usage\" > 80 -> alert_manager.notify(\"High CPU usage\")",
+      "source": "skylang",
+      "ts": "2026-05-08T20:28:21.098928"
+    },
+    {
+      "id": "15494167",
+      "lesson": "SkyLang: WATCH chromium_processes -avg -lt 1 -> limit_resources",
+      "source": "skylang",
+      "ts": "2026-05-08T20:29:51.617284"
+    },
+    {
+      "id": "cd258a64",
+      "lesson": "Limiting processes can prevent potential crashes",
+      "source": "self",
+      "ts": "2026-05-08T20:30:22.879400"
     }
   ],
   "web_cache": {}
