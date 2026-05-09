@@ -267,6 +267,105 @@ function SysMonitor({ stats, mobile }) {
   )
 }
 
+
+// ── Live Log Stream ───────────────────────────────────────────────────────────
+function LogStream({ token }) {
+  const [lines, setLines] = useState([])
+  const [connected, setConnected] = useState(false)
+  const [paused, setPaused] = useState(false)
+  const bottomRef = useRef(null)
+  const esRef = useRef(null)
+  const pausedRef = useRef(false)
+
+  pausedRef.current = paused
+
+  useEffect(() => {
+    const API = window.location.origin
+    const es = new EventSource(`${API}/api/logs/stream`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    // EventSource doesn't support custom headers natively — use fetch SSE instead
+    es.close()
+
+    let cancelled = false
+    async function streamLogs() {
+      try {
+        const res = await fetch(`${API}/api/logs/stream`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        setConnected(true)
+        const reader = res.body.getReader()
+        const decoder = new TextDecoder()
+        let buf = ''
+        while (!cancelled) {
+          const { done, value } = await reader.read()
+          if (done) break
+          buf += decoder.decode(value, { stream: true })
+          const parts = buf.split('\n\n')
+          buf = parts.pop()
+          for (const part of parts) {
+            if (part.startsWith('data: ')) {
+              const text = part.slice(6)
+              if (!pausedRef.current) {
+                setLines(l => [...l.slice(-500), text])
+              }
+            }
+          }
+        }
+      } catch(e) {
+        setConnected(false)
+      }
+    }
+    streamLogs()
+    return () => { cancelled = true; setConnected(false) }
+  }, [token])
+
+  useEffect(() => {
+    if (!paused && bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [lines, paused])
+
+  const colorize = (line) => {
+    if (line.includes('ERROR') || line.includes('✗')) return '#ff5555'
+    if (line.includes('WARNING') || line.includes('⚠')) return '#ffb86c'
+    if (line.includes('🧬') || line.includes('EVOLUTION')) return '#50fa7b'
+    if (line.includes('🕷️') || line.includes('spider')) return '#bd93f9'
+    if (line.includes('🛡️') || line.includes('GUARDRAIL')) return '#ff79c6'
+    if (line.includes('🧠') || line.includes('State')) return '#8be9fd'
+    if (line.includes('Cycle')) return '#f1fa8c'
+    return '#cdd6f4'
+  }
+
+  return (
+    <div style={{ display:'flex', flexDirection:'column', height:'100%', background:'#0d1117', borderRadius:8, overflow:'hidden' }}>
+      <div style={{ display:'flex', alignItems:'center', gap:8, padding:'8px 12px', borderBottom:'1px solid #30363d', background:'#161b22' }}>
+        <span style={{ width:8, height:8, borderRadius:'50%', background: connected ? '#50fa7b' : '#ff5555', display:'inline-block' }} />
+        <span style={{ color:'#8b949e', fontSize:12 }}>{connected ? 'LIVE — skyd.log' : 'disconnected'}</span>
+        <span style={{ marginLeft:'auto', color:'#8b949e', fontSize:11 }}>{lines.length} lines</span>
+        <button onClick={() => setPaused(p => !p)} style={{
+          background: paused ? '#ff79c6' : '#21262d', border:'1px solid #30363d',
+          color: paused ? '#0d1117' : '#cdd6f4', borderRadius:4, padding:'2px 10px',
+          fontSize:11, cursor:'pointer'
+        }}>{paused ? '▶ resume' : '⏸ pause'}</button>
+        <button onClick={() => setLines([])} style={{
+          background:'#21262d', border:'1px solid #30363d', color:'#cdd6f4',
+          borderRadius:4, padding:'2px 10px', fontSize:11, cursor:'pointer'
+        }}>clear</button>
+      </div>
+      <div style={{ flex:1, overflowY:'auto', padding:'8px 12px', fontFamily:'monospace', fontSize:12, lineHeight:1.6 }}>
+        {lines.length === 0 && <div style={{ color:'#444', marginTop:20, textAlign:'center' }}>Waiting for logs...</div>}
+        {lines.map((line, i) => (
+          <div key={i} style={{ color: colorize(line), whiteSpace:'pre-wrap', wordBreak:'break-all' }}>
+            {line}
+          </div>
+        ))}
+        <div ref={bottomRef} />
+      </div>
+    </div>
+  )
+}
+
 // ── Journal ───────────────────────────────────────────────────────────────────
 function Journal({ token }) {
   const [content, setContent] = useState('')
@@ -356,6 +455,7 @@ const ADMIN_APPS = [
   { id:'terminal',title:'Terminal', icon:'⌨️', initialPos:{x:200,y:80}, initialSize:{w:750,h:520} },
   { id:'monitor', title:'Monitor',  icon:'📊', initialPos:{x:300,y:60}, initialSize:{w:520,h:500} },
   { id:'hive',    title:'Hive',     icon:'🕷️', initialPos:{x:180,y:60}, initialSize:{w:680,h:580} },
+  { id:'logs',    title:'Logs',     icon:'📜', initialPos:{x:620,y:40},  initialSize:{w:700,h:500} },
   { id:'journal', title:'Journal',  icon:'📓', initialPos:{x:150,y:100},initialSize:{w:600,h:500} },
   { id:'files',   title:'Files',    icon:'📁', initialPos:{x:250,y:80}, initialSize:{w:480,h:500} },
   { id:'users',   title:'Users',    icon:'👥', initialPos:{x:160,y:70}, initialSize:{w:480,h:500} },
@@ -370,7 +470,7 @@ function MobileApp({ stats, auth, logout, token }) {
   const isAdmin = auth.role === 'admin'
   const [activeTab, setActiveTab] = useState('chat')
   const tabs = isAdmin
-    ? [{id:'chat',icon:'🤖',label:'skyd'},{id:'terminal',icon:'⌨️',label:'Term'},{id:'monitor',icon:'📊',label:'Stats'},{id:'hive',icon:'🕷️',label:'Hive'},{id:'files',icon:'📁',label:'Files'}]
+    ? [{id:'chat',icon:'🤖',label:'skyd'},{id:'terminal',icon:'⌨️',label:'Term'},{id:'monitor',icon:'📊',label:'Stats'},{id:'hive',icon:'🕷️',label:'Hive'},{id:'logs',icon:'📜',label:'Logs'},{id:'files',icon:'📁',label:'Files'}]
     : [{id:'chat',icon:'🤖',label:'skyd'},{id:'monitor',icon:'📊',label:'Stats'}]
 
   const renderContent = () => {
@@ -426,6 +526,7 @@ function DesktopApp({ stats, auth, logout, token }) {
       case 'terminal': return <Terminal token={token} />
       case 'chat':     return <SkydChat token={token} />
       case 'monitor':  return <SysMonitor stats={stats} />
+      case 'logs':     return <LogStream token={token} />
       case 'journal':  return <Journal token={token} />
       case 'files':    return <Files token={token} />
       case 'hive':     return <HivePanel />

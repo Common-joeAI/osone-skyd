@@ -251,6 +251,49 @@ async def journal(admin=Depends(require_admin)):
         with open("/var/log/skyd_journal.md") as f: return {"content":f.read()[-8000:]}
     except: return {"content":"No journal yet."}
 
+
+@app.get("/api/logs/stream")
+async def stream_logs(creds: HTTPAuthorizationCredentials = Depends(bearer)):
+    """Stream skyd.log in real-time via Server-Sent Events"""
+    await decode_token_dep(creds)
+    import asyncio
+    from starlette.responses import StreamingResponse
+
+    async def event_generator():
+        log_path = "/var/log/skyd.log"
+        try:
+            # Send last 100 lines first
+            with open(log_path) as f:
+                lines = f.readlines()
+                for line in lines[-100:]:
+                    yield f"data: {line.rstrip()}\n\n"
+        except:
+            yield "data: [log file not found]\n\n"
+
+        # Then tail new lines
+        try:
+            with open(log_path) as f:
+                f.seek(0, 2)  # seek to end
+                while True:
+                    line = f.readline()
+                    if line:
+                        yield f"data: {line.rstrip()}\n\n"
+                    else:
+                        await asyncio.sleep(0.5)
+        except asyncio.CancelledError:
+            return
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+async def decode_token_dep(creds):
+    """Helper to validate token in SSE endpoints"""
+    decoded = decode_token(creds.credentials)
+    if not decoded:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=401, detail="Invalid token")
+    return decoded
+
 @app.get("/api/files")
 async def files(path: str = "/", admin=Depends(require_admin)):
     try:
