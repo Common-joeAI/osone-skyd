@@ -2,30 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "38b83039",
-      "lesson": "Evolved Gen 86: Adding a timeout mechanism to prevent potential memory leaks when parsing large amounts of data",
-      "source": "evolution",
-      "ts": "2026-05-08T14:32:05.222603"
-    },
-    {
-      "id": "e8e68462",
-      "lesson": "Maintain optimal system performance",
-      "source": "self",
-      "ts": "2026-05-08T14:36:08.131802"
-    },
-    {
-      "id": "520159e6",
-      "lesson": "SkyLang: WATCH readability 10 -> refactor code",
-      "source": "skylang",
-      "ts": "2026-05-08T14:38:10.847727"
-    },
-    {
-      "id": "cae5ffa9",
-      "lesson": "The importance of explicit error handling in code development.",
-      "source": "self",
-      "ts": "2026-05-08T14:38:44.089267"
-    },
-    {
       "id": "fbd233af",
       "lesson": "SkyLang: WATCH Code Readability -> Improve",
       "source": "skylang",
@@ -1800,6 +1776,30 @@
       "lesson": "SkyLang: WATCH resource_usage <op> <value> -> alert if resource_usage <op> > 80%",
       "source": "skylang",
       "ts": "2026-05-09T10:32:36.988643"
+    },
+    {
+      "id": "ca359f30",
+      "lesson": "SkyLang: WATCH docker_container_status \"CRITICAL\" -> alert_manager notify",
+      "source": "skylang",
+      "ts": "2026-05-09T10:35:39.508646"
+    },
+    {
+      "id": "23f0a388",
+      "lesson": "The importance of regular system log review in maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T10:36:10.011352"
+    },
+    {
+      "id": "1026eced",
+      "lesson": "SkyLang: WATCH DockerServicesHealthCheck > 90 -> SendAlert(\"Docker Services Health Issue\")\n\nOR\n\nEVERY 1m -> CheckMediaLibraryIntelligence\n\nOR\n\nIF DockerServicesHealthCheck > 95 AND MediaLibraryIntelligence < 80 -> TriggerEmergencyResponse",
+      "source": "skylang",
+      "ts": "2026-05-09T10:36:35.126916"
+    },
+    {
+      "id": "b619ac6c",
+      "lesson": "The importance of proactive resource monitoring in maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T10:38:45.194965"
     }
   ],
   "web_cache": {}
