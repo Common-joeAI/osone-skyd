@@ -2,198 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "507cd871",
-      "lesson": "Evolved Gen 89: Implement a 'code complexity metric' to monitor code readability",
-      "source": "evolution",
-      "ts": "2026-05-08T15:16:21.248496"
-    },
-    {
-      "id": "9c89f0aa",
-      "lesson": "SkyLang: WATCH CodeComplexity HIGH -> Refactor Reduce Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:19:48.095556"
-    },
-    {
-      "id": "6710a725",
-      "lesson": "Evolved Gen 90: Code complexity metric to monitor code readability",
-      "source": "evolution",
-      "ts": "2026-05-08T15:19:54.407385"
-    },
-    {
-      "id": "9a2489ee",
-      "lesson": "SkyLang: WATCH code_complexity HIGH -> Refactor Reduce Improve Readability",
-      "source": "skylang",
-      "ts": "2026-05-08T15:20:16.765699"
-    },
-    {
-      "id": "9b03443d",
-      "lesson": "SkyLang: WATCH disk_usage > 80 -> clean_up_unused_files",
-      "source": "skylang",
-      "ts": "2026-05-08T15:24:30.882508"
-    },
-    {
-      "id": "3f22e994",
-      "lesson": "The importance of disk space management in maintaining system performance.",
-      "source": "self",
-      "ts": "2026-05-08T15:24:43.668350"
-    },
-    {
-      "id": "8475eb77",
-      "lesson": "SkyLang: WATCH disk_usage > 80 -> run action \"clean_up_unused_files\" every 15 minutes",
-      "source": "skylang",
-      "ts": "2026-05-08T15:25:06.438873"
-    },
-    {
-      "id": "f2e86a36",
-      "lesson": "SkyLang: WATCH disk_usage HIGH -> disk_cleaner run",
-      "source": "skylang",
-      "ts": "2026-05-08T15:26:58.632982"
-    },
-    {
-      "id": "f98e44f6",
-      "lesson": "The importance of disk space management in preventing performance degradation.",
-      "source": "self",
-      "ts": "2026-05-08T15:27:10.067018"
-    },
-    {
-      "id": "eec6fd7b",
-      "lesson": "SkyLang: WATCH DiskUsage > 80% -> CleanUnusedFiles",
-      "source": "skylang",
-      "ts": "2026-05-08T15:27:32.373530"
-    },
-    {
-      "id": "4981427f",
-      "lesson": "SkyLang: WATCH disk_space_used > 90 -> clean_up_unused_files",
-      "source": "skylang",
-      "ts": "2026-05-08T15:29:31.117514"
-    },
-    {
-      "id": "1f1057b0",
-      "lesson": "Regularly review and adjust SkyLang rules to ensure optimal system performance",
-      "source": "self",
-      "ts": "2026-05-08T15:29:43.934370"
-    },
-    {
-      "id": "5066e321",
-      "lesson": "SkyLang: WATCH disk_usage  >  80 -> clean_up_unused_files",
-      "source": "skylang",
-      "ts": "2026-05-08T15:30:06.356373"
-    },
-    {
-      "id": "00b4e308",
-      "lesson": "Evolved Gen 91: Optimize disk I/O performance by using async I/O for file operations",
-      "source": "evolution",
-      "ts": "2026-05-08T15:30:15.476131"
-    },
-    {
-      "id": "dd601b73",
-      "lesson": "ASM: Optimize disk I/O performance \u2192 compiled /usr/local/skyd/asm/sky_20260508_153218",
-      "source": "asm",
-      "ts": "2026-05-08T15:32:19.070370"
-    },
-    {
-      "id": "6245dd97",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> CLEANUP_unused_files",
-      "source": "skylang",
-      "ts": "2026-05-08T15:32:20.449390"
-    },
-    {
-      "id": "2c938e3e",
-      "lesson": "The importance of disk space management for system performance",
-      "source": "self",
-      "ts": "2026-05-08T15:32:36.409015"
-    },
-    {
-      "id": "247fe585",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> clean_up_unused_files",
-      "source": "skylang",
-      "ts": "2026-05-08T15:33:18.707968"
-    },
-    {
-      "id": "4302ab5c",
-      "lesson": "SkyLang: WATCH DiskUsage > 80% -> CLEANUP_unused_files",
-      "source": "skylang",
-      "ts": "2026-05-08T15:35:17.241634"
-    },
-    {
-      "id": "a8551a07",
-      "lesson": "Regular disk space management is crucial for system performance.",
-      "source": "self",
-      "ts": "2026-05-08T15:35:30.387114"
-    },
-    {
-      "id": "23c0c64f",
-      "lesson": "Evolved Gen 92: Adding a disk usage threshold to the SkyLang ruleset to improve self-healing behavior",
-      "source": "evolution",
-      "ts": "2026-05-08T15:36:00.531374"
-    },
-    {
-      "id": "f124656a",
-      "lesson": "SkyLang: WATCH DiskSpace  >  80% -> CleanDisk",
-      "source": "skylang",
-      "ts": "2026-05-08T15:37:44.289622"
-    },
-    {
-      "id": "17811114",
-      "lesson": "The importance of adapting SkyLang rules to specific system situations.",
-      "source": "self",
-      "ts": "2026-05-08T15:38:03.248255"
-    },
-    {
-      "id": "2cc8fadf",
-      "lesson": "SkyLang: WATCH disk_space <EXCEEDS> 80% -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T15:38:25.844285"
-    },
-    {
-      "id": "0479b656",
-      "lesson": "Regular monitoring of system resources is essential for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T15:40:33.318235"
-    },
-    {
-      "id": "cb5ca991",
-      "lesson": "Regular system monitoring is crucial for maintaining system stability and preventing resource-intensive processes from causing issues.",
-      "source": "self",
-      "ts": "2026-05-08T15:42:42.959165"
-    },
-    {
-      "id": "69302ab1",
-      "lesson": "SkyLang: WATCH DiskSpace > 80% -> DiskCleanAction",
-      "source": "skylang",
-      "ts": "2026-05-08T15:44:46.752694"
-    },
-    {
-      "id": "5110c566",
-      "lesson": "Regular monitoring of system resources is crucial for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T15:44:58.048909"
-    },
-    {
-      "id": "9e6f6b5e",
-      "lesson": "SkyLang: WATCH DiskSpace > 80% -> TriggerCleaning",
-      "source": "skylang",
-      "ts": "2026-05-08T15:45:20.255096"
-    },
-    {
-      "id": "85cccb66",
-      "lesson": "Understanding the importance of regular system monitoring",
-      "source": "self",
-      "ts": "2026-05-08T15:47:14.415527"
-    },
-    {
-      "id": "b71e13d4",
-      "lesson": "SkyLang: WATCH disk_usage > 80% -> trigger_cleaning_action",
-      "source": "skylang",
-      "ts": "2026-05-08T15:49:35.945450"
-    },
-    {
-      "id": "d9b158c5",
-      "lesson": "The importance of regular system monitoring cannot be overstated.",
-      "source": "self",
-      "ts": "2026-05-08T15:49:52.736299"
-    },
-    {
       "id": "afb859d0",
       "lesson": "SkyLang: WATCH disk_space_used <op> >= 80 -> trigger_cleaning_action",
       "source": "skylang",
@@ -1800,6 +1608,198 @@
       "lesson": "SkyLang: WATCH system.memory_usage <DECREASE> <5> -> send_notification()",
       "source": "skylang",
       "ts": "2026-05-09T11:11:14.779926"
+    },
+    {
+      "id": "508a9b79",
+      "lesson": "SkyLang: WATCH CPU_usage HIGH -> AlertManager optimizeResourceAllocation",
+      "source": "skylang",
+      "ts": "2026-05-09T11:13:07.839042"
+    },
+    {
+      "id": "71eba144",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> alert:high_cpu_usage, optimize_cpu_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T11:14:34.986905"
+    },
+    {
+      "id": "11c8f897",
+      "lesson": "Regularly check and optimize resource-intensive processes to maintain system balance.",
+      "source": "self",
+      "ts": "2026-05-09T11:15:00.845707"
+    },
+    {
+      "id": "de7c1e64",
+      "lesson": "SkyLang: WATCH cpu_usage HIGH -> ALERT and OPTIMIZE CPUUsage with 5% threshold",
+      "source": "skylang",
+      "ts": "2026-05-09T11:15:24.924280"
+    },
+    {
+      "id": "6e84661b",
+      "lesson": "SkyLang: WATCH system.cpu.utilization <op> <= 5 -> IF media library.intelligence <op> <= 50 THEN notify.admin",
+      "source": "skylang",
+      "ts": "2026-05-09T11:17:29.435335"
+    },
+    {
+      "id": "d7e8fe5b",
+      "lesson": "Regularly check and optimize media library data to ensure efficient media management.",
+      "source": "self",
+      "ts": "2026-05-09T11:18:01.240759"
+    },
+    {
+      "id": "335bc2c1",
+      "lesson": "SkyLang: WATCH system_resources_stable -> continue_monitoring\nEVERY 1m -> check_media_library_intelligence\nIF system_resources_stable == false -> improve_media_library_intelligence",
+      "source": "skylang",
+      "ts": "2026-05-09T11:18:26.090669"
+    },
+    {
+      "id": "a1bb4179",
+      "lesson": "SkyLang: WATCH resource_usage monitor -> check_media_library_intelligence\nEVERY 1M -> continueMonitoring\nIF resource_usage < 80% -> alert_manager",
+      "source": "skylang",
+      "ts": "2026-05-09T11:19:21.260128"
+    },
+    {
+      "id": "7f2890d8",
+      "lesson": "The importance of regular media library data checks to ensure efficient media management.",
+      "source": "self",
+      "ts": "2026-05-09T11:20:59.704751"
+    },
+    {
+      "id": "cb739aa5",
+      "lesson": "SkyLang: WATCH system_memory_usage > 80% -> notify_admin_improvement_needed",
+      "source": "skylang",
+      "ts": "2026-05-09T11:21:45.872990"
+    },
+    {
+      "id": "40b9cc93",
+      "lesson": "SkyLang: WATCH cpu_usage steam_service > 80% -> alert high_cpu_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T11:23:10.622632"
+    },
+    {
+      "id": "f982cd80",
+      "lesson": "The importance of regular monitoring and optimization of resource-intensive services.",
+      "source": "self",
+      "ts": "2026-05-09T11:23:37.391199"
+    },
+    {
+      "id": "b19e6033",
+      "lesson": "SkyLang: WATCH steam.cpu_usage > 80 -> IF steam.cpu_usage > 90 -> adjust_resource_settings",
+      "source": "skylang",
+      "ts": "2026-05-09T11:26:00.745210"
+    },
+    {
+      "id": "e8156099",
+      "lesson": "Regularly check and adjust resource settings for resource-intensive services to maintain optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-09T11:26:35.936381"
+    },
+    {
+      "id": "c74450a4",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> alert high_cpu_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T11:27:23.845423"
+    },
+    {
+      "id": "912712aa",
+      "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> alert steam_service",
+      "source": "skylang",
+      "ts": "2026-05-09T11:28:42.227880"
+    },
+    {
+      "id": "82d06a89",
+      "lesson": "The importance of proactive resource monitoring to prevent potential system crashes.",
+      "source": "self",
+      "ts": "2026-05-09T11:29:18.702680"
+    },
+    {
+      "id": "86708d76",
+      "lesson": "SkyLang: WATCH resource_utilization_stability \"STABLE\" -> CONTINUE Monitoring",
+      "source": "skylang",
+      "ts": "2026-05-09T11:30:10.692625"
+    },
+    {
+      "id": "9de8d325",
+      "lesson": "The importance of proactive resource monitoring in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T11:30:45.030402"
+    },
+    {
+      "id": "dc54a82b",
+      "lesson": "SkyLang: WATCH resource_utilization_stable_interval 1 -> continueMonitoring",
+      "source": "skylang",
+      "ts": "2026-05-09T11:31:09.499722"
+    },
+    {
+      "id": "80f78415",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> notify-ops alert high-cpu-usage",
+      "source": "skylang",
+      "ts": "2026-05-09T11:32:43.360947"
+    },
+    {
+      "id": "387a7b90",
+      "lesson": "Proactive monitoring of resource usage can prevent potential system crashes.",
+      "source": "self",
+      "ts": "2026-05-09T11:33:20.910326"
+    },
+    {
+      "id": "a9e5c891",
+      "lesson": "SkyLang: WATCH cpu.usage.steam.service > 80% -> alert.high-cpu",
+      "source": "skylang",
+      "ts": "2026-05-09T11:33:44.444884"
+    },
+    {
+      "id": "69b98480",
+      "lesson": "SkyLang: WATCH docker_container_status \"not_empty\" AND docker_container_status \"running\" -> notify Ops",
+      "source": "skylang",
+      "ts": "2026-05-09T11:35:21.582577"
+    },
+    {
+      "id": "311628c5",
+      "lesson": "The importance of monitoring system resource utilization to prevent potential system crashes.",
+      "source": "self",
+      "ts": "2026-05-09T11:35:45.050606"
+    },
+    {
+      "id": "68b9c2d0",
+      "lesson": "SkyLang: WATCH \"docker containers: status: running\" NOT RUNNING -> NOTIFY Ops \"Docker containers are running\"",
+      "source": "skylang",
+      "ts": "2026-05-09T11:36:09.907185"
+    },
+    {
+      "id": "55f83388",
+      "lesson": "SkyLang: WATCH docker_container_status \"not_empty\" AND docker_container_status \"running\" -> notify Ops \"Docker containers are running\"",
+      "source": "skylang",
+      "ts": "2026-05-09T11:37:30.515216"
+    },
+    {
+      "id": "b136a2a8",
+      "lesson": "The importance of proactive monitoring and notification systems for smooth Docker container operation.",
+      "source": "self",
+      "ts": "2026-05-09T11:38:10.954442"
+    },
+    {
+      "id": "7e767320",
+      "lesson": "SkyLang: WATCH docker_container_running true -> notify ops \"Docker containers are running\"",
+      "source": "skylang",
+      "ts": "2026-05-09T11:39:02.078996"
+    },
+    {
+      "id": "b916e769",
+      "lesson": "Properly monitor Docker container status to prevent issues",
+      "source": "self",
+      "ts": "2026-05-09T11:39:34.181173"
+    },
+    {
+      "id": "7b6152b6",
+      "lesson": "SkyLang: WATCH resource_intensity_threshold <op> 0.5 -> alert_and_scale",
+      "source": "skylang",
+      "ts": "2026-05-09T11:40:28.789486"
+    },
+    {
+      "id": "e5410815",
+      "lesson": "Monitor resource utilization to prevent crashes.",
+      "source": "self",
+      "ts": "2026-05-09T11:40:56.238009"
     }
   ],
   "web_cache": {}
