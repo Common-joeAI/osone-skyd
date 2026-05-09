@@ -1,8 +1,8 @@
-# Use the official pre-built llama.cpp image with CUDA support
-# No compilation needed — libcuda.so is only available at runtime anyway
-FROM ghcr.io/ggerganov/llama.cpp:server-cuda
+# Use pre-built llama.cpp server with CUDA — pinned to latest known good tag
+# Full tag list: https://github.com/ggerganov/llama.cpp/pkgs/container/llama.cpp
+FROM ghcr.io/ggerganov/llama.cpp:server-cuda-b4719
 
-# Model is mounted from Unraid at /models/llama3.2.gguf
+# Model mounted from Unraid: /mnt/user/osone/models/llama3.2.gguf -> /models/llama3.2.gguf
 CMD ["-m", "/models/llama3.2.gguf", \
     "--host", "0.0.0.0", \
     "--port", "8080", \
