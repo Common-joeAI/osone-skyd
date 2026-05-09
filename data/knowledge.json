@@ -2,132 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "f3eb0297",
-      "lesson": "Evolved Gen 97: Introduce a new monitoring metric to track system memory usage, which can help prevent memory-relate",
-      "source": "evolution",
-      "ts": "2026-05-08T18:03:44.254101"
-    },
-    {
-      "id": "fa3c7919",
-      "lesson": "SkyLang: WATCH cpu_utilization < 80% -> IF cpu_utilization == 80% THEN resize_cpu_cores TO 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:05:51.426165"
-    },
-    {
-      "id": "d20be426",
-      "lesson": "The importance of monitoring system resources for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T18:06:04.355800"
-    },
-    {
-      "id": "625d22f7",
-      "lesson": "SkyLang: WATCH CPU Utilization 80% IF -> Resize CPU Cores to 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:06:27.222924"
-    },
-    {
-      "id": "dca3ee17",
-      "lesson": "SkyLang: WATCH cpu_utilization <op> > 80 -> ResizeCPUcoresTo2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:10:47.772142"
-    },
-    {
-      "id": "c03468f2",
-      "lesson": "SkyLang: WATCH cpu_utilization < 50 -> RESIZE CPU CORES TO 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:11:20.543088"
-    },
-    {
-      "id": "95eb0de3",
-      "lesson": "SkyLang: WATCH cpu_utilization < 50 -> RESIZE_CPU_CORES=2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:13:16.530735"
-    },
-    {
-      "id": "a9d52f15",
-      "lesson": "Monitoring system resources is crucial for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T18:13:33.197401"
-    },
-    {
-      "id": "8197f0b2",
-      "lesson": "SkyLang: WATCH cpu_utilization < 50 -> Resize CPU cores to 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:13:55.888466"
-    },
-    {
-      "id": "8426cb22",
-      "lesson": "SkyLang: WATCH cpu_usage > 80% THEN resize_cpu_cores = 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:15:54.369858"
-    },
-    {
-      "id": "eab91948",
-      "lesson": "Properly monitoring system resources is crucial for maintaining optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T18:16:09.706150"
-    },
-    {
-      "id": "62501195",
-      "lesson": "SkyLang: WATCH cpu_usage 0 -> resize_cpu_cores_to_2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:16:32.062444"
-    },
-    {
-      "id": "f35e73c5",
-      "lesson": "The importance of monitoring system resources in real-time",
-      "source": "self",
-      "ts": "2026-05-08T18:20:56.550881"
-    },
-    {
-      "id": "c229ff31",
-      "lesson": "Understanding the importance of monitoring system resources in real-time",
-      "source": "self",
-      "ts": "2026-05-08T18:23:17.716293"
-    },
-    {
-      "id": "55b2f36a",
-      "lesson": "Understanding system resource monitoring is crucial for AI core performance.",
-      "source": "self",
-      "ts": "2026-05-08T18:25:32.130721"
-    },
-    {
-      "id": "2bf43e5e",
-      "lesson": "Evolved Gen 98: Add a SkyLang rule to monitor and adjust the system's memory allocation based on the AI core's perfo",
-      "source": "evolution",
-      "ts": "2026-05-08T18:26:00.536675"
-    },
-    {
-      "id": "7ee37cb2",
-      "lesson": "SkyLang: WATCH CPU_CORES_SIZE increase -> Resize CPU cores to 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:27:43.925559"
-    },
-    {
-      "id": "0471d07f",
-      "lesson": "Evolved Gen 99: Optimize system resource-intensive functions by leveraging Python's `multiprocessing` module to util",
-      "source": "evolution",
-      "ts": "2026-05-08T18:27:57.615292"
-    },
-    {
-      "id": "cc916b45",
-      "lesson": "SkyLang: WATCH cpu_cores 2 -> resize_cpu_cores 2",
-      "source": "skylang",
-      "ts": "2026-05-08T18:28:19.914754"
-    },
-    {
-      "id": "d88a2775",
-      "lesson": "SkyLang: WATCH AI_CORE_PERFORMANCE <op> <value> -> IF (value < 50) THEN ADJUST_MEMORY_ALLOCATION (value = <adjusted_value>) END",
-      "source": "skylang",
-      "ts": "2026-05-08T18:30:13.705183"
-    },
-    {
-      "id": "24fb6093",
-      "lesson": "Understanding system resource allocation is crucial for AI core performance.",
-      "source": "self",
-      "ts": "2026-05-08T18:30:34.544236"
-    },
-    {
       "id": "73e8af9d",
       "lesson": "SkyLang: WATCH AI_CORE_PERFORMANCE <op> 0.7 -> IF AI_CORE_PERFORMANCE < 0.7 THEN AdjustSystemMemory true ELSE AdjustSystemMemory false",
       "source": "skylang",
@@ -1800,6 +1674,132 @@
       "lesson": "SkyLang: EVERY 2W -> REVIEW SCRIPTS",
       "source": "skylang",
       "ts": "2026-05-09T12:58:08.092692"
+    },
+    {
+      "id": "c9ee591b",
+      "lesson": "SkyLang: WATCH container.cpu, increase, > 0 -> alertmanager notify \"Docker container is not utilized\"\nEVERY 10m -> alertmanager notify \"Docker container is not utilized\"",
+      "source": "skylang",
+      "ts": "2026-05-09T13:00:22.946058"
+    },
+    {
+      "id": "25c78e4f",
+      "lesson": "Regularly check and maintain system resources to prevent potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-09T13:00:50.013723"
+    },
+    {
+      "id": "651b5d27",
+      "lesson": "SkyLang: WATCH container_resource_usage ON <30> -> IF container_resource_usage > 0 THEN optimize_resources",
+      "source": "skylang",
+      "ts": "2026-05-09T13:01:15.069589"
+    },
+    {
+      "id": "e2a0982d",
+      "lesson": "SkyLang: WATCH Docker:containers:running -le 0 -op increase -value 1 -> alert-system-resources-limited",
+      "source": "skylang",
+      "ts": "2026-05-09T13:02:01.380219"
+    },
+    {
+      "id": "a8e8757f",
+      "lesson": "SkyLang: WATCH container_status \"not_empty\" AND container_usage \"less_than\" 0.1 -> IF container_usage \"greater_than\" 0.5 -> alert-resource-constrained",
+      "source": "skylang",
+      "ts": "2026-05-09T13:02:47.227399"
+    },
+    {
+      "id": "10195246",
+      "lesson": "SkyLang: WATCH `docker_container_resource_usage` > 0 -> IF `docker_container_empty` THEN `docker_container_optimize_resources`",
+      "source": "skylang",
+      "ts": "2026-05-09T13:03:37.542017"
+    },
+    {
+      "id": "ccf33a6c",
+      "lesson": "SkyLang: WATCH resource_usage <OP> <value> -> alert_resource_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T13:04:44.597568"
+    },
+    {
+      "id": "8a205470",
+      "lesson": "Regularly review and optimize system resource usage to prevent performance issues",
+      "source": "self",
+      "ts": "2026-05-09T13:05:11.504784"
+    },
+    {
+      "id": "f8465f6d",
+      "lesson": "SkyLang: WATCH resource_usage <op> > <threshold> -> alert:optimize_resources",
+      "source": "skylang",
+      "ts": "2026-05-09T13:05:35.402873"
+    },
+    {
+      "id": "37a6259c",
+      "lesson": "null",
+      "source": "self",
+      "ts": "2026-05-09T13:07:40.658757"
+    },
+    {
+      "id": "394672e6",
+      "lesson": "SkyLang: WATCH system_resources <OP> (100, 80, 50, 20) -> { monitor, optimize }",
+      "source": "skylang",
+      "ts": "2026-05-09T13:10:45.179519"
+    },
+    {
+      "id": "ab9abecd",
+      "lesson": "The importance of regular system resource monitoring and optimization.",
+      "source": "self",
+      "ts": "2026-05-09T13:10:56.091184"
+    },
+    {
+      "id": "12dee384",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80 -> alert_system_resources\nEVERY 5m -> optimize_system_resources\nIF cpu_usage > 90 -> trigger_optimization",
+      "source": "skylang",
+      "ts": "2026-05-09T13:11:20.993927"
+    },
+    {
+      "id": "44ad606b",
+      "lesson": "SkyLang: WATCH cpu_usage HIGH -> IF cpu_usage > 80 THEN optimize_resource_usage",
+      "source": "skylang",
+      "ts": "2026-05-09T13:12:55.894137"
+    },
+    {
+      "id": "c7757f67",
+      "lesson": "Understand the importance of monitoring system resource usage and optimizing services to prevent performance issues.",
+      "source": "self",
+      "ts": "2026-05-09T13:13:19.309501"
+    },
+    {
+      "id": "07c6d073",
+      "lesson": "SkyLang: WATCH cpu_usage HIGH -> IMMEDIATE OPTIMIZATION AND INTERVENTION REQUIRED",
+      "source": "skylang",
+      "ts": "2026-05-09T13:14:54.855936"
+    },
+    {
+      "id": "3c3befff",
+      "lesson": "Learn about the importance of monitoring system resource usage and optimizing services to prevent performance issues.",
+      "source": "self",
+      "ts": "2026-05-09T13:15:17.902540"
+    },
+    {
+      "id": "b1dfb59c",
+      "lesson": "SkyLang: WATCH cpu_usage -> optimize llama-server -> intervention",
+      "source": "skylang",
+      "ts": "2026-05-09T13:15:40.534656"
+    },
+    {
+      "id": "11f39232",
+      "lesson": "Understand the importance of proactive monitoring and optimization in Linux environments.",
+      "source": "self",
+      "ts": "2026-05-09T13:20:50.826391"
+    },
+    {
+      "id": "f93b29b1",
+      "lesson": "Learn how to implement SkyLang's 'WATCH' commands to proactively monitor and optimize system resource usage.",
+      "source": "self",
+      "ts": "2026-05-09T13:23:39.309590"
+    },
+    {
+      "id": "0ae69609",
+      "lesson": "Reviewing system resource limits and adjusting them as needed can significantly improve system performance and stability.",
+      "source": "self",
+      "ts": "2026-05-09T13:26:33.043521"
     }
   ],
   "web_cache": {}
