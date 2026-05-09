@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 0.2,
-    "memory_percent": 9.2,
-    "memory_used_gb": 6.16,
+    "cpu_percent": 0.1,
+    "memory_percent": 10.0,
+    "memory_used_gb": 6.71,
     "memory_total_gb": 67.07,
-    "disk_percent": 10.7,
-    "disk_used_gb": 49.49,
+    "disk_percent": 10.9,
+    "disk_used_gb": 50.41,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 61.0
+          "current": 59.0
         },
         {
           "label": "",
@@ -19,19 +19,19 @@
         },
         {
           "label": "",
-          "current": 34.0
+          "current": 25.0
         },
         {
           "label": "",
-          "current": 54.0
+          "current": 52.0
         },
         {
           "label": "",
-          "current": 51.0
+          "current": 47.0
         },
         {
           "label": "",
-          "current": 29.0
+          "current": 30.0
         },
         {
           "label": "",
@@ -67,102 +67,101 @@
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 35.0
+          "current": 37.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 56.0
+          "current": 52.0
         },
         {
           "label": "Core 0",
-          "current": 48.0
+          "current": 45.0
         },
         {
           "label": "Core 1",
-          "current": 51.0
+          "current": 49.0
         },
         {
           "label": "Core 2",
-          "current": 51.0
-        },
-        {
-          "label": "Core 3",
-          "current": 51.0
-        },
-        {
-          "label": "Core 4",
-          "current": 50.0
-        },
-        {
-          "label": "Core 5",
           "current": 48.0
         },
         {
+          "label": "Core 3",
+          "current": 46.0
+        },
+        {
+          "label": "Core 4",
+          "current": 46.0
+        },
+        {
+          "label": "Core 5",
+          "current": 45.0
+        },
+        {
           "label": "Core 6",
-          "current": 53.0
+          "current": 47.0
         },
         {
           "label": "Core 7",
-          "current": 49.0
+          "current": 44.0
         }
       ]
     },
     "top_processes": [
       {
-        "cpu_percent": 527.4,
-        "memory_percent": 6.826092766256618,
-        "name": "llama-server",
-        "pid": 782
+        "cpu_percent": 1.5,
+        "name": "tailscaled",
+        "pid": 762,
+        "memory_percent": 0.17374771562977043
+      },
+      {
+        "cpu_percent": 0.7,
+        "name": "systemd",
+        "pid": 1,
+        "memory_percent": 0.023005541116954138
+      },
+      {
+        "cpu_percent": 0.5,
+        "name": "waybar",
+        "pid": 1093,
+        "memory_percent": 0.06861966020443236
+      },
+      {
+        "cpu_percent": 0.4,
+        "name": "systemd",
+        "pid": 888,
+        "memory_percent": 0.019750443316227682
       },
       {
         "cpu_percent": 0.3,
-        "memory_percent": 0.072687005674008,
         "name": "cloudflared",
-        "pid": 969
-      },
-      {
-        "cpu_percent": 0.2,
-        "memory_percent": 0.022095579442829857,
-        "name": "systemd",
-        "pid": 1
-      },
-      {
-        "cpu_percent": 0.2,
-        "memory_percent": 0.1552003760034923,
-        "name": "tailscaled",
-        "pid": 788
-      },
-      {
-        "cpu_percent": 0.2,
-        "memory_percent": 0.040972703836911414,
-        "name": "python3",
-        "pid": 973
+        "pid": 1001,
+        "memory_percent": 0.06725777125591079
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T10:32:35.412931"
+    "timestamp": "2026-05-09T10:38:08.338304"
   },
   "decision": {
     "status": "ok",
-    "observation": "System resources are within normal bounds, 7.0% CPU, 9.1% RAM, and 10.7% Disk usage.",
+    "observation": "System is currently within normal resource utilization limits.",
     "action": "none",
-    "reason": "no issues detected that require immediate attention",
-    "optimization_tip": "Regularly monitor system resource usage to catch potential issues before they become critical.",
+    "reason": "No immediate concerns require action, but will continue to monitor resource usage.",
+    "optimization_tip": "Consider enabling resource monitoring to improve system stability and performance.",
     "should_search_web": true,
-    "web_query": "system resource usage over time",
+    "web_query": "what are best practices for resource monitoring in Linux?",
     "should_write_asm": false,
     "asm_task": null,
     "should_evolve": true,
-    "evolve_reason": "to improve media library intelligence and system resource optimization",
-    "should_write_skylang": true,
-    "skylang_situation": "stable system resources, but opportunities for improvement exist",
-    "skylang_behavior": "proactive monitoring and optimization to ensure system stability and performance",
-    "new_lesson": "Regularly review system logs to identify potential issues and trends in system resource usage",
-    "skylang_rule": "WATCH resource_usage <op> <value> -> alert if resource_usage <op> > 80%"
+    "evolve_reason": "To improve media management and enhance overall system stability.",
+    "should_write_skylang": false,
+    "skylang_situation": null,
+    "skylang_behavior": null,
+    "new_lesson": "The importance of proactive resource monitoring in maintaining system stability and performance."
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T10:32:55.995576"
+  "updated": "2026-05-09T10:38:45.196949"
 }
