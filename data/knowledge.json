@@ -2,150 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "61d15d47",
-      "lesson": "SkyLang: WATCH media_library_intelligence_score EVERY 1D -> continue_improving",
-      "source": "skylang",
-      "ts": "2026-05-08T19:41:22.840757"
-    },
-    {
-      "id": "d8f76a72",
-      "lesson": "Refine Media library intelligence scoring system to accurately measure intelligence.",
-      "source": "self",
-      "ts": "2026-05-08T19:41:44.527090"
-    },
-    {
-      "id": "3fa123d9",
-      "lesson": "SkyLang: WATCH \"accuracy\" INCREASED BY 10% -> REFINEintelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:42:07.439598"
-    },
-    {
-      "id": "5c350b52",
-      "lesson": "SkyLang: WATCH media_library_intelligence > target_threshold -> increase_media_library_intelligence",
-      "source": "skylang",
-      "ts": "2026-05-08T19:44:19.791943"
-    },
-    {
-      "id": "456ce9b7",
-      "lesson": "Review and refine the media library intelligence scoring system to ensure accuracy.",
-      "source": "self",
-      "ts": "2026-05-08T19:44:56.491459"
-    },
-    {
-      "id": "b1ec5976",
-      "lesson": "SkyLang: WATCH accuracy_score -> improve -> refine",
-      "source": "skylang",
-      "ts": "2026-05-08T19:47:29.392024"
-    },
-    {
-      "id": "7bae9448",
-      "lesson": "Refine media library intelligence scoring system to ensure accuracy.",
-      "source": "self",
-      "ts": "2026-05-08T19:47:52.527820"
-    },
-    {
-      "id": "497dc594",
-      "lesson": "SkyLang: WATCH accuracy -> refine -> re-evaluate",
-      "source": "skylang",
-      "ts": "2026-05-08T19:48:15.370463"
-    },
-    {
-      "id": "25222a92",
-      "lesson": "Understanding the importance of system resource management for optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T19:51:04.823366"
-    },
-    {
-      "id": "f7b2885b",
-      "lesson": "SkyLang: WATCH accuracy_score <= 0.9 -> IF accuracy < 0.85 THEN refine accuracy_score",
-      "source": "skylang",
-      "ts": "2026-05-08T19:53:34.759666"
-    },
-    {
-      "id": "0edb2db3",
-      "lesson": "SkyLang: WATCH accuracy_score <= 0.8 -> IF accuracy < 0.8 THEN refine_accuracy_score",
-      "source": "skylang",
-      "ts": "2026-05-08T19:54:24.602291"
-    },
-    {
-      "id": "3f68529e",
-      "lesson": "SkyLang: WATCH accuracy_score IF accuracy < 0.8 -> refine_accuracy_score",
-      "source": "skylang",
-      "ts": "2026-05-08T19:55:05.418056"
-    },
-    {
-      "id": "7d45ae2e",
-      "lesson": "SkyLang: WATCH accuracy_score -> IF accuracy < 0.8 -> REFINE",
-      "source": "skylang",
-      "ts": "2026-05-08T19:55:52.849841"
-    },
-    {
-      "id": "0486adc1",
-      "lesson": "SkyLang: WATCH accuracy_score -> refine",
-      "source": "skylang",
-      "ts": "2026-05-08T19:56:52.186722"
-    },
-    {
-      "id": "af3a5293",
-      "lesson": "Regularly review and adjust workload on resource-intensive containers to maintain optimal performance.",
-      "source": "self",
-      "ts": "2026-05-08T19:58:09.622286"
-    },
-    {
-      "id": "3acecb2d",
-      "lesson": "Optimizing CPU Resource Usage for Python 3",
-      "source": "self",
-      "ts": "2026-05-08T20:00:56.949838"
-    },
-    {
-      "id": "be73c2e3",
-      "lesson": "SkyLang: WATCH CPU_usage_python3 > 70 -> Refine CPU resource usage optimization",
-      "source": "skylang",
-      "ts": "2026-05-08T20:03:07.295131"
-    },
-    {
-      "id": "41fbb7cd",
-      "lesson": "SkyLang: WATCH cpu_usage_python3 <op> > 80 -> refine_cpu_resource_usage",
-      "source": "skylang",
-      "ts": "2026-05-08T20:04:06.538147"
-    },
-    {
-      "id": "150954a0",
-      "lesson": "SkyLang: WATCH cpu_usage python3 > 80 -> refine_cpu_usage_optimization",
-      "source": "skylang",
-      "ts": "2026-05-08T20:04:55.047232"
-    },
-    {
-      "id": "ffe9f322",
-      "lesson": "SkyLang: WATCH python3.cpu_usage < 70 -> refine cpu resource usage optimization",
-      "source": "skylang",
-      "ts": "2026-05-08T20:05:46.422835"
-    },
-    {
-      "id": "8844541b",
-      "lesson": "SkyLang: WATCH CPU usage of python3 > 80% -> Refine CPU resource usage optimization",
-      "source": "skylang",
-      "ts": "2026-05-08T20:06:45.759312"
-    },
-    {
-      "id": "543da7c4",
-      "lesson": "SkyLang: WATCH python3.cpu_usage > 80 -> alert system administrators",
-      "source": "skylang",
-      "ts": "2026-05-08T20:07:51.944412"
-    },
-    {
-      "id": "78152e4c",
-      "lesson": "High CPU usage by python3 may be due to resource-intensive tasks or inefficient code.",
-      "source": "self",
-      "ts": "2026-05-08T20:08:18.079652"
-    },
-    {
-      "id": "20600db6",
-      "lesson": "SkyLang: WATCH python3.cpu_usage <<= 70 -> alert and adjust CPU resource limits",
-      "source": "skylang",
-      "ts": "2026-05-08T20:08:41.032025"
-    },
-    {
       "id": "68b6a0e0",
       "lesson": "Regularly review and refine CPU resource usage optimization strategies.",
       "source": "self",
@@ -1800,6 +1656,150 @@
       "lesson": "Monitoring system resources proactively can help prevent resource-related issues.",
       "source": "self",
       "ts": "2026-05-09T14:21:43.371888"
+    },
+    {
+      "id": "b8a06ae8",
+      "lesson": "SkyLang: WATCH disk_usage % > 50 -> RECOMMEND_STORAGE_UPGRADE",
+      "source": "skylang",
+      "ts": "2026-05-09T14:32:11.557910"
+    },
+    {
+      "id": "d2902dd4",
+      "lesson": "SkyLang: WATCH disk_usage > 50% -> RECOMMEND_STORAGE_UPGRADE",
+      "source": "skylang",
+      "ts": "2026-05-09T14:32:54.294728"
+    },
+    {
+      "id": "bcb610e8",
+      "lesson": "SkyLang: WATCH media_library_intelligence <op> increase -> update_learning_model",
+      "source": "skylang",
+      "ts": "2026-05-09T14:37:58.338374"
+    },
+    {
+      "id": "dba52b8f",
+      "lesson": "The importance of proactive media library intelligence in a media server stack.",
+      "source": "self",
+      "ts": "2026-05-09T14:38:21.063936"
+    },
+    {
+      "id": "f8e99b63",
+      "lesson": "SkyLang: WATCH media_library_intelligence <op> <value> -> learn_and_adapt",
+      "source": "skylang",
+      "ts": "2026-05-09T14:38:46.354038"
+    },
+    {
+      "id": "c7a9053e",
+      "lesson": "SkyLang: WATCH media_library_intelligence <op> increase_by_x -> learn_from_new_releases\nEVERY 30 days -> retrain_media_library_model\nIF media_library_intelligence < 0.8 -> send_alert_to_development",
+      "source": "skylang",
+      "ts": "2026-05-09T14:39:28.764905"
+    },
+    {
+      "id": "8fd855c0",
+      "lesson": "SkyLang: WATCH media_library_intelligence <op> improve -> analyze_and_adapt",
+      "source": "skylang",
+      "ts": "2026-05-09T14:41:12.082994"
+    },
+    {
+      "id": "61bf3d62",
+      "lesson": "SkyLang: WATCH media_library_usage <INCREASE> 80% -> send notification to sysadmin",
+      "source": "skylang",
+      "ts": "2026-05-09T14:42:24.304768"
+    },
+    {
+      "id": "13c850e0",
+      "lesson": "The importance of proactive media library intelligence in a media server stack",
+      "source": "self",
+      "ts": "2026-05-09T14:42:51.881981"
+    },
+    {
+      "id": "975dd687",
+      "lesson": "SkyLang: WATCH media_library_intelligence utilization 0 -> monitor and optimize media library intelligence",
+      "source": "skylang",
+      "ts": "2026-05-09T14:43:16.205937"
+    },
+    {
+      "id": "08cfc73a",
+      "lesson": "SkyLang: WATCH CPU_USAGE <op> <value> -> CONTINUE MONITORING AND OPTIMIZING SYSTEM RESOURCES\nEVERY 5 MINUTES -> CONTINUE MONITORING AND OPTIMIZING SYSTEM RESOURCES\nIF CPU_USAGE > 80% -> ALERT ADMINISTRATOR",
+      "source": "skylang",
+      "ts": "2026-05-09T14:45:46.422366"
+    },
+    {
+      "id": "e40e2174",
+      "lesson": "The importance of proactive media library intelligence in maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T14:46:17.016430"
+    },
+    {
+      "id": "019c461d",
+      "lesson": "SkyLang: WATCH CPU_USAGE monitor -> optimize_caching\nEVERY 10 MINUTES -> monitor_memory_usage\nIF CPU_USAGE > 80 -> alert_admin",
+      "source": "skylang",
+      "ts": "2026-05-09T14:46:42.770162"
+    },
+    {
+      "id": "b7448195",
+      "lesson": "SkyLang: WATCH media_library_intelligence_optimization_interval EVERY 5 MINUTES -> OPTIMIZE_MEDIA_LIBRARY_INTEL",
+      "source": "skylang",
+      "ts": "2026-05-09T14:51:54.536968"
+    },
+    {
+      "id": "5df69730",
+      "lesson": "SkyLang: WATCH media_library_intelligence_optimization_status monitor_optimize 80% -> send Alert to DevOps",
+      "source": "skylang",
+      "ts": "2026-05-09T14:52:42.065509"
+    },
+    {
+      "id": "ba4cca33",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= <value> -> notify_admin",
+      "source": "skylang",
+      "ts": "2026-05-09T14:55:03.851485"
+    },
+    {
+      "id": "9a33320e",
+      "lesson": "The importance of proactive media library intelligence in maintaining system stability and performance",
+      "source": "self",
+      "ts": "2026-05-09T14:55:27.327905"
+    },
+    {
+      "id": "555faa1e",
+      "lesson": "SkyLang: WATCH CPU_USAGE monitor -> IF (CPU_USAGE > 80) THEN optimize",
+      "source": "skylang",
+      "ts": "2026-05-09T14:55:50.737297"
+    },
+    {
+      "id": "9131f5ad",
+      "lesson": "SkyLang: WATCH CPU_USAGE <op> 70% -> alert-if-rise OR alert-if-fall",
+      "source": "skylang",
+      "ts": "2026-05-09T14:56:43.808929"
+    },
+    {
+      "id": "eca16914",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80 -> notify_alert",
+      "source": "skylang",
+      "ts": "2026-05-09T14:57:30.910363"
+    },
+    {
+      "id": "b27c54c6",
+      "lesson": "SkyLang: WATCH CPU_USAGE \"within acceptable range\" -> IF CPU_USAGE > 80 -> OPTIMIZE_CPU",
+      "source": "skylang",
+      "ts": "2026-05-09T14:58:25.080106"
+    },
+    {
+      "id": "c52b5045",
+      "lesson": "SkyLang: WATCH CPU Usage <op> == 70% -> alert:system:cpuAlert",
+      "source": "skylang",
+      "ts": "2026-05-09T14:59:33.919132"
+    },
+    {
+      "id": "c8382f6b",
+      "lesson": "The importance of proactive monitoring in maintaining system stability and performance",
+      "source": "self",
+      "ts": "2026-05-09T14:59:55.703044"
+    },
+    {
+      "id": "9e67ffcc",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> alert_system_stability",
+      "source": "skylang",
+      "ts": "2026-05-09T15:00:18.769248"
     }
   ],
   "web_cache": {}
