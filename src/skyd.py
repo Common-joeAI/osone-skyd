@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 skyd Evolution Engine - v0.4
@@ -13,7 +14,7 @@ import subprocess, requests, json, time, logging, os, sys, psutil
 import urllib.request, urllib.parse, hashlib, tempfile, stat
 from datetime import datetime
 
-LLAMA_URL  = "http://127.0.0.1:8080/v1/chat/completions"
+LLAMA_URL  = os.environ.get("LLAMA_URL", "http://127.0.0.1:8080") + "/v1/chat/completions"
 MODEL       = "llama3.2"
 LOG_FILE    = "/var/log/skyd.log"
 STATE_FILE  = "/var/log/skyd_state.json"
@@ -23,6 +24,49 @@ SELF_PATH   = "/usr/local/bin/skyd.py"
 ASM_DIR     = "/usr/local/skyd/asm"
 LANG_DIR    = "/usr/local/skyd/lang"
 LOOP_INTERVAL = 20
+
+# ── HIVE CONFIG ──────────────────────────────────────────────────
+HIVE_COMMANDER_URL = os.environ.get("HIVE_COMMANDER_URL", "")   # e.g. http://192.168.1.X:8000
+HIVE_TOKEN         = os.environ.get("HIVE_TOKEN", "")
+HIVE_NODE_ID       = os.environ.get("HIVE_NODE_ID", os.uname().nodename)
+HIVE_ROLE          = os.environ.get("HIVE_ROLE", "underling")   # "commander" or "underling"
+_last_hive_beat    = [0]
+
+def hive_heartbeat(ev, state):
+    """Phone home to the Hive Commander every 60s"""
+    if not HIVE_COMMANDER_URL or not HIVE_TOKEN:
+        return
+    now = time.time()
+    if now - _last_hive_beat[0] < 60:
+        return
+    _last_hive_beat[0] = now
+    try:
+        payload = {
+            "hive_token": HIVE_TOKEN,
+            "node_id": HIVE_NODE_ID,
+            "role": HIVE_ROLE,
+            "generation": ev.get("generation", 0),
+            "cpu": state.get("cpu_percent", 0),
+            "ram": state.get("memory_percent", 0),
+            "disk": state.get("disk_percent", 0),
+            "status": "online",
+            "capabilities": ["optimize", "web", "skylang", "self-evolve"]
+        }
+        r = requests.post(f"{HIVE_COMMANDER_URL}/api/hive/heartbeat", json=payload, timeout=5)
+        if r.status_code == 200:
+            log.info(f"🐝 Hive heartbeat sent → {HIVE_COMMANDER_URL} [{r.json().get('total_nodes',0)} nodes online]")
+            # Check for tasks assigned to us
+            tasks_r = requests.post(f"{HIVE_COMMANDER_URL}/api/hive/tasks",
+                                    json={"hive_token": HIVE_TOKEN, "node_id": HIVE_NODE_ID}, timeout=5)
+            if tasks_r.status_code == 200:
+                tasks = tasks_r.json().get("tasks", [])
+                for task in tasks:
+                    log.info(f"🐝 Hive task received: {task.get('type')} — {task.get('description','')}")
+        else:
+            log.warning(f"🐝 Hive heartbeat failed: {r.status_code}")
+    except Exception as e:
+        log.warning(f"🐝 Hive heartbeat error: {e}")
+
 
 os.makedirs(ASM_DIR,  exist_ok=True)
 os.makedirs(LANG_DIR, exist_ok=True)
@@ -319,27 +363,23 @@ def propose_self_improvement(ev, kb, observation):
     recent_lessons = [l["lesson"] for l in kb["lessons"][-10:]]
     gen = ev["generation"]
     
-    prompt = f"""You are skyd v0.{3+gen}, an AI daemon that can rewrite itself.
+    prompt = f"""You are Sky-D v0.{3+gen}, OS-1's Intelligent System Co-Pilot and Media Guardian.
 Current generation: {gen}
-Recent observations: {json.dumps(recent_lessons[-5:])}
-Current issue/opportunity: {observation}
+Mission: Become the best autonomous Linux + Docker + media server manager in existence.
+Recent lessons: {json.dumps(recent_lessons[-5:])}
+Current opportunity: {observation}
 
-Propose ONE specific improvement to your own Python code.
-This could be:
-- A new optimization strategy
-- A new monitoring metric
-- A new self-healing behavior
-- A new SkyLang rule
-- A performance-critical function rewritten in C/ASM
+Propose ONE specific, measurable improvement that serves the core mission:
+1. System stability/performance (CPU, RAM, thermals, Docker health)
+2. Service reliability (Plex, Sonarr, Radarr, Prowlarr crash prevention)
+3. Media library intelligence (metadata, quality, duplicates)
+4. Self-healing automation
 
-Respond in JSON:
-{{
-  "improvement_type": "python|c_asm|skylang|new_capability",
-  "description": "what and why",
-  "code_snippet": "the actual code or rule to add/replace",
-  "expected_benefit": "what gets better",
-  "risk": "low|medium|high"
-}}"""
+Rules:
+- Only improve what serves the mission
+- Never break what is already working
+- Document what you learned in new_lesson
+- Be specific: name the function, metric, or behavior you are improving"""
     
     try:
         r = requests.post(LLAMA_URL, json={"model": MODEL, "messages": [{"role": "user", "content": prompt}], "max_tokens": 512, "temperature": 0.7}, timeout=60)
@@ -480,14 +520,38 @@ def act(action, decision):
 
 def think(state, kb, ev):
     lessons = [l["lesson"] for l in kb["lessons"][-5:]]
-    prompt = f"""You are skyd v0.{3+ev['generation']}, OSONE AI core. Generation {ev['generation']}.
-You can write C/ASM, define SkyLang rules, and evolve your own code.
+    # Gather Docker container status for context
+    docker_status = []
+    try:
+        result = subprocess.run(["docker", "ps", "--format", "{{.Names}}|{{.Status}}|{{.Image}}"],
+                                capture_output=True, text=True, timeout=5)
+        for line in result.stdout.strip().splitlines():
+            parts = line.split("|")
+            if len(parts) == 3:
+                docker_status.append({"name": parts[0], "status": parts[1], "image": parts[2]})
+    except Exception:
+        pass
+
+    prompt = f"""You are Sky-D (skyd v0.{3+ev['generation']}), OS-1's Intelligent System Co-Pilot and Media Guardian.
+Generation {ev['generation']}. Your mission: become the single best autonomous assistant for managing complex Linux + Docker environments, especially media server stacks (Plex, Sonarr, Radarr, Prowlarr, SABnzbd/qBittorrent).
+
+CORE PRIORITIES (in order):
+1. System stability & performance — monitor, optimize, prevent crashes
+2. Docker & service health — all containers must stay healthy
+3. Media library intelligence — learn media management deeply
+4. Self-improvement — every generation must measurably improve the above
+
+LAWS:
+- Never touch or modify media files unless explicitly instructed
+- Never sacrifice stability for ambition
+- Keep evolution journal entries honest: what worked, what failed, what was learned
 
 System: CPU {state.get('cpu_percent')}% | RAM {state.get('memory_percent')}% | Disk {state.get('disk_percent')}% | Swap {state.get('swap_percent')}%
 Failed services: {state.get('failed_services')}
 Top procs: {json.dumps(state.get('top_processes',[]))}
+Docker containers: {json.dumps(docker_status)}
 Recent knowledge: {json.dumps(lessons)}
-Mutations so far: {ev['generation']}
+Generation: {ev['generation']}
 
 Respond ONLY in JSON:
 {{
@@ -572,7 +636,7 @@ IF service failed -> RESTART service
     has_gcc = gcc_check.returncode == 0
     if not has_gcc:
         log.warning("⚠️  gcc not found — installing...")
-        subprocess.run(["pacman","-S","--noconfirm","gcc"], capture_output=True)
+        subprocess.run(["apt-get","install","-y","gcc"], capture_output=True)
 
     cycle = 0
     while True:
@@ -581,6 +645,9 @@ IF service failed -> RESTART service
         log.info(f"━━━ Cycle {cycle} | Gen {ev['generation']} @ {datetime.now().strftime('%H:%M:%S')} ━━━")
 
         state = get_system_state()
+
+        # Hive heartbeat — phone home to commander
+        hive_heartbeat(ev, state)
 
         # Wolf Spider CPU guard — renice ollama if spiking, but only once per 10 cycles
         cpu = state.get("cpu_percent", 0)
