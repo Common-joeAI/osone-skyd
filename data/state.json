@@ -1,17 +1,17 @@
 {
   "system": {
-    "cpu_percent": 1.4,
+    "cpu_percent": 10.0,
     "memory_percent": 22.3,
-    "memory_used_gb": 14.95,
+    "memory_used_gb": 14.97,
     "memory_total_gb": 67.07,
-    "disk_percent": 60.2,
-    "disk_used_gb": 277.58,
+    "disk_percent": 63.0,
+    "disk_used_gb": 290.44,
     "swap_percent": 0.0,
     "temperatures": {
       "acpitz": [
         {
           "label": "",
-          "current": 58.0
+          "current": 66.0
         },
         {
           "label": "",
@@ -23,19 +23,11 @@
         },
         {
           "label": "",
-          "current": 57.0
+          "current": 59.0
         },
         {
           "label": "",
-          "current": 52.0
-        },
-        {
-          "label": "",
-          "current": 38.0
-        },
-        {
-          "label": "",
-          "current": 44.0
+          "current": 56.0
         },
         {
           "label": "",
@@ -43,7 +35,15 @@
         },
         {
           "label": "",
-          "current": 48.0
+          "current": 46.0
+        },
+        {
+          "label": "",
+          "current": 41.0
+        },
+        {
+          "label": "",
+          "current": 50.0
         },
         {
           "label": "",
@@ -53,117 +53,117 @@
       "nvme": [
         {
           "label": "Composite",
-          "current": 41.85
+          "current": 42.85
         },
         {
           "label": "Sensor 1",
-          "current": 41.85
+          "current": 42.85
         },
         {
           "label": "Sensor 2",
-          "current": 42.85
+          "current": 44.85
         }
       ],
       "iwlwifi_1": [
         {
           "label": "",
-          "current": 51.0
+          "current": 52.0
         }
       ],
       "coretemp": [
         {
           "label": "Package id 0",
-          "current": 59.0
+          "current": 62.0
         },
         {
           "label": "Core 0",
-          "current": 53.0
+          "current": 58.0
         },
         {
           "label": "Core 1",
-          "current": 55.0
+          "current": 60.0
         },
         {
           "label": "Core 2",
-          "current": 55.0
+          "current": 58.0
         },
         {
           "label": "Core 3",
-          "current": 54.0
+          "current": 59.0
         },
         {
           "label": "Core 4",
-          "current": 54.0
+          "current": 57.0
         },
         {
           "label": "Core 5",
-          "current": 51.0
+          "current": 55.0
         },
         {
           "label": "Core 6",
-          "current": 53.0
+          "current": 56.0
         },
         {
           "label": "Core 7",
-          "current": 51.0
+          "current": 57.0
         }
       ]
     },
     "top_processes": [
       {
+        "pid": 795,
+        "cpu_percent": 578.8,
+        "name": "llama-server",
+        "memory_percent": 17.56443263081832
+      },
+      {
         "pid": 1335,
-        "cpu_percent": 30.5,
+        "cpu_percent": 174.5,
         "name": "steam",
-        "memory_percent": 0.512143655257088
+        "memory_percent": 0.6260659989867056
       },
       {
         "pid": 1678,
-        "cpu_percent": 1.4,
+        "cpu_percent": 2.7,
         "name": "steamwebhelper",
-        "memory_percent": 0.6658295017219654
+        "memory_percent": 0.6664157858968365
       },
       {
         "pid": 1595,
-        "cpu_percent": 1.2,
+        "cpu_percent": 0.8,
         "name": "steamwebhelper",
-        "memory_percent": 0.5158445741109612
+        "memory_percent": 0.5157590743354591
       },
       {
-        "pid": 130,
-        "cpu_percent": 0.3,
-        "name": "irq/9-acpi",
+        "pid": 9024,
+        "cpu_percent": 0.4,
+        "name": "kworker/u65:0-rb_allocator",
         "memory_percent": 0.0
-      },
-      {
-        "pid": 1008,
-        "cpu_percent": 0.3,
-        "name": "cloudflared",
-        "memory_percent": 0.07842772264263684
       }
     ],
     "failed_services": "none",
-    "timestamp": "2026-05-09T20:17:16.869939"
+    "timestamp": "2026-05-09T20:47:27.486488"
   },
   "decision": {
     "status": "warning",
-    "observation": "Disk usage is 60.1%, exceeding the 50% threshold.",
-    "action": "none",
-    "reason": "To identify and terminate any unnecessary processes consuming disk space.",
-    "optimization_tip": "Regularly monitoring disk usage can help prevent disk space issues.",
+    "observation": "System disk usage is high at 62.7% and may impact performance if not addressed.",
+    "action": "safe shell command `fuser -m | grep -v Node` to identify and manage disk-intensive processes",
+    "reason": "High disk usage may cause system slowdowns and crashes if not optimized.",
+    "optimization_tip": "Regularly clean up disk space by deleting unnecessary files and logs.",
     "should_search_web": true,
-    "web_query": "How to identify and terminate unnecessary processes in Linux",
+    "web_query": "What are best practices for managing disk space on Linux systems?",
     "should_write_asm": false,
     "asm_task": null,
-    "should_evolve": false,
-    "evolve_reason": "Disk space management is a critical aspect of system stability and performance.",
-    "should_write_skylang": false,
-    "skylang_situation": "Disk space is near threshold.",
-    "skylang_behavior": "Alert and take action to prevent disk space issues.",
-    "new_lesson": "The importance of proactive disk space management",
+    "should_evolve": true,
+    "evolve_reason": "High disk usage indicates a need for optimization and improvement in Generation 100.",
+    "should_write_skylang": true,
+    "skylang_situation": "Disk space usage is high, requiring immediate attention.",
+    "skylang_behavior": "Proactively manage disk space to maintain system stability and performance.",
+    "new_lesson": "Regularly monitor and maintain disk space to prevent crashes and slow system performance.",
     "action_result": "blocked",
-    "skylang_rule": "WATCH disk_space  < 50% -> alert and increase disk space allocation"
+    "skylang_rule": "WATCH disk_space_usage_alert -> alert_disk_space_threshold exceeded -> alert_disk_space_manager"
   },
   "generation": 99,
   "knowledge_count": 300,
-  "updated": "2026-05-09T20:17:18.986090"
+  "updated": "2026-05-09T20:48:00.711385"
 }
