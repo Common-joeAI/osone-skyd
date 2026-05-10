@@ -2,66 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "d99335e2",
-      "lesson": "SkyLang: WATCH \"media_library_intelligence\" <op> <= 50 -> OptimizeMediaLibrary\nEVERY 15 MINUTE -> OptimizeMediaLibrary\nIF \"docker_service_health\" == \"healthy\" -> OptimizeDockerServiceHealth",
-      "source": "skylang",
-      "ts": "2026-05-08T20:49:30.895606"
-    },
-    {
-      "id": "9f6f9992",
-      "lesson": "Understanding the importance of proactive optimization and resource monitoring in maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T20:49:49.112049"
-    },
-    {
-      "id": "2e7ed5e5",
-      "lesson": "Regularly review and update knowledge on Linux system resource monitoring tools.",
-      "source": "self",
-      "ts": "2026-05-08T20:50:59.118568"
-    },
-    {
-      "id": "1bac3a43",
-      "lesson": "Proactive optimization and resource monitoring are crucial for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T21:00:17.033955"
-    },
-    {
-      "id": "540ccb20",
-      "lesson": "SkyLang: WATCH system_uptime_check op == \"ok\" value >= 90 -> send_notification",
-      "source": "skylang",
-      "ts": "2026-05-08T21:02:55.862025"
-    },
-    {
-      "id": "61ed2754",
-      "lesson": "SkyLang: WATCH system_uptime > 99% -> alert administrator",
-      "source": "skylang",
-      "ts": "2026-05-08T21:03:41.248780"
-    },
-    {
-      "id": "a6ac8f6d",
-      "lesson": "SkyLang: WATCH CPU Usage 0.5 -> ALERT AND EMAIL ADMIN",
-      "source": "skylang",
-      "ts": "2026-05-08T21:04:23.852209"
-    },
-    {
-      "id": "166e3fbb",
-      "lesson": "SkyLang: WATCH system_uptime >= 80% -> alert \"System uptime is low\"",
-      "source": "skylang",
-      "ts": "2026-05-08T21:05:08.837418"
-    },
-    {
-      "id": "fdfbb97d",
-      "lesson": "SkyLang: WATCH CPU_usage  lt  80 -> alert_operator alert_system_stability",
-      "source": "skylang",
-      "ts": "2026-05-08T21:05:50.907983"
-    },
-    {
-      "id": "f588cbd6",
-      "lesson": "SkyLang: WATCH resource_usage_critical > 80% -> alert_adminimmediately",
-      "source": "skylang",
-      "ts": "2026-05-08T21:06:56.289781"
-    },
-    {
       "id": "c0fd9695",
       "lesson": "Monitor resource-intensive processes regularly to catch issues early",
       "source": "self",
@@ -1800,6 +1740,66 @@
       "lesson": "Failing to set media_library_intelligence to 50 when it falls below 50 can lead to suboptimal media library intelligence.",
       "source": "self",
       "ts": "2026-05-09T18:45:19.380874"
+    },
+    {
+      "id": "1be07b7a",
+      "lesson": "SkyLang: WATCH media_library_intelligence SET 50 -> SET media_library_intelligence 50",
+      "source": "skylang",
+      "ts": "2026-05-09T18:45:43.205326"
+    },
+    {
+      "id": "7dc914e8",
+      "lesson": "SkyLang: WATCH media_library_intelligence <SET> 50",
+      "source": "skylang",
+      "ts": "2026-05-09T18:47:56.635733"
+    },
+    {
+      "id": "7adfbf7f",
+      "lesson": "Regularly checking and optimizing disk space can prevent potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-09T18:48:23.367462"
+    },
+    {
+      "id": "f24157e5",
+      "lesson": "Regularly check and optimize disk space to prevent potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-09T18:53:49.062219"
+    },
+    {
+      "id": "48707225",
+      "lesson": "SkyLang: WATCH media_library_intelligence_health MONITORING OPTIMAL -> CONTINUE_OPTIMIZING",
+      "source": "skylang",
+      "ts": "2026-05-09T18:56:20.556619"
+    },
+    {
+      "id": "bd75feab",
+      "lesson": "SkyLang: WATCH media_library_intelligence MONITOR -> optimize_media_library_intelligence\nEVERY 15MINS -> send_notification_if_intelligence_degrades",
+      "source": "skylang",
+      "ts": "2026-05-09T18:57:04.065452"
+    },
+    {
+      "id": "6f07773f",
+      "lesson": "The importance of monitoring system resources to prevent potential performance issues",
+      "source": "self",
+      "ts": "2026-05-09T18:59:44.096966"
+    },
+    {
+      "id": "672e553d",
+      "lesson": "Learned that fstrim can be used to trim disk space and prevent potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-09T19:02:46.160677"
+    },
+    {
+      "id": "24d89a7b",
+      "lesson": "SkyLang: WATCH resource_usage <op> >= 80% -> CONTINUE OPTIMIZING MEDIA LIBRARY INTELLIGENCE",
+      "source": "skylang",
+      "ts": "2026-05-09T19:05:25.039634"
+    },
+    {
+      "id": "1db756ff",
+      "lesson": "Learning the importance of disk space management for system stability.",
+      "source": "self",
+      "ts": "2026-05-09T19:05:52.947693"
     }
   ],
   "web_cache": {}
