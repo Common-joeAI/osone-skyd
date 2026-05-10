@@ -2,108 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "912712aa",
-      "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> alert steam_service",
-      "source": "skylang",
-      "ts": "2026-05-09T11:28:42.227880"
-    },
-    {
-      "id": "82d06a89",
-      "lesson": "The importance of proactive resource monitoring to prevent potential system crashes.",
-      "source": "self",
-      "ts": "2026-05-09T11:29:18.702680"
-    },
-    {
-      "id": "86708d76",
-      "lesson": "SkyLang: WATCH resource_utilization_stability \"STABLE\" -> CONTINUE Monitoring",
-      "source": "skylang",
-      "ts": "2026-05-09T11:30:10.692625"
-    },
-    {
-      "id": "9de8d325",
-      "lesson": "The importance of proactive resource monitoring in maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-09T11:30:45.030402"
-    },
-    {
-      "id": "dc54a82b",
-      "lesson": "SkyLang: WATCH resource_utilization_stable_interval 1 -> continueMonitoring",
-      "source": "skylang",
-      "ts": "2026-05-09T11:31:09.499722"
-    },
-    {
-      "id": "80f78415",
-      "lesson": "SkyLang: WATCH cpu_usage > 80% -> notify-ops alert high-cpu-usage",
-      "source": "skylang",
-      "ts": "2026-05-09T11:32:43.360947"
-    },
-    {
-      "id": "387a7b90",
-      "lesson": "Proactive monitoring of resource usage can prevent potential system crashes.",
-      "source": "self",
-      "ts": "2026-05-09T11:33:20.910326"
-    },
-    {
-      "id": "a9e5c891",
-      "lesson": "SkyLang: WATCH cpu.usage.steam.service > 80% -> alert.high-cpu",
-      "source": "skylang",
-      "ts": "2026-05-09T11:33:44.444884"
-    },
-    {
-      "id": "69b98480",
-      "lesson": "SkyLang: WATCH docker_container_status \"not_empty\" AND docker_container_status \"running\" -> notify Ops",
-      "source": "skylang",
-      "ts": "2026-05-09T11:35:21.582577"
-    },
-    {
-      "id": "311628c5",
-      "lesson": "The importance of monitoring system resource utilization to prevent potential system crashes.",
-      "source": "self",
-      "ts": "2026-05-09T11:35:45.050606"
-    },
-    {
-      "id": "68b9c2d0",
-      "lesson": "SkyLang: WATCH \"docker containers: status: running\" NOT RUNNING -> NOTIFY Ops \"Docker containers are running\"",
-      "source": "skylang",
-      "ts": "2026-05-09T11:36:09.907185"
-    },
-    {
-      "id": "55f83388",
-      "lesson": "SkyLang: WATCH docker_container_status \"not_empty\" AND docker_container_status \"running\" -> notify Ops \"Docker containers are running\"",
-      "source": "skylang",
-      "ts": "2026-05-09T11:37:30.515216"
-    },
-    {
-      "id": "b136a2a8",
-      "lesson": "The importance of proactive monitoring and notification systems for smooth Docker container operation.",
-      "source": "self",
-      "ts": "2026-05-09T11:38:10.954442"
-    },
-    {
-      "id": "7e767320",
-      "lesson": "SkyLang: WATCH docker_container_running true -> notify ops \"Docker containers are running\"",
-      "source": "skylang",
-      "ts": "2026-05-09T11:39:02.078996"
-    },
-    {
-      "id": "b916e769",
-      "lesson": "Properly monitor Docker container status to prevent issues",
-      "source": "self",
-      "ts": "2026-05-09T11:39:34.181173"
-    },
-    {
-      "id": "7b6152b6",
-      "lesson": "SkyLang: WATCH resource_intensity_threshold <op> 0.5 -> alert_and_scale",
-      "source": "skylang",
-      "ts": "2026-05-09T11:40:28.789486"
-    },
-    {
-      "id": "e5410815",
-      "lesson": "Monitor resource utilization to prevent crashes.",
-      "source": "self",
-      "ts": "2026-05-09T11:40:56.238009"
-    },
-    {
       "id": "904bf978",
       "lesson": "SkyLang: WATCH docker_container_running True -> notify ops \"Docker containers are running\"",
       "source": "skylang",
@@ -1800,6 +1698,108 @@
       "lesson": "Fstrim can help maintain system stability, especially in media server stacks.",
       "source": "self",
       "ts": "2026-05-09T21:14:56.049106"
+    },
+    {
+      "id": "f76806bc",
+      "lesson": "Regularly monitor system resource usage to catch any potential issues early.",
+      "source": "self",
+      "ts": "2026-05-09T21:20:34.453152"
+    },
+    {
+      "id": "6fe2fec9",
+      "lesson": "SkyLang: WATCH disk_usage HIGH -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:25:55.550422"
+    },
+    {
+      "id": "f7da9f83",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:26:37.368120"
+    },
+    {
+      "id": "256a00d3",
+      "lesson": "SkyLang: WATCH resource_usage < <= <accepting_threshold> -> continueMonitoring\nEVERY 1m -> continueMonitoring\nIF resource_usage > <threshold> -> alertPerformanceIssue",
+      "source": "skylang",
+      "ts": "2026-05-09T21:28:55.401966"
+    },
+    {
+      "id": "a1b3b274",
+      "lesson": "SkyLang: WATCH \"system.cpu_usage\" < -> \"monitor_system_performance\"",
+      "source": "skylang",
+      "ts": "2026-05-09T21:29:41.397056"
+    },
+    {
+      "id": "d99f3b81",
+      "lesson": "SkyLang: WATCH disk_usage_high op > 80 -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:31:56.137211"
+    },
+    {
+      "id": "086caad4",
+      "lesson": "Understanding the importance of disk health in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T21:32:18.846188"
+    },
+    {
+      "id": "40f34cd1",
+      "lesson": "SkyLang: WATCH disk_usage_high > 90 -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:32:41.720852"
+    },
+    {
+      "id": "b2f70647",
+      "lesson": "SkyLang: WATCH resource_usage <op> <value> -> alert_if_over_threshold()",
+      "source": "skylang",
+      "ts": "2026-05-09T21:34:47.816542"
+    },
+    {
+      "id": "c2945a99",
+      "lesson": "Regularly checking system resources can help prevent unexpected crashes or performance drops.",
+      "source": "self",
+      "ts": "2026-05-09T21:35:12.090661"
+    },
+    {
+      "id": "f5daedb6",
+      "lesson": "SkyLang: WATCH CPU_USAGE <op> <= <value> -> LOG \"Optimizing system resources\"",
+      "source": "skylang",
+      "ts": "2026-05-09T21:35:35.307829"
+    },
+    {
+      "id": "3bbe4171",
+      "lesson": "SkyLang: WATCH disk_usage > 60% -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:37:51.169123"
+    },
+    {
+      "id": "04596649",
+      "lesson": "SkyLang: WATCH disk_usage > 60 -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:38:40.419221"
+    },
+    {
+      "id": "5f8b63d3",
+      "lesson": "SkyLang: WATCH disk_usage % > 60 -> fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:39:23.949352"
+    },
+    {
+      "id": "5cb56c97",
+      "lesson": "SkyLang: WATCH disk_usage HIGH -> LOG \"fstrim run, disk usage: ${disk_usage}\"",
+      "source": "skylang",
+      "ts": "2026-05-09T21:41:59.090360"
+    },
+    {
+      "id": "8938282f",
+      "lesson": "fstrim can help maintain system performance when disk usage is high",
+      "source": "self",
+      "ts": "2026-05-09T21:42:22.386600"
+    },
+    {
+      "id": "43feb0b7",
+      "lesson": "SkyLang: WATCH disk_usage HIGH -> IF fstrim THEN LOG \"Fstrim performed, disk usage: $disk_usage\"",
+      "source": "skylang",
+      "ts": "2026-05-09T21:42:45.776180"
     }
   ],
   "web_cache": {}
