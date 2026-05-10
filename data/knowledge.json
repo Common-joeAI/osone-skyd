@@ -2,156 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "d162fd9f",
-      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80 -> log \"System resources are stable\"",
-      "source": "skylang",
-      "ts": "2026-05-09T11:04:58.478850"
-    },
-    {
-      "id": "59f92840",
-      "lesson": "Regular system resource monitoring and optimization are crucial for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-09T11:05:25.407649"
-    },
-    {
-      "id": "f88e8540",
-      "lesson": "SkyLang: WATCH resource_usage  monitor -> continue_monitoring\nEVERY 1m -> continue_monitoring\nIF resource_usage < 80% -> optimize_performance",
-      "source": "skylang",
-      "ts": "2026-05-09T11:05:50.193539"
-    },
-    {
-      "id": "de0113b2",
-      "lesson": "SkyLang: WATCH CPUUsage steamwebhelper > 80 -> terminate",
-      "source": "skylang",
-      "ts": "2026-05-09T11:07:36.988457"
-    },
-    {
-      "id": "7370d87c",
-      "lesson": "Regularly check and terminate any unnecessary steamwebhelper processes to prevent high CPU usage",
-      "source": "self",
-      "ts": "2026-05-09T11:08:05.420941"
-    },
-    {
-      "id": "6def0d60",
-      "lesson": "SkyLang: WATCH CPU_USAGE gt 80 -> Alert manager to optimize resource allocation",
-      "source": "skylang",
-      "ts": "2026-05-09T11:08:57.647855"
-    },
-    {
-      "id": "cd370661",
-      "lesson": "Regularly check and optimize resource-intensive processes to maintain system balance",
-      "source": "self",
-      "ts": "2026-05-09T11:09:37.463466"
-    },
-    {
-      "id": "3692ee8e",
-      "lesson": "SkyLang: WATCH CPU_USAGE <op> <= 80 -> SEND ALERT FOR OPTIMIZATION",
-      "source": "skylang",
-      "ts": "2026-05-09T11:10:27.519707"
-    },
-    {
-      "id": "fb6b6d1d",
-      "lesson": "Regularly checking system resources and optimizing usage can help prevent potential issues.",
-      "source": "self",
-      "ts": "2026-05-09T11:10:50.260056"
-    },
-    {
-      "id": "70bb40cd",
-      "lesson": "SkyLang: WATCH system.memory_usage <DECREASE> <5> -> send_notification()",
-      "source": "skylang",
-      "ts": "2026-05-09T11:11:14.779926"
-    },
-    {
-      "id": "508a9b79",
-      "lesson": "SkyLang: WATCH CPU_usage HIGH -> AlertManager optimizeResourceAllocation",
-      "source": "skylang",
-      "ts": "2026-05-09T11:13:07.839042"
-    },
-    {
-      "id": "71eba144",
-      "lesson": "SkyLang: WATCH cpu_usage > 80 -> alert:high_cpu_usage, optimize_cpu_usage",
-      "source": "skylang",
-      "ts": "2026-05-09T11:14:34.986905"
-    },
-    {
-      "id": "11c8f897",
-      "lesson": "Regularly check and optimize resource-intensive processes to maintain system balance.",
-      "source": "self",
-      "ts": "2026-05-09T11:15:00.845707"
-    },
-    {
-      "id": "de7c1e64",
-      "lesson": "SkyLang: WATCH cpu_usage HIGH -> ALERT and OPTIMIZE CPUUsage with 5% threshold",
-      "source": "skylang",
-      "ts": "2026-05-09T11:15:24.924280"
-    },
-    {
-      "id": "6e84661b",
-      "lesson": "SkyLang: WATCH system.cpu.utilization <op> <= 5 -> IF media library.intelligence <op> <= 50 THEN notify.admin",
-      "source": "skylang",
-      "ts": "2026-05-09T11:17:29.435335"
-    },
-    {
-      "id": "d7e8fe5b",
-      "lesson": "Regularly check and optimize media library data to ensure efficient media management.",
-      "source": "self",
-      "ts": "2026-05-09T11:18:01.240759"
-    },
-    {
-      "id": "335bc2c1",
-      "lesson": "SkyLang: WATCH system_resources_stable -> continue_monitoring\nEVERY 1m -> check_media_library_intelligence\nIF system_resources_stable == false -> improve_media_library_intelligence",
-      "source": "skylang",
-      "ts": "2026-05-09T11:18:26.090669"
-    },
-    {
-      "id": "a1bb4179",
-      "lesson": "SkyLang: WATCH resource_usage monitor -> check_media_library_intelligence\nEVERY 1M -> continueMonitoring\nIF resource_usage < 80% -> alert_manager",
-      "source": "skylang",
-      "ts": "2026-05-09T11:19:21.260128"
-    },
-    {
-      "id": "7f2890d8",
-      "lesson": "The importance of regular media library data checks to ensure efficient media management.",
-      "source": "self",
-      "ts": "2026-05-09T11:20:59.704751"
-    },
-    {
-      "id": "cb739aa5",
-      "lesson": "SkyLang: WATCH system_memory_usage > 80% -> notify_admin_improvement_needed",
-      "source": "skylang",
-      "ts": "2026-05-09T11:21:45.872990"
-    },
-    {
-      "id": "40b9cc93",
-      "lesson": "SkyLang: WATCH cpu_usage steam_service > 80% -> alert high_cpu_usage",
-      "source": "skylang",
-      "ts": "2026-05-09T11:23:10.622632"
-    },
-    {
-      "id": "f982cd80",
-      "lesson": "The importance of regular monitoring and optimization of resource-intensive services.",
-      "source": "self",
-      "ts": "2026-05-09T11:23:37.391199"
-    },
-    {
-      "id": "b19e6033",
-      "lesson": "SkyLang: WATCH steam.cpu_usage > 80 -> IF steam.cpu_usage > 90 -> adjust_resource_settings",
-      "source": "skylang",
-      "ts": "2026-05-09T11:26:00.745210"
-    },
-    {
-      "id": "e8156099",
-      "lesson": "Regularly check and adjust resource settings for resource-intensive services to maintain optimal system performance.",
-      "source": "self",
-      "ts": "2026-05-09T11:26:35.936381"
-    },
-    {
-      "id": "c74450a4",
-      "lesson": "SkyLang: WATCH cpu_usage > 80% -> alert high_cpu_usage",
-      "source": "skylang",
-      "ts": "2026-05-09T11:27:23.845423"
-    },
-    {
       "id": "912712aa",
       "lesson": "SkyLang: WATCH cpu_usage > 0.8 -> alert steam_service",
       "source": "skylang",
@@ -1800,6 +1650,156 @@
       "lesson": "SkyLang: WATCH disk_space_usage_alert -> alert_disk_space_threshold exceeded -> alert_disk_space_manager",
       "source": "skylang",
       "ts": "2026-05-09T20:47:30.327596"
+    },
+    {
+      "id": "b6a80193",
+      "lesson": "SkyLang: WATCH cpu_usage_high > 90 -> CULL_PROCESS",
+      "source": "skylang",
+      "ts": "2026-05-09T20:48:50.949858"
+    },
+    {
+      "id": "1d3c9300",
+      "lesson": "Monitoring and culling high CPU processes are crucial for preventing system crashes.",
+      "source": "self",
+      "ts": "2026-05-09T20:49:22.548288"
+    },
+    {
+      "id": "225a54c1",
+      "lesson": "SkyLang: WATCH cpu_usage > 80 -> cull_process",
+      "source": "skylang",
+      "ts": "2026-05-09T20:49:46.254875"
+    },
+    {
+      "id": "6f888a00",
+      "lesson": "SkyLang: WATCH disk_space_threshold_exceeded CULL_PROCESS -> CULL_PROCESS",
+      "source": "skylang",
+      "ts": "2026-05-09T20:51:10.301205"
+    },
+    {
+      "id": "6201bbad",
+      "lesson": "Monitoring and managing disk space is crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T20:51:33.244277"
+    },
+    {
+      "id": "1251cdd6",
+      "lesson": "SkyLang: WATCH cpu_usage <op> >= 90 -> cull_and_monitor",
+      "source": "skylang",
+      "ts": "2026-05-09T20:52:21.836851"
+    },
+    {
+      "id": "cdb32720",
+      "lesson": "Regularly monitoring and managing resource-intensive processes can help maintain system stability.",
+      "source": "self",
+      "ts": "2026-05-09T20:52:59.569104"
+    },
+    {
+      "id": "4a154e6b",
+      "lesson": "SkyLang: WATCH cpu_usage_high > 80 -> cull_process, monitor_process",
+      "source": "skylang",
+      "ts": "2026-05-09T20:53:23.086042"
+    },
+    {
+      "id": "3dc9f455",
+      "lesson": "High CPU usage can be indicative of a performance bottleneck, and regular monitoring is essential to prevent potential issues.",
+      "source": "self",
+      "ts": "2026-05-09T20:55:06.244396"
+    },
+    {
+      "id": "f8d4fe7d",
+      "lesson": "SkyLang: WATCH cpu_usage EXCEED 80% -> alert_manager.notify(\"Critical system resource utilization\")",
+      "source": "skylang",
+      "ts": "2026-05-09T20:55:53.345144"
+    },
+    {
+      "id": "f37331e1",
+      "lesson": "Properly managing resource-intensive processes to maintain system stability",
+      "source": "self",
+      "ts": "2026-05-09T20:56:21.059572"
+    },
+    {
+      "id": "103ff9d2",
+      "lesson": "SkyLang: WATCH resource_usage > 80 -> alert_resources()",
+      "source": "skylang",
+      "ts": "2026-05-09T20:59:13.054213"
+    },
+    {
+      "id": "aba1c436",
+      "lesson": "Properly managing resource-intensive processes is crucial for maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T20:59:39.783515"
+    },
+    {
+      "id": "9da39810",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> send_alert_to_administrators",
+      "source": "skylang",
+      "ts": "2026-05-09T21:00:47.862780"
+    },
+    {
+      "id": "62fdfc30",
+      "lesson": "The importance of regular disk cleanup and fstrim in maintaining system stability",
+      "source": "self",
+      "ts": "2026-05-09T21:01:08.898559"
+    },
+    {
+      "id": "5b8c2d23",
+      "lesson": "SkyLang: WATCH cpu_usage steam > 80 -> ALERT ADMINISTRATORS, OPTIMIZE PROCESS",
+      "source": "skylang",
+      "ts": "2026-05-09T21:04:44.064346"
+    },
+    {
+      "id": "779219b3",
+      "lesson": "Regularly monitor and manage resource-intensive processes.",
+      "source": "self",
+      "ts": "2026-05-09T21:05:05.406708"
+    },
+    {
+      "id": "45afc08e",
+      "lesson": "SkyLang: WATCH disk_usage  >  80% -> send_alert administrators, run fstrim",
+      "source": "skylang",
+      "ts": "2026-05-09T21:05:57.252683"
+    },
+    {
+      "id": "a84520b3",
+      "lesson": "The importance of regular disk cleanup and fstrim in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-09T21:06:32.724118"
+    },
+    {
+      "id": "2ca0eb22",
+      "lesson": "SkyLang: WATCH CPU_USAGE HIGH -> alert team and trigger optimization task",
+      "source": "skylang",
+      "ts": "2026-05-09T21:07:25.569505"
+    },
+    {
+      "id": "ab02333f",
+      "lesson": "Regularly monitor and manage resource-intensive processes to prevent such issues.",
+      "source": "self",
+      "ts": "2026-05-09T21:08:00.008440"
+    },
+    {
+      "id": "b9571bba",
+      "lesson": "SkyLang: WATCH disk_space_usage > 80% -> send alert to ops team",
+      "source": "skylang",
+      "ts": "2026-05-09T21:08:50.318001"
+    },
+    {
+      "id": "07b6cea1",
+      "lesson": "Fstrim is essential for maintaining system stability, especially in media server stacks.",
+      "source": "self",
+      "ts": "2026-05-09T21:09:19.025556"
+    },
+    {
+      "id": "ee3577d0",
+      "lesson": "SkyLang: WATCH disk_usage <op> >= 90% -> trigger_backup",
+      "source": "skylang",
+      "ts": "2026-05-09T21:09:41.759074"
+    },
+    {
+      "id": "2d93324f",
+      "lesson": "Fstrim can help maintain system stability, especially in media server stacks.",
+      "source": "self",
+      "ts": "2026-05-09T21:14:56.049106"
     }
   ],
   "web_cache": {}
