@@ -2,132 +2,6 @@
   "facts": [],
   "lessons": [
     {
-      "id": "ba906967",
-      "lesson": "SkyLang: WATCH resource_usage.utilization  >  90 -> alert_system_resource_issues",
-      "source": "skylang",
-      "ts": "2026-05-08T21:48:20.177611"
-    },
-    {
-      "id": "a1f3406c",
-      "lesson": "Regularly review system resource utilization to optimize performance.",
-      "source": "self",
-      "ts": "2026-05-08T21:48:37.750360"
-    },
-    {
-      "id": "1a9e81b5",
-      "lesson": "SkyLang: WATCH cpu_utilization > 80 -> alert admin",
-      "source": "skylang",
-      "ts": "2026-05-08T21:49:00.314068"
-    },
-    {
-      "id": "34d58353",
-      "lesson": "SkyLang: WATCH resource_utilization STABLE -> alert_low_utilization and send_email alert_high_utilization",
-      "source": "skylang",
-      "ts": "2026-05-08T21:51:05.893731"
-    },
-    {
-      "id": "632ce394",
-      "lesson": "Regularly review Docker performance to prevent resource issues",
-      "source": "self",
-      "ts": "2026-05-08T21:51:27.148497"
-    },
-    {
-      "id": "15860c01",
-      "lesson": "SkyLang: WATCH cpu_usage <op> <= 80% -> alert manager",
-      "source": "skylang",
-      "ts": "2026-05-08T21:51:49.799112"
-    },
-    {
-      "id": "79d722b9",
-      "lesson": "Reviewing system resource utilization is crucial for maintaining stability.",
-      "source": "self",
-      "ts": "2026-05-08T21:54:13.682571"
-    },
-    {
-      "id": "553f32a7",
-      "lesson": "Monitor CPU utilization regularly to prevent potential issues.",
-      "source": "self",
-      "ts": "2026-05-08T21:56:58.576807"
-    },
-    {
-      "id": "ba9b203a",
-      "lesson": "Understanding the importance of regular resource monitoring and optimization is crucial for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-08T21:59:47.072082"
-    },
-    {
-      "id": "c8f12cb7",
-      "lesson": "SkyLang: WATCH cpu_usage < 80% -> CONTINUE Monitoring",
-      "source": "skylang",
-      "ts": "2026-05-08T22:06:19.909947"
-    },
-    {
-      "id": "283fe952",
-      "lesson": "Monitoring system resource utilization is crucial for maintaining stability.",
-      "source": "self",
-      "ts": "2026-05-08T22:06:42.861112"
-    },
-    {
-      "id": "623f0b43",
-      "lesson": "SkyLang: WATCH CPU Utilization > 80% -> Optimize CPU Caching",
-      "source": "skylang",
-      "ts": "2026-05-09T10:17:32.590724"
-    },
-    {
-      "id": "6ecae6d2",
-      "lesson": "Regularly monitoring resource utilization is crucial for maintaining system stability.",
-      "source": "self",
-      "ts": "2026-05-09T10:19:06.153777"
-    },
-    {
-      "id": "11889ee6",
-      "lesson": "Understanding the importance of regular system monitoring and optimization.",
-      "source": "self",
-      "ts": "2026-05-09T10:24:29.947799"
-    },
-    {
-      "id": "7561f258",
-      "lesson": "SkyLang: WATCH cpu_usage <op> <value> -> continue monitoring and optimizing system resources",
-      "source": "skylang",
-      "ts": "2026-05-09T10:26:57.455681"
-    },
-    {
-      "id": "fe4d7370",
-      "lesson": "SkyLang: WATCH cpu_usage <op> >= 80 -> alert_team",
-      "source": "skylang",
-      "ts": "2026-05-09T10:27:40.290185"
-    },
-    {
-      "id": "57d0170a",
-      "lesson": "SkyLang: WATCH CPU Utilization <op> > 80% -> log \"High CPU Utilization Detected\"",
-      "source": "skylang",
-      "ts": "2026-05-09T10:28:19.826984"
-    },
-    {
-      "id": "8eaa7de2",
-      "lesson": "SkyLang: WATCH cpu_usage <op> <value> -> continueMonitoring and logOptimizationEfforts",
-      "source": "skylang",
-      "ts": "2026-05-09T10:29:00.005928"
-    },
-    {
-      "id": "8c39b8f1",
-      "lesson": "SkyLang: WATCH CPUUtilization <op> > 80 -> LOG \"High CPU utilization detected, optimizing system resources\"",
-      "source": "skylang",
-      "ts": "2026-05-09T10:29:51.568775"
-    },
-    {
-      "id": "93f12006",
-      "lesson": "SkyLang: WATCH \"system_resource_usage\" INCREASED > 80% -> ALERT AND OPTIMIZE_RESOURCE allocation",
-      "source": "skylang",
-      "ts": "2026-05-09T10:31:52.310227"
-    },
-    {
-      "id": "9582d3c3",
-      "lesson": "Regularly review system logs to identify potential issues and trends in system resource usage",
-      "source": "self",
-      "ts": "2026-05-09T10:32:13.817677"
-    },
-    {
       "id": "1be7bd53",
       "lesson": "SkyLang: WATCH resource_usage <op> <value> -> alert if resource_usage <op> > 80%",
       "source": "skylang",
@@ -1800,6 +1674,132 @@
       "lesson": "Monitoring system resources is crucial for maintaining system stability.",
       "source": "self",
       "ts": "2026-05-09T19:47:03.809293"
+    },
+    {
+      "id": "2fcb6094",
+      "lesson": "SkyLang: WATCH disk_space_usage -> INCREASE 10GB -> alert system administrators",
+      "source": "skylang",
+      "ts": "2026-05-09T19:49:31.985713"
+    },
+    {
+      "id": "f95001a8",
+      "lesson": "SkyLang: WATCH disk_space_utility  >  80 -> notify_admin",
+      "source": "skylang",
+      "ts": "2026-05-09T19:50:27.117054"
+    },
+    {
+      "id": "6fd511f0",
+      "lesson": "The importance of balancing resource allocation for optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-09T19:55:30.091507"
+    },
+    {
+      "id": "770cdc2e",
+      "lesson": "SkyLang: WATCH disk_space_usage > 80 -> IF system_resources == normal THEN increase_disk_space",
+      "source": "skylang",
+      "ts": "2026-05-09T19:58:31.899593"
+    },
+    {
+      "id": "e0d18919",
+      "lesson": "The importance of balancing resource allocation for optimal system performance",
+      "source": "self",
+      "ts": "2026-05-09T19:58:52.472919"
+    },
+    {
+      "id": "11bde76a",
+      "lesson": "SkyLang: WATCH disk_space_usage < 80% -> increase_disk_space",
+      "source": "skylang",
+      "ts": "2026-05-09T19:59:41.460341"
+    },
+    {
+      "id": "30d19470",
+      "lesson": "Disk space management is crucial for system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T20:00:03.657712"
+    },
+    {
+      "id": "93563291",
+      "lesson": "SkyLang: WATCH disk_space_usage <op> 80% -> increase_disk_space",
+      "source": "skylang",
+      "ts": "2026-05-09T20:00:27.330401"
+    },
+    {
+      "id": "047d2480",
+      "lesson": "SkyLang: WATCH disk_space_usage <op> > 80% -> increase_disk_space",
+      "source": "skylang",
+      "ts": "2026-05-09T20:03:09.005192"
+    },
+    {
+      "id": "ed1ad81c",
+      "lesson": "Regularly check disk space usage and consider increasing it if it approaches 80%.",
+      "source": "self",
+      "ts": "2026-05-09T20:03:27.979426"
+    },
+    {
+      "id": "8c531d17",
+      "lesson": "SkyLang: WATCH disk_space_used > 80% -> alert manager",
+      "source": "skylang",
+      "ts": "2026-05-09T20:05:54.776949"
+    },
+    {
+      "id": "6fdad6d3",
+      "lesson": "The importance of proactive disk space management for system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-09T20:06:21.226268"
+    },
+    {
+      "id": "864fa5ad",
+      "lesson": "SkyLang: WATCH disk_space_usage <op> > <threshold> -> send alert to ops team",
+      "source": "skylang",
+      "ts": "2026-05-09T20:06:45.907261"
+    },
+    {
+      "id": "6e65e439",
+      "lesson": "SkyLang: WATCH disk_usage % 80 -> ALERT",
+      "source": "skylang",
+      "ts": "2026-05-09T20:07:57.531726"
+    },
+    {
+      "id": "bfef740b",
+      "lesson": "SkyLang: WATCH disk_usage > 80% -> alert disk_usage_exceeds_threshold",
+      "source": "skylang",
+      "ts": "2026-05-09T20:08:53.425648"
+    },
+    {
+      "id": "0c704541",
+      "lesson": "SkyLang: WATCH disk_space_usage_op gt 59.7 -> notify_alert",
+      "source": "skylang",
+      "ts": "2026-05-09T20:11:14.451845"
+    },
+    {
+      "id": "e875af57",
+      "lesson": "The importance of proactive disk space management",
+      "source": "self",
+      "ts": "2026-05-09T20:11:28.253439"
+    },
+    {
+      "id": "d5f40802",
+      "lesson": "SkyLang: WATCH disk_space_usage > 0.57 -> alert_user",
+      "source": "skylang",
+      "ts": "2026-05-09T20:11:51.928351"
+    },
+    {
+      "id": "59637de0",
+      "lesson": "The importance of proactive disk space management and regular system monitoring.",
+      "source": "self",
+      "ts": "2026-05-09T20:14:22.006680"
+    },
+    {
+      "id": "98fa4d9f",
+      "lesson": "SkyLang: WATCH disk_space < 80% -> alert disk_low, notify admin",
+      "source": "skylang",
+      "ts": "2026-05-09T20:15:06.130156"
+    },
+    {
+      "id": "bc0abee4",
+      "lesson": "SkyLang: WATCH disk_space  < 50% -> alert and increase disk space allocation",
+      "source": "skylang",
+      "ts": "2026-05-09T20:15:51.869737"
     }
   ],
   "web_cache": {}
