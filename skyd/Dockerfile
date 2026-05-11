@@ -9,6 +9,7 @@ RUN pip install psutil httpx gitpython requests
 WORKDIR /skyd
 COPY skyd.py .
 COPY wolf_spider.py .
+COPY media_janitor.py .
 
 RUN mkdir -p /usr/local/skyd/asm /usr/local/skyd/lang
 

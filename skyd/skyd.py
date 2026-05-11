@@ -81,6 +81,10 @@ log = logging.getLogger("skyd")
 import sys as _sys
 _sys.path.insert(0, "/usr/local/bin")
 from wolf_spider import MotherSpider
+try:
+    from media_janitor import run_janitor as _run_janitor
+except ImportError:
+    _run_janitor = None
 
 mother = MotherSpider(max_spiderlings=12)
 
@@ -646,6 +650,25 @@ def main():
 
     kb = load_kb()
     ev = load_evolution()
+    # -- Media Janitor thread --
+    if _run_janitor:
+        import threading as _th, time as _t2
+        def _jloop():
+            _t2.sleep(30)
+            while True:
+                try:
+                    log.info("Janitor scan starting...")
+                    r = _run_janitor()
+                    b=len(r.get("bad_files_removed",[]))
+                    d=len(r.get("duplicates_removed",[]))
+                    s=len(r.get("radarr_searches_triggered",[]))
+                    log.info(f"Janitor done: {b} bad, {d} dupes, {s} searches")
+                except Exception as _je:
+                    log.error(f"Janitor error: {_je}")
+                _t2.sleep(86400)
+        _th.Thread(target=_jloop, daemon=True, name="media-janitor").start()
+        log.info("Media Janitor launched - runs every 24h")
+
     log.info(f"📚 Knowledge: {len(kb['lessons'])} lessons | 🧬 Generation: {ev['generation']}")
 
     # Write initial SkyLang ruleset if none exists

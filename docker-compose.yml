@@ -43,6 +43,8 @@ services:
       - LLAMA_URL=http://llama:8080
     volumes:
       - /etc/osone:/etc/osone
+      - skyd-logs:/var/log/skyd:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - "8000:8000"
     networks:
@@ -54,8 +56,9 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/user/osone/web:/usr/share/nginx/html:ro
+      - /mnt/user/osone-docker/landing/default.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - "9000:80"
+      - "9000:9000"
 
 volumes:
   skyd-lang:

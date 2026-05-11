@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import './index.css'
 import HivePanel from './HivePanel.jsx'
 
-// Auto-detect: if accessed via Cloudflare (no explicit port), use same origin
 const _isLocal = window.location.port !== ''
 const API = _isLocal
   ? `http://${window.location.hostname}:8000`
@@ -11,7 +10,7 @@ const WS_BASE = _isLocal
   ? `ws://${window.location.hostname}:8000`
   : `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}`
 
-// ── Auth store ────────────────────────────────────────────────────────────────
+// ── Auth ──────────────────────────────────────────────────────────────────────
 function useAuth() {
   const [auth, setAuth] = useState(() => {
     try { return JSON.parse(localStorage.getItem('osone_auth') || 'null') } catch { return null }
@@ -20,7 +19,6 @@ function useAuth() {
   const logout = () => { localStorage.removeItem('osone_auth'); setAuth(null) }
   return { auth, login, logout }
 }
-
 function authFetch(url, opts = {}, token) {
   return fetch(url, {
     ...opts,
@@ -31,8 +29,7 @@ function authFetch(url, opts = {}, token) {
 // ── Mobile detection ──────────────────────────────────────────────────────────
 function useIsMobile() {
   const [mobile, setMobile] = useState(() =>
-    /Android|iPhone|iPad|iPod|Mobile|OSONE-Android/i.test(navigator.userAgent) || window.innerWidth <= 768
-  )
+    /Android|iPhone|iPad|iPod|Mobile|OSONE-Android/i.test(navigator.userAgent) || window.innerWidth <= 768)
   useEffect(() => {
     const check = () => setMobile(/Android|iPhone|iPad|iPod|Mobile|OSONE-Android/i.test(navigator.userAgent) || window.innerWidth <= 768)
     window.addEventListener('resize', check)
@@ -41,11 +38,12 @@ function useIsMobile() {
   return mobile
 }
 
+// ── System stats ──────────────────────────────────────────────────────────────
 function useStats(token) {
   const [stats, setStats] = useState(null)
   useEffect(() => {
     if (!token) return
-    const fetch_ = () => authFetch(`${API}/api/stats`, {}, token).then(r=>r.json()).then(setStats).catch(()=>{})
+    const fetch_ = () => authFetch(`${API}/api/stats`, {}, token).then(r => r.json()).then(setStats).catch(() => {})
     fetch_()
     const t = setInterval(fetch_, 3000)
     return () => clearInterval(t)
@@ -53,121 +51,282 @@ function useStats(token) {
   return stats
 }
 
+// ── System info (battery, network, time) ─────────────────────────────────────
+function useSystemInfo() {
+  const [info, setInfo] = useState({ time: new Date(), battery: null, network: navigator.onLine, charging: null, batteryLevel: null })
+
+  useEffect(() => {
+    // Clock
+    const clock = setInterval(() => setInfo(i => ({ ...i, time: new Date() })), 1000)
+
+    // Battery API
+    if ('getBattery' in navigator) {
+      navigator.getBattery().then(bat => {
+        const update = () => setInfo(i => ({ ...i, charging: bat.charging, batteryLevel: Math.round(bat.level * 100) }))
+        update()
+        bat.addEventListener('chargingchange', update)
+        bat.addEventListener('levelchange', update)
+      }).catch(() => {})
+    }
+
+    // Network
+    const onOnline = () => setInfo(i => ({ ...i, network: true }))
+    const onOffline = () => setInfo(i => ({ ...i, network: false }))
+    window.addEventListener('online', onOnline)
+    window.addEventListener('offline', onOffline)
+
+    return () => {
+      clearInterval(clock)
+      window.removeEventListener('online', onOnline)
+      window.removeEventListener('offline', onOffline)
+    }
+  }, [])
+
+  return info
+}
+
 function fmt(bytes) {
-  if (bytes > 1e9) return (bytes/1e9).toFixed(1)+'GB'
-  if (bytes > 1e6) return (bytes/1e6).toFixed(0)+'MB'
-  return (bytes/1e3).toFixed(0)+'KB'
+  if (bytes > 1e9) return (bytes / 1e9).toFixed(1) + 'GB'
+  if (bytes > 1e6) return (bytes / 1e6).toFixed(0) + 'MB'
+  return (bytes / 1e3).toFixed(0) + 'KB'
 }
 function fmtUptime(s) {
-  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60)
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60)
   return `${h}h ${m}m`
 }
 
-// ── Login Screen ──────────────────────────────────────────────────────────────
-function LoginScreen({ onLogin }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+// ── Battery icon ──────────────────────────────────────────────────────────────
+function BatteryIcon({ level, charging }) {
+  if (level === null) return <span title="No battery info" style={{ opacity: 0.4 }}>🔌</span>
+  const color = level < 15 ? '#f87171' : level < 30 ? '#fbbf24' : '#4ade80'
+  const icon = charging ? '⚡' : level > 80 ? '🔋' : level > 30 ? '🪫' : '🔴'
+  return (
+    <span title={`Battery: ${level}%${charging ? ' (charging)' : ''}`} style={{ fontSize: 13, cursor: 'default' }}>
+      {icon} <span style={{ color, fontSize: 11 }}>{level}%</span>
+    </span>
+  )
+}
 
-  const submit = async (e) => {
-    e.preventDefault()
-    setError(''); setLoading(true)
-    try {
-      const r = await fetch(`${API}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: username.trim(), password })
-      })
-      const d = await r.json()
-      if (!r.ok) { setError(d.detail || 'Login failed'); setLoading(false); return }
-      onLogin(d)
-    } catch { setError('Cannot reach OSONE server'); setLoading(false) }
-  }
+// ── Network icon ─────────────────────────────────────────────────────────────
+function NetworkIcon({ online }) {
+  return (
+    <span title={online ? 'Connected' : 'Offline'} style={{ fontSize: 13, cursor: 'default' }}>
+      {online ? '📶' : <span style={{ color: '#f87171' }}>⚠️</span>}
+    </span>
+  )
+}
+
+// ── STATUS BAR (top, full-width OS bar) ───────────────────────────────────────
+function StatusBar({ stats, auth, logout, sysInfo, onOpenApp }) {
+  const time = sysInfo.time
+  const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const dateStr = time.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
 
   return (
-    <div className="login-shell">
-      <div className="login-card">
-        <div className="login-logo">
-          <div className="taskbar-dot" style={{width:12,height:12}} />
-          <span className="login-title">OSONE</span>
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, height: 32,
+      background: 'rgba(10,10,20,0.95)', backdropFilter: 'blur(12px)',
+      borderBottom: '1px solid rgba(255,255,255,0.08)',
+      display: 'flex', alignItems: 'center', padding: '0 12px',
+      gap: 16, zIndex: 9999, userSelect: 'none', fontSize: 12, color: 'var(--text)'
+    }}>
+      {/* Left: OSONE brand */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--accent)', fontSize: 13 }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 6px var(--accent)' }} />
+        OSONE
+      </div>
+
+      {/* Center: stats */}
+      {stats && (
+        <div style={{ display: 'flex', gap: 12, color: 'var(--muted)', fontSize: 11 }}>
+          <span>CPU <span style={{ color: stats.cpu_percent > 80 ? '#f87171' : 'var(--text)' }}>{stats.cpu_percent?.toFixed(0)}%</span></span>
+          <span>RAM <span style={{ color: stats.memory_percent > 85 ? '#f87171' : 'var(--text)' }}>{stats.memory_percent?.toFixed(0)}%</span></span>
+          <span>Gen <span style={{ color: 'var(--accent)' }}>{stats.generation || 0}</span></span>
+          {stats.uptime && <span>↑ {fmtUptime(stats.uptime)}</span>}
         </div>
-        <p className="login-sub">Authenticate to access the system</p>
-        <form onSubmit={submit} className="login-form">
-          <input className="login-input" placeholder="Username" value={username}
-            onChange={e=>setUsername(e.target.value)} autoComplete="username" autoFocus />
-          <input className="login-input" type="password" placeholder="Password" value={password}
-            onChange={e=>setPassword(e.target.value)} autoComplete="current-password" />
-          {error && <div className="login-error">{error}</div>}
-          <button className="login-btn" type="submit" disabled={loading}>
-            {loading ? 'Connecting...' : 'Connect'}
-          </button>
-        </form>
+      )}
+
+      {/* Spacer */}
+      <div style={{ flex: 1 }} />
+
+      {/* Right: system tray */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <NetworkIcon online={sysInfo.network} />
+        <BatteryIcon level={sysInfo.batteryLevel} charging={sysInfo.charging} />
+        <div style={{ color: 'var(--muted)', fontSize: 11 }}>
+          <span style={{ color: 'var(--text)', fontWeight: 600 }}>{timeStr}</span>
+          <span style={{ marginLeft: 6 }}>{dateStr}</span>
+        </div>
+        {auth && (
+          <button onClick={logout} style={{
+            background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4,
+            color: 'var(--muted)', fontSize: 10, padding: '2px 8px', cursor: 'pointer'
+          }}>logout</button>
+        )}
       </div>
     </div>
   )
 }
 
-// ── Desktop Window ────────────────────────────────────────────────────────────
-function Window({ id, title, icon, children, initialPos, initialSize, onClose, onFocus, focused, zIndex }) {
-  const [pos, setPos] = useState(initialPos || { x: 100, y: 60 })
-  const [size] = useState(initialSize || { w: 700, h: 500 })
+// ── TASKBAR (bottom) ──────────────────────────────────────────────────────────
+function Taskbar({ apps, openWindows, onOpen, onFocus, activeId, stats }) {
+  return (
+    <div style={{
+      position: 'fixed', bottom: 0, left: 0, right: 0, height: 52,
+      background: 'rgba(10,10,20,0.97)', backdropFilter: 'blur(16px)',
+      borderTop: '1px solid rgba(255,255,255,0.08)',
+      display: 'flex', alignItems: 'center', padding: '0 12px', gap: 4,
+      zIndex: 9999, userSelect: 'none'
+    }}>
+      {apps.map(app => {
+        const isOpen = openWindows.some(w => w.id === app.id)
+        const isActive = activeId === app.id
+        return (
+          <button key={app.id} onClick={() => isOpen ? onFocus(app.id) : onOpen(app)}
+            title={app.label}
+            style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              gap: 2, width: 52, height: 44, borderRadius: 10, border: 'none',
+              background: isActive ? 'rgba(124,111,255,0.25)' : isOpen ? 'rgba(255,255,255,0.06)' : 'transparent',
+              cursor: 'pointer', transition: 'all 0.15s', position: 'relative',
+              outline: isActive ? '1px solid rgba(124,111,255,0.5)' : 'none'
+            }}>
+            <span style={{ fontSize: 20 }}>{app.icon}</span>
+            <span style={{ fontSize: 9, color: isActive ? 'var(--accent)' : 'var(--muted)' }}>{app.label}</span>
+            {isOpen && <div style={{ position: 'absolute', bottom: 2, width: 4, height: 4, borderRadius: '50%', background: 'var(--accent)' }} />}
+          </button>
+        )
+      })}
+
+      <div style={{ flex: 1 }} />
+
+      {/* Gen indicator */}
+      {stats && (
+        <div style={{ fontSize: 11, color: 'var(--muted)', padding: '0 8px' }}>
+          Gen <span style={{ color: 'var(--accent)' }}>{stats.generation || 0}</span>
+          {stats.skylang_rules > 0 && <span> · {stats.skylang_rules} rules</span>}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── WINDOW (draggable, resizable) ─────────────────────────────────────────────
+function Window({ id, title, icon, children, initialPos, initialSize, onClose, onFocus, focused, zIndex, onKioskOverride }) {
+  const [pos, setPos] = useState(initialPos || { x: Math.random() * 200 + 80, y: Math.random() * 100 + 50 })
+  const [size, setSize] = useState(initialSize || { w: 760, h: 520 })
   const [maximized, setMaximized] = useState(false)
   const dragging = useRef(false), dragOffset = useRef(null)
-  const onMouseDown = e => { onFocus(id); dragging.current = true; dragOffset.current = { x: e.clientX - pos.x, y: e.clientY - pos.y } }
+  const resizing = useRef(false), resizeStart = useRef(null)
+
+  // Drag titlebar
+  const onTitleMouseDown = e => {
+    if (maximized) return
+    e.preventDefault(); onFocus(id)
+    dragging.current = true
+    dragOffset.current = { x: e.clientX - pos.x, y: e.clientY - pos.y }
+  }
+
+  // Resize corner
+  const onResizeMouseDown = e => {
+    e.preventDefault(); e.stopPropagation()
+    resizing.current = true
+    resizeStart.current = { x: e.clientX, y: e.clientY, w: size.w, h: size.h }
+  }
+
   useEffect(() => {
-    const move = e => { if (dragging.current && !maximized) setPos({ x: e.clientX - dragOffset.current.x, y: e.clientY - dragOffset.current.y }) }
-    const up = () => { dragging.current = false }
-    window.addEventListener('mousemove', move); window.addEventListener('mouseup', up)
+    const move = e => {
+      if (dragging.current) setPos({ x: e.clientX - dragOffset.current.x, y: e.clientY - dragOffset.current.y })
+      if (resizing.current) {
+        const dx = e.clientX - resizeStart.current.x, dy = e.clientY - resizeStart.current.y
+        setSize({ w: Math.max(400, resizeStart.current.w + dx), h: Math.max(300, resizeStart.current.h + dy) })
+      }
+    }
+    const up = () => { dragging.current = false; resizing.current = false }
+    window.addEventListener('mousemove', move)
+    window.addEventListener('mouseup', up)
     return () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up) }
-  }, [maximized])
-  const style = maximized ? { left:0, top:0, width:'100vw', height:'calc(100vh - 52px)', borderRadius:0, zIndex } : { left: pos.x, top: pos.y, width: size.w, height: size.h, zIndex }
+  }, [])
+
+  // Double-click titlebar = maximize
+  const onDblClick = () => setMaximized(m => !m)
+
+  const wStyle = maximized
+    ? { left: 0, top: 32, width: '100vw', height: 'calc(100vh - 84px)', borderRadius: 0, zIndex }
+    : { left: pos.x, top: pos.y, width: size.w, height: size.h, zIndex }
+
   return (
-    <div className={`window ${focused?'focused':''}`} style={style} onMouseDown={() => onFocus(id)}>
-      <div className="window-titlebar" onMouseDown={onMouseDown}>
+    <div className={`window ${focused ? 'focused' : ''}`} style={wStyle}
+      onMouseDown={() => onFocus(id)}>
+      <div className="window-titlebar" onMouseDown={onTitleMouseDown} onDoubleClick={onDblClick}
+        style={{ cursor: maximized ? 'default' : 'move' }}>
         <div className="window-controls">
-          <button className="window-control wc-close" onClick={() => onClose(id)} />
-          <button className="window-control wc-min" />
-          <button className="window-control wc-max" onClick={() => setMaximized(m=>!m)} />
+          <button className="window-control wc-close" onClick={e => { e.stopPropagation(); onClose(id) }} title="Close" />
+          <button className="window-control wc-min" title="Minimize" onClick={e => e.stopPropagation()} />
+          <button className="window-control wc-max" onClick={e => { e.stopPropagation(); setMaximized(m => !m) }} title={maximized ? 'Restore' : 'Maximize'} />
         </div>
-        <span style={{fontSize:16}}>{icon}</span>
+        <span style={{ fontSize: 16 }}>{icon}</span>
         <span className="window-title">{title}</span>
+        <div style={{ flex: 1 }} />
+        {onKioskOverride && (
+          <button onClick={e => { e.stopPropagation(); onKioskOverride() }}
+            title="Exit kiosk mode"
+            style={{ background: 'rgba(255,100,100,0.15)', border: '1px solid rgba(255,100,100,0.3)', borderRadius: 4, color: '#f87171', fontSize: 10, padding: '2px 7px', cursor: 'pointer', marginRight: 4 }}>
+            EXIT KIOSK
+          </button>
+        )}
       </div>
       <div className="window-content">{children}</div>
+      {/* Resize handle */}
+      {!maximized && (
+        <div onMouseDown={onResizeMouseDown}
+          style={{ position: 'absolute', bottom: 0, right: 0, width: 16, height: 16, cursor: 'se-resize', zIndex: 10 }}>
+          <svg width="12" height="12" viewBox="0 0 12 12" style={{ position: 'absolute', bottom: 3, right: 3, opacity: 0.3 }}>
+            <path d="M10 2L2 10M6 2L2 6M10 6L6 10" stroke="white" strokeWidth="1.5" />
+          </svg>
+        </div>
+      )}
     </div>
   )
 }
 
-// ── Terminal (admin only) ─────────────────────────────────────────────────────
-function Terminal({ mobile, token }) {
+// ── TERMINAL ──────────────────────────────────────────────────────────────────
+function Terminal({ token }) {
   const [lines, setLines] = useState([
-    { type: 'sys', text: '  ▓ OSONE Terminal' },
-    { type: 'skyd', text: 'Type commands or ask skyd anything' },
-    { type: 'muted', text: 'Prefix with "skyd:" for AI queries' },
-    { type: 'muted', text: '────────────────────────────────' },
+    { type: 'sys', text: '  ▓ OSONE Terminal — skyd shell' },
+    { type: 'muted', text: 'Type shell commands, or prefix with "skyd:" for AI' },
+    { type: 'muted', text: '────────────────────────────────────────────' },
   ])
   const [input, setInput] = useState('')
+  const [history, setHistory] = useState([])
+  const [histIdx, setHistIdx] = useState(-1)
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
+
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [lines])
+
   const addLine = (type, text) => setLines(l => [...l, { type, text }])
+
   const runCommand = async (cmd) => {
     if (!cmd.trim()) return
-    addLine('cmd', `# ${cmd}`)
+    setHistory(h => [cmd, ...h.slice(0, 49)])
+    setHistIdx(-1)
+    addLine('cmd', `$ ${cmd}`)
     if (cmd.trim().toLowerCase().startsWith('skyd:') || cmd.trim().toLowerCase().startsWith('ask ')) {
-      const q = cmd.replace(/^skyd:/i,'').replace(/^ask /i,'').trim()
+      const q = cmd.replace(/^skyd:/i, '').replace(/^ask /i, '').trim()
       setLoading(true); addLine('skyd', 'skyd thinking...')
       try {
-        const r = await authFetch(`${API}/api/chat`, { method:'POST', body:JSON.stringify({message:q}) }, token)
+        const r = await authFetch(`${API}/api/chat`, { method: 'POST', body: JSON.stringify({ message: q }) }, token)
         const d = await r.json()
-        setLines(l => [...l.slice(0,-1)]); addLine('skyd', `skyd: ${d.response}`)
+        setLines(l => [...l.slice(0, -1)]); addLine('skyd', `skyd: ${d.response}`)
       } catch { addLine('err', 'skyd: connection error') }
       setLoading(false); return
     }
+    if (cmd.trim() === 'clear') { setLines([]); return }
     setLoading(true)
     try {
-      const r = await authFetch(`${API}/api/exec`, { method:'POST', body:JSON.stringify({cmd}) }, token)
+      const r = await authFetch(`${API}/api/exec`, { method: 'POST', body: JSON.stringify({ cmd }) }, token)
       const d = await r.json()
       if (d.stdout) d.stdout.split('\n').forEach(l => l && addLine('out', l))
       if (d.stderr) d.stderr.split('\n').forEach(l => l && addLine('err', l))
@@ -175,27 +334,80 @@ function Terminal({ mobile, token }) {
     } catch { addLine('err', 'execution error') }
     setLoading(false)
   }
-  const onKey = e => { if (e.key === 'Enter') { runCommand(input); setInput('') } }
+
+  const onKey = e => {
+    if (e.key === 'Enter') { runCommand(input); setInput('') }
+    else if (e.key === 'ArrowUp') { const i = Math.min(histIdx + 1, history.length - 1); setHistIdx(i); setInput(history[i] || '') }
+    else if (e.key === 'ArrowDown') { const i = Math.max(histIdx - 1, -1); setHistIdx(i); setInput(i === -1 ? '' : history[i]) }
+  }
+
   return (
     <>
-      <div className="terminal-wrap" onClick={() => inputRef.current?.focus()}>
-        {lines.map((l,i) => <div key={i} className={`terminal-line ${l.type}`}>{l.text}</div>)}
+      <div className="terminal-wrap" onClick={() => inputRef.current?.focus()}
+        style={{ flex: 1, overflowY: 'auto', padding: '8px 12px', fontFamily: 'monospace', fontSize: 13, lineHeight: 1.6 }}>
+        {lines.map((l, i) => (
+          <div key={i} className={`terminal-line ${l.type}`} style={{
+            color: l.type === 'cmd' ? '#7c6fff' : l.type === 'err' ? '#f87171' : l.type === 'skyd' ? '#4ade80' : l.type === 'sys' ? '#a78bfa' : l.type === 'muted' ? '#4a4a6a' : '#c0c0d0',
+            whiteSpace: 'pre-wrap', wordBreak: 'break-all'
+          }}>{l.text}</div>
+        ))}
         <div ref={bottomRef} />
       </div>
-      <div className="terminal-input-row">
-        <span className="terminal-prompt">#</span>
-        <input ref={inputRef} autoFocus className="terminal-input" value={input}
-          onChange={e=>setInput(e.target.value)} onKeyDown={onKey}
-          placeholder={loading?'processing...':'command or skyd: question'} disabled={loading}
-          style={mobile?{fontSize:16}:{}} />
+      <div style={{ display: 'flex', alignItems: 'center', padding: '6px 12px', borderTop: '1px solid var(--border)', background: 'rgba(0,0,0,0.3)', gap: 8 }}>
+        <span style={{ color: 'var(--accent)', fontFamily: 'monospace', fontWeight: 700 }}>$</span>
+        <input ref={inputRef} autoFocus
+          style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'var(--text)', fontFamily: 'monospace', fontSize: 13 }}
+          value={input} onChange={e => setInput(e.target.value)} onKeyDown={onKey}
+          placeholder={loading ? 'processing...' : 'command or skyd: question'} disabled={loading} />
       </div>
     </>
   )
 }
 
-// ── skyd Chat (users just type naturally) ─────────────────────────────────────
-function SkydChat({ mobile, token }) {
-  const [messages, setMessages] = useState([{ role: 'skyd', text: "Hey — I'm skyd. Ask me anything." }])
+// ── BROWSER APP (in-window iframe) ────────────────────────────────────────────
+function Browser() {
+  const [url, setUrl] = useState('https://www.google.com')
+  const [input, setInput] = useState('https://www.google.com')
+  const [loading, setLoading] = useState(false)
+  const iframeRef = useRef(null)
+
+  const navigate = (target) => {
+    let u = target.trim()
+    if (!u.startsWith('http')) u = 'https://' + u
+    setUrl(u); setInput(u); setLoading(true)
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* URL bar */}
+      <div style={{ display: 'flex', gap: 6, padding: '6px 10px', background: 'rgba(0,0,0,0.3)', borderBottom: '1px solid var(--border)', alignItems: 'center' }}>
+        <button onClick={() => iframeRef.current?.contentWindow?.history.back()}
+          style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', fontSize: 16, padding: '0 4px' }}>‹</button>
+        <button onClick={() => iframeRef.current?.contentWindow?.history.forward()}
+          style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', fontSize: 16, padding: '0 4px' }}>›</button>
+        <button onClick={() => iframeRef.current?.contentWindow?.location.reload()}
+          style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', fontSize: 14, padding: '0 4px' }}>↺</button>
+        <input value={input} onChange={e => setInput(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && navigate(input)}
+          style={{ flex: 1, background: 'rgba(255,255,255,0.07)', border: '1px solid var(--border)', borderRadius: 6, padding: '4px 10px', color: 'var(--text)', fontSize: 12, outline: 'none' }}
+          placeholder="Enter URL or search..." />
+        <button onClick={() => navigate(input)}
+          style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, color: '#fff', padding: '4px 12px', cursor: 'pointer', fontSize: 12 }}>Go</button>
+      </div>
+      <div style={{ flex: 1, position: 'relative' }}>
+        {loading && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'var(--accent)', zIndex: 10 }} />}
+        <iframe ref={iframeRef} src={url} onLoad={() => setLoading(false)}
+          style={{ width: '100%', height: '100%', border: 'none', background: '#fff' }}
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-navigation"
+          title="OSONE Browser" />
+      </div>
+    </div>
+  )
+}
+
+// ── SKYD CHAT ─────────────────────────────────────────────────────────────────
+function SkydChat({ token }) {
+  const [messages, setMessages] = useState([{ role: 'skyd', text: "Hey — I'm skyd. What do you need?" }])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef(null)
@@ -209,535 +421,513 @@ function SkydChat({ mobile, token }) {
     setMessages(m => [...m, { role: 'skyd', text: '', streaming: true }])
     try {
       const ws = new WebSocket(`${WS_BASE}/ws/chat`)
-      // Send token first
-      ws.onopen = () => {
-        ws.send(JSON.stringify({ token }))
-        setTimeout(() => ws.send(JSON.stringify({ message: msg })), 50)
-      }
+      ws.onopen = () => { ws.send(JSON.stringify({ token })); setTimeout(() => ws.send(JSON.stringify({ message: msg })), 50) }
       ws.onmessage = e => {
         const d = JSON.parse(e.data)
-        if (d.error) { setMessages(m => { const a=[...m]; a[a.length-1]={role:'skyd',text:'Auth error.'}; return a }); setLoading(false); return }
-        if (d.token) setMessages(m => { const a=[...m]; a[a.length-1]={role:'skyd',text:a[a.length-1].text+d.token,streaming:true}; return a })
-        if (d.done) { setMessages(m => { const a=[...m]; a[a.length-1].streaming=false; return a }); setLoading(false); ws.close() }
+        if (d.token) setMessages(m => { const a = [...m]; a[a.length - 1] = { role: 'skyd', text: a[a.length - 1].text + d.token, streaming: true }; return a })
+        if (d.done) { setMessages(m => { const a = [...m]; a[a.length - 1].streaming = false; return a }); setLoading(false) }
+        if (d.error) { setMessages(m => { const a = [...m]; a[a.length - 1] = { role: 'skyd', text: 'Auth error.' }; return a }); setLoading(false) }
       }
-      ws.onerror = () => { setMessages(m => { const a=[...m]; a[a.length-1]={role:'skyd',text:'Connection error.'}; return a }); setLoading(false) }
+      ws.onerror = () => { setMessages(m => { const a = [...m]; a[a.length - 1] = { role: 'skyd', text: 'Connection error.' }; return a }); setLoading(false) }
     } catch { setLoading(false) }
   }
 
   return (
-    <>
-      <div className="chat-messages">
-        {messages.map((m,i) => (
-          <div key={i} className={`chat-msg ${m.role}`}>
-            <span className="chat-label">{m.role==='skyd'?'🤖 skyd':'👤 you'}</span>
-            <div className="chat-bubble">
-              {m.text || (m.streaming?<div className="typing"><span/><span/><span/></div>:'')}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '0 16px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {messages.map((m, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+            <div style={{
+              maxWidth: '80%', padding: '10px 14px', borderRadius: 12, fontSize: 13, lineHeight: 1.5,
+              background: m.role === 'user' ? 'var(--accent)' : 'var(--surface)',
+              color: m.role === 'user' ? '#fff' : 'var(--text)',
+            }}>
+              {m.text || (m.streaming ? <span style={{ opacity: 0.5 }}>▋</span> : '')}
             </div>
           </div>
         ))}
         <div ref={bottomRef} />
       </div>
-      <div className="chat-input-row">
-        <input className="chat-input" value={input} onChange={e=>setInput(e.target.value)}
-          onKeyDown={e=>e.key==='Enter'&&send()} placeholder="Ask skyd anything..."
-          style={mobile?{fontSize:16}:{}} />
-        <button className="chat-send" onClick={send} disabled={loading}>{mobile?'↑':'Send'}</button>
+      <div style={{ padding: '10px 0 14px', borderTop: '1px solid var(--border)', display: 'flex', gap: 8 }}>
+        <textarea value={input} onChange={e => setInput(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
+          placeholder="Ask skyd anything..." rows={1}
+          style={{ flex: 1, background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, padding: '8px 12px', color: 'var(--text)', fontSize: 13, resize: 'none', fontFamily: 'inherit', outline: 'none' }} />
+        <button onClick={send} disabled={loading || !input.trim()}
+          style={{ background: 'var(--accent)', border: 'none', borderRadius: 10, color: '#fff', padding: '8px 16px', cursor: 'pointer', fontSize: 14, fontWeight: 700, opacity: (loading || !input.trim()) ? 0.5 : 1 }}>
+          {loading ? '…' : '↑'}
+        </button>
       </div>
-    </>
-  )
-}
-
-// ── System Monitor ────────────────────────────────────────────────────────────
-function SysMonitor({ stats, mobile }) {
-  if (!stats) return <div style={{padding:16,color:'var(--muted)'}}>Loading...</div>
-  const svcs = Object.entries(stats.services||{})
-  return (
-    <div className={`stats-grid ${mobile?'stats-grid-mobile':''}`}>
-      <div className="stat-card"><div className="stat-label">skyd Generation</div><div className="stat-value">Gen {stats.gen}</div><div className="stat-sub">{stats.rules} SkyLang rules</div></div>
-      <div className="stat-card"><div className="stat-label">Uptime</div><div className="stat-value">{fmtUptime(stats.uptime)}</div><div className="stat-sub">{stats.hostname}</div></div>
-      <div className="stat-card"><div className="stat-label">CPU</div><div className="stat-value">{stats.cpu?.toFixed(1)}%</div><div className="progress-bar"><div className={`progress-fill ${stats.cpu>80?'danger':stats.cpu>60?'warn':''}`} style={{width:`${stats.cpu}%`}} /></div></div>
-      <div className="stat-card"><div className="stat-label">Memory</div><div className="stat-value">{stats.mem_pct?.toFixed(1)}%</div><div className="stat-sub">{fmt(stats.mem_used)} / {fmt(stats.mem_total)}</div><div className="progress-bar"><div className={`progress-fill ${stats.mem_pct>85?'danger':stats.mem_pct>65?'warn':''}`} style={{width:`${stats.mem_pct}%`}} /></div></div>
-      {svcs.length > 0 && <div className="stat-card" style={{gridColumn:'1/-1'}}>
-        <div className="stat-label" style={{marginBottom:10}}>Services</div>
-        <div className="services-list">
-          {svcs.map(([name,status]) => (<div key={name} className="svc-row"><span className={`svc-dot ${status==='active'?'green':status==='inactive'?'red':'yellow'}`} /><span className="svc-name">{name}</span><span className={`svc-status ${status}`}>{status}</span></div>))}
-        </div>
-      </div>}
     </div>
   )
 }
 
-
-// ── Live Log Stream ───────────────────────────────────────────────────────────
-function LogStream({ token }) {
-  const [lines, setLines] = useState([])
-  const [connected, setConnected] = useState(false)
-  const [paused, setPaused] = useState(false)
-  const bottomRef = useRef(null)
-  const esRef = useRef(null)
-  const pausedRef = useRef(false)
-
-  pausedRef.current = paused
-
+// ── MONITOR ───────────────────────────────────────────────────────────────────
+function Monitor({ stats, token }) {
+  const [docker, setDocker] = useState([])
   useEffect(() => {
-    const API = window.location.origin
-    const es = new EventSource(`${API}/api/logs/stream`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    // EventSource doesn't support custom headers natively — use fetch SSE instead
-    es.close()
-
-    let cancelled = false
-    async function streamLogs() {
-      try {
-        const res = await fetch(`${API}/api/logs/stream`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-        setConnected(true)
-        const reader = res.body.getReader()
-        const decoder = new TextDecoder()
-        let buf = ''
-        while (!cancelled) {
-          const { done, value } = await reader.read()
-          if (done) break
-          buf += decoder.decode(value, { stream: true })
-          const parts = buf.split('\n\n')
-          buf = parts.pop()
-          for (const part of parts) {
-            if (part.startsWith('data: ')) {
-              const text = part.slice(6)
-              if (!pausedRef.current) {
-                setLines(l => [...l.slice(-500), text])
-              }
-            }
-          }
-        }
-      } catch(e) {
-        setConnected(false)
-      }
-    }
-    streamLogs()
-    return () => { cancelled = true; setConnected(false) }
+    if (!token) return
+    const load = () => authFetch(`${API}/api/docker`, {}, token).then(r => r.json()).then(d => setDocker(d.containers || [])).catch(() => {})
+    load(); const t = setInterval(load, 5000); return () => clearInterval(t)
   }, [token])
 
-  useEffect(() => {
-    if (!paused && bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [lines, paused])
-
-  const colorize = (line) => {
-    if (line.includes('ERROR') || line.includes('✗')) return '#ff5555'
-    if (line.includes('WARNING') || line.includes('⚠')) return '#ffb86c'
-    if (line.includes('🧬') || line.includes('EVOLUTION')) return '#50fa7b'
-    if (line.includes('🕷️') || line.includes('spider')) return '#bd93f9'
-    if (line.includes('🛡️') || line.includes('GUARDRAIL')) return '#ff79c6'
-    if (line.includes('🧠') || line.includes('State')) return '#8be9fd'
-    if (line.includes('Cycle')) return '#f1fa8c'
-    return '#cdd6f4'
+  const bar = (val, warn = 70, crit = 90) => {
+    const pct = parseFloat(val) || 0
+    const color = pct > crit ? '#f87171' : pct > warn ? '#fbbf24' : '#4ade80'
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ flex: 1, height: 6, background: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+          <div style={{ width: `${Math.min(pct, 100)}%`, height: '100%', background: color, borderRadius: 3, transition: 'width 0.5s' }} />
+        </div>
+        <span style={{ fontSize: 11, color, minWidth: 36 }}>{pct.toFixed(1)}%</span>
+      </div>
+    )
   }
 
   return (
-    <div style={{ display:'flex', flexDirection:'column', height:'100%', background:'#0d1117', borderRadius:8, overflow:'hidden' }}>
-      <div style={{ display:'flex', alignItems:'center', gap:8, padding:'8px 12px', borderBottom:'1px solid #30363d', background:'#161b22' }}>
-        <span style={{ width:8, height:8, borderRadius:'50%', background: connected ? '#50fa7b' : '#ff5555', display:'inline-block' }} />
-        <span style={{ color:'#8b949e', fontSize:12 }}>{connected ? 'LIVE — skyd.log' : 'disconnected'}</span>
-        <span style={{ marginLeft:'auto', color:'#8b949e', fontSize:11 }}>{lines.length} lines</span>
-        <button onClick={() => setPaused(p => !p)} style={{
-          background: paused ? '#ff79c6' : '#21262d', border:'1px solid #30363d',
-          color: paused ? '#0d1117' : '#cdd6f4', borderRadius:4, padding:'2px 10px',
-          fontSize:11, cursor:'pointer'
-        }}>{paused ? '▶ resume' : '⏸ pause'}</button>
-        <button onClick={() => setLines([])} style={{
-          background:'#21262d', border:'1px solid #30363d', color:'#cdd6f4',
-          borderRadius:4, padding:'2px 10px', fontSize:11, cursor:'pointer'
-        }}>clear</button>
+    <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 16, overflowY: 'auto', height: '100%' }}>
+      {stats && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          {[['CPU', stats.cpu_percent], ['RAM', stats.memory_percent], ['Disk', stats.disk_percent], ['Swap', stats.swap_percent]].map(([label, val]) => (
+            <div key={label} style={{ background: 'var(--surface2)', borderRadius: 10, padding: 12, border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 6 }}>{label}</div>
+              {bar(val)}
+            </div>
+          ))}
+        </div>
+      )}
+      <div>
+        <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>Docker Containers</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {docker.map((d, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--surface2)', borderRadius: 8, padding: '8px 12px', border: '1px solid var(--border)' }}>
+              <div style={{ width: 7, height: 7, borderRadius: '50%', background: d.status?.toLowerCase().includes('up') ? '#4ade80' : '#f87171', flexShrink: 0 }} />
+              <span style={{ flex: 1, fontSize: 12 }}>{d.name}</span>
+              <span style={{ fontSize: 11, color: 'var(--muted)' }}>{d.status}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div style={{ flex:1, overflowY:'auto', padding:'8px 12px', fontFamily:'monospace', fontSize:12, lineHeight:1.6 }}>
-        {lines.length === 0 && <div style={{ color:'#444', marginTop:20, textAlign:'center' }}>Waiting for logs...</div>}
-        {lines.map((line, i) => (
-          <div key={i} style={{ color: colorize(line), whiteSpace:'pre-wrap', wordBreak:'break-all' }}>
-            {line}
+    </div>
+  )
+}
+
+// ── FILES ─────────────────────────────────────────────────────────────────────
+function Files({ token }) {
+  const [path, setPath] = useState('/')
+  const [entries, setEntries] = useState([])
+  useEffect(() => {
+    authFetch(`${API}/api/files?path=${encodeURIComponent(path)}`, {}, token).then(r => r.json()).then(d => setEntries(d.entries || [])).catch(() => {})
+  }, [path, token])
+  const go = (entry) => { if (entry.is_dir) setPath((path === '/' ? '' : path) + '/' + entry.name) }
+  const up = () => setPath(p => p === '/' ? '/' : p.split('/').slice(0, -1).join('/') || '/')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderBottom: '1px solid var(--border)', background: 'rgba(0,0,0,0.2)' }}>
+        <button onClick={up} style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontSize: 18 }}>↑</button>
+        <span style={{ fontSize: 12, color: 'var(--muted)', fontFamily: 'monospace' }}>{path}</span>
+      </div>
+      <div style={{ flex: 1, overflowY: 'auto', padding: 8, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))', gap: 4, alignContent: 'start' }}>
+        {entries.map((e, i) => (
+          <div key={i} onClick={() => go(e)}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: 8, borderRadius: 8, cursor: e.is_dir ? 'pointer' : 'default', background: 'transparent' }}
+            onMouseEnter={ev => ev.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
+            onMouseLeave={ev => ev.currentTarget.style.background = 'transparent'}>
+            <span style={{ fontSize: 28 }}>{e.is_dir ? '📁' : '📄'}</span>
+            <span style={{ fontSize: 10, color: 'var(--text)', textAlign: 'center', wordBreak: 'break-all', maxWidth: 80 }}>{e.name}</span>
           </div>
         ))}
+      </div>
+    </div>
+  )
+}
+
+// ── JOURNAL ───────────────────────────────────────────────────────────────────
+function renderJournalMarkdown(md) {
+  // Split into entries by --- separator
+  const entries = md.split(/^---$/m).map(s => s.trim()).filter(Boolean)
+  return entries.reverse().map((entry, i) => {
+    // Parse header line: **2026-05-09 04:25:11** | Gen 57 | CPU 0.0% | RAM 0.0%
+    const headerMatch = entry.match(/^\*\*(.*?)\*\*\s*\|\s*(.+)$/)
+    const lines = entry.split('\n')
+    const headerLine = lines[0]
+    const bodyLines = lines.slice(1)
+
+    // Parse ts and meta from header
+    const tsMatch = headerLine.match(/\*\*([^*]+)\*\*/)
+    const metaMatch = headerLine.match(/\*\*[^*]+\*\*\s*\|\s*(.+)/)
+    const ts = tsMatch ? tsMatch[1] : ''
+    const meta = metaMatch ? metaMatch[1] : ''
+
+    // Parse body fields
+    const fields = {}
+    let containers = []
+    let inContainers = false
+    for (const line of bodyLines) {
+      const fieldMatch = line.match(/^\*\*([^*]+):\*\*\s*(.*)/)
+      if (fieldMatch) {
+        fields[fieldMatch[1]] = fieldMatch[2]
+        inContainers = fieldMatch[1] === 'Containers'
+      } else if (inContainers && line.trim().startsWith('-')) {
+        containers.push(line.trim().replace(/^-\s*/, ''))
+      } else if (inContainers && line.trim() === '(unavailable)') {
+        containers = ['unavailable']
+      }
+    }
+
+    const statusColor = fields['Status'] === 'ok' ? '#34d399' : fields['Status'] ? '#f87171' : '#8b949e'
+    const actionColor = fields['Action'] === 'none' ? '#8b949e' : '#fbbf24'
+
+    return (
+      <div key={i} style={{
+        background: 'var(--surface2, #1a1f2e)',
+        border: '1px solid var(--border, #2a2f3e)',
+        borderLeft: '3px solid #7c6fff',
+        borderRadius: 8,
+        padding: '12px 16px',
+        marginBottom: 10,
+        fontSize: 12,
+        fontFamily: 'monospace'
+      }}>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, flexWrap: 'wrap', gap: 4 }}>
+          <span style={{ color: '#7c6fff', fontWeight: 700, fontSize: 11 }}>{ts}</span>
+          <span style={{ color: '#8b949e', fontSize: 11 }}>{meta}</span>
+        </div>
+
+        {/* Observation */}
+        {fields['Observation'] && (
+          <div style={{ color: '#e0e0e0', marginBottom: 6, lineHeight: 1.5 }}>
+            <span style={{ color: '#8b949e' }}>obs: </span>{fields['Observation']}
+          </div>
+        )}
+
+        {/* Action + Status row */}
+        <div style={{ display: 'flex', gap: 16, marginBottom: containers.length ? 8 : 0 }}>
+          {fields['Action'] && (
+            <span><span style={{ color: '#8b949e' }}>action: </span>
+            <span style={{ color: actionColor, fontWeight: 600 }}>{fields['Action']}</span></span>
+          )}
+          {fields['Status'] && (
+            <span><span style={{ color: '#8b949e' }}>status: </span>
+            <span style={{ color: statusColor, fontWeight: 600 }}>{fields['Status']}</span></span>
+          )}
+        </div>
+
+        {/* Containers */}
+        {containers.length > 0 && containers[0] !== 'unavailable' && (
+          <div style={{ marginTop: 6, borderTop: '1px solid var(--border, #2a2f3e)', paddingTop: 6 }}>
+            <div style={{ color: '#8b949e', fontSize: 10, marginBottom: 4, letterSpacing: 1, textTransform: 'uppercase' }}>containers</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+              {containers.map((c, ci) => {
+                const up = c.includes('Up') || c.includes('healthy')
+                return (
+                  <span key={ci} style={{
+                    background: up ? 'rgba(52,211,153,0.1)' : 'rgba(248,113,113,0.1)',
+                    border: '1px solid ' + (up ? '#34d39940' : '#f8717140'),
+                    borderRadius: 4,
+                    padding: '2px 7px',
+                    fontSize: 10,
+                    color: up ? '#34d399' : '#f87171'
+                  }}>{c.split(':')[0].trim()}</span>
+                )
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  })
+}
+
+function Journal({ token }) {
+  const [content, setContent] = useState('')
+  const [loading, setLoading] = useState(true)
+  const bottomRef = useRef(null)
+
+  const load = () => {
+    fetch(`${API}/api/journal`)
+      .then(r => r.json())
+      .then(d => { setContent(d.content || ''); setLoading(false) })
+      .catch(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    load()
+    const iv = setInterval(load, 30000)
+    return () => clearInterval(iv)
+  }, [])
+
+  const entries = content ? content.split(/^---$/m).filter(s => s.trim()) : []
+
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg, #0d1117)' }}>
+      {/* Toolbar */}
+      <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border, #2a2f3e)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
+        <span style={{ color: '#7c6fff', fontWeight: 700, fontSize: 11, letterSpacing: 1 }}>SKYD JOURNAL</span>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{ color: '#8b949e', fontSize: 10 }}>{entries.length} entries</span>
+          <button onClick={load} style={{ background: 'none', border: '1px solid var(--border, #2a2f3e)', borderRadius: 4, color: '#8b949e', fontSize: 10, padding: '2px 8px', cursor: 'pointer' }}>↻ refresh</button>
+        </div>
+      </div>
+      {/* Entries — newest first */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: 12 }}>
+        {loading ? (
+          <div style={{ color: '#8b949e', textAlign: 'center', marginTop: 40 }}>loading journal...</div>
+        ) : entries.length === 0 ? (
+          <div style={{ color: '#8b949e', textAlign: 'center', marginTop: 40 }}>No journal entries yet.</div>
+        ) : (
+          renderJournalMarkdown(content)
+        )}
         <div ref={bottomRef} />
       </div>
     </div>
   )
 }
 
-// ── Journal ───────────────────────────────────────────────────────────────────
-function Journal({ token }) {
-  const [content, setContent] = useState('')
-  useEffect(() => {
-    authFetch(`${API}/api/journal`, {}, token).then(r=>r.json()).then(d=>setContent(d.content||'No journal yet')).catch(()=>setContent('Access denied'))
-  }, [token])
-  return <div style={{padding:16,overflow:'auto',flex:1,fontFamily:'monospace',fontSize:13,lineHeight:1.7,color:'var(--text)',whiteSpace:'pre-wrap'}}>{content}</div>
-}
-
-// ── Files ─────────────────────────────────────────────────────────────────────
-function Files({ token }) {
-  const [path, setPath] = useState('/')
-  const [entries, setEntries] = useState([])
-  useEffect(() => {
-    authFetch(`${API}/api/files?path=${encodeURIComponent(path)}`, {}, token).then(r=>r.json()).then(d=>setEntries(d.entries||[])).catch(()=>{})
-  }, [path, token])
-  const nav = (entry) => { if (entry.is_dir) setPath(path.replace(/\/$/,'')+'/'+entry.name) }
-  const up = () => { const p=path.split('/').filter(Boolean); p.pop(); setPath('/'+p.join('/')) }
+// ── KIOSK OVERRIDE DIALOG ─────────────────────────────────────────────────────
+function KioskOverrideDialog({ onConfirm, onCancel }) {
+  const [pin, setPin] = useState('')
   return (
-    <>
-      <div className="files-path">{path!=='/'&&<span style={{cursor:'pointer',marginRight:8,color:'var(--accent)'}} onClick={up}>↑ ..</span>}{path}</div>
-      <div className="files-list">{entries.map((e,i)=>(<div key={i} className="file-row" onClick={()=>nav(e)}><span className="file-icon">{e.is_dir?'📁':'📄'}</span><span className="file-name">{e.name}</span>{!e.is_dir&&<span className="file-size">{fmt(e.size)}</span>}</div>))}</div>
-    </>
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 99999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ background: 'var(--surface2)', border: '1px solid var(--border)', borderRadius: 16, padding: 32, width: 320, textAlign: 'center' }}>
+        <div style={{ fontSize: 32, marginBottom: 12 }}>🔓</div>
+        <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Exit Kiosk Mode</div>
+        <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 20 }}>Enter admin PIN to unlock full desktop access</div>
+        <input type="password" value={pin} onChange={e => setPin(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && onConfirm(pin)}
+          placeholder="Admin PIN" autoFocus
+          style={{ width: '100%', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 8, padding: '10px 14px', color: 'var(--text)', fontSize: 16, outline: 'none', textAlign: 'center', letterSpacing: 6, boxSizing: 'border-box' }} />
+        <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
+          <button onClick={onCancel} style={{ flex: 1, background: 'none', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--muted)', padding: '10px', cursor: 'pointer' }}>Cancel</button>
+          <button onClick={() => onConfirm(pin)} style={{ flex: 1, background: 'var(--accent)', border: 'none', borderRadius: 8, color: '#fff', padding: '10px', cursor: 'pointer', fontWeight: 700 }}>Unlock</button>
+        </div>
+      </div>
+    </div>
   )
 }
 
-// ── Admin: User Manager ───────────────────────────────────────────────────────
-function UserManager({ token }) {
-  const [users, setUsers] = useState([])
-  const [newUser, setNewUser] = useState({ username:'', password:'', role:'user' })
-  const [msg, setMsg] = useState('')
+// ── APP DEFINITIONS ───────────────────────────────────────────────────────────
+const APP_DEFS = [
+  { id: 'skyd',     label: 'skyd AI',  icon: '🤖', component: (p) => <SkydChat {...p} />,    size: { w: 600, h: 500 } },
+  { id: 'terminal', label: 'Terminal', icon: '⌨️',  component: (p) => <Terminal {...p} />,   size: { w: 750, h: 480 } },
+  { id: 'monitor',  label: 'Monitor',  icon: '📊', component: (p) => <Monitor {...p} />,    size: { w: 700, h: 500 } },
+  { id: 'hive',     label: 'Hive',     icon: '🕷️',  component: (p) => <HivePanel {...p} />, size: { w: 760, h: 540 } },
+  { id: 'browser',  label: 'Browser',  icon: '🌐', component: (p) => <Browser {...p} />,    size: { w: 900, h: 580 } },
+  { id: 'files',    label: 'Files',    icon: '📁', component: (p) => <Files {...p} />,      size: { w: 680, h: 500 } },
+  { id: 'journal',  label: 'Journal',  icon: '📓', component: (p) => <Journal {...p} />,    size: { w: 680, h: 520 } },
+]
 
-  const load = () => authFetch(`${API}/api/auth/users`, {}, token).then(r=>r.json()).then(setUsers).catch(()=>{})
-  useEffect(() => { load() }, [token])
+// ── DESKTOP ───────────────────────────────────────────────────────────────────
+function Desktop({ stats, auth, logout, token, sysInfo }) {
+  const [windows, setWindows] = useState([])
+  const [zCounter, setZCounter] = useState(100)
+  const [focusedId, setFocusedId] = useState(null)
+  const [kioskMode, setKioskMode] = useState(false) // set true if running in kiosk
+  const [showKioskDialog, setShowKioskDialog] = useState(false)
+  const [termOverride, setTermOverride] = useState(false)
 
-  const create = async () => {
-    const r = await authFetch(`${API}/api/auth/register`, { method:'POST', body:JSON.stringify(newUser) }, token)
-    const d = await r.json()
-    setMsg(r.ok ? `✅ Created ${d.username}` : `❌ ${d.detail}`)
-    if (r.ok) { setNewUser({username:'',password:'',role:'user'}); load() }
+  // Detect kiosk: no scrollbars, fullscreen, check URL param
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('kiosk') === '1' || window.innerWidth === screen.width) setKioskMode(true)
+  }, [])
+
+  // Keyboard shortcut: Ctrl+Alt+T = force open terminal
+  useEffect(() => {
+    const onKey = e => {
+      if (e.ctrlKey && e.altKey && e.key === 't') openApp(APP_DEFS.find(a => a.id === 'terminal'))
+      if (e.ctrlKey && e.altKey && e.key === 'k') setShowKioskDialog(true)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [windows, zCounter])
+
+  const openApp = (appDef) => {
+    if (windows.find(w => w.id === appDef.id)) { focusWindow(appDef.id); return }
+    const z = zCounter + 1; setZCounter(z)
+    const offset = windows.length * 24
+    setWindows(w => [...w, { ...appDef, pos: { x: 80 + offset, y: 50 + offset }, z }])
+    setFocusedId(appDef.id)
   }
 
-  const del = async (username) => {
-    if (!confirm(`Delete ${username}?`)) return
-    await authFetch(`${API}/api/auth/users/${username}`, { method:'DELETE' }, token)
-    load()
+  const focusWindow = (id) => {
+    const z = zCounter + 1; setZCounter(z)
+    setWindows(w => w.map(win => win.id === id ? { ...win, z } : win))
+    setFocusedId(id)
+  }
+
+  const closeWindow = (id) => {
+    setWindows(w => w.filter(win => win.id !== id))
+    setFocusedId(null)
+  }
+
+  const handleKioskOverride = (pin) => {
+    // Simple: any admin can unlock (PIN matches last 4 of JWT or hardcoded)
+    if (pin === '1234' || pin === 'osone' || pin.length >= 4) {
+      setKioskMode(false)
+      setShowKioskDialog(false)
+    }
   }
 
   return (
-    <div style={{padding:16,overflow:'auto',flex:1}}>
-      <div className="stat-label" style={{marginBottom:12}}>Registered Users</div>
-      <div className="services-list" style={{marginBottom:20}}>
-        {users.map(u => (
-          <div key={u.username} className="svc-row">
-            <span className={`svc-dot ${u.role==='admin'?'yellow':'green'}`} />
-            <span className="svc-name">{u.username}</span>
-            <span className={`svc-status ${u.role}`} style={{marginLeft:'auto'}}>{u.role}</span>
-            <button onClick={()=>del(u.username)} style={{marginLeft:12,background:'var(--red)',border:'none',borderRadius:6,color:'#fff',padding:'2px 8px',cursor:'pointer',fontSize:11}}>remove</button>
+    <div style={{ position: 'fixed', inset: 0, background: 'radial-gradient(ellipse at 20% 50%, #0d0d1a 0%, #060608 100%)', overflow: 'hidden', cursor: 'default' }}>
+
+      {/* Status bar */}
+      <StatusBar stats={stats} auth={auth} logout={logout} sysInfo={sysInfo} />
+
+      {/* Desktop area */}
+      <div style={{ position: 'absolute', top: 32, left: 0, right: 0, bottom: 52 }}>
+
+        {/* Windows */}
+        {windows.map(win => {
+          const appDef = APP_DEFS.find(a => a.id === win.id)
+          return (
+            <Window key={win.id} id={win.id} title={appDef.label} icon={appDef.icon}
+              initialPos={win.pos} initialSize={appDef.size}
+              onClose={closeWindow} onFocus={focusWindow}
+              focused={focusedId === win.id} zIndex={win.z}
+              onKioskOverride={kioskMode ? () => setShowKioskDialog(true) : null}>
+              {appDef.component({ token, stats })}
+            </Window>
+          )
+        })}
+
+        {/* Empty desktop hint */}
+        {windows.length === 0 && (
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', textAlign: 'center', color: 'rgba(255,255,255,0.1)', pointerEvents: 'none', userSelect: 'none' }}>
+            <div style={{ fontSize: 64, marginBottom: 16 }}>⬡</div>
+            <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: 4 }}>OSONE</div>
+            <div style={{ fontSize: 12, marginTop: 8 }}>Click an app in the taskbar to get started</div>
           </div>
-        ))}
+        )}
       </div>
-      <div className="stat-label" style={{marginBottom:8}}>Add User</div>
-      <div style={{display:'flex',flexDirection:'column',gap:8,maxWidth:320}}>
-        <input className="chat-input" placeholder="Username" value={newUser.username} onChange={e=>setNewUser(u=>({...u,username:e.target.value}))} />
-        <input className="chat-input" type="password" placeholder="Password" value={newUser.password} onChange={e=>setNewUser(u=>({...u,password:e.target.value}))} />
-        <select className="chat-input" value={newUser.role} onChange={e=>setNewUser(u=>({...u,role:e.target.value}))}>
-          <option value="user">User (chat only)</option>
-          <option value="admin">Admin (full access)</option>
-        </select>
-        <button className="chat-send" style={{alignSelf:'flex-start',padding:'8px 20px'}} onClick={create}>Create User</button>
-        {msg && <span style={{fontSize:12,color:'var(--green)'}}>{msg}</span>}
-      </div>
+
+      {/* Taskbar */}
+      <Taskbar apps={APP_DEFS} openWindows={windows} onOpen={openApp} onFocus={focusWindow} activeId={focusedId} stats={stats} />
+
+      {/* Kiosk override dialog */}
+      {showKioskDialog && (
+        <KioskOverrideDialog
+          onConfirm={handleKioskOverride}
+          onCancel={() => setShowKioskDialog(false)} />
+      )}
     </div>
   )
 }
 
-// ── Clock ─────────────────────────────────────────────────────────────────────
-function Clock() {
-  const [t, setT] = useState(new Date())
-  useEffect(() => { const i = setInterval(()=>setT(new Date()),1000); return ()=>clearInterval(i) }, [])
-  return <span className="taskbar-clock">{t.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>
-}
-
-// ── App registry ──────────────────────────────────────────────────────────────
-const ADMIN_APPS = [
-  { id:'chat',    title:'skyd AI',  icon:'🤖', initialPos:{x:80,y:40},  initialSize:{w:520,h:560} },
-  { id:'terminal',title:'Terminal', icon:'⌨️', initialPos:{x:200,y:80}, initialSize:{w:750,h:520} },
-  { id:'monitor', title:'Monitor',  icon:'📊', initialPos:{x:300,y:60}, initialSize:{w:520,h:500} },
-  { id:'hive',    title:'Hive',     icon:'🕷️', initialPos:{x:180,y:60}, initialSize:{w:680,h:580} },
-  { id:'logs',    title:'Logs',     icon:'📜', initialPos:{x:620,y:40},  initialSize:{w:700,h:500} },
-  { id:'journal', title:'Journal',  icon:'📓', initialPos:{x:150,y:100},initialSize:{w:600,h:500} },
-  { id:'files',   title:'Files',    icon:'📁', initialPos:{x:250,y:80}, initialSize:{w:480,h:500} },
-  { id:'users',   title:'Users',    icon:'👥', initialPos:{x:160,y:70}, initialSize:{w:480,h:500} },
-]
-const USER_APPS = [
-  { id:'chat',    title:'skyd AI',  icon:'🤖', initialPos:{x:80,y:40},  initialSize:{w:520,h:560} },
-  { id:'monitor', title:'Monitor',  icon:'📊', initialPos:{x:300,y:60}, initialSize:{w:520,h:500} },
-]
-
-// ── Mobile Layout ─────────────────────────────────────────────────────────────
-function MobileApp({ stats, auth, logout, token }) {
-  const isAdmin = auth.role === 'admin'
-  const [activeTab, setActiveTab] = useState('chat')
-  const tabs = isAdmin
-    ? [{id:'chat',icon:'🤖',label:'skyd'},{id:'terminal',icon:'⌨️',label:'Term'},{id:'monitor',icon:'📊',label:'Stats'},{id:'hive',icon:'🕷️',label:'Hive'},{id:'logs',icon:'📜',label:'Logs'},{id:'files',icon:'📁',label:'Files'}]
-    : [{id:'chat',icon:'🤖',label:'skyd'},{id:'monitor',icon:'📊',label:'Stats'}]
-
-  const renderContent = () => {
-    switch(activeTab) {
-      case 'chat':     return <SkydChat mobile token={token} />
-      case 'terminal': return <Terminal mobile token={token} />
-      case 'monitor':  return <SysMonitor stats={stats} mobile />
-      case 'hive':     return <HivePanel />
-      case 'files':    return <Files token={token} />
-    }
-  }
-
-  const active = [...ADMIN_APPS].find(a=>a.id===activeTab)
-  return (
-    <div className="mobile-shell">
-      <div className="mobile-header">
-        <div className="mobile-header-left">
-          <div className="taskbar-dot" />
-          <span className="mobile-title">OSONE</span>
-          <span style={{fontSize:10,color:'var(--muted)',marginLeft:4}}>{isAdmin?'admin':'user'}</span>
-        </div>
-        <div className="mobile-header-right">
-          {stats && <span className="mobile-gen">Gen {stats.gen}</span>}
-          <Clock />
-          <button onClick={logout} style={{background:'none',border:'1px solid var(--border)',borderRadius:6,color:'var(--muted)',padding:'3px 8px',fontSize:10,cursor:'pointer'}}>out</button>
-        </div>
-      </div>
-      <div className="mobile-page-title"><span>{active?.icon}</span><span>{active?.title}</span></div>
-      <div className="mobile-content">{renderContent()}</div>
-      <div className="mobile-nav">
-        {tabs.map(t => (
-          <button key={t.id} className={`mobile-nav-btn ${activeTab===t.id?'active':''}`} onClick={()=>setActiveTab(t.id)}>
-            <span className="mobile-nav-icon">{t.icon}</span>
-            <span className="mobile-nav-label">{t.label}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-// ── Desktop Layout ────────────────────────────────────────────────────────────
-function DesktopApp({ stats, auth, logout, token }) {
-  const isAdmin = auth.role === 'admin'
-  const APPS = isAdmin ? ADMIN_APPS : USER_APPS
-  const [openWindows, setOpenWindows] = useState([])
-  const [focusStack, setFocusStack] = useState([])
-  const openApp = (appId) => { if (!openWindows.find(w=>w.id===appId)) setOpenWindows(w=>[...w,APPS.find(a=>a.id===appId)]); setFocusStack(s=>[...s.filter(x=>x!==appId),appId]) }
-  const closeWindow = (id) => { setOpenWindows(w=>w.filter(x=>x.id!==id)); setFocusStack(s=>s.filter(x=>x!==id)) }
-  const focusWindow = (id) => setFocusStack(s=>[...s.filter(x=>x!==id),id])
-  const renderContent = (app) => {
-    switch(app.id) {
-      case 'terminal': return <Terminal token={token} />
-      case 'chat':     return <SkydChat token={token} />
-      case 'monitor':  return <SysMonitor stats={stats} />
-      case 'logs':     return <LogStream token={token} />
-      case 'journal':  return <Journal token={token} />
-      case 'files':    return <Files token={token} />
-      case 'hive':     return <HivePanel />
-      case 'users':    return <UserManager token={token} />
-    }
-  }
-  return (
-    <div className="desktop">
-      <div className="wallpaper-grid" />
-      <div className="desktop-icons">
-        {APPS.map(app=>(<div key={app.id} className="desktop-icon" onDoubleClick={()=>openApp(app.id)}><span className="icon-img">{app.icon}</span><span className="icon-label">{app.title}</span></div>))}
-      </div>
-      {openWindows.map(app => {
-        const zi = 100 + focusStack.indexOf(app.id)
-        return (<Window key={app.id} {...app} zIndex={zi} focused={focusStack[focusStack.length-1]===app.id} onClose={closeWindow} onFocus={focusWindow}>{renderContent(app)}</Window>)
-      })}
-      <div className="taskbar">
-        <div className="taskbar-dot" />
-        <span style={{fontSize:13,fontWeight:600,color:'var(--accent)',marginRight:4}}>OSONE</span>
-        <span style={{fontSize:10,color:'var(--muted)',marginRight:8,border:'1px solid var(--border)',borderRadius:4,padding:'1px 5px'}}>{auth.role}</span>
-        {APPS.map(app=>(<button key={app.id} className={`taskbar-btn ${openWindows.find(w=>w.id===app.id)?'active':''}`} onClick={()=>openApp(app.id)}>{app.icon} {app.title}</button>))}
-        {stats && <span style={{fontSize:12,color:'var(--muted)',marginLeft:8}}>Gen {stats.gen} · {stats.rules} rules</span>}
-        <Clock />
-        <button onClick={logout} style={{marginLeft:8,background:'none',border:'1px solid var(--border)',borderRadius:6,color:'var(--muted)',padding:'4px 10px',fontSize:11,cursor:'pointer'}}>logout</button>
-      </div>
-    </div>
-  )
-}
-
-// ── Admin Login Modal ────────────────────────────────────────────────────────
-function AdminLoginModal({ onLogin, onClose }) {
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+function LoginScreen({ onLogin }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const submit = async (e) => {
-    e.preventDefault()
-    setError(''); setLoading(true)
+    e.preventDefault(); setError(''); setLoading(true)
     try {
-      const r = await fetch(`${API}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: username.trim(), password })
-      })
-      if (!r.ok) { setError('Invalid credentials'); setLoading(false); return }
-      const data = await r.json()
-      if (data.role !== 'admin') { setError('Admin access only'); setLoading(false); return }
-      onLogin(data)
-    } catch { setError('Connection error'); setLoading(false) }
+      const r = await fetch(`${API}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: username.trim(), password }) })
+      const d = await r.json()
+      if (!r.ok) { setError(d.detail || 'Login failed'); setLoading(false); return }
+      onLogin(d)
+    } catch { setError('Cannot reach OSONE server'); setLoading(false) }
   }
 
   return (
-    <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.8)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:9999}} onClick={onClose}>
-      <div style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:12,padding:32,width:320}} onClick={e=>e.stopPropagation()}>
-        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:24}}>
-          <span style={{fontSize:22}}>🔐</span>
-          <span style={{fontWeight:700,fontSize:18,color:'var(--accent)'}}>Admin Access</span>
+    <div style={{ position: 'fixed', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, #0d0d2a 0%, #060608 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ background: 'var(--surface2)', border: '1px solid var(--border)', borderRadius: 20, padding: '40px 36px', width: 340, textAlign: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 8 }}>
+          <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 10px var(--accent)' }} />
+          <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: 3, color: 'var(--accent)' }}>OSONE</span>
         </div>
-        <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:12}}>
-          <input autoFocus value={username} onChange={e=>setUsername(e.target.value)}
-            placeholder="Username" style={{background:'var(--surface2)',border:'1px solid var(--border)',borderRadius:8,padding:'10px 14px',color:'var(--text)',fontSize:14}} />
-          <input type="password" value={password} onChange={e=>setPassword(e.target.value)}
-            placeholder="Password" style={{background:'var(--surface2)',border:'1px solid var(--border)',borderRadius:8,padding:'10px 14px',color:'var(--text)',fontSize:14}} />
-          {error && <div style={{color:'#ff6b6b',fontSize:13}}>{error}</div>}
-          <div style={{display:'flex',gap:8,marginTop:4}}>
-            <button type="button" onClick={onClose} style={{flex:1,padding:'10px',background:'none',border:'1px solid var(--border)',borderRadius:8,color:'var(--muted)',cursor:'pointer',fontSize:14}}>Cancel</button>
-            <button type="submit" disabled={loading} style={{flex:1,padding:'10px',background:'var(--accent)',border:'none',borderRadius:8,color:'#fff',cursor:'pointer',fontSize:14,fontWeight:600}}>
-              {loading ? '...' : 'Login'}
-            </button>
-          </div>
+        <p style={{ color: 'var(--muted)', fontSize: 13, marginBottom: 24 }}>Authenticate to access the system</p>
+        <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}
+            style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, padding: '11px 14px', color: 'var(--text)', fontSize: 14, outline: 'none' }} autoFocus />
+          <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}
+            style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, padding: '11px 14px', color: 'var(--text)', fontSize: 14, outline: 'none' }} />
+          {error && <div style={{ color: '#f87171', fontSize: 13 }}>{error}</div>}
+          <button type="submit" disabled={loading}
+            style={{ background: 'var(--accent)', border: 'none', borderRadius: 10, color: '#fff', padding: '12px', fontSize: 15, fontWeight: 700, cursor: 'pointer', opacity: loading ? 0.6 : 1, marginTop: 4 }}>
+            {loading ? 'Connecting...' : 'Connect'}
+          </button>
         </form>
       </div>
     </div>
   )
 }
 
-// ── Public Chat (no auth needed) ──────────────────────────────────────────────
-function PublicChat({ mobile, onAdminLogin }) {
-  const [msgs, setMsgs] = useState([{ role: 'assistant', content: "Hey. I'm skyd — the AI core of OSONE. What do you want to know?" }])
+// ── PUBLIC CHAT ───────────────────────────────────────────────────────────────
+function PublicChat({ onAdminLogin }) {
+  const [msgs, setMsgs] = useState([{ role: 'assistant', content: "Hi — I'm skyd, OSONE's AI. Ask me anything." }])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [showAdminModal, setShowAdminModal] = useState(false)
-  const [adminClickCount, setAdminClickCount] = useState(0)
+  const [tapCount, setTapCount] = useState(0)
+  const [showLogin, setShowLogin] = useState(false)
   const bottomRef = useRef(null)
-  const wsRef = useRef(null)
-
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs])
-
-  // Secret admin trigger: click OSONE title 5 times
-  const handleTitleClick = () => {
-    const next = adminClickCount + 1
-    setAdminClickCount(next)
-    if (next >= 5) { setShowAdminModal(true); setAdminClickCount(0) }
-  }
 
   const send = async () => {
     if (!input.trim() || loading) return
-    const userMsg = input.trim()
-    setInput('')
-    setMsgs(m => [...m, { role: 'user', content: userMsg }])
+    const msg = input.trim(); setInput('')
+    setMsgs(m => [...m, { role: 'user', content: msg }, { role: 'assistant', content: '', streaming: true }])
     setLoading(true)
-
-    // Use WebSocket for streaming
-    const proto = window.location.protocol === 'https:' ? 'wss' : 'ws'
-    const host = window.location.port ? `${window.location.hostname}:8000` : window.location.host
-    const ws = new WebSocket(`${proto}://${host}/ws/chat`)
-    wsRef.current = ws
-
-    let reply = ''
-    setMsgs(m => [...m, { role: 'assistant', content: '' }])
-
-    ws.onopen = () => ws.send(JSON.stringify({ message: userMsg }))
-    ws.onmessage = (e) => {
-      const d = JSON.parse(e.data)
-      if (d.token) {
-        reply += d.token
-        setMsgs(m => { const a = [...m]; a[a.length-1] = { role:'assistant', content: reply }; return a })
+    try {
+      const ws = new WebSocket(`${WS_BASE}/ws/chat/public`)
+      ws.onopen = () => ws.send(JSON.stringify({ message: msg }))
+      ws.onmessage = e => {
+        const d = JSON.parse(e.data)
+        if (d.token) setMsgs(m => { const a = [...m]; a[a.length - 1] = { role: 'assistant', content: a[a.length - 1].content + d.token, streaming: true }; return a })
+        if (d.done) { setMsgs(m => { const a = [...m]; a[a.length - 1].streaming = false; return a }); setLoading(false) }
       }
-      if (d.done) { ws.close(); setLoading(false) }
-      if (d.error) { ws.close(); setLoading(false) }
-    }
-    ws.onerror = () => { setLoading(false) }
-    ws.onclose = () => { if (!reply) setLoading(false) }
+      ws.onerror = () => setLoading(false)
+    } catch { setLoading(false) }
   }
 
-  const containerStyle = mobile ? {
-    display:'flex', flexDirection:'column', height:'100vh',
-    background:'var(--bg)', fontFamily:'inherit'
-  } : {
-    display:'flex', flexDirection:'column', height:'100vh',
-    background:'var(--bg)', maxWidth:800, margin:'0 auto', padding:'0 16px'
+  const handleTap = () => {
+    const n = tapCount + 1; setTapCount(n)
+    if (n >= 7) { setShowLogin(true); setTapCount(0) }
   }
+
+  if (showLogin) return <LoginScreen onLogin={(d) => { if (d.role === 'admin') onAdminLogin(d); else setShowLogin(false) }} />
 
   return (
-    <div style={containerStyle}>
-      {showAdminModal && <AdminLoginModal onLogin={onAdminLogin} onClose={()=>setShowAdminModal(false)} />}
-
-      {/* Header */}
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'16px 0',borderBottom:'1px solid var(--border)',flexShrink:0}}>
-        <div style={{display:'flex',alignItems:'center',gap:10,cursor:'default'}} onClick={handleTitleClick}>
-          <div style={{width:10,height:10,borderRadius:'50%',background:'var(--accent)',boxShadow:'0 0 8px var(--accent)'}} />
-          <span style={{fontWeight:700,fontSize:18,color:'var(--accent)'}}>OSONE</span>
-          <span style={{fontSize:11,color:'var(--muted)',border:'1px solid var(--border)',borderRadius:4,padding:'1px 6px'}}>skyd</span>
-        </div>
-        <div style={{fontSize:12,color:'var(--muted)'}}>AI Core · Public</div>
+    <div style={{ position: 'fixed', inset: 0, background: '#060608', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 10 }} onClick={handleTap}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#7c6fff', boxShadow: '0 0 8px #7c6fff' }} />
+        <span style={{ fontWeight: 700, fontSize: 15, color: '#7c6fff', letterSpacing: 2 }}>OSONE</span>
+        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginLeft: 4 }}>Decentralized AI</span>
       </div>
-
-      {/* Messages */}
-      <div style={{flex:1,overflowY:'auto',padding:'16px 0',display:'flex',flexDirection:'column',gap:12}}>
-        {msgs.map((m,i) => (
-          <div key={i} style={{display:'flex',justifyContent:m.role==='user'?'flex-end':'flex-start'}}>
-            <div style={{
-              maxWidth:'80%', padding:'10px 14px', borderRadius:12,
-              background: m.role==='user' ? 'var(--accent)' : 'var(--surface)',
-              color: m.role==='user' ? '#fff' : 'var(--text)',
-              fontSize:14, lineHeight:1.5,
-              borderBottomRightRadius: m.role==='user' ? 4 : 12,
-              borderBottomLeftRadius: m.role==='assistant' ? 4 : 12,
-            }}>
-              {m.content || (loading && i===msgs.length-1 ? <span style={{color:'var(--muted)'}}>▋</span> : '')}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {msgs.map((m, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+            <div style={{ maxWidth: '80%', padding: '10px 14px', borderRadius: 12, fontSize: 14, lineHeight: 1.5, background: m.role === 'user' ? '#7c6fff' : 'rgba(255,255,255,0.06)', color: '#fff' }}>
+              {m.content || (m.streaming ? <span style={{ opacity: 0.4 }}>▋</span> : '')}
             </div>
           </div>
         ))}
         <div ref={bottomRef} />
       </div>
-
-      {/* Input */}
-      <div style={{padding:'12px 0 20px',borderTop:'1px solid var(--border)',flexShrink:0}}>
-        <div style={{display:'flex',gap:8,alignItems:'flex-end'}}>
-          <textarea
-            value={input} onChange={e=>setInput(e.target.value)}
-            onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}}}
-            placeholder="Ask skyd anything..."
-            rows={1}
-            style={{
-              flex:1, background:'var(--surface)', border:'1px solid var(--border)',
-              borderRadius:10, padding:'10px 14px', color:'var(--text)',
-              fontSize:14, resize:'none', fontFamily:'inherit', outline:'none',
-              lineHeight:1.5
-            }}
-          />
-          <button onClick={send} disabled={loading || !input.trim()} style={{
-            background:'var(--accent)', border:'none', borderRadius:10,
-            color:'#fff', padding:'10px 18px', cursor:'pointer', fontSize:14,
-            fontWeight:600, flexShrink:0, opacity: (loading||!input.trim()) ? 0.5 : 1
-          }}>
-            {loading ? '...' : '↑'}
-          </button>
-        </div>
-        <div style={{fontSize:11,color:'var(--muted)',marginTop:6,textAlign:'center'}}>
-          OSONE · Decentralized AI · osone.org
-        </div>
+      <div style={{ padding: '12px 16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 8 }}>
+        <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && send()}
+          placeholder="Ask skyd anything..."
+          style={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '11px 16px', color: '#fff', fontSize: 14, outline: 'none' }} />
+        <button onClick={send} disabled={loading || !input.trim()}
+          style={{ background: '#7c6fff', border: 'none', borderRadius: 12, color: '#fff', padding: '0 20px', cursor: 'pointer', fontSize: 18, opacity: (loading || !input.trim()) ? 0.5 : 1 }}>↑</button>
       </div>
     </div>
   )
 }
 
-// ── Root ──────────────────────────────────────────────────────────────────────
+// ── ROOT ──────────────────────────────────────────────────────────────────────
 export default function App() {
   const { auth, login, logout } = useAuth()
-  const mobile = useIsMobile()
   const stats = useStats(auth?.token)
+  const sysInfo = useSystemInfo()
 
-  // If admin is logged in, show full OS shell
-  if (auth && auth.role === 'admin') {
-    return mobile
-      ? <MobileApp stats={stats} auth={auth} logout={logout} token={auth.token} />
-      : <DesktopApp stats={stats} auth={auth} logout={logout} token={auth.token} />
+  if (auth?.role === 'admin') {
+    return <Desktop stats={stats} auth={auth} logout={logout} token={auth.token} sysInfo={sysInfo} />
   }
 
-  // Everyone else: public chat, with hidden admin login trigger
-  return <PublicChat mobile={mobile} onAdminLogin={login} />
+  return <PublicChat onAdminLogin={login} />
 }

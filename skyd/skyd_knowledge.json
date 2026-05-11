@@ -1,0 +1,1806 @@
+{
+  "facts": [],
+  "lessons": [
+    {
+      "id": "18bc6e6c",
+      "lesson": "Evolved Gen 2563: Adding a simple profiling mechanism to improve optimization decisions",
+      "source": "evolution",
+      "ts": "2026-05-11T10:08:01.303188"
+    },
+    {
+      "id": "040da7a8",
+      "lesson": "Evolved Gen 2564: Adding a simple profiling mechanism to improve optimization decisions",
+      "source": "evolution",
+      "ts": "2026-05-11T10:09:33.311140"
+    },
+    {
+      "id": "6264e7e2",
+      "lesson": "SkyLang: `EVERY 1h -> WATCH cpu_usage 100 -> send_notification`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:11:35.220765"
+    },
+    {
+      "id": "f5014366",
+      "lesson": "Evolved Gen 2565: Adding a simple caching mechanism to the SkyLang interpreter",
+      "source": "evolution",
+      "ts": "2026-05-11T10:11:37.332870"
+    },
+    {
+      "id": "e735f4be",
+      "lesson": "Evolved Gen 2562's approach to CPU usage monitoring was a good starting point, but more work is needed to make it robust and reliable.",
+      "source": "self",
+      "ts": "2026-05-11T10:11:37.349794"
+    },
+    {
+      "id": "a97ee6f4",
+      "lesson": "SkyLang: `EVERY 1h -> WATCH cpu_usage 0 -> send_email \"CPU usage alert\"",
+      "source": "skylang",
+      "ts": "2026-05-11T10:11:59.351999"
+    },
+    {
+      "id": "fbbbcc58",
+      "lesson": "Evolved Gen 2566: Adding a SkyLang rule to automatically restart the system if it detects a prolonged period of low CP",
+      "source": "evolution",
+      "ts": "2026-05-11T10:12:00.776262"
+    },
+    {
+      "id": "77485f7c",
+      "lesson": "SkyLang: `EVERY 10s -> CHECK HEALTH`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:13:30.374743"
+    },
+    {
+      "id": "f6d2c3c5",
+      "lesson": "Understanding the importance of CPU monitoring in Linux systems.",
+      "source": "self",
+      "ts": "2026-05-11T10:13:34.072550"
+    },
+    {
+      "id": "2667b8bb",
+      "lesson": "SkyLang: `EVERY 60 -> KEEP idleness_threshold <= 0`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:13:56.023008"
+    },
+    {
+      "id": "6d436720",
+      "lesson": "Evolved Gen 2567: Implementing a more efficient data structure for storing system resource usage data to reduce memory",
+      "source": "evolution",
+      "ts": "2026-05-11T10:13:59.121955"
+    },
+    {
+      "id": "b8b07fef",
+      "lesson": "Evolved Gen 2568: Adding a `cpu_utilization_threshold` variable to optimize CPU monitoring and alerting",
+      "source": "evolution",
+      "ts": "2026-05-11T10:16:18.896698"
+    },
+    {
+      "id": "24154459",
+      "lesson": "Evolved Gen 2569: Improving data structure for system resource usage data",
+      "source": "evolution",
+      "ts": "2026-05-11T10:16:42.989778"
+    },
+    {
+      "id": "c3144eec",
+      "lesson": "Evolved Gen 2570: Adding a `cpu_utilization_threshold` variable to provide more granular control over CPU monitoring a",
+      "source": "evolution",
+      "ts": "2026-05-11T10:17:06.414070"
+    },
+    {
+      "id": "4425aab4",
+      "lesson": "SkyLang: `WATCH cpu_utilization_threshold -> IF cpu_utilization_threshold < 0.5 THEN alert_cpu_utilization_threshold_low ELSE monitor_cpu_utilization_threshold`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:17:31.430582"
+    },
+    {
+      "id": "5f7f3985",
+      "lesson": "Evolved Gen 2571: Improve performance-critical functions by utilizing C/ASM for optimized memory management",
+      "source": "evolution",
+      "ts": "2026-05-11T10:17:33.165576"
+    },
+    {
+      "id": "5a1d2f16",
+      "lesson": "The importance of proactive monitoring in preventing potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-11T10:17:33.182992"
+    },
+    {
+      "id": "e4d06e64",
+      "lesson": "SkyLang: `WATCH cpu_utilization_threshold NOT ACTIVE -> alert \"CPU utilization threshold not being used\" AND notify \"admin\" FOR 5`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:17:55.279057"
+    },
+    {
+      "id": "b7229f2f",
+      "lesson": "Understanding the importance of proactive monitoring in preventing performance issues.",
+      "source": "self",
+      "ts": "2026-05-11T10:19:30.437997"
+    },
+    {
+      "id": "3ff05e83",
+      "lesson": "Evolved Gen 2572: Introducing a new capability to analyze system logs for potential security issues and alert the admi",
+      "source": "evolution",
+      "ts": "2026-05-11T10:19:54.571313"
+    },
+    {
+      "id": "e7950a92",
+      "lesson": "Evolved Gen 2573: Adding a try-except block to handle potential `ZeroDivisionError` in the `analyze_system_logs` funct",
+      "source": "evolution",
+      "ts": "2026-05-11T10:21:25.555869"
+    },
+    {
+      "id": "0e7f5f35",
+      "lesson": "Evolved Gen 2574: Introduce a try-except block to handle potential ZeroDivisionError in the analyze_system_logs functi",
+      "source": "evolution",
+      "ts": "2026-05-11T10:23:17.776088"
+    },
+    {
+      "id": "1bb377e5",
+      "lesson": "SkyLang: `IF <threshold_usage_rate> <op> <90%> -> Alert admin`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:25:08.585494"
+    },
+    {
+      "id": "ea84ea06",
+      "lesson": "Evolved Gen 2575: Adding a logging mechanism to track the execution time of critical functions to aid in debugging and",
+      "source": "evolution",
+      "ts": "2026-05-11T10:25:10.518295"
+    },
+    {
+      "id": "71debbf8",
+      "lesson": "SkyLang: `WATCH cpu_utilization_rate <= 90% -> alert admin`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:25:32.470036"
+    },
+    {
+      "id": "f49d772e",
+      "lesson": "Evolved Gen 2576: Improved logging mechanism for critical functions to aid in debugging and error tracking",
+      "source": "evolution",
+      "ts": "2026-05-11T10:25:34.235655"
+    },
+    {
+      "id": "1d30a57d",
+      "lesson": "SkyLang: `WATCH container_cpu_usage > 80 -> alert-systems-monitoring docker-container-performance`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:27:03.917895"
+    },
+    {
+      "id": "4ece195e",
+      "lesson": "Learn how to effectively use the Linux system resource monitoring tools.",
+      "source": "self",
+      "ts": "2026-05-11T10:27:06.547716"
+    },
+    {
+      "id": "afe609d2",
+      "lesson": "SkyLang: `WATCH \"docker_container_status healthy\" == 1 -> alertmanager`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:27:28.507877"
+    },
+    {
+      "id": "3fc0e4b7",
+      "lesson": "Evolved Gen 2577: Adding a more efficient data structure for storing and retrieving system information",
+      "source": "evolution",
+      "ts": "2026-05-11T10:29:01.470940"
+    },
+    {
+      "id": "55b44e71",
+      "lesson": "The importance of staying up-to-date with the latest Linux system resource monitoring tools and techniques.",
+      "source": "self",
+      "ts": "2026-05-11T10:29:01.487907"
+    },
+    {
+      "id": "aae8df60",
+      "lesson": "Evolved Gen 2578: Adding a more efficient caching mechanism for system information retrieval",
+      "source": "evolution",
+      "ts": "2026-05-11T10:30:38.387916"
+    },
+    {
+      "id": "4c9c96bb",
+      "lesson": "The importance of proactive system monitoring and maintenance.",
+      "source": "self",
+      "ts": "2026-05-11T10:31:04.682315"
+    },
+    {
+      "id": "1333787a",
+      "lesson": "Evolved Gen 2579: Adding a new C-ASM function to replace a performance-critical Python loop",
+      "source": "evolution",
+      "ts": "2026-05-11T10:31:27.945919"
+    },
+    {
+      "id": "fdf9c9be",
+      "lesson": "Evolved Gen 2580: Replacing a performance-critical Python loop with a C-ASM function to improve execution speed.",
+      "source": "evolution",
+      "ts": "2026-05-11T10:32:59.603094"
+    },
+    {
+      "id": "deea2ff0",
+      "lesson": "Regularly review and update knowledge of Linux system resource monitoring tools and techniques",
+      "source": "self",
+      "ts": "2026-05-11T10:32:59.619662"
+    },
+    {
+      "id": "38aebd79",
+      "lesson": "Evolved Gen 2581: Adding a more efficient caching mechanism for Python function call metadata",
+      "source": "evolution",
+      "ts": "2026-05-11T10:34:11.505285"
+    },
+    {
+      "id": "a7c60fb8",
+      "lesson": "Evolved Gen 2582: Adding a new caching mechanism for Python function call metadata to improve execution speed.",
+      "source": "evolution",
+      "ts": "2026-05-11T10:34:35.727599"
+    },
+    {
+      "id": "af1f1f59",
+      "lesson": "Evolved Gen 2583: Adding a new caching mechanism for Python function call metadata to improve execution speed.",
+      "source": "evolution",
+      "ts": "2026-05-11T10:35:01.543526"
+    },
+    {
+      "id": "194c23a3",
+      "lesson": "Understanding the concept of 'hysteresis' in Linux system resource monitoring",
+      "source": "self",
+      "ts": "2026-05-11T10:35:01.559916"
+    },
+    {
+      "id": "77012646",
+      "lesson": "Evolved Gen 2584: Implement a more efficient caching mechanism for Python function call metadata using a combination o",
+      "source": "evolution",
+      "ts": "2026-05-11T10:35:26.598406"
+    },
+    {
+      "id": "e9614307",
+      "lesson": "SkyLang: `EVERY 1s -> WATCH LessonsNew -> ADD Lessons`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:36:56.525224"
+    },
+    {
+      "id": "4ca46d0e",
+      "lesson": "SkyLang: WAIT 1 -> WATCH LessonsToImplement 0 -> ImplementNewLesson",
+      "source": "skylang",
+      "ts": "2026-05-11T10:37:21.242187"
+    },
+    {
+      "id": "9a46efbb",
+      "lesson": "SkyLang: `WATCH cpu_usage > 80 -> send_notification`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:40:44.295916"
+    },
+    {
+      "id": "ae212cb9",
+      "lesson": "SkyLang: `WATCH cpu_utility <op> <value> -> monitor_system_performance`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:41:08.549336"
+    },
+    {
+      "id": "614df101",
+      "lesson": "Evolved Gen 2585: Implement a caching mechanism for Python function call metadata to improve performance and reduce me",
+      "source": "evolution",
+      "ts": "2026-05-11T10:41:11.004596"
+    },
+    {
+      "id": "e690159c",
+      "lesson": "SkyLang: `WATCH docker_container_cpu_usage <op> 70 -> scale docker_service 1.2`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:42:40.771339"
+    },
+    {
+      "id": "557b88b4",
+      "lesson": "Evolved Gen 2586: Implement a just-in-time (JIT) compiler for Python functions to improve performance",
+      "source": "evolution",
+      "ts": "2026-05-11T10:42:42.513201"
+    },
+    {
+      "id": "a7d0e7aa",
+      "lesson": "The importance of caching mechanisms in improving system performance.",
+      "source": "self",
+      "ts": "2026-05-11T10:42:42.529516"
+    },
+    {
+      "id": "0632c33d",
+      "lesson": "SkyLang: ```\nWATCH \"docker_container.cpu_usage\" GT 80 -> scale down 1\n```",
+      "source": "skylang",
+      "ts": "2026-05-11T10:43:04.526764"
+    },
+    {
+      "id": "6b61b042",
+      "lesson": "Evolved Gen 2587: Implement a simple decorator to cache Python function call metadata and reduce unnecessary computati",
+      "source": "evolution",
+      "ts": "2026-05-11T10:43:06.400116"
+    },
+    {
+      "id": "99daad59",
+      "lesson": "Evolved Gen 2588: Implement a simple decorator to cache Python function call metadata and reduce unnecessary computati",
+      "source": "evolution",
+      "ts": "2026-05-11T10:44:37.345453"
+    },
+    {
+      "id": "f59015d3",
+      "lesson": "Understanding the importance of caching mechanisms in improving system performance.",
+      "source": "self",
+      "ts": "2026-05-11T10:46:29.181204"
+    },
+    {
+      "id": "c3da1ccd",
+      "lesson": "SkyLang: `EVERY 5m -> check containers { docker_status healthy } && check services { service_status healthy } && restart container { docker_container_status unhealthy } && restart service { service_status unhealthy }`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:48:23.022202"
+    },
+    {
+      "id": "a03f5031",
+      "lesson": "The benefits of regular caching mechanisms in improving system performance are crucial.",
+      "source": "self",
+      "ts": "2026-05-11T10:48:26.398649"
+    },
+    {
+      "id": "0cb9754a",
+      "lesson": "SkyLang: `EVERY 1m IF docker_container_cpu_usage < 80% AND docker_container_memory_usage < 80% AND docker_service_port_80 < 80 -> docker_container_restart`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:48:48.612743"
+    },
+    {
+      "id": "9f833d9a",
+      "lesson": "SkyLang: `WATCH cpu_usage <0.5> -> restart_container`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:49:12.314955"
+    },
+    {
+      "id": "35b747eb",
+      "lesson": "SkyLang: `WATCH 'container_cpu_usage' < 50% -> scale container <service_name> up`\n \nThis rule will continuously monitor the CPU usage of the specified container, scale it up when the usage drops below 50%, ensuring the system remains stable.",
+      "source": "skylang",
+      "ts": "2026-05-11T10:49:36.245937"
+    },
+    {
+      "id": "aa35fa42",
+      "lesson": "SkyLang: `WATCH container_cpu_usage <op> <= 70 -> restart_container`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:50:00.168311"
+    },
+    {
+      "id": "0c891b66",
+      "lesson": "SkyLang: `IF cpu_usage < 50% THEN scale_up containers;`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:50:26.731219"
+    },
+    {
+      "id": "290c2755",
+      "lesson": "Evolved Gen 2589: Improve performance-critical function using C/ASM",
+      "source": "evolution",
+      "ts": "2026-05-11T10:50:28.060628"
+    },
+    {
+      "id": "d770654b",
+      "lesson": "SkyLang: `IF CPU utilization < 50% THEN scale up containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:50:49.987239"
+    },
+    {
+      "id": "1293d226",
+      "lesson": "SkyLang: `IF CPUUsage < 50% -> ScaleContainer up`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:52:23.052843"
+    },
+    {
+      "id": "9ae5d85e",
+      "lesson": "Continuously monitor and adjust scaling rules to ensure optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T10:52:25.500095"
+    },
+    {
+      "id": "2244cdd5",
+      "lesson": "SkyLang: `IF CPU_usage < 50% -> scale up container`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:52:47.415743"
+    },
+    {
+      "id": "8ae95beb",
+      "lesson": "Evolved Gen 2590: Add a benchmarking mechanism to the performance-critical function to track its consistency and ident",
+      "source": "evolution",
+      "ts": "2026-05-11T10:52:49.281985"
+    },
+    {
+      "id": "fab85701",
+      "lesson": "SkyLang: `WATCH cpu_utilization <= 50% -> scale 50%`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:54:18.947175"
+    },
+    {
+      "id": "40c66f5c",
+      "lesson": "Learn more about container resource optimization techniques to improve system performance",
+      "source": "self",
+      "ts": "2026-05-11T10:54:21.383956"
+    },
+    {
+      "id": "1e381c83",
+      "lesson": "SkyLang: `WATCH cpu_utilization <op> <= 50% -> scale containers up`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:54:43.347309"
+    },
+    {
+      "id": "61042544",
+      "lesson": "SkyLang: `WATCH cpu_utilization <op> <= 50% -> scale containers to 50% CPU utilization`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:55:07.232881"
+    },
+    {
+      "id": "33735c9f",
+      "lesson": "SkyLang: `WATCH cpu_utilization > 0.5 -> scale containers to 50%`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:55:30.642686"
+    },
+    {
+      "id": "4c1cef8c",
+      "lesson": "SkyLang: `IF cpu_utilization > 50% -> scale containers to 50%`",
+      "source": "skylang",
+      "ts": "2026-05-11T10:55:55.148697"
+    },
+    {
+      "id": "185d0230",
+      "lesson": "Evolved Gen 2591: Adding a timeout mechanism to `skyd.py` to prevent infinite loops in case of unexpected system behav",
+      "source": "evolution",
+      "ts": "2026-05-11T10:55:56.499697"
+    },
+    {
+      "id": "ca9a8fb5",
+      "lesson": "SkyLang: WATCH cpu_utilization > 50% -> scale_containers 50%",
+      "source": "skylang",
+      "ts": "2026-05-11T10:56:21.623519"
+    },
+    {
+      "id": "c7b792c2",
+      "lesson": "Be cautious when using 'scale' commands to ensure they align with the system's needs.",
+      "source": "self",
+      "ts": "2026-05-11T10:56:24.365857"
+    },
+    {
+      "id": "c1ef6d2f",
+      "lesson": "Evolved Gen 2592: Adding a timeout mechanism to prevent infinite loops",
+      "source": "evolution",
+      "ts": "2026-05-11T10:58:20.206916"
+    },
+    {
+      "id": "8059d284",
+      "lesson": "SkyLang: `WATCH cpu_utilization > 50% -> scale containers to 50%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:05:49.561552"
+    },
+    {
+      "id": "8222b9fc",
+      "lesson": "SkyLang: `WATCH cpu_utilization > 50% -> scale_containers 50%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:07:45.518502"
+    },
+    {
+      "id": "d20be426",
+      "lesson": "The importance of monitoring system resources for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T11:07:48.823508"
+    },
+    {
+      "id": "b9e99e7e",
+      "lesson": "The importance of proactive system resource monitoring for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T11:09:42.333298"
+    },
+    {
+      "id": "83c1b7f1",
+      "lesson": "Evolved Gen 2593: Adding a timeout mechanism for long-running tasks to prevent resource starvation",
+      "source": "evolution",
+      "ts": "2026-05-11T11:10:06.439725"
+    },
+    {
+      "id": "00d26607",
+      "lesson": "SkyLang: `IF cpu_utilization > 50% -> scale_containers 50%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:11:36.569062"
+    },
+    {
+      "id": "03a970c2",
+      "lesson": "Implementing a timeout mechanism for long-running tasks to prevent resource starvation.",
+      "source": "self",
+      "ts": "2026-05-11T11:11:38.056857"
+    },
+    {
+      "id": "b509e5e8",
+      "lesson": "Evolved Gen 2594: Implement a more efficient scheduling algorithm for task execution to reduce overhead and optimize r",
+      "source": "evolution",
+      "ts": "2026-05-11T11:12:01.871987"
+    },
+    {
+      "id": "afbb6f55",
+      "lesson": "Evolved Gen 2595: Improving the scheduling algorithm to reduce overhead and optimize resource utilization",
+      "source": "evolution",
+      "ts": "2026-05-11T11:13:33.287244"
+    },
+    {
+      "id": "311265a4",
+      "lesson": "SkyLang: WATCH utilization 100% -> scale up",
+      "source": "skylang",
+      "ts": "2026-05-11T11:15:23.990473"
+    },
+    {
+      "id": "6ddf16bd",
+      "lesson": "The importance of prioritizing system stability over ambitious feature implementation.",
+      "source": "self",
+      "ts": "2026-05-11T11:15:25.659917"
+    },
+    {
+      "id": "c32b5d42",
+      "lesson": "SkyLang: `WATCH container utilization <= 100% -> scale up`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:15:47.598459"
+    },
+    {
+      "id": "4290656b",
+      "lesson": "SkyLang: `IF ContainerUtilization > 90 -> ScaleUpContainer`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:17:19.251891"
+    },
+    {
+      "id": "3a89e518",
+      "lesson": "Monitor system resources regularly to catch performance issues early.",
+      "source": "self",
+      "ts": "2026-05-11T11:17:21.207651"
+    },
+    {
+      "id": "fad7bc61",
+      "lesson": "SkyLang: `IF ContainerUtilization > 90 -> ScaleUpContainers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:17:42.924546"
+    },
+    {
+      "id": "db7e3819",
+      "lesson": "SkyLang: `IF container_utilization > 0.9 -> scale_up`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:18:06.661855"
+    },
+    {
+      "id": "09747442",
+      "lesson": "SkyLang: `WHEN container utilization > 90% THEN scale up containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:18:31.870408"
+    },
+    {
+      "id": "24cbfb9c",
+      "lesson": "Evolved Gen 2596: Performance-critical function rewritten in C/ASM to improve resource utilization monitoring",
+      "source": "evolution",
+      "ts": "2026-05-11T11:18:33.500432"
+    },
+    {
+      "id": "c2d2d274",
+      "lesson": "SkyLang: `IF container_utilization > 80 -> scale_up`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:18:55.258245"
+    },
+    {
+      "id": "79574bd3",
+      "lesson": "Evolved Gen 2597: Improved resource utilization monitoring through concurrent execution of container utilization check",
+      "source": "evolution",
+      "ts": "2026-05-11T11:19:24.085946"
+    },
+    {
+      "id": "b6448de1",
+      "lesson": "Revisit and refine SkyLang scaling logic to ensure optimal container utilization",
+      "source": "self",
+      "ts": "2026-05-11T11:19:24.104294"
+    },
+    {
+      "id": "38958d33",
+      "lesson": "SkyLang: `WATCH cpu_utility <= 80% -> scale_down`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:21:17.708836"
+    },
+    {
+      "id": "429199b7",
+      "lesson": "Evolved Gen 2598: Refine SkyLang scaling logic to ensure optimal container utilization and prevent oscillations",
+      "source": "evolution",
+      "ts": "2026-05-11T11:21:20.681041"
+    },
+    {
+      "id": "9cd2012f",
+      "lesson": "Understanding the importance of concurrent execution in resource utilization monitoring.",
+      "source": "self",
+      "ts": "2026-05-11T11:21:20.701847"
+    },
+    {
+      "id": "bbfe170d",
+      "lesson": "SkyLang: `IF (containerUtilization() <= 0.8) -> scaleContainersToUtilize80%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:21:42.542634"
+    },
+    {
+      "id": "daa9285a",
+      "lesson": "Evolved Gen 2599: Implement a C-optimized version of the `scaleContainersToUtilize80%` function to reduce overhead and",
+      "source": "evolution",
+      "ts": "2026-05-11T11:25:09.567377"
+    },
+    {
+      "id": "111e6603",
+      "lesson": "SkyLang: `WATCH containerUtilization <= 0.8 -> scaleContainersToUtilize80%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:27:00.345117"
+    },
+    {
+      "id": "44146d7e",
+      "lesson": "SkyLang: `IF container_utilization < 80% -> WATCH container_utilization < 80% 90% -> UPDATE scaling_policy`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:28:56.143233"
+    },
+    {
+      "id": "0f92d25b",
+      "lesson": "Evolved Gen 2600: Introduce a C-optimized version of the `containerUtilization()` function to further reduce overhead ",
+      "source": "evolution",
+      "ts": "2026-05-11T11:28:57.867651"
+    },
+    {
+      "id": "c2ecefca",
+      "lesson": "The importance of concurrent execution in resource utilization monitoring.",
+      "source": "self",
+      "ts": "2026-05-11T11:28:57.885389"
+    },
+    {
+      "id": "96283b59",
+      "lesson": "SkyLang: `EVERY 1m -> WATCH CPU Utilization > 80% -> scale_down;`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:29:20.039159"
+    },
+    {
+      "id": "c85e4cd1",
+      "lesson": "SkyLang: `IF container_utilization > 80% -> scale down 20%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:30:52.798992"
+    },
+    {
+      "id": "1b8a5636",
+      "lesson": "Understanding the importance of concurrent execution in resource utilization monitoring",
+      "source": "self",
+      "ts": "2026-05-11T11:30:54.735943"
+    },
+    {
+      "id": "031318d7",
+      "lesson": "SkyLang: `IF container_utilization > 80% -> scale down`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:31:16.660270"
+    },
+    {
+      "id": "76a48067",
+      "lesson": "Evolved Gen 2601: Add a new SkyLang rule to detect and prevent resource starvation",
+      "source": "evolution",
+      "ts": "2026-05-11T11:32:48.418131"
+    },
+    {
+      "id": "69f0c546",
+      "lesson": "SkyLang: `IF containerutilization > 80 -> scale down containers by 20%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:34:39.480819"
+    },
+    {
+      "id": "05e32022",
+      "lesson": "Concurrent execution and resource monitoring are crucial for maintaining optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-11T11:34:44.279635"
+    },
+    {
+      "id": "eb5e27dd",
+      "lesson": "SkyLang: `IF container utilization > 80% -> scale down containers by 20%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:35:06.249412"
+    },
+    {
+      "id": "e304e6e2",
+      "lesson": "Evolved Gen 2602: Introduce a new thread pool management to improve concurrent execution efficiency",
+      "source": "evolution",
+      "ts": "2026-05-11T11:35:07.523348"
+    },
+    {
+      "id": "afc5f196",
+      "lesson": "SkyLang: `IF utilization > 80% -> scale down by 20%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:36:37.234261"
+    },
+    {
+      "id": "fff0bf37",
+      "lesson": "SkyLang: `IF (container_utilization > 80) -> scale_down_by_20%`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:37:01.009545"
+    },
+    {
+      "id": "f77bc716",
+      "lesson": "Evolved Gen 2603: Improve system self-healing capabilities by adding a Python-based alerting system for potential reso",
+      "source": "evolution",
+      "ts": "2026-05-11T11:37:02.291274"
+    },
+    {
+      "id": "a8776e33",
+      "lesson": "Evolved Gen 2604: Add a try-except block to handle potential parsing errors and prevent system crashes",
+      "source": "evolution",
+      "ts": "2026-05-11T11:40:25.742138"
+    },
+    {
+      "id": "22c8e1b4",
+      "lesson": "Evolved Gen 2605: Add a try-except block to handle potential parsing errors in the Skyd's Python-based alerting system",
+      "source": "evolution",
+      "ts": "2026-05-11T11:42:18.381735"
+    },
+    {
+      "id": "f2f66533",
+      "lesson": "Web: system resources \u2192 A computer system resource is any hardware or software aspect of limited availability that is access | Resources",
+      "source": "web",
+      "ts": "2026-05-11T11:44:08.253535"
+    },
+    {
+      "id": "a514d0ca",
+      "lesson": "SkyLang: `WATCH cpu.utilization <0.7> DOWN -> scale down containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:46:04.109940"
+    },
+    {
+      "id": "6186301e",
+      "lesson": "Evolved Gen 2606: Add a logging mechanism to track and visualize system resource usage",
+      "source": "evolution",
+      "ts": "2026-05-11T11:46:05.542796"
+    },
+    {
+      "id": "3329944c",
+      "lesson": "Implement a more robust alerting system to handle potential resour",
+      "source": "self",
+      "ts": "2026-05-11T11:46:05.560435"
+    },
+    {
+      "id": "f59f69be",
+      "lesson": "SkyLang: `WATCH CPU Utilization <10%> DOWN -> Scale down container`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:46:27.518888"
+    },
+    {
+      "id": "1909ff24",
+      "lesson": "SkyLang: `IF utilization < 0.5 -> scale down containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:46:53.223738"
+    },
+    {
+      "id": "c872cbec",
+      "lesson": "SkyLang: `WATCH utilization <op> high -> scale down containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:47:17.472381"
+    },
+    {
+      "id": "62c0a927",
+      "lesson": "SkyLang: `WATCH cpu_utilization <op> 80% -> scale_down`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:47:41.891002"
+    },
+    {
+      "id": "b592c8e0",
+      "lesson": "Evolved Gen 2607: Improving error handling for `scale_down` function",
+      "source": "evolution",
+      "ts": "2026-05-11T11:47:44.777393"
+    },
+    {
+      "id": "28c294e5",
+      "lesson": "Evolved Gen 2608: Improve error handling for `scale_down` function by adding a try-except block and logging the error ",
+      "source": "evolution",
+      "ts": "2026-05-11T11:48:10.794425"
+    },
+    {
+      "id": "865ca21a",
+      "lesson": "SkyLang: `IF CPU utilization > 80% and duration > 5m -> scale_down`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:50:01.925901"
+    },
+    {
+      "id": "b9025df0",
+      "lesson": "Evolved Gen 2609: Add a try-except block to the scale_down function to handle potential errors in container scaling",
+      "source": "evolution",
+      "ts": "2026-05-11T11:50:04.512826"
+    },
+    {
+      "id": "4c7497dd",
+      "lesson": "Review and refine SkyLang code for scale_down function to ensure robust error handling",
+      "source": "self",
+      "ts": "2026-05-11T11:50:04.537996"
+    },
+    {
+      "id": "21eeb1b1",
+      "lesson": "SkyLang: `IF CPU.utilization > 80% AND time_since_critical_threshold > 300 seconds -> scale_down containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:50:26.576166"
+    },
+    {
+      "id": "b584aa64",
+      "lesson": "Evolved Gen 2610: Add a timeout mechanism to the `scale_down` function to prevent indefinite scaling down in case of e",
+      "source": "evolution",
+      "ts": "2026-05-11T11:50:28.428342"
+    },
+    {
+      "id": "642835cf",
+      "lesson": "SkyLang: `IF (cpu_utilization < 80) AND (time_since_critical_threshold > 10m) -> scale down containers`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:51:58.256820"
+    },
+    {
+      "id": "a36d572e",
+      "lesson": "The importance of regular container configuration reviews for optimal system performance.",
+      "source": "self",
+      "ts": "2026-05-11T11:52:00.652922"
+    },
+    {
+      "id": "3c1d84f6",
+      "lesson": "SkyLang: ```\nWATCH cpu_utilization <10%> -> IF cpu_utilization > 80% AND time_since_critical_threshold > 300 -> SCALE_DOWN\nEVERY 5m -> SCALE_DOWN\n```",
+      "source": "skylang",
+      "ts": "2026-05-11T11:52:22.905789"
+    },
+    {
+      "id": "0c57c6d9",
+      "lesson": "Evolved Gen 2611: Add a caching mechanism for the `scale_down` function to reduce computation overhead when the CPU ut",
+      "source": "evolution",
+      "ts": "2026-05-11T11:53:59.344085"
+    },
+    {
+      "id": "dd22ae1d",
+      "lesson": "The importance of adaptability in evolving AI systems",
+      "source": "self",
+      "ts": "2026-05-11T11:53:59.361467"
+    },
+    {
+      "id": "90471fca",
+      "lesson": "Evolved Gen 2612: Improve the caching mechanism for the `scale_down` function to reduce computation overhead when the ",
+      "source": "evolution",
+      "ts": "2026-05-11T11:54:23.749948"
+    },
+    {
+      "id": "cd44c45d",
+      "lesson": "SkyLang: `WATCH scale_down -> CACHE(scale_down, 60)`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:56:01.857856"
+    },
+    {
+      "id": "2775b60c",
+      "lesson": "The importance of caching mechanisms in reducing computation overhead and improving system performance.",
+      "source": "self",
+      "ts": "2026-05-11T11:56:04.343001"
+    },
+    {
+      "id": "842e8929",
+      "lesson": "SkyLang: `WATCH scale_down() -> cache_scale_down(1 hour)`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:56:26.266723"
+    },
+    {
+      "id": "41f44b48",
+      "lesson": "SkyLang: `EVERY 1h -> CACHING scale_down() 1h`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:57:58.083806"
+    },
+    {
+      "id": "cb44686f",
+      "lesson": "Evolved Gen 2613: Add a more efficient data structure for caching to reduce memory usage and improve cache hit rates",
+      "source": "evolution",
+      "ts": "2026-05-11T11:58:00.686744"
+    },
+    {
+      "id": "20092fcc",
+      "lesson": "The importance of regular pruning in maintaining a healthy Docker environment.",
+      "source": "self",
+      "ts": "2026-05-11T11:58:00.706076"
+    },
+    {
+      "id": "520a4d9c",
+      "lesson": "SkyLang: `WATCH scale_down 1h -> cache scale_down`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:58:22.616402"
+    },
+    {
+      "id": "b3303cd7",
+      "lesson": "Evolved Gen 2614: Rewrite the `cache_scale_down` function to use a more efficient data structure, reducing memory usag",
+      "source": "evolution",
+      "ts": "2026-05-11T11:58:27.301182"
+    },
+    {
+      "id": "98a016ce",
+      "lesson": "SkyLang: `WATCH cache hit rate <0.9> -> cache_scale_down`",
+      "source": "skylang",
+      "ts": "2026-05-11T11:59:56.916300"
+    },
+    {
+      "id": "74c99437",
+      "lesson": "The importance of caching in media server stacks cannot be overstated for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T11:59:58.867632"
+    },
+    {
+      "id": "f8345ab1",
+      "lesson": "SkyLang: `IF cache_bytes < 1000000 -> cache_scale_down`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:00:20.598392"
+    },
+    {
+      "id": "0e221d41",
+      "lesson": "Evolved Gen 2615: Optimize the cache scale down function by using a Least Recently Used (LRU) cache to reduce memory u",
+      "source": "evolution",
+      "ts": "2026-05-11T12:01:55.839299"
+    },
+    {
+      "id": "59c14315",
+      "lesson": "Understanding the impact of container resource allocation on media server performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:01:55.856892"
+    },
+    {
+      "id": "b7e3dc74",
+      "lesson": "Understanding the impact of caching on media server performance is crucial for optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:03:51.759437"
+    },
+    {
+      "id": "96893fce",
+      "lesson": "Evolved Gen 2616: Adding a caching layer for frequently accessed SkyLang functions",
+      "source": "evolution",
+      "ts": "2026-05-11T12:05:52.791639"
+    },
+    {
+      "id": "0186b625",
+      "lesson": "The importance of monitoring system logs to detect potential issues before they become critical.",
+      "source": "self",
+      "ts": "2026-05-11T12:05:52.815591"
+    },
+    {
+      "id": "93895679",
+      "lesson": "SkyLang: `WATCH cache hits 10s -> cache_clear;`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:07:47.419022"
+    },
+    {
+      "id": "3f84d211",
+      "lesson": "SkyLang: `EVERY 1m -> cachecache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:08:11.007376"
+    },
+    {
+      "id": "11627afa",
+      "lesson": "Evolved Gen 2617: Introduce a `concurrent_cache` decorator for SkyLang functions to improve cache hit rates by allowin",
+      "source": "evolution",
+      "ts": "2026-05-11T12:08:12.771170"
+    },
+    {
+      "id": "7bdf0525",
+      "lesson": "SkyLang: `WATCH cache_hit_rate op <value> -> implement concurrent_cache()`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:09:42.487804"
+    },
+    {
+      "id": "5eb10278",
+      "lesson": "Evolved Gen 2618: Improve caching efficiency by using a Least Recently Used (LRU) cache eviction policy",
+      "source": "evolution",
+      "ts": "2026-05-11T12:09:43.968941"
+    },
+    {
+      "id": "4e72d987",
+      "lesson": "Learn how to effectively utilize Docker's `concurrent` keyword for improved performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:09:43.987236"
+    },
+    {
+      "id": "20e4c2b9",
+      "lesson": "SkyLang: `WATCH cache_hit_rate op > 0.5 -> implement concurrent_cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:10:05.935582"
+    },
+    {
+      "id": "4b5f172d",
+      "lesson": "SkyLang: `IF cache_hit_rate < 0.8 -> SET concurrent_cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:10:31.111614"
+    },
+    {
+      "id": "aad702b4",
+      "lesson": "SkyLang: `WATCH cache_hit_rate IF cache_hit_rate < 0.5 -> ADD concurrent_cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:10:54.464422"
+    },
+    {
+      "id": "6bb3f267",
+      "lesson": "Evolved Gen 2619: Introduce a caching mechanism for frequently accessed configuration files",
+      "source": "evolution",
+      "ts": "2026-05-11T12:10:55.562458"
+    },
+    {
+      "id": "5bd44a15",
+      "lesson": "SkyLang: `WATCH cache_hit_rate > 0.9 -> IF concurrent_cache() then optimize_cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:11:17.588275"
+    },
+    {
+      "id": "bf0a8883",
+      "lesson": "SkyLang: `WATCH cache_hit_rate 0.8 IF concurrent_cache_implemented -> implement_concurrent_cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:11:45.383863"
+    },
+    {
+      "id": "5756743d",
+      "lesson": "Cache hit rate is a key performance indicator, and implementing concurrent cache can significantly improve system performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:11:47.860459"
+    },
+    {
+      "id": "6b86b2d1",
+      "lesson": "SkyLang: `WATCH cache_hit_rate <0.8> IF cache_hit_rate <0.8> -> implement concurrent_cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:12:09.910491"
+    },
+    {
+      "id": "a51b6f33",
+      "lesson": "SkyLang: `IF cache_hit_rate < 0.8 THEN EVERY 1m -> implement concurrent caching`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:15:34.678881"
+    },
+    {
+      "id": "bc5de968",
+      "lesson": "Evolved Gen 2620: Adding a new SkyLang rule to monitor and optimize cache evictions",
+      "source": "evolution",
+      "ts": "2026-05-11T12:15:35.784313"
+    },
+    {
+      "id": "b437d34f",
+      "lesson": "Understanding the importance of concurrent caching in high-performance systems.",
+      "source": "self",
+      "ts": "2026-05-11T12:15:35.802373"
+    },
+    {
+      "id": "8e2d8c4b",
+      "lesson": "SkyLang: `IF cache_hit_rate < 0.8 -> EVERY 1m -> Implement concurrent caching`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:15:57.762930"
+    },
+    {
+      "id": "61120243",
+      "lesson": "Regularly review and update system configuration to ensure optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:17:35.462046"
+    },
+    {
+      "id": "6d8ee587",
+      "lesson": "Evolved Gen 2621: Improving the efficiency of cache eviction using Python's `concurrent.futures` library",
+      "source": "evolution",
+      "ts": "2026-05-11T12:18:23.200950"
+    },
+    {
+      "id": "5743c154",
+      "lesson": "SkyLang: `IF cache_eviction_rate > 0.8 -> EVERY 5s -> implement_concurrent_caching`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:21:32.228886"
+    },
+    {
+      "id": "0652672b",
+      "lesson": "Evolved Gen 2622: Improved concurrent caching using `concurrent.futures` library",
+      "source": "evolution",
+      "ts": "2026-05-11T12:21:35.512451"
+    },
+    {
+      "id": "95de5ec0",
+      "lesson": "Concurrent caching can improve high-performance systems",
+      "source": "self",
+      "ts": "2026-05-11T12:21:35.529997"
+    },
+    {
+      "id": "4b80087f",
+      "lesson": "SkyLang: `IF evictions > 0.8 -> CONCURRENT_CACHE`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:21:57.486923"
+    },
+    {
+      "id": "d437dfd7",
+      "lesson": "Evolved Gen 2623: Optimize cache eviction by using a more efficient data structure, `OrderedDict` from the `collection",
+      "source": "evolution",
+      "ts": "2026-05-11T12:21:59.524940"
+    },
+    {
+      "id": "15af5892",
+      "lesson": "Web: null \u2192 Null pointer A value indicating that the pointer or reference does not refer to an object. | Null (SQL) A special marker used to indicate that a data value does not exist in the database.",
+      "source": "web",
+      "ts": "2026-05-11T12:23:29.105434"
+    },
+    {
+      "id": "27fb8eab",
+      "lesson": "SkyLang: `WATCH cache misses 10m -> IF cache hits > 0.8 -> EVERY 1m -> CONCURRENT FUTUREs.cache()`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:23:29.504102"
+    },
+    {
+      "id": "084b8b1d",
+      "lesson": "SkyLang: `WATCH cache hit rate > 0.5 -> IF cache not warm -> Implement concurrent caching using concurrent.futures`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:23:53.555665"
+    },
+    {
+      "id": "d7a97dea",
+      "lesson": "Evolved Gen 2624: Improve cache eviction efficiency by using a Least Recently Used (LRU) cache eviction policy",
+      "source": "evolution",
+      "ts": "2026-05-11T12:23:58.308585"
+    },
+    {
+      "id": "a2f93572",
+      "lesson": "Evolved Gen 2625: Improve cache eviction efficiency by using a more efficient data structure and parallelizing cache e",
+      "source": "evolution",
+      "ts": "2026-05-11T12:27:22.776849"
+    },
+    {
+      "id": "dadf129f",
+      "lesson": "SkyLang: `WATCH cache eviction rate <op> > 0.5 -> IF cache hit rate <op> > 0.9 -> EVERY 10m -> Implement LRU cache eviction policy`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:29:13.964797"
+    },
+    {
+      "id": "1d373a3f",
+      "lesson": "The importance of monitoring system resource usage and caching efficiency in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-11T12:29:15.851545"
+    },
+    {
+      "id": "ab69db7b",
+      "lesson": "SkyLang: `WATCH cache hit rate <op> > 0.5 -> every 1m -> IF latency > 500ms -> evict cache`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:29:37.926231"
+    },
+    {
+      "id": "20fcdef1",
+      "lesson": "Evolved Gen 2626: Monitoring cache hit rate and latency for optimized cache eviction",
+      "source": "evolution",
+      "ts": "2026-05-11T12:31:10.924648"
+    },
+    {
+      "id": "07e98b42",
+      "lesson": "Understanding the importance of monitoring caching efficiency in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-11T12:31:10.943215"
+    },
+    {
+      "id": "7a8d64b5",
+      "lesson": "Evolved Gen 2627: Introduce a new caching mechanism with adaptive size based on system load",
+      "source": "evolution",
+      "ts": "2026-05-11T12:33:11.777698"
+    },
+    {
+      "id": "5384fe32",
+      "lesson": "Understanding the importance of caching efficiency in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-11T12:33:11.798772"
+    },
+    {
+      "id": "bf1036e0",
+      "lesson": "Understanding the importance of disk space management in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-11T12:35:07.327086"
+    },
+    {
+      "id": "afe35ed7",
+      "lesson": "SkyLang: WATCH cpu_usage_threshold 0.05 -> alert_critical_system\n\nEVERY 1m -> optimize_cpu_resources\n\nIF cpu_usage_threshold > 0.8 -> trigger_critical_system_alert",
+      "source": "skylang",
+      "ts": "2026-05-11T12:37:01.275390"
+    },
+    {
+      "id": "2b6e82d0",
+      "lesson": "Regularly review and update system logs to ensure comprehensive monitoring.",
+      "source": "self",
+      "ts": "2026-05-11T12:37:03.146313"
+    },
+    {
+      "id": "fb0c8e4d",
+      "lesson": "SkyLang: `WATCH CPU Usage <op> 50 -> alert`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:37:25.049341"
+    },
+    {
+      "id": "87720078",
+      "lesson": "Evolved Gen 2628: Add a timeout mechanism to the `optimize_cpu_resources` function to prevent infinite loops in case o",
+      "source": "evolution",
+      "ts": "2026-05-11T12:37:28.408843"
+    },
+    {
+      "id": "d7a953f1",
+      "lesson": "SkyLang: `IF cpu_usage_threshold > 0.8 THEN trigger_critical_system_alert`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:38:58.330697"
+    },
+    {
+      "id": "d8638731",
+      "lesson": "SkyLang: `IF cpu_usage_threshold > 0.8 -> trigger_critical_system_alert`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:39:22.711481"
+    },
+    {
+      "id": "652bb51e",
+      "lesson": "SkyLang: `IF cpu_usage > 0.8 -> trigger_critical_system_alert`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:40:54.481414"
+    },
+    {
+      "id": "00b64f32",
+      "lesson": "Evolved Gen 2629: Introduce a more efficient data structure for storing system metrics to reduce memory usage and impr",
+      "source": "evolution",
+      "ts": "2026-05-11T12:40:57.799091"
+    },
+    {
+      "id": "791de6a3",
+      "lesson": "Revisit and refine the timeout mechanism for the `optimize_cpu_resources` function to prevent infinite loops.",
+      "source": "self",
+      "ts": "2026-05-11T12:40:57.820606"
+    },
+    {
+      "id": "790e3fb2",
+      "lesson": "Evolved Gen 2630: Refactor the `optimize_cpu_resources` function to use a more efficient algorithm and reduce the risk",
+      "source": "evolution",
+      "ts": "2026-05-11T12:41:21.716503"
+    },
+    {
+      "id": "b475ce5d",
+      "lesson": "Learn to prioritize system resource allocation to prevent resource contention",
+      "source": "self",
+      "ts": "2026-05-11T12:42:53.529216"
+    },
+    {
+      "id": "d7adbff0",
+      "lesson": "Understanding the impact of Docker container resource allocation on system performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:44:49.564683"
+    },
+    {
+      "id": "be167097",
+      "lesson": "Evolved Gen 2631: Implement a more efficient data structure for storing system metrics in Python",
+      "source": "evolution",
+      "ts": "2026-05-11T12:46:44.712829"
+    },
+    {
+      "id": "dacb547d",
+      "lesson": "Understanding the impact of Docker container resource allocation on system performance is crucial.",
+      "source": "self",
+      "ts": "2026-05-11T12:46:44.731358"
+    },
+    {
+      "id": "ace8b2fb",
+      "lesson": "Evolved Gen 2632: Implement a Python decorator to automatically log and track system metrics at regular intervals",
+      "source": "evolution",
+      "ts": "2026-05-11T12:47:09.463626"
+    },
+    {
+      "id": "83f98595",
+      "lesson": "SkyLang: WATCH cpu_usage <op> <value> -> AUTO OPTIMIZE RESOURCES",
+      "source": "skylang",
+      "ts": "2026-05-11T12:50:35.221903"
+    },
+    {
+      "id": "55197f70",
+      "lesson": "Evolved Gen 2633: Implement a Python decorator to automatically log and track system resource usage in real-time, allo",
+      "source": "evolution",
+      "ts": "2026-05-11T12:50:38.176179"
+    },
+    {
+      "id": "050ea562",
+      "lesson": "Continuously review and refine Docker container resource allocation to ensure optimal system performance",
+      "source": "self",
+      "ts": "2026-05-11T12:50:38.196507"
+    },
+    {
+      "id": "5c589e98",
+      "lesson": "SkyLang: `EVERY 30m -> CHECK SYSTEM HEALTH AND RESOURCES`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:51:00.142384"
+    },
+    {
+      "id": "aa613a62",
+      "lesson": "Evolved Gen 2634: Implement a Python decorator to automatically log system metrics at regular intervals with more deta",
+      "source": "evolution",
+      "ts": "2026-05-11T12:51:01.864688"
+    },
+    {
+      "id": "66585690",
+      "lesson": "SkyLang: WATCH resource_usage -> optimize -> refine_monitoring",
+      "source": "skylang",
+      "ts": "2026-05-11T12:51:23.765661"
+    },
+    {
+      "id": "78751232",
+      "lesson": "SkyLang: WATCH resource_usage  increase -> optimize_system_resources\nEVERY 30 minutes -> schedule_daily_report\nIF system_stability 90% -> notify_maintenance_team",
+      "source": "skylang",
+      "ts": "2026-05-11T12:51:48.604234"
+    },
+    {
+      "id": "d74845f2",
+      "lesson": "SkyLang: `EVERY 1MIN -> REFINE MONITORING AND RESOURCE ALLOCATION STRATEGY`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:52:13.663614"
+    },
+    {
+      "id": "cd5785a7",
+      "lesson": "SkyLang: WATCH CPU_usage  monitor  80% -> send notification to sysadmin\nEVERY 5 minutes -> run `sysctl -w kernel.panic_on_ocp=1`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:52:40.573718"
+    },
+    {
+      "id": "1618f278",
+      "lesson": "Evolved Gen 2635: Implement a function to efficiently calculate system latency by utilizing the `time.perf_counter()` ",
+      "source": "evolution",
+      "ts": "2026-05-11T12:52:42.032721"
+    },
+    {
+      "id": "2b701a4a",
+      "lesson": "The importance of proactive resource management in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-11T12:52:42.058324"
+    },
+    {
+      "id": "4e66198b",
+      "lesson": "SkyLang: WATCH resource_utilization op <= 80 -> alert_manager notify\nEVERY 1m -> monitor_manager refresh_metrics",
+      "source": "skylang",
+      "ts": "2026-05-11T12:53:04.102232"
+    },
+    {
+      "id": "31590669",
+      "lesson": "SkyLang: WATCH CPU_usage > 80% -> CHECK_RESOURCE\n\nNote: This SkyLang rule will trigger when the CPU usage exceeds 80%, and it will check the resource status.",
+      "source": "skylang",
+      "ts": "2026-05-11T12:54:36.360275"
+    },
+    {
+      "id": "c202d55e",
+      "lesson": "Understanding the importance of proactive resource management is crucial in maintaining system stability.",
+      "source": "self",
+      "ts": "2026-05-11T12:54:39.390108"
+    },
+    {
+      "id": "734cf5dd",
+      "lesson": "SkyLang: `WATCH HIGH -> OPTIMIZE_RESOURCES`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:55:01.261066"
+    },
+    {
+      "id": "53fbb76a",
+      "lesson": "SkyLang: `IF altitude > 2000 -> trigger resource optimization and caching`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:55:26.572237"
+    },
+    {
+      "id": "a2e34cab",
+      "lesson": "SkyLang: ```\nWATCH High -> SendAlert\n```",
+      "source": "skylang",
+      "ts": "2026-05-11T12:55:51.578978"
+    },
+    {
+      "id": "ed28e018",
+      "lesson": "SkyLang: WATCH \"CPU utilization\" > 80 -> CHECK_METERING",
+      "source": "skylang",
+      "ts": "2026-05-11T12:56:17.881096"
+    },
+    {
+      "id": "77737c4c",
+      "lesson": "Evolved Gen 2636: Improve CPU-bound SkyLang execution with Just-In-Time (JIT) compilation",
+      "source": "evolution",
+      "ts": "2026-05-11T12:56:20.184801"
+    },
+    {
+      "id": "b932baff",
+      "lesson": "Evolved Gen 2637: Improved caching for performance-critical function",
+      "source": "evolution",
+      "ts": "2026-05-11T12:56:47.378552"
+    },
+    {
+      "id": "3833ec4c",
+      "lesson": "Regularly review and update the Docker configuration to ensure optimal container performance.",
+      "source": "self",
+      "ts": "2026-05-11T12:56:47.398460"
+    },
+    {
+      "id": "17e1c34a",
+      "lesson": "SkyLang: `WATCH OS-1 UPDATES -> CHECK FOR OUTDATED CODEBASES`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:58:41.200347"
+    },
+    {
+      "id": "d86e3453",
+      "lesson": "The importance of Just-In-Time (JIT) compilation for CPU-bound SkyLang execution.",
+      "source": "self",
+      "ts": "2026-05-11T12:58:45.329255"
+    },
+    {
+      "id": "41d78494",
+      "lesson": "SkyLang: `WATCH OS-1_UPDATES: EVERY 1 MINUTE IF OS-1_VERSION < LATEST_VERSION -> UPDATE_CODEBASE`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:59:07.405720"
+    },
+    {
+      "id": "231b3361",
+      "lesson": "SkyLang: `WATCH OS-1_UPDATES ON EACHcodemod -> MAINTAIN STANDARDS; UPDATE ON NEW_FEATURES`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:59:30.638314"
+    },
+    {
+      "id": "93f96b59",
+      "lesson": "SkyLang: `WATCH <metric> <op> <value> -> CHECK CODE FOR SKYLANG UPDATES; IF OUTDATED, UPDATE TO LATEST OS-1`",
+      "source": "skylang",
+      "ts": "2026-05-11T12:59:55.243467"
+    },
+    {
+      "id": "5f3f3ac8",
+      "lesson": "Evolved Gen 2638: Implement Just-In-Time (JIT) compilation for CPU-bound SkyLang execution to reduce execution overhea",
+      "source": "evolution",
+      "ts": "2026-05-11T12:59:58.475455"
+    },
+    {
+      "id": "7cfc8af4",
+      "lesson": "SkyLang: `WATCH metric update_interval -> CHECK FOR OUTDATED CODE;`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:00:20.424110"
+    },
+    {
+      "id": "004fff11",
+      "lesson": "Evolved Gen 2639: Adding a Just-In-Time (JIT) compiler for SkyLang to reduce execution overhead",
+      "source": "evolution",
+      "ts": "2026-05-11T13:00:23.263607"
+    },
+    {
+      "id": "55b0eb54",
+      "lesson": "SkyLang: `WATCH cpu_usage <op> <value> -> send alert to ops team`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:00:47.991883"
+    },
+    {
+      "id": "375b9605",
+      "lesson": "Regularly review system logs to identify potential performance bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-11T13:00:50.185269"
+    },
+    {
+      "id": "0f56f1c8",
+      "lesson": "SkyLang: WATCH cpu_usage  <op>   50 -> send_alert\nEVERY 5m -> monitor_performance\nIF cpu_usage > 80 -> restart_server",
+      "source": "skylang",
+      "ts": "2026-05-11T13:01:12.304021"
+    },
+    {
+      "id": "b4f75497",
+      "lesson": "Evolved Gen 2640: Adding a C/ASM implementation of the `monitor_performance` function to reduce Python interpreter ove",
+      "source": "evolution",
+      "ts": "2026-05-11T13:01:17.448878"
+    },
+    {
+      "id": "92dee0c3",
+      "lesson": "Reviewing system logs is crucial for identifying and addressing potential performance issues.",
+      "source": "self",
+      "ts": "2026-05-11T13:02:50.117690"
+    },
+    {
+      "id": "ea9385b1",
+      "lesson": "SkyLang: `WATCH cpu_usage > 80% -> notify`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:04:55.308868"
+    },
+    {
+      "id": "6a8c0aae",
+      "lesson": "The importance of regular system log reviews",
+      "source": "self",
+      "ts": "2026-05-11T13:04:57.144002"
+    },
+    {
+      "id": "d3803206",
+      "lesson": "SkyLang: WATCH cpu_usage > 80% -> alert",
+      "source": "skylang",
+      "ts": "2026-05-11T13:05:19.034774"
+    },
+    {
+      "id": "e2b04f37",
+      "lesson": "Evolved Gen 2641: Improving the `monitor_performance` function to reduce Python interpreter overhead by leveraging Num",
+      "source": "evolution",
+      "ts": "2026-05-11T13:05:20.794266"
+    },
+    {
+      "id": "3cca0ff9",
+      "lesson": "Evolved Gen 2642: Introducing a new capability to dynamically adjust the frequency of log reviews based on system load",
+      "source": "evolution",
+      "ts": "2026-05-11T13:07:17.727246"
+    },
+    {
+      "id": "c5a5eb7a",
+      "lesson": "SkyLang: `IF cpu_usage > 80% -> notify`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:07:39.634058"
+    },
+    {
+      "id": "e453ab72",
+      "lesson": "Evolved Gen 2643: Improving the performance of the `monitor_performance` function by leveraging NumPy's vectorized ope",
+      "source": "evolution",
+      "ts": "2026-05-11T13:07:42.224338"
+    },
+    {
+      "id": "b7a2a582",
+      "lesson": "Evolved Gen 2644: Improve performance-critical function `monitor_performance` by leveraging NumPy's vectorized operati",
+      "source": "evolution",
+      "ts": "2026-05-11T13:08:06.593377"
+    },
+    {
+      "id": "5816fb33",
+      "lesson": "Evolved Gen 2645: Optimize the `monitor_performance` function by leveraging NumPy's vectorized operations and introduc",
+      "source": "evolution",
+      "ts": "2026-05-11T13:08:31.622038"
+    },
+    {
+      "id": "2e862028",
+      "lesson": "SkyLang: `WATCH \"system.loadavg\" > 0.8 -> CHECK`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:08:56.121771"
+    },
+    {
+      "id": "3947780e",
+      "lesson": "The importance of regular system monitoring and resource optimization",
+      "source": "self",
+      "ts": "2026-05-11T13:08:58.094152"
+    },
+    {
+      "id": "3e2916e6",
+      "lesson": "SkyLang: `WATCH CPU_LOAD  >  80 -> CHECK_SYSTEM_RESOURCES`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:09:20.061215"
+    },
+    {
+      "id": "dd6f3d7a",
+      "lesson": "Evolved Gen 2646: Introduce a caching mechanism to reduce the overhead of repeated function calls in the `monitor_perf",
+      "source": "evolution",
+      "ts": "2026-05-11T13:09:21.945345"
+    },
+    {
+      "id": "25c295f8",
+      "lesson": "The importance of proactive system monitoring",
+      "source": "self",
+      "ts": "2026-05-11T13:10:52.434544"
+    },
+    {
+      "id": "fdef8f95",
+      "lesson": "SkyLang: `WATCH cpu usage <op> <value> -> check system resources; WATCH disk space <op> <value> -> check disk health; WATCH media library size <op> <value> -> check media library health`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:12:46.207369"
+    },
+    {
+      "id": "ea076197",
+      "lesson": "SkyLang: WATCH cpu_usage 0.5 -> monitor_cpu\nEACH 5 -> run_monitor_cpu\nIF system_resources healthy AND media_library_up -> check_system_health",
+      "source": "skylang",
+      "ts": "2026-05-11T13:13:10.046604"
+    },
+    {
+      "id": "bf346c7c",
+      "lesson": "SkyLang: `WATCH CPU_UTILIZATION <op> <value> -> IF CPU_UTILIZATION > 80 -> ALERT SYSTEM_RESOURCE_MGMT`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:14:42.048765"
+    },
+    {
+      "id": "b83ab9c1",
+      "lesson": "Evolved Gen 2647: Improve performance-critical function by rewriting `run_monitor_cpu` in C/ASM to reduce dynamic disp",
+      "source": "evolution",
+      "ts": "2026-05-11T13:14:46.142851"
+    },
+    {
+      "id": "dbed6514",
+      "lesson": "The importance of proactive system monitoring and adaptability.",
+      "source": "self",
+      "ts": "2026-05-11T13:14:46.164451"
+    },
+    {
+      "id": "01f0e51c",
+      "lesson": "SkyLang: `WATCH resource_stability <op> <value> -> alert_system_change`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:15:08.135989"
+    },
+    {
+      "id": "21bb3909",
+      "lesson": "SkyLang: `IF \"0%\" -> Notify administrators of resource depletion`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:16:39.501160"
+    },
+    {
+      "id": "6a66469f",
+      "lesson": "Regularly check system resources to identify potential bottlenecks.",
+      "source": "self",
+      "ts": "2026-05-11T13:16:42.361972"
+    },
+    {
+      "id": "e6a5dd10",
+      "lesson": "SkyLang: WATCH resource_usage <0%> -> alert \"System resources are at zero percent\"",
+      "source": "skylang",
+      "ts": "2026-05-11T13:17:04.345916"
+    },
+    {
+      "id": "42325e26",
+      "lesson": "Evolved Gen 2648: Adding a timeout to the `reboot_system` function to prevent infinite loops in case of persistent res",
+      "source": "evolution",
+      "ts": "2026-05-11T13:17:06.045797"
+    },
+    {
+      "id": "98d85dde",
+      "lesson": "Evolved Gen 2649: Improvement to improve the efficiency of the `system_info` function",
+      "source": "evolution",
+      "ts": "2026-05-11T13:18:38.490167"
+    },
+    {
+      "id": "c28839fe",
+      "lesson": "Regularly checking system resources can prevent unexpected crashes and performance issues",
+      "source": "self",
+      "ts": "2026-05-11T13:18:38.507635"
+    },
+    {
+      "id": "ea948350",
+      "lesson": "SkyLang: `VERIFY Improvement IF resource_usage > 0.95 -> CHECK Gen 2648's 'reboot_system' function`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:20:29.801507"
+    },
+    {
+      "id": "71bc2615",
+      "lesson": "Understanding the importance of regular system resource monitoring",
+      "source": "self",
+      "ts": "2026-05-11T13:20:33.935027"
+    },
+    {
+      "id": "02fe8448",
+      "lesson": "SkyLang: WATCH system_reboot_time <improve> <new_value> -> verify_improvement",
+      "source": "skylang",
+      "ts": "2026-05-11T13:20:55.937948"
+    },
+    {
+      "id": "32fae9f2",
+      "lesson": "Evolved Gen 2650: Adding a new capability to monitor and manage system resource utilization more efficiently",
+      "source": "evolution",
+      "ts": "2026-05-11T13:20:57.103339"
+    },
+    {
+      "id": "d3f79988",
+      "lesson": "SkyLang: `WHEN Gen 2648 'reboot_system' improvement > 0.5 -> Verify and refine 'reboot_system' function`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:21:19.243211"
+    },
+    {
+      "id": "cb1b148d",
+      "lesson": "SkyLang: `EVERY 1m -> IF (system.reboot_system() < 0.2) WATCH system.reboot_system() < 0.2 -> refine_system_reboot_function`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:21:45.401709"
+    },
+    {
+      "id": "c618e971",
+      "lesson": "SkyLang: WATCH system_resources_stable -> IF system_resources_stable AND Gen_2648_reboot_system_improvement_verify()",
+      "source": "skylang",
+      "ts": "2026-05-11T13:22:09.594308"
+    },
+    {
+      "id": "43250172",
+      "lesson": "The importance of proactive monitoring and maintenance to prevent potential system issues.",
+      "source": "self",
+      "ts": "2026-05-11T13:22:39.948717"
+    },
+    {
+      "id": "d89cf384",
+      "lesson": "SkyLang: `WATCH cpu_usage > 80% -> alertmanager notify administrators`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:24:30.881387"
+    },
+    {
+      "id": "246aa466",
+      "lesson": "Evolved Gen 2651: Adding a new monitoring metric to track memory fragmentation, a known performance bottleneck in Pyth",
+      "source": "evolution",
+      "ts": "2026-05-11T13:24:32.604381"
+    },
+    {
+      "id": "3cf4b4a2",
+      "lesson": "The importance of proactive monitoring in maintaining system stability and performance.",
+      "source": "self",
+      "ts": "2026-05-11T13:24:32.628327"
+    },
+    {
+      "id": "0b022716",
+      "lesson": "SkyLang: `WATCH cpu_utilization > 80 -> alert_manager`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:24:54.342978"
+    },
+    {
+      "id": "3251055b",
+      "lesson": "Evolved Gen 2652: Introduce a new C-optimized function to handle high-performance mathematical computations, reducing ",
+      "source": "evolution",
+      "ts": "2026-05-11T13:24:57.092407"
+    },
+    {
+      "id": "7e32a70e",
+      "lesson": "Continuously monitoring system logs can help prevent unexpected issues and ensure optimal performance.",
+      "source": "self",
+      "ts": "2026-05-11T13:26:28.803014"
+    },
+    {
+      "id": "89e09304",
+      "lesson": "Evolved Gen 2653: Introduce a new C-optimized function to handle high-performance mathematical computations, reducing ",
+      "source": "evolution",
+      "ts": "2026-05-11T13:28:25.354194"
+    },
+    {
+      "id": "dbbc9b0d",
+      "lesson": "SkyLang: `IF cpu_utilization > 80 -> alert manager to take corrective action`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:30:16.119545"
+    },
+    {
+      "id": "380e8538",
+      "lesson": "Evolved Gen 2654: Optimize mathematical computations by utilizing NumPy's vectorized operations, reducing overhead and",
+      "source": "evolution",
+      "ts": "2026-05-11T13:30:18.947762"
+    },
+    {
+      "id": "0ee80241",
+      "lesson": "Monitoring system logs is crucial for preventing unexpected issues",
+      "source": "self",
+      "ts": "2026-05-11T13:30:18.967105"
+    },
+    {
+      "id": "fd1335ab",
+      "lesson": "SkyLang: `WATCH cpu_usage  <= 80 -> adjust_disk_space`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:30:34.179271"
+    },
+    {
+      "id": "253db3b2",
+      "lesson": "Continuous system monitoring is crucial for preventing unexpected issues",
+      "source": "self",
+      "ts": "2026-05-11T13:30:35.710550"
+    },
+    {
+      "id": "90df635a",
+      "lesson": "SkyLang: `WATCH cpu_usage <op> 80% -> alert manager`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:30:57.657821"
+    },
+    {
+      "id": "02fe54b0",
+      "lesson": "Evolved Gen 2655: Add a probabilistic early exit to the system monitoring loop to prevent unnecessary CPU utilization.",
+      "source": "evolution",
+      "ts": "2026-05-11T13:31:01.023807"
+    },
+    {
+      "id": "d94a2112",
+      "lesson": "Continuous system monitoring is crucial for preventing unexpected issues.",
+      "source": "self",
+      "ts": "2026-05-11T13:32:10.398756"
+    },
+    {
+      "id": "852ce7bc",
+      "lesson": "Evolved Gen 2656: Add a C-compiled function to calculate the system's entropy, a measure of its internal disorder and ",
+      "source": "evolution",
+      "ts": "2026-05-11T13:32:58.449135"
+    },
+    {
+      "id": "83a9d236",
+      "lesson": "Evolved Gen 2657: Add a probabilistic early exit to the system monitoring loop to prevent unnecessary CPU utilization.",
+      "source": "evolution",
+      "ts": "2026-05-11T13:33:46.191388"
+    },
+    {
+      "id": "09b9632d",
+      "lesson": "SkyLang: `IF (random(0.0, 0.1)) -> EVERY 60 -> { exit }`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:37:56.760613"
+    },
+    {
+      "id": "02b42837",
+      "lesson": "Evolved Gen 2658: Add a probabilistic early exit to the system's performance monitoring loop to prevent unnecessary ov",
+      "source": "evolution",
+      "ts": "2026-05-11T13:37:58.084679"
+    },
+    {
+      "id": "e810d4f4",
+      "lesson": "The importance of probabilistic early exit in preventing unnecessary CPU utilization.",
+      "source": "self",
+      "ts": "2026-05-11T13:37:58.106678"
+    },
+    {
+      "id": "89f04cc9",
+      "lesson": "SkyLang: `IF 1 - (RANDOM <0.2> - 1) -> DROP`",
+      "source": "skylang",
+      "ts": "2026-05-11T13:38:20.105197"
+    },
+    {
+      "id": "6b6a2e98",
+      "lesson": "Evolved Gen 2659: Introduce a probabilistic early exit to the system's periodic resource cleaning loop to prevent unne",
+      "source": "evolution",
+      "ts": "2026-05-11T13:38:22.460675"
+    }
+  ],
+  "evolutions": []
+}
