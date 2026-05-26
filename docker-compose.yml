@@ -65,6 +65,26 @@ services:
       - osone
 
 
+
+  watchdog:
+    build: ./watchdog
+    container_name: osone-watchdog
+    restart: unless-stopped
+    depends_on:
+      - skyd
+      - llama
+    env_file:
+      - .env
+    environment:
+      - SKYD_API=http://osone-skyd:8080
+      - LLAMA_URL=${LLAMA_URL:-http://llama:8080}
+    volumes:
+      - skyd-logs:/watch
+      - /mnt/user/osone-docker/skyd:/skyd-src:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    networks:
+      - osone
+
   cloudflared:
     image: cloudflare/cloudflared:2026.5.0
     container_name: osone-cloudflared
