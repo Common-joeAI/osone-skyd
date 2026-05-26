@@ -1,3 +1,4 @@
+# skyd.py — evolved via CST merge | Cache the result of `SkyLang` rule evaluation to avoid redun
 import os
 #!/usr/bin/env python3
 """
@@ -889,6 +890,19 @@ def save_state(state, decision, kb, ev):
                 "updated": datetime.now().isoformat()
             }, f, indent=2)
     except: pass
+class RuleCache:
+    def __init__(self):
+        self.cache = {}
+    def _cache_result(self, rule, result):
+        self.cache[rule] = result
+    def _get_cached_result(self, rule):
+        return self.cache.get(rule)
+    def evaluate_rule(self, rule):
+        if rule in self.cache:
+            return self._get_cached_result(rule)
+        result = self._SkyLang.evaluate_rule(rule)
+        self._cache_result(rule, result)
+        return result
 
 # ─────────────────────────────────────────────
 # MAIN
