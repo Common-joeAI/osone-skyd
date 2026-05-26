@@ -576,6 +576,31 @@ If no good proposal this cycle: {{"description": "No good proposal this cycle", 
             log.error(f"propose_self_improvement error (attempt {attempt+1}): {e}")
     return None
 
+
+# Proposal cooling-off: suppress proposals too similar to recent ones
+_proposal_cooloff_history: list[dict] = []
+_COOLOFF_CYCLES = 15
+_COOLOFF_SIM_THRESHOLD = 0.75
+
+def _check_proposal_cooloff(desc: str, cycle: int) -> tuple[bool, str]:
+    """Return (is_cooling, reason). Suppress if desc is too similar to a recent proposal."""
+    import difflib
+    global _proposal_cooloff_history
+    # Expire old entries
+    _proposal_cooloff_history = [
+        e for e in _proposal_cooloff_history
+        if cycle - e["cycle"] < _COOLOFF_CYCLES
+    ]
+    desc_lower = desc.lower().strip()
+    for entry in _proposal_cooloff_history:
+        sim = difflib.SequenceMatcher(None, desc_lower, entry["desc"]).ratio()
+        if sim >= _COOLOFF_SIM_THRESHOLD:
+            return True, f"similar to Gen {entry['gen']} proposal (sim={sim:.2f})"
+    # Not cooling — record this proposal
+    _proposal_cooloff_history.append({"desc": desc_lower, "cycle": cycle, "gen": cycle})
+    return False, ""
+
+
 def apply_self_improvement(improvement, ev):
     """Apply improvement via sandbox pipeline — test before promote, checkpoint + rollback."""
     if not improvement or improvement.get("risk") == "high":
