@@ -423,22 +423,27 @@ Output only the SkyLang rule, one line."""
 # SELF-EVOLUTION
 # ─────────────────────────────────────────────
 
-# ── Few-shot examples (real past promotions) ────────────────────
+# ── Few-shot examples (real past promotions — Gen 4902 style) ──
 _PROMOTION_EXAMPLES = [
   {
     "improvement_type": "python",
-    "description": "Cache Radarr health check result for 60s to avoid hammering the API",
-    "code_snippet": "def _radarr_health_cached(self):\n    now = time.time()\n    if now - self._radarr_check_ts < 60:\n        return self._radarr_ok\n    try:\n        r = requests.get(RADARR_URL + '/api/v3/health', timeout=5)\n        self._radarr_ok = r.status_code == 200\n    except Exception:\n        self._radarr_ok = False\n    self._radarr_check_ts = now\n    return self._radarr_ok"
+    "description": "Cache disk usage result for 30 minutes to avoid redundant subprocess calls",
+    "code_snippet": "def _cached_disk_usage(self, max_age=1800):\n    now = time.time()\n    if hasattr(self, '_disk_cache') and now - self._disk_cache['ts'] < max_age:\n        return self._disk_cache['pct']\n    try:\n        import shutil\n        total, used, free = shutil.disk_usage('/')\n        pct = round(used / total * 100, 1)\n    except Exception:\n        pct = 0.0\n    self._disk_cache = {'ts': now, 'pct': pct}\n    return pct"
   },
   {
     "improvement_type": "python",
-    "description": "Track last 10 SkyLang rule fingerprints to suppress near-duplicate writes",
-    "code_snippet": "def _is_duplicate_rule(rule_text, seen_rules, threshold=0.85):\n    import difflib\n    for seen in list(seen_rules)[-10:]:\n        if difflib.SequenceMatcher(None, rule_text, seen).ratio() >= threshold:\n            return True\n    seen_rules.append(rule_text)\n    return False"
+    "description": "Track last 10 SkyLang rule texts and skip writes when Jaccard similarity > 0.85",
+    "code_snippet": "def _skylang_is_duplicate(rule: str, history: list, threshold=0.85) -> bool:\n    toks = set(rule.lower().split())\n    for prev in history[-10:]:\n        prev_toks = set(prev.lower().split())\n        union = toks | prev_toks\n        if union and len(toks & prev_toks) / len(union) >= threshold:\n            return True\n    history.append(rule)\n    return False"
   },
   {
     "improvement_type": "python",
-    "description": "Add windowed pass_rate tracking using a deque of last 50 verdicts",
-    "code_snippet": "def windowed_pass_rate(window, maxlen=50):\n    recent = list(window)[-maxlen:]\n    return sum(recent) / max(len(recent), 1) if recent else 0.5"
+    "description": "Rate-limit Aethoria API calls to at most once per 60s using a timestamp guard",
+    "code_snippet": "def _aethoria_rate_ok(self, endpoint: str, min_gap=60) -> bool:\n    now = time.time()\n    key = f'_aet_{endpoint}_ts'\n    last = getattr(self, key, 0)\n    if now - last < min_gap:\n        return False\n    setattr(self, key, now)\n    return True"
+  },
+  {
+    "improvement_type": "python",
+    "description": "Compute Shannon entropy of action window to detect behavioral stagnation",
+    "code_snippet": "def _action_entropy(actions: list) -> float:\n    import math\n    from collections import Counter\n    if not actions: return 0.0\n    counts = Counter(actions)\n    n = len(actions)\n    entropy = -sum((c/n)*math.log2(c/n) for c in counts.values() if c > 0)\n    max_e = math.log2(len(counts)) if len(counts) > 1 else 1.0\n    return round(entropy / max_e, 3) if max_e > 0 else 0.0"
   }
 ]
 
@@ -917,6 +922,14 @@ def main():
                             if lb:
                                 best = lb[0]
                                 log.info(f"📊 Best real mutation: Gen {best['gen']} score={best['score']} — {', '.join(best.get('notes',[]))}")
+                            # Push recent verdicts into FitnessV2 windowed deque
+                            try:
+                                import skyd_sandbox as _sbw
+                                _fv = _sbw.get_fitness()
+                                for _ventry in v.get('history', v.get('verdicts', []))[-10:]:
+                                    _fv.update_pass_rate(_ventry.get('verdict','') == 'PASS')
+                                log.info(f"📊 Windowed pass_rate updated: {_fv.windowed_pass_rate():.3f} ({len(_fv._pass_window)} samples)")
+                            except Exception as _pwe: pass
                         last_checked = mtime
             except Exception as _we:
                 pass
@@ -1019,6 +1032,11 @@ IF service failed -> RESTART service
                                  if v.get('verdict','') == 'PASS'))
                     _wdog_rate = min(1.0, _pass / max(_tot, 1))
                 except: pass
+                # Wire windowed pass_rate — feed each verdict into FitnessV2 deque
+                try:
+                    _last_verdict = _wv.get('last_verdict', {}).get('verdict', '') if '_wv' in dir() else ''
+                    _sb.get_fitness().update_pass_rate(_last_verdict == 'PASS')
+                except Exception: pass
                 _fit2, _stag2, _frec = _sb.fitness_tick(action, _skyd_src2, kb, _wdog_rate)
                 if _stag2 and cycle % 10 == 0:
                     log.info(f"⚠️  FitnessV2 STAGNANT {_sb.get_fitness()._stagnant_ctr} cycles — applying pressure to evolution")

@@ -585,7 +585,21 @@ class FitnessV2:
 
         # Action diversity
         actions = list(self._action_window)
-        unique_actions = len(set(actions)) / max(len(actions), 1)
+        # Raw diversity ratio
+        _unique_ratio = len(set(actions)) / max(len(actions), 1)
+        # Entropy bonus: penalize when one action dominates >40% of window
+        from collections import Counter as _Counter
+        import math as _math
+        _counts = _Counter(actions)
+        _n = max(len(actions), 1)
+        _top_frac = _counts.most_common(1)[0][1] / _n if _counts else 0
+        # Shannon entropy normalized to [0,1]
+        _entropy = -sum((c/_n) * _math.log2(c/_n) for c in _counts.values() if c > 0)
+        _max_entropy = _math.log2(max(len(_counts), 1)) if len(_counts) > 1 else 1.0
+        _norm_entropy = _entropy / _max_entropy if _max_entropy > 0 else 0.5
+        # Blend: 60% ratio + 40% entropy, then penalize if top action > 40%
+        _dominance_penalty = max(0.0, _top_frac - 0.4) * 0.5
+        unique_actions = min(1.0, 0.6 * _unique_ratio + 0.4 * _norm_entropy - _dominance_penalty)
 
         # Watchdog pass rate — windowed (last 50) preferred
         _windowed = self.windowed_pass_rate()
