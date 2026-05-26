@@ -156,6 +156,118 @@ def _ast_merge(original_src: str, snippet: str, description: str = "") -> tuple:
         return None, f"ast.unparse failed: {e}"
 
 
+
+# ══════════════════════════════════════════════════════════════════
+# IMPROVEMENT 2: libcst-based merge (comment/formatting preserving)
+# ══════════════════════════════════════════════════════════════════
+try:
+    import libcst as cst
+    _LIBCST_AVAILABLE = True
+except ImportError:
+    _LIBCST_AVAILABLE = False
+
+class _CSTFunctionReplacer(cst.CSTTransformer if _LIBCST_AVAILABLE else object):
+    """Replace FunctionDef/ClassDef by name, preserving comments and decorators."""
+    def __init__(self, replacement_map, protected):
+        self.replacement_map = replacement_map
+        self.protected       = protected
+        self.replaced        = set()
+
+    def _try_replace(self, node):
+        name = getattr(node, "name", None)
+        if isinstance(name, cst.Name) if _LIBCST_AVAILABLE else False:
+            name = name.value
+        if not name or name in self.protected or name not in self.replacement_map:
+            return node
+        new_node = self.replacement_map[name]
+        if hasattr(node, "leading_lines") and hasattr(new_node, "with_changes"):
+            new_node = new_node.with_changes(leading_lines=node.leading_lines)
+        self.replaced.add(name)
+        return new_node
+
+    def leave_FunctionDef(self, original_node, updated_node):
+        return self._try_replace(updated_node)
+
+    def leave_AsyncFunctionDef(self, original_node, updated_node):
+        return self._try_replace(updated_node)
+
+    def leave_ClassDef(self, original_node, updated_node):
+        return self._try_replace(updated_node)
+
+
+def _cst_merge(original_src: str, snippet: str, description: str = "") -> tuple:
+    """libcst merge — preserves comments, formatting, decorators, type hints."""
+    if not _LIBCST_AVAILABLE:
+        return _ast_merge(original_src, snippet, description)
+    try:
+        orig_tree    = cst.parse_module(original_src)
+        snippet_tree = cst.parse_module(snippet)
+    except Exception as e:
+        log.warning(f"libcst parse error ({e}), falling back to AST merge")
+        return _ast_merge(original_src, snippet, description)
+
+    replacement_map = {}
+    append_stmts    = []
+    orig_names = {
+        (n.name.value if isinstance(n.name, cst.Name) else str(n.name))
+        for n in orig_tree.body
+        if isinstance(n, (cst.FunctionDef, cst.AsyncFunctionDef, cst.ClassDef))
+    }
+
+    for stmt in snippet_tree.body:
+        if isinstance(stmt, cst.SimpleStatementLine):
+            append_stmts.append(stmt); continue
+        name = None
+        if isinstance(stmt, (cst.FunctionDef, cst.AsyncFunctionDef)):
+            name = stmt.name.value if isinstance(stmt.name, cst.Name) else str(stmt.name)
+        elif isinstance(stmt, cst.ClassDef):
+            name = stmt.name.value if isinstance(stmt.name, cst.Name) else str(stmt.name)
+        if name:
+            if name in PROTECTED_NAMES:
+                return None, f"blocked: overwrites protected '{name}'"
+            if name in orig_names:
+                replacement_map[name] = stmt
+            else:
+                append_stmts.append(stmt)
+        else:
+            append_stmts.append(stmt)
+
+    if replacement_map:
+        transformer = _CSTFunctionReplacer(replacement_map, PROTECTED_NAMES)
+        orig_tree   = orig_tree.visit(transformer)
+        log.info(f"  🔄 CST replaced: {list(transformer.replaced)}")
+
+    if append_stmts:
+        body = list(orig_tree.body)
+        main_idx = next(
+            (i for i, n in enumerate(body)
+             if isinstance(n, cst.FunctionDef) and
+             (n.name.value if isinstance(n.name, cst.Name) else str(n.name)) == "main"),
+            len(body)
+        )
+        for offset, node in enumerate(append_stmts):
+            body.insert(main_idx + offset, node)
+        orig_tree = orig_tree.with_changes(body=body)
+        log.info(f"  ➕ CST appended {len(append_stmts)} node(s)")
+
+    try:
+        merged = orig_tree.code
+        return f"# skyd.py — evolved via CST merge | {description[:60]}\n" + merged, "ok (libcst)"
+    except Exception as e:
+        log.warning(f"libcst codegen failed ({e}), falling back to AST")
+        return _ast_merge(original_src, snippet, description)
+
+
+def smart_merge(original_src: str, snippet: str, description: str = "") -> tuple:
+    """Unified entry point: CST (comment-preserving) with AST fallback."""
+    if _LIBCST_AVAILABLE:
+        result, reason = _cst_merge(original_src, snippet, description)
+        if result:
+            return result, reason
+        log.warning(f"CST merge failed ({reason}), trying AST")
+    return _ast_merge(original_src, snippet, description)
+
+
 # ══════════════════════════════════════════════════════════════════
 # PART 1 — SANDBOX + ROLLBACK
 # ══════════════════════════════════════════════════════════════════
@@ -321,6 +433,17 @@ print('PASS:functions=' + str(len(defined)))
         new_fitness = self._default_fitness(merged, growth_signal=growth_signal)
         delta       = new_fitness - current_fitness
 
+        # Guard: never promote if code shrinks by more than 5% (catches bad replacements)
+        shrink_pct = (pre_lines - post_lines) / max(pre_lines, 1)
+        if shrink_pct > 0.05:
+            self.rollback(backup, generation, reason=f"excessive shrink {shrink_pct:.1%} ({pre_lines}→{post_lines} lines)")
+            self._log_sandbox_event(generation, "REVERT_SHRINK",
+                                    pre_lines=pre_lines, post_lines=post_lines,
+                                    shrink_pct=round(shrink_pct, 3))
+            log.warning(f"⚠️  Shrink guard: {pre_lines}→{post_lines} lines ({shrink_pct:.1%}) — reverted")
+            self._stagnant += 1
+            return False, current_fitness, f"shrink guard: {shrink_pct:.1%} reduction"
+
         if delta > -0.05:
             shutil.copy2(CANDIDATE, SKYD_PATH)
             self._log_sandbox_event(generation, "PROMOTE",
@@ -334,6 +457,9 @@ print('PASS:functions=' + str(len(defined)))
                 fv = get_fitness()
                 fv._recent_promotions += 1
                 fv._persist_promotion_count()
+                _pt = set(re.findall(r'\b\w{4,}\b', snippet or ""))
+                FitnessV2._recent_promotion_hashes.append(_pt)
+                FitnessV2._recent_promotion_hashes = FitnessV2._recent_promotion_hashes[-10:]
             except:
                 pass
             if self._best is None or new_fitness > self._best:
@@ -409,6 +535,9 @@ class FitnessV2:
     def update_actions(self, action):
         self._action_window.append(action or "none")
 
+    # IMPROVEMENT 3: promotion token sets for novelty_dist
+    _recent_promotion_hashes: list = []
+
     def calculate(self, src, kb, watchdog_pass_rate,
                   lessons_recent, lessons_older,
                   growth_signal=None):
@@ -440,13 +569,44 @@ class FitnessV2:
         # Promotion bonus
         prom_bonus = min(1.0, self._recent_promotions / 3.0)
 
+        # IMPROVEMENT 3a: novelty_dist — Jaccard distance from recent promotions
+        if FitnessV2._recent_promotion_hashes:
+            snip_tokens = set(re.findall(r'\b\w{4,}\b', src or ""))
+            sims = []
+            for ph in FitnessV2._recent_promotion_hashes[-10:]:
+                if snip_tokens and ph:
+                    sims.append(len(snip_tokens & ph) / len(snip_tokens | ph))
+            novelty_dist = 1.0 - (sum(sims) / len(sims)) if sims else 0.7
+        else:
+            novelty_dist = 0.7
+
+        # IMPROVEMENT 3b: promotion_streak
+        streak = min(1.0, self._recent_promotions / 5.0)
+
+        # IMPROVEMENT 3c: behavioral_diversity — unique SkyLang action verbs
+        try:
+            lang_files   = list(pathlib.Path(LANG_DIR).glob("*.sky"))
+            action_verbs = set()
+            for lf in lang_files[-20:]:
+                for line in lf.read_text(errors="ignore").splitlines():
+                    parts = line.strip().split()
+                    if parts and parts[0] in ("WATCH","EVERY","IF","BENCH"):
+                        arrow_idx = next((i for i,p in enumerate(parts) if p=="->"), -1)
+                        if 0 < arrow_idx + 1 < len(parts):
+                            action_verbs.add(parts[arrow_idx+1].upper()[:12])
+            behavioral_diversity = min(1.0, len(action_verbs) / 8.0)
+        except Exception:
+            behavioral_diversity = 0.5
+
         fitness = round(
-            0.20 * unique_actions +
-            0.15 * pass_rate +
-            0.25 * novelty +
-            0.15 * growth_signal +
-            0.10 * (0.0 if self._stagnant_ctr >= self._stagnant_thresh else 1.0) +
-            0.15 * prom_bonus,
+            0.18 * unique_actions       +
+            0.15 * pass_rate            +
+            0.20 * novelty              +
+            0.18 * novelty_dist         +
+            0.12 * growth_signal        +
+            0.08 * (0.0 if self._stagnant_ctr >= self._stagnant_thresh else 1.0) +
+            0.05 * streak               +
+            0.04 * behavioral_diversity,
             4
         )
 

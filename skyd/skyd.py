@@ -423,67 +423,137 @@ Output only the SkyLang rule, one line."""
 # SELF-EVOLUTION
 # ─────────────────────────────────────────────
 
+# ── Few-shot examples for mutation proposals ────────────────────
+_PROMOTION_EXAMPLES = [
+    {
+        "improvement_type": "python",
+        "description": "Add retry logic to Radarr health check",
+        "code_snippet": "def check_radarr_health():\n    for attempt in range(3):\n        try:\n            r = requests.get(RADARR_URL + '/api/v3/health', timeout=5)\n            return r.status_code == 200\n        except Exception:\n            time.sleep(2)\n    return False",
+        "risk": "low"
+    },
+    {
+        "improvement_type": "python",
+        "description": "Cache system state fingerprint to skip redundant LLM calls",
+        "code_snippet": "def _state_fingerprint(state):\n    key = {'cpu': int(state.get('cpu_percent',0)//10)}\n    return hashlib.md5(str(key).encode()).hexdigest()[:12]",
+        "risk": "low"
+    },
+    {
+        "improvement_type": "skylang",
+        "description": "Drop cache when memory exceeds 85%",
+        "code_snippet": "WATCH mem_usage > 85 -> DROP_CACHE",
+        "risk": "low"
+    },
+]
+
+def _pre_validate_snippet(snippet: str, itype: str) -> tuple:
+    """Cheap local pre-check before hitting the sandbox."""
+    if not snippet or len(snippet.strip()) < 10:
+        return False, "snippet too short"
+    c_markers   = ['#include', 'int main(', ' -> {', 'printf(', 'malloc(']
+    pseudo_markers = ['# pseudocode', 'TODO:', '<your code here>', 'pass  # implement']
+    for m in c_markers:
+        if m in snippet:
+            return False, f"C code marker: {m!r}"
+    for m in pseudo_markers:
+        if m.lower() in snippet.lower():
+            return False, f"pseudocode marker: {m!r}"
+    if any(t in itype for t in ("python", "new_capability", "new_function", "refactor")):
+        try:
+            compile(snippet, "<snippet>", "exec")
+        except SyntaxError as e:
+            return False, f"SyntaxError: {e}"
+    import ast as _ast
+    try:
+        tree = _ast.parse(snippet)
+        has_code = any(isinstance(n, (_ast.FunctionDef, _ast.AsyncFunctionDef,
+                                       _ast.ClassDef, _ast.Assign, _ast.AnnAssign,
+                                       _ast.AugAssign, _ast.Expr))
+                       for n in tree.body)
+        if not has_code:
+            return False, "no executable statements"
+    except SyntaxError:
+        pass
+    return True, "ok"
+
+
 def propose_self_improvement(ev, kb, observation):
-    """Ask LLM to propose an improvement to skyd's own code"""
+    """Strict prompt + pre-validation before sandbox (Improvement 1)."""
     recent_lessons = [l["lesson"] for l in kb["lessons"][-10:]]
     gen = ev["generation"]
-    
-    prompt = f"""You are Sky-D v0.{3+gen}, OS-1's Intelligent System Co-Pilot and Media Guardian.
-Current generation: {gen}
-Mission: Become the best autonomous Linux + Docker + media server manager in existence.
-Recent lessons: {json.dumps(recent_lessons[-5:])}
-Current opportunity: {observation}
 
-Propose ONE specific, measurable improvement that serves the core mission:
-1. System stability/performance (CPU, RAM, thermals, Docker health)
-2. Service reliability (Plex, Sonarr, Radarr, Prowlarr crash prevention)
-3. Media library intelligence (metadata, quality, duplicates)
-4. Self-healing automation
-
-Rules:
-- Only improve what serves the mission
-- Never break what is already working
-- Document what you learned in new_lesson
-- Be specific: name the function, metric, or behavior you are improving"""
     _stag_pressure = _sb.get_fitness().stagnation_pressure() if _SANDBOX_ENABLED else 0
-    _stag_hint = f"\nWARNING: You have been stagnant for {_sb.get_fitness()._stagnant_ctr} cycles. Propose something genuinely novel, not another caching layer." if _stag_pressure > 0.5 else ""
-    prompt = f"""You are skyd v0.{3+gen}, an AI daemon that can rewrite itself.
-Current generation: {gen}
-Recent observations: {json.dumps(recent_lessons[-5:])}
-Current issue/opportunity: {observation}
+    _stag_hint = (
+        f"\n\nWARNING: stagnant for {_sb.get_fitness()._stagnant_ctr} cycles. "
+        "Propose something genuinely different."
+    ) if _stag_pressure > 0.5 else ""
 
-Propose ONE specific improvement to your own Python code.
-This could be:
-- A new optimization strategy
-- A new monitoring metric
-- A new self-healing behavior
-- A new SkyLang rule
-- A performance-critical function rewritten in C/ASM
+    examples_block = "\n".join(
+        f"Example {i+1}:\n{json.dumps(ex, indent=2)}"
+        for i, ex in enumerate(_PROMOTION_EXAMPLES)
+    )
 
-Respond in JSON:
+    prompt = f"""You are skyd v0.{3+gen}, a self-evolving Python AI daemon.
+Generation: {gen} | Observation: {observation}
+Recent lessons: {json.dumps(recent_lessons[-3:])}
+
+Propose ONE improvement to your Python source code.
+
+STRICT RULES (violations = automatic rejection):
+1. code_snippet must be valid Python — no C, no pseudocode, no placeholders
+2. Must contain at least one complete function def or assignment
+3. improvement_type: python, skylang, or new_capability only
+4. No TODO, no "pass  # implement", no "..."
+
+Successful past examples:
+{examples_block}
+
+Respond with ONLY valid JSON — no markdown fences, no extra text:
 {{
-  "improvement_type": "python|c_asm|skylang|new_capability",
-  "description": "what and why",
-  "code_snippet": "the actual code or rule to add/replace",
-  "expected_benefit": "what gets better",
-  "risk": "low|medium|high"
+  "improvement_type": "python",
+  "description": "what function/behavior and why (one sentence)",
+  "code_snippet": "complete valid Python only",
+  "expected_benefit": "specific measurable improvement",
+  "risk": "low",
+  "new_lesson": "one thing learned"
 }}{_stag_hint}"""
-    
-    try:
-        r = requests.post(LLAMA_URL, json={"model": MODEL, "messages": [{"role": "user", "content": prompt}], "max_tokens": 512, "temperature": 0.7}, timeout=60)
-        resp = r.json()["choices"][0]["message"]["content"].strip()
-        if "```" in resp:
-            resp = resp.split("```")[1].replace("json","").strip()
-        # Strip control chars + json_repair fallback
-        resp = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', resp)
+
+    for attempt in range(2):
         try:
-            return json.loads(resp)
-        except json.JSONDecodeError:
-            from json_repair import repair_json
-            return json.loads(repair_json(resp))
-    except Exception as e:
-        log.error(f"Self-improve parse error: {e}")
-        return None
+            r = requests.post(LLAMA_URL, json={
+                "model": MODEL,
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 600,
+                "temperature": 0.5 if attempt == 0 else 0.3
+            }, timeout=60)
+            resp = r.json()["choices"][0]["message"]["content"].strip()
+            if "```" in resp:
+                parts = resp.split("```")
+                resp  = parts[1].replace("json","").strip() if len(parts) > 1 else parts[0]
+            resp = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', resp)
+            try:
+                proposal = json.loads(resp)
+            except json.JSONDecodeError:
+                from json_repair import repair_json
+                proposal = json.loads(repair_json(resp))
+
+            itype   = proposal.get("improvement_type", "")
+            snippet = proposal.get("code_snippet", "")
+            ok, reason = _pre_validate_snippet(snippet, itype)
+            if not ok:
+                log.warning(f"⚠️  Pre-validation rejected (attempt {attempt+1}): {reason}")
+                if attempt == 0:
+                    prompt += f"\n\nPrevious attempt REJECTED: {reason}. Fix it now."
+                    continue
+                return None
+
+            lesson = proposal.get("new_lesson", "")
+            if lesson:
+                _kb = load_kb(); _kb = learn(_kb, lesson, "self-propose"); save_kb(_kb)
+            log.info(f"✅ Pre-validation passed [{itype}]: {proposal.get('description','')[:60]}")
+            return proposal
+        except Exception as e:
+            log.error(f"propose_self_improvement error (attempt {attempt+1}): {e}")
+    return None
 
 def apply_self_improvement(improvement, ev):
     """Apply improvement via sandbox pipeline — test before promote, checkpoint + rollback."""
