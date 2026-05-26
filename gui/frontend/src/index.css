@@ -274,3 +274,5 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a0f; colo
   border-radius: 6px;
   border: 1px solid rgba(248,113,113,0.2);
 }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }

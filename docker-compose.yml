@@ -27,7 +27,8 @@ services:
     volumes:
       - skyd-lang:/usr/local/skyd/lang
       - skyd-logs:/var/log
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /mnt/user/Data/Movies:/mnt/user/Data/Movies:ro
     networks:
       - osone
     pid: host
@@ -41,15 +42,28 @@ services:
       - llama
     environment:
       - LLAMA_URL=http://llama:8080
+      - GROQ_API_KEY=${GROQ_API_KEY}
     volumes:
       - /etc/osone:/etc/osone
       - skyd-logs:/var/log/skyd:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
     ports:
       - "8000:8000"
     networks:
       - osone
 
+
+  cloudflared:
+    image: cloudflare/cloudflared:2026.5.0
+    container_name: osone-cloudflared
+    restart: unless-stopped
+    volumes:
+      - /mnt/user/osone-docker/cloudflared:/etc/cloudflared:ro
+    extra_hosts:
+      - "localhost:172.22.0.1"
+    command: tunnel --no-autoupdate --protocol http2 --config /etc/cloudflared/config.yml run --token eyJhIjoiYWVmMTZlY2Y5ZjA2MjBmZDkxYmZlYTAwNzkwYjczYmEiLCJ0IjoiZjQ3ZjkyOGItZmJiMi00ZTNlLWJhNjItOGI2NDYzYTk0Njk0IiwicyI6Ik9HTmxOVFk0WmpFdE5EUmxZeTAwTmpkaUxXRmlNRFF0TW1Sak1qUTRPV1U1TkRrMSJ9
+    networks:
+      - osone
   landing:
     image: nginx:alpine
     container_name: osone-landing

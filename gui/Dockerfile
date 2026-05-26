@@ -6,9 +6,10 @@ COPY frontend/ ./
 RUN npm run build
 
 FROM python:3.11-slim
-RUN pip install fastapi uvicorn[standard] httpx psutil pyjwt bcrypt python-multipart websockets
+RUN pip install fastapi uvicorn[standard] httpx psutil pyjwt bcrypt python-multipart websockets json-repair
 WORKDIR /app
 COPY server.py .
+COPY skyd_tools.py .
 COPY agent/ ./agent/
 COPY --from=builder /app/dist ./frontend/dist
 EXPOSE 8000
