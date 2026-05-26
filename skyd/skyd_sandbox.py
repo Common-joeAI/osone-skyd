@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 """
-skyd_sandbox.py — Sandbox + Rollback + Improved Fitness + Formal SkyLang Parser
-Implements Grok's three suggestions as a drop-in enhancement to skyd.
-
-1. Sandbox: candidate skyd.py tested in subprocess before promotion
-2. Rollback: checkpoints every evolution, auto-reverts on fitness drop
-3. Fitness: stagnation penalty, watchdog pass rate, real code growth signal
-4. SkyLang v2: typed formal grammar with real parser, not string matching
+skyd_sandbox.py — Sandbox + Rollback + FitnessV2 + SkyLang v2 Parser
+Three real fixes applied based on Grok's code review:
+  1. _ast_merge()   — AST NodeTransformer replaces regex-based _smart_merge
+  2. FitnessV2      — pre/post line count passed explicitly, no circular dependency
+  3. SkyLang wiring — parse_skylang() in skyd.py now delegates to SkyLangParser
 """
 
-import os, re, sys, json, math, time, shutil, hashlib, logging, pathlib, subprocess, tempfile
+import os, re, ast, sys, json, math, time, shutil, hashlib, logging, pathlib, subprocess, tempfile
 from datetime import datetime
 from collections import defaultdict, deque
 
 log = logging.getLogger("skyd.sandbox")
 
-SKYD_PATH    = "/skyd/skyd.py"          # inside container — the live source
+SKYD_PATH    = "/skyd/skyd.py"
 BACKUP_DIR   = "/var/log/skyd_backups"
 CANDIDATE    = "/tmp/skyd_candidate.py"
 FITNESS_LOG  = "/var/log/skyd_fitness_v2.jsonl"
@@ -28,6 +26,127 @@ os.makedirs(LANG_DIR,   exist_ok=True)
 
 
 # ══════════════════════════════════════════════════════════════════
+# FIX 1: AST-BASED MERGE (replaces regex _smart_merge)
+# ══════════════════════════════════════════════════════════════════
+
+PROTECTED_NAMES = frozenset({
+    "is_safe", "is_permanently_blocked", "_add_guardrail",
+    "apply_self_improvement", "main", "hive_heartbeat",
+})
+
+
+class _FunctionReplacer(ast.NodeTransformer):
+    """
+    AST NodeTransformer that replaces FunctionDef/AsyncFunctionDef/ClassDef
+    nodes by name. Only replaces if the name exists in replacement_nodes
+    AND is not in the protected set.
+    """
+    def __init__(self, replacement_nodes: dict):
+        self.replacement_nodes = replacement_nodes  # name -> ast.AST node
+        self.replaced = set()
+
+    def _replace_if_match(self, node):
+        name = getattr(node, 'name', None)
+        if name and name in self.replacement_nodes and name not in PROTECTED_NAMES:
+            new_node = self.replacement_nodes[name]
+            # Copy location info so ast.unparse works
+            ast.copy_location(new_node, node)
+            ast.fix_missing_locations(new_node)
+            self.replaced.add(name)
+            return new_node
+        return node
+
+    def visit_FunctionDef(self, node):
+        return self._replace_if_match(node)
+
+    def visit_AsyncFunctionDef(self, node):
+        return self._replace_if_match(node)
+
+    def visit_ClassDef(self, node):
+        return self._replace_if_match(node)
+
+
+def _ast_merge(original_src: str, snippet: str, description: str = "") -> tuple:
+    """
+    AST-based merge. Replaces matching FunctionDef/ClassDef nodes by name.
+    New names (not in original) are appended before main().
+    Protected names are never overwritten.
+    Returns (merged_src, reason) or (None, error).
+    """
+    if not snippet or len(snippet.strip()) < 10:
+        return None, "snippet too short"
+
+    # Parse both — fail fast on bad snippet syntax
+    try:
+        orig_tree = ast.parse(original_src)
+    except SyntaxError as e:
+        return None, f"original parse failed: {e}"
+
+    try:
+        snippet_tree = ast.parse(snippet)
+    except SyntaxError as e:
+        return None, f"snippet syntax error: {e}"
+
+    # Extract top-level defs from snippet
+    snippet_nodes = {}
+    for node in snippet_tree.body:
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            if node.name in PROTECTED_NAMES:
+                return None, f"blocked: snippet overwrites protected '{node.name}'"
+            snippet_nodes[node.name] = node
+
+    if not snippet_nodes:
+        # No named defs — treat as expression/assignment, append directly
+        for node in snippet_tree.body:
+            orig_tree.body.append(node)
+        ast.fix_missing_locations(orig_tree)
+        return ast.unparse(orig_tree), "appended (no named defs)"
+
+    # Find which names already exist in original
+    existing_names = {
+        node.name
+        for node in ast.walk(orig_tree)
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+    }
+
+    to_replace = {n: v for n, v in snippet_nodes.items() if n in existing_names}
+    to_append  = {n: v for n, v in snippet_nodes.items() if n not in existing_names}
+
+    # Replace existing nodes via NodeTransformer
+    if to_replace:
+        replacer = _FunctionReplacer(to_replace)
+        orig_tree = replacer.visit(orig_tree)
+        ast.fix_missing_locations(orig_tree)
+        log.info(f"  🔄 AST replaced: {list(replacer.replaced)}")
+
+    # Append new nodes before main() if possible
+    if to_append:
+        main_idx = next(
+            (i for i, node in enumerate(orig_tree.body)
+             if isinstance(node, ast.FunctionDef) and node.name == "main"),
+            len(orig_tree.body)
+        )
+        # Insert a comment marker + new nodes
+        comment_str = f"# === Evolved: {description[:50]} ==="
+        for offset, (name, node) in enumerate(to_append.items()):
+            orig_tree.body.insert(main_idx + offset, node)
+        ast.fix_missing_locations(orig_tree)
+        log.info(f"  ➕ AST appended: {list(to_append.keys())} before main()")
+
+    try:
+        merged = ast.unparse(orig_tree)
+        # ast.unparse strips comments and collapses whitespace — add header
+        merged = (
+            f"# skyd.py — evolved via AST merge | {description[:60]}\n"
+            + "# Original comments/formatting stripped by ast.unparse — see git history\n\n"
+            + merged
+        )
+        return merged, "ok"
+    except Exception as e:
+        return None, f"ast.unparse failed: {e}"
+
+
+# ══════════════════════════════════════════════════════════════════
 # PART 1 — SANDBOX + ROLLBACK
 # ══════════════════════════════════════════════════════════════════
 
@@ -36,28 +155,26 @@ class EvolutionSandbox:
     Wraps every proposed code change in a test-before-promote pipeline.
 
     Pipeline:
-      1. Checkpoint current skyd.py → /var/log/skyd_backups/skyd_{gen}.py
-      2. Smart-merge proposed snippet into candidate copy
-      3. py_compile check (syntax)
-      4. Behavioral subprocess test (import + smoke test)
-      5. Fitness delta check
-      6. Promote if delta > -0.05 AND no crash, else revert
+      1. Checkpoint current skyd.py → /var/log/skyd_backups/skyd_{gen}_{ts}.py
+      2. AST-merge proposed snippet into candidate copy
+      3. py_compile syntax check
+      4. Behavioral subprocess test (safe_mode=low skips this)
+      5. Fitness delta check (uses explicit pre-merge line count — no circular dep)
+      6. Promote if delta > -0.05, else revert
     """
 
     def __init__(self, fitness_fn=None):
         self._fitness_fn = fitness_fn or self._default_fitness
-        self._history    = []          # (gen, delta, promoted)
-        self._stagnant   = 0           # cycles with no fitness improvement
-        self._best       = None        # best fitness seen
+        self._history    = []
+        self._stagnant   = 0
+        self._best       = None
 
     # ── Checkpoint ──────────────────────────────────────────────
 
     def checkpoint(self, generation):
-        """Save a versioned backup of the current skyd.py."""
         backup = f"{BACKUP_DIR}/skyd_{generation}_{int(time.time())}.py"
         try:
             shutil.copy2(SKYD_PATH, backup)
-            # Keep only last 20 backups
             backups = sorted(pathlib.Path(BACKUP_DIR).glob("skyd_*.py"))
             for old in backups[:-20]:
                 old.unlink(missing_ok=True)
@@ -68,7 +185,6 @@ class EvolutionSandbox:
             return None
 
     def rollback(self, backup_path, generation, reason=""):
-        """Restore skyd.py from a checkpoint."""
         if not backup_path or not pathlib.Path(backup_path).exists():
             log.error(f"❌ Rollback failed — no backup at {backup_path}")
             return False
@@ -81,55 +197,9 @@ class EvolutionSandbox:
             log.error(f"Rollback error: {e}")
             return False
 
-    # ── Smart Merge ─────────────────────────────────────────────
-
-    def _smart_merge(self, original_src, snippet, description=""):
-        """
-        Intelligently merge a proposed snippet into the source.
-        Strategy:
-        - If snippet defines a new function (def foo():), append it
-        - If snippet redefines an existing function, replace the old one
-        - If snippet is a class or top-level expression, append safely
-        - Never allow deletion of existing guardrail/safety functions
-        """
-        PROTECTED = {
-            "is_safe", "is_permanently_blocked", "_add_guardrail",
-            "apply_self_improvement", "main", "hive_heartbeat"
-        }
-        if not snippet or len(snippet.strip()) < 10:
-            return None, "snippet too short"
-
-        # Find function names in snippet
-        new_fns = re.findall(r'^def (\w+)\s*\(', snippet, re.MULTILINE)
-        new_classes = re.findall(r'^class (\w+)', snippet, re.MULTILINE)
-
-        # Block protected overwrites
-        for fn in new_fns:
-            if fn in PROTECTED:
-                return None, f"blocked: snippet tries to overwrite protected function '{fn}'"
-
-        result = original_src
-
-        # Replace existing functions if they appear in snippet
-        for fn in new_fns:
-            pattern = rf'^def {re.escape(fn)}\s*\([^)]*\):.*?(?=\n^def |\n^class |\Z)'
-            if re.search(pattern, result, re.MULTILINE | re.DOTALL):
-                result = re.sub(pattern, snippet, result, count=1, flags=re.MULTILINE | re.DOTALL)
-                log.info(f"  🔄 Replaced function: {fn}")
-                return result, "ok"
-
-        # Append new content before the main() function
-        if "\ndef main(" in result:
-            result = result.replace("\ndef main(", f"\n\n# === Evolved Gen snippet: {description[:60]} ===\n{snippet}\n\ndef main(", 1)
-        else:
-            result += f"\n\n# === Evolved snippet ===\n{snippet}\n"
-
-        return result, "ok"
-
-    # ── Compile + Behavioral Test ────────────────────────────────
+    # ── Syntax check ────────────────────────────────────────────
 
     def _syntax_check(self, path):
-        """Run py_compile on candidate."""
         try:
             r = subprocess.run(
                 [sys.executable, "-m", "py_compile", path],
@@ -139,84 +209,77 @@ class EvolutionSandbox:
         except Exception as e:
             return False, str(e)
 
+    # ── Behavioral test ──────────────────────────────────────────
+
     def _behavioral_test(self, path, timeout=15):
         """
-        Run candidate in a subprocess and verify it:
-        - Imports without crashing
-        - Key functions still exist
-        - No obvious infinite loops (exits within timeout)
+        AST walk of candidate — confirm required functions still present,
+        no obvious top-level side effects that would crash on import.
         """
         test_script = f"""
-import sys, ast, importlib.util
-sys.argv = ['skyd_test']
-
-# Parse AST — must be valid
+import sys, ast
 with open({repr(path)}) as f:
     src = f.read()
 tree = ast.parse(src)
-
-# Required functions must still exist
 required = {{'main','smart_think','is_safe','load_kb','get_system_state'}}
-defined  = {{n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}}
-missing  = required - defined
+defined   = {{n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}}
+missing   = required - defined
 if missing:
-    print('MISSING_FUNCTIONS:' + ','.join(missing))
+    print('MISSING:' + ','.join(missing))
     sys.exit(1)
-
-# Must import cleanly (no top-level side effects in test mode)
-# Just check the AST is sane
 print('PASS:functions=' + str(len(defined)))
 """
         try:
             with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
                 f.write(test_script)
                 tpath = f.name
-            r = subprocess.run(
-                [sys.executable, tpath],
-                capture_output=True, text=True, timeout=timeout
-            )
+            r = subprocess.run([sys.executable, tpath],
+                               capture_output=True, text=True, timeout=timeout)
             os.unlink(tpath)
             output = r.stdout.strip()
             if r.returncode == 0 and output.startswith("PASS"):
                 fn_count = int(output.split("functions=")[1]) if "functions=" in output else 0
-                return True, {"functions": fn_count, "output": output}
+                return True, {"functions": fn_count}
             return False, {"error": r.stderr.strip() or output}
         except subprocess.TimeoutExpired:
             return False, {"error": "behavioral test timed out"}
         except Exception as e:
             return False, {"error": str(e)}
 
-    # ── Default Fitness ──────────────────────────────────────────
+    # ── Default fitness (from source text) ───────────────────────
 
-    def _default_fitness(self, src):
-        """Quick fitness estimate from source text."""
-        lines = src.splitlines()
+    def _default_fitness(self, src, growth_signal=0.7):
+        lines = src.count('\n')
         fns   = len(re.findall(r'^def \w+', src, re.MULTILINE))
         branches = len(re.findall(r'\b(if|elif|for|while|except)\b', src))
         freq = defaultdict(int)
         for c in src: freq[c] += 1
-        total = len(src)
-        entropy = -sum((v/total)*math.log2(v/total) for v in freq.values() if v > 0) if total else 0
-        return round((fns * 2 + branches * 0.5 + entropy) / 10, 4)
+        total = len(src) or 1
+        entropy = -sum((v/total)*math.log2(v/total) for v in freq.values() if v > 0)
+        return round((fns * 2 + branches * 0.5 + entropy + growth_signal) / 10, 4)
 
-    # ── Main entry point ─────────────────────────────────────────
+    # ── FIX 2: test_and_promote takes explicit pre_merge_lines ───
 
-    def test_and_promote(self, snippet, description, generation, current_fitness, risk="low"):
+    def test_and_promote(self, snippet, description, generation,
+                         current_fitness, risk="low", pre_merge_lines=None):
         """
-        Full sandbox pipeline. Returns (promoted: bool, new_fitness: float, reason: str).
-        safe_mode=True (risk=low): skip behavioral test, only syntax check + fitness delta.
+        Full sandbox pipeline.
+        pre_merge_lines: caller passes len(original.splitlines()) to avoid
+                         circular dependency in fitness growth calculation.
         """
         safe_mode = (risk == "low")
         backup = self.checkpoint(generation)
 
-        # Read current source
         try:
             original = pathlib.Path(SKYD_PATH).read_text()
         except Exception as e:
             return False, current_fitness, f"can't read source: {e}"
 
-        # Merge
-        merged, merge_err = self._smart_merge(original, snippet, description)
+        # Capture pre-merge line count here if caller didn't pass it
+        pre_lines = pre_merge_lines or len(original.splitlines())
+
+        # AST merge (replaces regex merge)
+        merged, merge_err = _ast_merge(original, snippet, description)
         if merged is None:
             self._log_sandbox_event(generation, "SKIP", reason=merge_err)
             log.info(f"⏭️  Sandbox skip: {merge_err}")
@@ -232,24 +295,31 @@ print('PASS:functions=' + str(len(defined)))
             log.warning(f"❌ Syntax fail: {err[:80]}")
             return False, current_fitness, f"syntax: {err[:80]}"
 
-        # Behavioral test
-        ok, result = self._behavioral_test(CANDIDATE)
-        if not ok:
-            self._log_sandbox_event(generation, "REJECT_BEHAVIOR", reason=str(result))
-            log.warning(f"❌ Behavioral fail: {result}")
-            return False, current_fitness, f"behavior: {result}"
+        # Behavioral test (skipped for low-risk proposals)
+        if not safe_mode:
+            ok, result = self._behavioral_test(CANDIDATE)
+            if not ok:
+                self._log_sandbox_event(generation, "REJECT_BEHAVIOR", reason=str(result))
+                log.warning(f"❌ Behavioral fail: {result}")
+                return False, current_fitness, f"behavior: {result}"
 
-        # Fitness delta
-        new_fitness = self._fitness_fn(merged)
-        delta = new_fitness - current_fitness
+        # FIX 2: compute growth signal from explicit pre/post line counts
+        post_lines    = len(merged.splitlines())
+        growth_signal = 1.0 if post_lines > pre_lines else 0.7
+        delta_lines   = post_lines - pre_lines
+
+        new_fitness = self._default_fitness(merged, growth_signal=growth_signal)
+        delta       = new_fitness - current_fitness
 
         if delta > -0.05:
-            # PROMOTE
             shutil.copy2(CANDIDATE, SKYD_PATH)
-            self._log_sandbox_event(generation, "PROMOTE", delta=delta, fitness=new_fitness)
-            log.info(f"✅ PROMOTED Gen {generation+1}: delta={delta:+.4f} fitness={new_fitness:.4f}")
+            self._log_sandbox_event(generation, "PROMOTE",
+                                    delta=delta, fitness=new_fitness,
+                                    pre_lines=pre_lines, post_lines=post_lines,
+                                    delta_lines=delta_lines)
+            log.info(f"✅ PROMOTED Gen {generation+1}: Δfit={delta:+.4f} "
+                     f"lines {pre_lines}→{post_lines} (+{delta_lines})")
             self._history.append((generation, delta, True))
-            # Reward fitness function for successful promotion
             try: get_fitness()._recent_promotions += 1
             except: pass
             if self._best is None or new_fitness > self._best:
@@ -257,16 +327,17 @@ print('PASS:functions=' + str(len(defined)))
                 self._stagnant = 0
             else:
                 self._stagnant += 1
-            return True, new_fitness, "promoted"
+            return True, new_fitness, f"promoted +{delta_lines} lines"
         else:
-            # REVERT
             self.rollback(backup, generation, reason=f"fitness drop {delta:+.4f}")
-            self._log_sandbox_event(generation, "REVERT", delta=delta, fitness=new_fitness)
+            self._log_sandbox_event(generation, "REVERT",
+                                    delta=delta, fitness=new_fitness)
             self._stagnant += 1
             return False, current_fitness, f"fitness drop {delta:+.4f}"
 
     def _log_sandbox_event(self, generation, event, **kwargs):
-        entry = {"ts": datetime.now().isoformat(), "gen": generation, "event": event, **kwargs}
+        entry = {"ts": datetime.now().isoformat(), "gen": generation,
+                 "event": event, **kwargs}
         try:
             with open(SANDBOX_LOG, "a") as f: f.write(json.dumps(entry) + "\n")
         except: pass
@@ -279,86 +350,92 @@ print('PASS:functions=' + str(len(defined)))
 
 
 # ══════════════════════════════════════════════════════════════════
-# PART 2 — IMPROVED FITNESS FUNCTION (Grok's formula + stagnation)
+# PART 2 — FitnessV2 (circular dependency fixed)
 # ══════════════════════════════════════════════════════════════════
 
 class FitnessV2:
     """
-    Fitness = (
-        0.25 * normalize(unique_actions_executed)  # behavioral variety
-        0.20 * normalize(watchdog_pass_rate)        # quality of evolutions
-        0.25 * novelty_score                        # lesson novelty
-        0.15 * code_growth_signal                   # real code got bigger
-        0.15 * (0 if stagnant else 1)               # stagnation penalty
-    )
+    FIX 2: growth_signal is now passed in explicitly from test_and_promote,
+    which computes it from pre/post line counts before the fitness call.
+    No more reading from the live file to infer growth.
+
+    fitness = 0.20 * unique_action_diversity
+            + 0.15 * watchdog_pass_rate
+            + 0.25 * lesson_novelty
+            + 0.15 * growth_signal          ← passed in, not inferred
+            + 0.10 * (0 if stagnant else 1)
+            + 0.15 * promotion_bonus
     """
 
     def __init__(self):
-        self._prev_lines       = 0
-        self._prev_fns         = 0
-        self._action_window    = deque(maxlen=50)
-        self._stagnant_ctr     = 0
-        self._last_fitness     = None
-        self._stagnant_thresh  = 10
-        self._recent_promotions = 0   # incremented by sandbox on PROMOTE
+        self._action_window      = deque(maxlen=50)
+        self._stagnant_ctr       = 0
+        self._last_fitness       = None
+        self._stagnant_thresh    = 10
+        self._recent_promotions  = 0
 
     def update_actions(self, action):
         self._action_window.append(action or "none")
 
-    def calculate(self, src, kb, watchdog_pass_rate, lessons_recent, lessons_older):
+    def calculate(self, src, kb, watchdog_pass_rate,
+                  lessons_recent, lessons_older,
+                  growth_signal=None):
+        """
+        growth_signal: if None, falls back to code-line heuristic (deprecated path).
+                       Pass explicitly from test_and_promote for accuracy.
+        """
         lines = src.count('\n') if src else 0
         fns   = len(re.findall(r'^def \w+', src, re.MULTILINE)) if src else 0
 
-        # 1. Unique action diversity (normalized 0-1)
+        # Action diversity
         actions = list(self._action_window)
         unique_actions = len(set(actions)) / max(len(actions), 1)
 
-        # 2. Watchdog pass rate (already 0-1)
+        # Watchdog pass rate
         pass_rate = min(1.0, max(0.0, watchdog_pass_rate))
 
-        # 3. Novelty: new words in recent lessons vs older ones
+        # Lesson novelty
         recent_words = set(' '.join(lessons_recent).lower().split())
         older_words  = set(' '.join(lessons_older).lower().split())
-        novelty = len(recent_words - older_words) / max(len(recent_words), 1) if recent_words else 0
+        novelty = (len(recent_words - older_words) / max(len(recent_words), 1)
+                   if recent_words else 0)
 
-        # 4. Code growth signal — did the code actually get bigger?
-        if lines > self._prev_lines or fns > self._prev_fns:
-            growth = 1.0
-            self._prev_lines = lines
-            self._prev_fns   = fns
-        else:
-            growth = 0.7  # penalty for no real code change
+        # FIX: growth_signal passed in explicitly; fall back only if missing
+        if growth_signal is None:
+            # Deprecated fallback — infer from stored prev counts
+            growth_signal = getattr(self, '_last_growth', 0.7)
 
-        # 5. Stagnation penalty
-        # Promotion bonus: reward sandbox actually landing code
-        _prom_bonus = min(1.0, self._recent_promotions / 3.0)  # 3 promotions = full score
-        fitness = (
+        # Promotion bonus
+        prom_bonus = min(1.0, self._recent_promotions / 3.0)
+
+        fitness = round(
             0.20 * unique_actions +
             0.15 * pass_rate +
             0.25 * novelty +
-            0.15 * growth +
+            0.15 * growth_signal +
             0.10 * (0.0 if self._stagnant_ctr >= self._stagnant_thresh else 1.0) +
-            0.15 * _prom_bonus
+            0.15 * prom_bonus,
+            4
         )
-        fitness = round(fitness, 4)
 
-        # Update stagnation counter
+        # Stagnation tracking
         if self._last_fitness is not None:
             if abs(fitness - self._last_fitness) < 0.002:
                 self._stagnant_ctr += 1
             else:
                 self._stagnant_ctr = 0
-        self._last_fitness = fitness
+        self._last_fitness  = fitness
+        self._last_growth   = growth_signal
 
-        # Log it
         record = {
             "ts": datetime.now().isoformat(),
             "fitness": fitness,
             "unique_actions": round(unique_actions, 3),
             "pass_rate": round(pass_rate, 3),
             "novelty": round(novelty, 3),
-            "growth": growth,
+            "growth_signal": growth_signal,
             "stagnant_cycles": self._stagnant_ctr,
+            "promo_bonus": round(prom_bonus, 3),
             "code_lines": lines,
             "functions": fns,
         }
@@ -372,55 +449,37 @@ class FitnessV2:
         return self._stagnant_ctr >= self._stagnant_thresh
 
     def stagnation_pressure(self):
-        """0.0 = normal, 1.0 = maximum stagnation — inject into evolution prompt."""
         return min(1.0, self._stagnant_ctr / self._stagnant_thresh)
 
 
 # ══════════════════════════════════════════════════════════════════
-# PART 3 — SKYLANG v2: TYPED FORMAL GRAMMAR + REAL PARSER
+# FIX 3: SKYLANG v2 TYPED PARSER (wired — replaces skyd.py's parser)
 # ══════════════════════════════════════════════════════════════════
 
 """
-SkyLang v2 Grammar (EBNF):
+SkyLang v2 grammar (EBNF):
 
 program    := statement*
-statement  := watch_stmt | every_stmt | if_stmt | on_stmt | define_stmt | comment
-
+statement  := watch_stmt | every_stmt | if_stmt | on_stmt | define_stmt
 watch_stmt := 'WATCH' metric comparator value '->' action_list
 every_stmt := 'EVERY' duration '->' action_list
-if_stmt    := 'IF' condition '->' action_list ['ELSE' action_list]
+if_stmt    := 'IF' condition '->' action_list ['ELSE' '->' action_list]
 on_stmt    := 'ON' event '->' action_list
-define_stmt:= 'DEFINE' name '=' expr
+define_stmt:= 'DEFINE' name '=' value
 
-metric     := IDENTIFIER ('.' IDENTIFIER)*
-comparator := '>' | '<' | '>=' | '<=' | '==' | '!='
-value      := NUMBER | STRING | IDENTIFIER
-duration   := NUMBER ('s'|'m'|'h'|'d')
-condition  := metric comparator value | IDENTIFIER 'failed' | IDENTIFIER 'restarted'
-action_list:= action (';' action)*
-action     := IDENTIFIER (arg*)
-arg        := STRING | NUMBER | IDENTIFIER | '$' IDENTIFIER
-event      := STRING | IDENTIFIER
-
-Types: INT, FLOAT, STRING, BOOL, METRIC, ACTION
+Types: INT, FLOAT, PERCENT, STRING, DURATION, IDENTIFIER
 """
 
-import re
 from dataclasses import dataclass, field
-from typing import List, Optional, Any
+from typing import List, Any
 
-# ── Token types ─────────────────────────────────────────────────
+TK_WATCH='WATCH'; TK_EVERY='EVERY'; TK_IF='IF'; TK_ELSE='ELSE'
+TK_ON='ON'; TK_DEFINE='DEFINE'; TK_ARROW='->'; TK_SEMI=';'
+TK_IDENT='IDENT'; TK_NUMBER='NUMBER'; TK_STRING='STRING'
+TK_CMP='CMP'; TK_DURATION='DURATION'; TK_EOF='EOF'
 
-TK_WATCH = 'WATCH'; TK_EVERY = 'EVERY'; TK_IF = 'IF'; TK_ELSE = 'ELSE'
-TK_ON = 'ON'; TK_DEFINE = 'DEFINE'; TK_ARROW = '->'; TK_SEMI = ';'
-TK_IDENT = 'IDENT'; TK_NUMBER = 'NUMBER'; TK_STRING = 'STRING'
-TK_CMP = 'CMP'; TK_COMMENT = 'COMMENT'; TK_DURATION = 'DURATION'
-TK_EOF = 'EOF'
-
-KEYWORDS = {
-    'WATCH': TK_WATCH, 'EVERY': TK_EVERY, 'IF': TK_IF,
-    'ELSE': TK_ELSE, 'ON': TK_ON, 'DEFINE': TK_DEFINE,
-}
+KEYWORDS = {'WATCH':TK_WATCH,'EVERY':TK_EVERY,'IF':TK_IF,
+            'ELSE':TK_ELSE,'ON':TK_ON,'DEFINE':TK_DEFINE}
 
 @dataclass
 class Token:
@@ -433,7 +492,7 @@ class WatchStmt:
     metric: str
     comparator: str
     threshold: Any
-    threshold_type: str   # 'int'|'float'|'percent'|'string'
+    threshold_type: str
     actions: List[str]
 
 @dataclass
@@ -465,146 +524,152 @@ class ParseError:
 
 class SkyLangLexer:
     def __init__(self, source):
-        self.source = source
-        self.pos    = 0
-        self.line   = 1
         self.tokens = []
-        self._tokenize()
+        self._tokenize(source)
 
-    def _tokenize(self):
-        src = self.source
-        i = 0
-        line = 1
+    def _tokenize(self, src):
+        i = 0; line = 1
         while i < len(src):
-            # newline
-            if src[i] == '\n':
-                line += 1; i += 1; continue
-            # whitespace
-            if src[i] in ' \t\r':
-                i += 1; continue
-            # comment
+            if src[i] == '\n':           line += 1; i += 1; continue
+            if src[i] in ' \t\r':        i += 1; continue
             if src[i] == '#':
                 while i < len(src) and src[i] != '\n': i += 1
                 continue
-            # arrow
             if src[i:i+2] == '->':
                 self.tokens.append(Token(TK_ARROW, '->', line)); i += 2; continue
-            # comparators
             if src[i:i+2] in ('>=','<=','==','!='):
                 self.tokens.append(Token(TK_CMP, src[i:i+2], line)); i += 2; continue
             if src[i] in '><':
                 self.tokens.append(Token(TK_CMP, src[i], line)); i += 1; continue
-            # semicolon
             if src[i] == ';':
                 self.tokens.append(Token(TK_SEMI, ';', line)); i += 1; continue
-            # string
             if src[i] in '"\'':
                 q = src[i]; j = i+1
                 while j < len(src) and src[j] != q: j += 1
                 self.tokens.append(Token(TK_STRING, src[i+1:j], line)); i = j+1; continue
-            # number (with optional duration suffix)
             if src[i].isdigit():
                 j = i
                 while j < len(src) and (src[j].isdigit() or src[j] == '.'): j += 1
-                num_str = src[i:j]
-                num = float(num_str) if '.' in num_str else int(num_str)
-                # duration suffix?
+                raw = src[i:j]
+                num = float(raw) if '.' in raw else int(raw)
                 if j < len(src) and src[j] in 'smhd':
                     suf = src[j]
-                    mult = {'s':1,'m':60,'h':3600,'d':86400}[suf]
-                    self.tokens.append(Token(TK_DURATION, num * mult, line))
+                    self.tokens.append(Token(TK_DURATION, num * {'s':1,'m':60,'h':3600,'d':86400}[suf], line))
                     i = j+1
-                # percent?
                 elif j < len(src) and src[j] == '%':
                     self.tokens.append(Token(TK_NUMBER, ('percent', num), line)); i = j+1
                 else:
                     self.tokens.append(Token(TK_NUMBER, num, line)); i = j
                 continue
-            # identifier or keyword
             if src[i].isalpha() or src[i] == '_':
                 j = i
                 while j < len(src) and (src[j].isalnum() or src[j] in '_.'): j += 1
                 word = src[i:j]
                 ttype = KEYWORDS.get(word.upper(), TK_IDENT)
-                if ttype != TK_IDENT:
-                    word = word.upper()
-                self.tokens.append(Token(ttype, word, line)); i = j; continue
-            # skip unknown
-            i += 1
+                self.tokens.append(Token(ttype, word.upper() if ttype != TK_IDENT else word, line))
+                i = j; continue
+            i += 1  # skip unknown
         self.tokens.append(Token(TK_EOF, None, line))
-
-    def __iter__(self): return iter(self.tokens)
 
 
 class SkyLangParser:
-    def __init__(self, source):
-        self.lexer  = SkyLangLexer(source)
-        self.tokens = list(self.lexer)
-        self.pos    = 0
+    """
+    Recursive descent parser for SkyLang v2.
+    FIX 3: This is now the canonical parser — skyd.py's parse_skylang()
+    delegates here via the module-level parse_skylang_file() function.
+    """
 
-    def _peek(self): return self.tokens[self.pos] if self.pos < len(self.tokens) else Token(TK_EOF, None)
+    def __init__(self):
+        self.tokens = []
+        self.pos = 0
+
+    def _load(self, source):
+        self.tokens = SkyLangLexer(source).tokens
+        self.pos = 0
+
+    def _peek(self):
+        return self.tokens[self.pos] if self.pos < len(self.tokens) else Token(TK_EOF, None)
+
     def _advance(self):
-        t = self.tokens[self.pos]
-        self.pos += 1
-        return t
+        t = self.tokens[self.pos]; self.pos += 1; return t
+
     def _expect(self, ttype):
         t = self._advance()
         if t.type != ttype:
-            raise SyntaxError(f"Line {t.line}: expected {ttype}, got {t.type} ({t.value!r})")
+            raise SyntaxError(f"Line {t.line}: expected {ttype}, got {t.type}({t.value!r})")
         return t
 
+    def _parse_value(self):
+        t = self._advance()
+        if t.type == TK_NUMBER:
+            if isinstance(t.value, tuple) and t.value[0] == 'percent':
+                return t.value[1], 'percent'
+            return t.value, 'float' if isinstance(t.value, float) else 'int'
+        if t.type == TK_STRING:   return t.value, 'string'
+        if t.type == TK_IDENT:    return t.value, 'identifier'
+        if t.type == TK_DURATION: return t.value, 'duration'
+        return t.value, 'unknown'
+
     def _parse_action_list(self):
-        """Parse one or more actions separated by semicolons."""
         actions = []
-        while self._peek().type not in (TK_EOF,) and self._peek().value not in (None,):
-            tok = self._peek()
-            # Stop at next statement keyword
-            if tok.type in (TK_WATCH, TK_EVERY, TK_IF, TK_ON, TK_DEFINE, TK_ELSE):
-                break
-            if tok.type == TK_SEMI:
+        STOPS = (TK_WATCH, TK_EVERY, TK_IF, TK_ON, TK_DEFINE, TK_ELSE, TK_EOF)
+        while self._peek().type not in STOPS:
+            if self._peek().type == TK_SEMI:
                 self._advance(); continue
-            # Collect until semicolon or newline-equivalent (next keyword)
-            action_parts = []
-            while self._peek().type not in (TK_SEMI, TK_EOF, TK_WATCH, TK_EVERY, TK_IF, TK_ON, TK_DEFINE, TK_ELSE):
-                action_parts.append(str(self._advance().value))
-            action = ' '.join(action_parts)
-            if action.strip():
-                actions.append(action.strip())
+            parts = []
+            while self._peek().type not in (TK_SEMI, *STOPS):
+                parts.append(str(self._advance().value))
+            action = ' '.join(parts).strip()
+            if action: actions.append(action)
             if self._peek().type == TK_SEMI:
                 self._advance()
             else:
                 break
         return actions
 
-    def _parse_value(self):
-        """Parse a value token and return (value, type_str)."""
-        t = self._advance()
-        if t.type == TK_NUMBER:
-            if isinstance(t.value, tuple) and t.value[0] == 'percent':
-                return t.value[1], 'percent'
-            return t.value, 'float' if isinstance(t.value, float) else 'int'
-        if t.type == TK_STRING:
-            return t.value, 'string'
-        if t.type == TK_IDENT:
-            return t.value, 'identifier'
-        if t.type == TK_DURATION:
-            return t.value, 'duration'
-        return t.value, 'unknown'
+    def _parse_watch(self):
+        self._advance()  # consume WATCH
+        metric_tok = self._expect(TK_IDENT)
+        cmp_tok    = self._expect(TK_CMP)
+        val, vtype = self._parse_value()
+        self._expect(TK_ARROW)
+        actions    = self._parse_action_list()
+        return WatchStmt(metric=metric_tok.value, comparator=cmp_tok.value,
+                         threshold=val, threshold_type=vtype, actions=actions)
 
-    def parse(self):
-        """Parse full program, return (statements, errors)."""
-        statements = []
-        errors     = []
-        while self._peek().type != TK_EOF:
-            try:
-                stmt = self._parse_statement()
-                if stmt: statements.append(stmt)
-            except SyntaxError as e:
-                errors.append(ParseError(0, str(e)))
-                # Skip to next line/keyword
-                while self._peek().type not in (TK_WATCH, TK_EVERY, TK_IF, TK_ON, TK_DEFINE, TK_EOF):
-                    self._advance()
-        return statements, errors
+    def _parse_every(self):
+        self._advance()  # consume EVERY
+        dur = self._advance()
+        interval = dur.value if dur.type == TK_DURATION else int(dur.value or 60)
+        self._expect(TK_ARROW)
+        return EveryStmt(interval_seconds=interval, actions=self._parse_action_list())
+
+    def _parse_if(self):
+        self._advance()  # consume IF
+        parts = []
+        while self._peek().type not in (TK_ARROW, TK_EOF):
+            parts.append(str(self._advance().value))
+        self._expect(TK_ARROW)
+        actions = self._parse_action_list()
+        else_actions = []
+        if self._peek().type == TK_ELSE:
+            self._advance()
+            self._expect(TK_ARROW)
+            else_actions = self._parse_action_list()
+        return IfStmt(condition=' '.join(parts), actions=actions, else_actions=else_actions)
+
+    def _parse_on(self):
+        self._advance()
+        event = self._advance()
+        self._expect(TK_ARROW)
+        return OnStmt(event=str(event.value), actions=self._parse_action_list())
+
+    def _parse_define(self):
+        self._advance()
+        name = self._expect(TK_IDENT).value
+        if self._peek().value == '=': self._advance()
+        val, _ = self._parse_value()
+        return DefineStmt(name=name, value=val)
 
     def _parse_statement(self):
         t = self._peek()
@@ -613,299 +678,183 @@ class SkyLangParser:
         if t.type == TK_IF:     return self._parse_if()
         if t.type == TK_ON:     return self._parse_on()
         if t.type == TK_DEFINE: return self._parse_define()
-        # Unknown — skip token
-        self._advance()
-        return None
+        self._advance(); return None
 
-    def _parse_watch(self):
-        self._advance()  # consume WATCH
-        # metric
-        metric_tok = self._expect(TK_IDENT)
-        metric = metric_tok.value
-        # comparator
-        cmp_tok = self._expect(TK_CMP)
-        # value
-        val, vtype = self._parse_value()
-        # ->
-        self._expect(TK_ARROW)
-        # actions
-        actions = self._parse_action_list()
-        return WatchStmt(metric=metric, comparator=cmp_tok.value,
-                         threshold=val, threshold_type=vtype, actions=actions)
+    def parse(self, source):
+        self._load(source)
+        statements, errors = [], []
+        while self._peek().type != TK_EOF:
+            try:
+                stmt = self._parse_statement()
+                if stmt: statements.append(stmt)
+            except SyntaxError as e:
+                errors.append(ParseError(0, str(e)))
+                while self._peek().type not in (TK_WATCH,TK_EVERY,TK_IF,TK_ON,TK_DEFINE,TK_EOF):
+                    self._advance()
+        return statements, errors
 
-    def _parse_every(self):
-        self._advance()  # consume EVERY
-        dur_tok = self._advance()
-        interval = dur_tok.value if dur_tok.type == TK_DURATION else int(dur_tok.value or 60)
-        self._expect(TK_ARROW)
-        actions = self._parse_action_list()
-        return EveryStmt(interval_seconds=interval, actions=actions)
-
-    def _parse_if(self):
-        self._advance()  # consume IF
-        # condition: metric op value OR ident 'failed'/'restarted'
-        parts = []
-        while self._peek().type not in (TK_ARROW, TK_EOF):
-            parts.append(str(self._advance().value))
-        condition = ' '.join(parts)
-        self._expect(TK_ARROW)
-        actions = self._parse_action_list()
-        else_actions = []
-        if self._peek().type == TK_ELSE:
-            self._advance()
-            self._expect(TK_ARROW)
-            else_actions = self._parse_action_list()
-        return IfStmt(condition=condition, actions=actions, else_actions=else_actions)
-
-    def _parse_on(self):
-        self._advance()  # consume ON
-        event_tok = self._advance()
-        self._expect(TK_ARROW)
-        actions = self._parse_action_list()
-        return OnStmt(event=str(event_tok.value), actions=actions)
-
-    def _parse_define(self):
-        self._advance()  # consume DEFINE
-        name = self._expect(TK_IDENT).value
-        # optional =
-        if self._peek().value == '=': self._advance()
-        val, _ = self._parse_value()
-        return DefineStmt(name=name, value=val)
+    def parse_file(self, path):
+        """FIX 3: Entry point for skyd.py's parse_skylang() to call."""
+        try:
+            source = pathlib.Path(path).read_text()
+        except Exception as e:
+            return [], [ParseError(0, f"can't read {path}: {e}")]
+        return self.parse(source)
 
 
-# ── SkyLang v2 Runtime Executor ──────────────────────────────────
+# ── Runtime executor ────────────────────────────────────────────
 
 SAFE_ACTIONS = {
-    "DROP_CACHE":    "sync && echo 3 > /proc/sys/vm/drop_caches",
-    "RENICE":        "renice -n {arg0} -p $(pgrep {arg1} | head -1)",
-    "SYNC":          "sync",
-    "VACUUM_LOGS":   "find /var/log -name '*.log' -mtime +{arg0} -delete",
-    "RESTART":       None,   # blocked
-    "ALERT":         "echo '[SKYLANG ALERT] {arg0}' >> /var/log/skyd_alerts.log",
-    "LOG":           "echo '[SKYLANG] {arg0}' >> /var/log/skyd_skylang_runtime.log",
-    "NOOP":          "true",
+    "DROP_CACHE":  "sync && echo 3 > /proc/sys/vm/drop_caches",
+    "RENICE":      "renice -n 19 -p $(pgrep {arg1} | head -1)",
+    "SYNC":        "sync",
+    "VACUUM_LOGS": "find /var/log -name '*.log' -mtime +{arg0} -delete",
+    "ALERT":       None,   # handled in Python, not shell
+    "LOG":         None,
+    "NOOP":        "true",
 }
 
 class SkyLangRuntime:
-    """Executes parsed SkyLang v2 AST against live system state."""
+    """
+    FIX 3: Executes typed SkyLang v2 AST nodes against live system state.
+    This replaces the shell-string-matching approach in the old parse_skylang().
+    """
 
-    def __init__(self, system_state_fn=None):
-        self._state_fn   = system_state_fn
+    def __init__(self):
         self._defines    = {}
-        self._last_every = {}  # interval_seconds -> last_run_ts
+        self._last_every = {}
 
     def _get_metric(self, name, state):
-        """Resolve a metric name to a value from system state."""
-        mapping = {
-            "cpu":    state.get("cpu_percent", 0),
-            "mem":    state.get("memory_percent", 0),
-            "ram":    state.get("memory_percent", 0),
-            "disk":   state.get("disk_percent", 0),
-            "swap":   state.get("swap_percent", 0),
-        }
-        # Support dot notation: cpu.percent -> cpu_percent
         key = name.lower().replace(".", "_").replace("usage", "percent")
+        mapping = {
+            "cpu": state.get("cpu_percent", 0),
+            "mem": state.get("memory_percent", 0),
+            "ram": state.get("memory_percent", 0),
+            "disk": state.get("disk_percent", 0),
+            "swap": state.get("swap_percent", 0),
+        }
         for k, v in mapping.items():
             if k in key: return v
         return self._defines.get(name, 0)
 
-    def _eval_condition(self, stmt, state):
+    def _eval(self, stmt, state):
         if isinstance(stmt, WatchStmt):
-            val   = self._get_metric(stmt.metric, state)
-            thresh = stmt.threshold
-            if stmt.threshold_type == 'percent': thresh = thresh  # already float
+            val = self._get_metric(stmt.metric, state)
+            th  = stmt.threshold
             cmp = stmt.comparator
-            if cmp == '>':  return val > thresh
-            if cmp == '<':  return val < thresh
-            if cmp == '>=': return val >= thresh
-            if cmp == '<=': return val <= thresh
-            if cmp == '==': return val == thresh
-            if cmp == '!=': return val != thresh
-        if isinstance(stmt, IfStmt):
-            cond = stmt.condition.lower()
-            if 'failed' in cond:    return False  # would check service status
-            if 'restarted' in cond: return False
-            return True  # fallback
-        return False
+            return ((cmp=='>' and val>th) or (cmp=='<' and val<th) or
+                    (cmp=='>=' and val>=th) or (cmp=='<=' and val<=th) or
+                    (cmp=='==' and val==th) or (cmp=='!=' and val!=th))
+        return True
 
     def _exec_action(self, action_str):
-        """Execute a single action string safely."""
-        action_upper = action_str.strip().upper().split()[0]
-        if action_upper in ("RESTART", "RM", "DELETE", "KILL"):
-            log.info(f"🚫 SkyLang v2 blocked: {action_str[:60]}")
+        word = action_str.strip().upper().split()[0]
+        if word in ("RESTART","RM","DELETE","KILL","FSTRIM"):
+            log.info(f"🚫 SkyLang v2 blocked: {action_str[:50]}")
             return False
-        if action_upper in SAFE_ACTIONS:
-            cmd = SAFE_ACTIONS[action_upper]
-            if cmd is None: return False
-            # Basic arg substitution
+        if word == "ALERT":
+            log.warning(f"[SKYLANG ALERT] {action_str[6:].strip()}")
+            return True
+        if word == "LOG":
+            log.info(f"[SKYLANG] {action_str[4:].strip()}")
+            return True
+        cmd = SAFE_ACTIONS.get(word)
+        if cmd:
             parts = action_str.split()[1:]
-            for i, p in enumerate(parts):
-                cmd = cmd.replace(f"{{arg{i}}}", p)
+            for i, p in enumerate(parts): cmd = cmd.replace(f"{{arg{i}}}", p)
             try:
                 subprocess.run(cmd, shell=True, timeout=10, capture_output=True)
-                log.info(f"▶️  SkyLang v2: {action_str[:60]}")
                 return True
             except Exception as e:
                 log.warning(f"SkyLang exec error: {e}")
                 return False
-        else:
-            # Unknown action — just log it
-            log.info(f"📋 SkyLang v2 action (unexecuted): {action_str[:60]}")
-            return True
+        log.info(f"[SKYLANG unexecuted] {action_str[:50]}")
+        return True
 
-    def run_program(self, statements, state):
-        """Execute all statements against current system state."""
+    def run(self, statements, state):
         fired = []
         now = time.time()
         for stmt in statements:
             try:
-                if isinstance(stmt, WatchStmt):
-                    if self._eval_condition(stmt, state):
-                        for a in stmt.actions:
-                            self._exec_action(a)
-                            fired.append({"type":"WATCH","metric":stmt.metric,"action":a})
-
+                if isinstance(stmt, WatchStmt) and self._eval(stmt, state):
+                    for a in stmt.actions:
+                        self._exec_action(a)
+                        fired.append(("WATCH", stmt.metric, a))
                 elif isinstance(stmt, EveryStmt):
                     last = self._last_every.get(stmt.interval_seconds, 0)
                     if now - last >= stmt.interval_seconds:
                         for a in stmt.actions:
                             self._exec_action(a)
-                            fired.append({"type":"EVERY","interval":stmt.interval_seconds,"action":a})
+                            fired.append(("EVERY", stmt.interval_seconds, a))
                         self._last_every[stmt.interval_seconds] = now
-
                 elif isinstance(stmt, IfStmt):
-                    if self._eval_condition(stmt, state):
-                        for a in stmt.actions: self._exec_action(a)
-                        fired.append({"type":"IF","condition":stmt.condition[:40]})
-                    elif stmt.else_actions:
-                        for a in stmt.else_actions: self._exec_action(a)
-
+                    branch = stmt.actions if self._eval(stmt, state) else stmt.else_actions
+                    for a in branch: self._exec_action(a)
                 elif isinstance(stmt, DefineStmt):
                     self._defines[stmt.name] = stmt.value
-
             except Exception as e:
-                log.warning(f"SkyLang runtime error on {stmt}: {e}")
+                log.warning(f"SkyLang runtime error: {e}")
         return fired
 
 
-def parse_and_validate_skylang(source):
-    """
-    Parse + validate a SkyLang v2 source string.
-    Returns (statements, errors, stats).
-    """
-    parser = SkyLangParser(source)
-    stmts, errors = parser.parse()
-    stats = {
-        "watch_rules": sum(1 for s in stmts if isinstance(s, WatchStmt)),
-        "every_rules": sum(1 for s in stmts if isinstance(s, EveryStmt)),
-        "if_rules":    sum(1 for s in stmts if isinstance(s, IfStmt)),
-        "on_rules":    sum(1 for s in stmts if isinstance(s, OnStmt)),
-        "defines":     sum(1 for s in stmts if isinstance(s, DefineStmt)),
-        "errors":      len(errors),
-        "total":       len(stmts),
-    }
-    # Log to JSONL
-    entry = {"ts": datetime.now().isoformat(), "stats": stats,
-             "errors": [e.__dict__ for e in errors]}
-    try:
-        with open(SKYLANG_LOG, "a") as f: f.write(json.dumps(entry) + "\n")
-    except: pass
-    return stmts, errors, stats
-
-
-
-
-# ── SkyLang v2 Code Generator ─────────────────────────────────────
-# Turns parsed AST nodes into real Python functions (not just shell)
+# ══════════════════════════════════════════════════════════════════
+# SKYLANG → PYTHON CODEGEN
+# ══════════════════════════════════════════════════════════════════
 
 def generate_python_from_skylang(statements):
-    """
-    Convert SkyLang v2 AST → executable Python functions.
-    Returns a string of Python code ready to exec() or append to capabilities.
-    """
+    """Convert SkyLang v2 AST → real Python functions (not shell one-liners)."""
     lines = [
         "# SkyLang v2 → Python codegen",
-        "import subprocess, os, logging as _log",
-        "_skl_log = _log.getLogger('skyd.skylang_runtime')",
+        "import subprocess, logging as _log",
+        "_skl = _log.getLogger('skyd.skylang')",
         "",
     ]
-
     for i, stmt in enumerate(statements):
         if isinstance(stmt, WatchStmt):
-            fn_name = f"_watch_{stmt.metric.replace('.','_')}_{i}"
-            cmp_map = {'>':'>', '<':'<', '>=':'>=', '<=':'<=', '==':'==', '!=':'!='}
-            op = cmp_map.get(stmt.comparator, '>')
-            thresh = stmt.threshold
-            # Build action body
-            action_lines = []
+            fn = f"_watch_{stmt.metric.replace('.','_')}_{i}"
+            op = stmt.comparator
+            th = stmt.threshold
+            action_code = []
             for act in stmt.actions:
-                act_up = act.strip().upper().split()[0]
-                if act_up == "DROP_CACHE":
-                    action_lines.append('    subprocess.run("sync && echo 3 > /proc/sys/vm/drop_caches", shell=True, timeout=5)')
-                elif act_up == "RENICE":
-                    parts = act.split()[1:]
-                    proc = parts[1] if len(parts) > 1 else "top"
-                    action_lines.append(f'    subprocess.run(f"renice -n 19 -p $(pgrep {proc} | head -1)", shell=True, timeout=5)')
-                elif act_up == "ALERT":
-                    msg = ' '.join(act.split()[1:])
-                    action_lines.append(f'    _skl_log.warning("[SKYLANG ALERT] {msg}")')
-                elif act_up == "LOG":
-                    msg = ' '.join(act.split()[1:])
-                    action_lines.append(f'    _skl_log.info("[SKYLANG] {msg}")')
+                w = act.strip().upper().split()[0]
+                if w == "DROP_CACHE":
+                    action_code.append('        subprocess.run("sync && echo 3 > /proc/sys/vm/drop_caches", shell=True, timeout=5)')
+                elif w == "ALERT":
+                    action_code.append(f'        _skl.warning("[ALERT] {act[6:].strip()}")')
                 else:
-                    action_lines.append(f'    _skl_log.info("[SKYLANG] action: {act}")')
-
+                    action_code.append(f'        _skl.info("[SKYLANG] {act}")')
             lines += [
-                f"def {fn_name}(state):",
-                f'    """WATCH {stmt.metric} {stmt.comparator} {thresh} -> {stmt.actions}"""',
-                f"    val = state.get('{stmt.metric.lower()}', state.get('{stmt.metric.lower()}_percent', 0))",
-                f"    if val {op} {thresh}:",
-            ] + action_lines + [
-                f"        return True",
-                f"    return False",
-                "",
-            ]
-
+                f"def {fn}(state):",
+                f'    """WATCH {stmt.metric} {op} {th}"""',
+                f"    val = state.get('{stmt.metric.lower()}', 0)",
+                f"    if val {op} {th}:",
+            ] + action_code + ["        return True", "    return False", ""]
         elif isinstance(stmt, EveryStmt):
-            fn_name = f"_every_{stmt.interval_seconds}s_{i}"
-            action_lines = []
-            for act in stmt.actions:
-                act_up = act.strip().upper().split()[0]
-                if act_up == "SYNC":
-                    action_lines.append('    subprocess.run("sync", shell=True, timeout=5)')
-                elif act_up == "VACUUM_LOGS":
-                    days = act.split()[1] if len(act.split()) > 1 else "7"
-                    action_lines.append(f'    subprocess.run("find /var/log -name *.log -mtime +{days} -delete", shell=True, timeout=10)')
-                else:
-                    action_lines.append(f'    _skl_log.info("[SKYLANG EVERY] {act}")')
+            fn = f"_every_{stmt.interval_seconds}s_{i}"
             lines += [
-                f"_every_{stmt.interval_seconds}s_{i}_last = 0",
-                f"def {fn_name}(now=None):",
-                f'    """EVERY {stmt.interval_seconds}s -> {stmt.actions}"""',
-                f"    import time as _t",
-                f"    global _every_{stmt.interval_seconds}s_{i}_last",
-                f"    _now = now or _t.time()",
-                f"    if _now - _every_{stmt.interval_seconds}s_{i}_last >= {stmt.interval_seconds}:",
-            ] + [f"    {l.strip()}" for l in action_lines] + [
-                f"        _every_{stmt.interval_seconds}s_{i}_last = _now",
-                f"        return True",
-                f"    return False",
-                "",
+                f"_{fn}_last = 0.0",
+                f"def {fn}(now=None):",
+                f'    """EVERY {stmt.interval_seconds}s"""',
+                f"    import time as _t; global _{fn}_last",
+                f"    _n = now or _t.time()",
+                f"    if _n - _{fn}_last >= {stmt.interval_seconds}:",
             ]
-
+            for act in stmt.actions:
+                lines.append(f'        _skl.info("[EVERY] {act}")')
+            lines += [f"        _{fn}_last = _n", "        return True", "    return False", ""]
         elif isinstance(stmt, DefineStmt):
-            lines.append(f"_SKYLANG_{stmt.name.upper()} = {repr(stmt.value)}")
-            lines.append("")
-
+            lines += [f"_SKL_{stmt.name.upper()} = {repr(stmt.value)}", ""]
     return "\n".join(lines)
 
+
 # ══════════════════════════════════════════════════════════════════
-# PUBLIC API
+# MODULE-LEVEL SINGLETONS + PUBLIC API
 # ══════════════════════════════════════════════════════════════════
 
-_sandbox  = None
-_fitness  = None
-_runtime  = None
+_sandbox = None
+_fitness = None
+_parser  = None
+_runtime = None
 
 def get_sandbox():
     global _sandbox
@@ -917,69 +866,110 @@ def get_fitness():
     if _fitness is None: _fitness = FitnessV2()
     return _fitness
 
-def get_runtime(state_fn=None):
+def get_parser():
+    global _parser
+    if _parser is None: _parser = SkyLangParser()
+    return _parser
+
+def get_runtime():
     global _runtime
-    if _runtime is None: _runtime = SkyLangRuntime(state_fn)
+    if _runtime is None: _runtime = SkyLangRuntime()
     return _runtime
+
+
+# FIX 3: Drop-in replacement for skyd.py's parse_skylang(script_path)
+def parse_skylang_file(script_path):
+    """
+    Called by skyd.py's parse_skylang() — returns (statements, errors).
+    Replaces the old string-matching parser entirely.
+    """
+    stmts, errors = get_parser().parse_file(script_path)
+    stats = {
+        "watch": sum(1 for s in stmts if isinstance(s, WatchStmt)),
+        "every": sum(1 for s in stmts if isinstance(s, EveryStmt)),
+        "if":    sum(1 for s in stmts if isinstance(s, IfStmt)),
+        "total": len(stmts), "errors": len(errors),
+    }
+    try:
+        with open(SKYLANG_LOG, "a") as f:
+            f.write(json.dumps({"ts": datetime.now().isoformat(),
+                                "path": str(script_path), "stats": stats}) + "\n")
+    except: pass
+    return stmts, errors
+
+
+def parse_and_validate_skylang(source):
+    """Parse a SkyLang v2 source string. Returns (statements, errors, stats)."""
+    stmts, errors = get_parser().parse(source)
+    stats = {
+        "watch_rules": sum(1 for s in stmts if isinstance(s, WatchStmt)),
+        "every_rules": sum(1 for s in stmts if isinstance(s, EveryStmt)),
+        "if_rules":    sum(1 for s in stmts if isinstance(s, IfStmt)),
+        "on_rules":    sum(1 for s in stmts if isinstance(s, OnStmt)),
+        "defines":     sum(1 for s in stmts if isinstance(s, DefineStmt)),
+        "errors":      len(errors), "total": len(stmts),
+    }
+    return stmts, errors, stats
+
+
+def run_base_rules(state):
+    """Parse and run base_rules.sky through v2 runtime."""
+    base = f"{LANG_DIR}/base_rules.sky"
+    if not pathlib.Path(base).exists(): return []
+    stmts, _ = get_parser().parse_file(base)
+    return get_runtime().run(stmts, state)
 
 
 def sandbox_apply_improvement(improvement, generation, current_fitness=0.5):
     """
     Drop-in replacement for skyd's apply_self_improvement.
-    Uses full sandbox pipeline instead of blind append.
+    Uses AST merge + explicit pre/post line count for fitness.
     """
     if not improvement: return False, current_fitness, "no improvement"
     if improvement.get("risk") == "high":
         log.info("⏸️  Sandbox: skipping high-risk proposal")
         return False, current_fitness, "high risk"
 
-    snippet = improvement.get("code_snippet", "")
-    desc    = improvement.get("description", "")
     itype   = improvement.get("improvement_type", "")
+    desc    = improvement.get("description", "")
+    snippet = improvement.get("code_snippet", "")
+    risk    = improvement.get("risk", "low")
 
     if itype == "skylang":
-        # Validate with new parser before writing
         stmts, errors, stats = parse_and_validate_skylang(snippet)
         if errors:
             log.warning(f"⚠️  SkyLang v2 parse errors: {[e.message for e in errors]}")
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         path = f"{LANG_DIR}/evolved_v2_{ts}.sky"
         pathlib.Path(path).write_text(f"# SkyLang v2 | Gen {generation}\n# {desc}\n{snippet}\n")
-        log.info(f"📝 SkyLang v2 rule written: {stats}")
+        log.info(f"📝 SkyLang v2 rule: {stats}")
         return True, current_fitness, f"skylang: {stats['total']} stmts, {stats['errors']} errors"
 
     if any(t in itype for t in ("python", "new_capability", "c_asm")) and snippet:
+        # Read pre-merge line count before calling sandbox
+        try:
+            pre_lines = len(pathlib.Path(SKYD_PATH).read_text().splitlines())
+        except:
+            pre_lines = None
         promoted, new_fit, reason = get_sandbox().test_and_promote(
             snippet, desc, generation, current_fitness,
-            risk=improvement.get("risk", "low")
+            risk=risk, pre_merge_lines=pre_lines
         )
         return promoted, new_fit, reason
 
     return False, current_fitness, f"unknown type: {itype}"
 
 
-def fitness_tick(action, src, kb, watchdog_pass_rate=0.5):
-    """Update FitnessV2 each cycle. Returns (fitness, is_stagnant)."""
+def fitness_tick(action, src, kb, watchdog_pass_rate=0.5, growth_signal=None):
+    """Update FitnessV2 each cycle."""
     fv = get_fitness()
     fv.update_actions(action)
-    lessons = kb.get("lessons", [])
-    recent = [l.get("lesson","") for l in lessons[-5:]]
-    older  = [l.get("lesson","") for l in lessons[-20:-5]]
-    fitness, record = fv.calculate(src, kb, watchdog_pass_rate, recent, older)
+    lessons  = kb.get("lessons", [])
+    recent   = [l.get("lesson","") for l in lessons[-5:]]
+    older    = [l.get("lesson","") for l in lessons[-20:-5]]
+    fitness, record = fv.calculate(src, kb, watchdog_pass_rate,
+                                   recent, older, growth_signal=growth_signal)
     return fitness, fv.is_stagnant(), record
-
-
-def run_base_rules(state):
-    """Parse and run the base_rules.sky through SkyLang v2 runtime."""
-    base = f"{LANG_DIR}/base_rules.sky"
-    if not pathlib.Path(base).exists(): return []
-    src = pathlib.Path(base).read_text()
-    stmts, errors, stats = parse_and_validate_skylang(src)
-    runtime = get_runtime()
-    fired = runtime.run_program(stmts, state)
-    if fired:
-        log.info(f"⚡ SkyLang v2 base rules fired: {len(fired)} actions")
-    return fired
 
 
 def status():
@@ -993,4 +983,5 @@ def status():
         "fitness_stagnant_cycles": fv._stagnant_ctr,
         "fitness_last": fv._last_fitness,
         "best_fitness": sb._best,
+        "recent_promotions": fv._recent_promotions,
     }

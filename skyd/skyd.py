@@ -289,7 +289,17 @@ Compiles to: shell commands + Python via SkyLang interpreter
 """
 
 def parse_skylang(script_path):
-    """Interpret a .sky script and return shell commands"""
+    """
+    FIX 3: Delegate to SkyLang v2 typed parser in skyd_sandbox.
+    Returns (statements, errors) instead of raw shell command strings.
+    Falls back to empty list on import failure.
+    """
+    if _SANDBOX_ENABLED:
+        stmts, errors = _sb.parse_skylang_file(script_path)
+        if errors:
+            log.warning(f"SkyLang v2 parse errors in {script_path}: {[e.message for e in errors]}")
+        return stmts
+    # Legacy fallback
     try:
         with open(script_path) as f:
             lines = f.readlines()
@@ -298,16 +308,11 @@ def parse_skylang(script_path):
             line = line.strip()
             if not line or line.startswith("#"): continue
             if "WATCH" in line and "->" in line:
-                # Parse WATCH condition -> action
                 parts = line.split("->")
-                condition = parts[0].replace("WATCH","").strip()
-                action = parts[1].strip()
-                commands.append(f"# Condition: {condition} -> {action}")
+                commands.append(f"# {parts[0].strip()} -> {parts[1].strip()}")
             elif "EVERY" in line and "->" in line:
                 parts = line.split("->")
-                interval = parts[0].replace("EVERY","").strip()
-                action = parts[1].strip()
-                commands.append(f"# Scheduled: every {interval} do {action}")
+                commands.append(f"# every {parts[0].replace('EVERY','').strip()} -> {parts[1].strip()}")
         return commands
     except Exception as e:
         return [f"# Parse error: {e}"]
