@@ -21,9 +21,18 @@ services:
     restart: unless-stopped
     depends_on:
       - llama
+    env_file:
+      - .env
     environment:
-      - LLAMA_URL=http://llama:8080
-      - GITHUB_REPO=https://github.com/Common-joeAI/osone-skyd
+      - LLAMA_URL=${LLAMA_URL:-http://llama:8080}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - PLEX_URL=${PLEX_URL}
+      - RADARR_URL=${RADARR_URL}
+      - SONARR_URL=${SONARR_URL}
+      - AETHORIA_URL=${AETHORIA_URL}
     volumes:
       - skyd-lang:/usr/local/skyd/lang
       - skyd-logs:/var/log
@@ -31,12 +40,15 @@ services:
       - /mnt/user/Data/Movies:/mnt/user/Data/Movies:ro
     networks:
       - osone
+      - osociety
     pid: host
     privileged: false
 
   gui:
     build: ./gui
     container_name: osone-gui
+    env_file:
+      - .env
     restart: unless-stopped
     depends_on:
       - llama
@@ -91,3 +103,6 @@ volumes:
 networks:
   osone:
     driver: bridge
+  osociety:
+    external: true
+    name: minecraft_osociety

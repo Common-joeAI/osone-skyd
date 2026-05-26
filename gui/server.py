@@ -1659,7 +1659,7 @@ async def manifest_json():
 
 
 # ── Aethoria Society proxy ─────────────────────────────────────────────────────
-SOCIETY_BASE = "http://172.22.0.1:7432"
+SOCIETY_BASE = os.environ.get("AETHORIA_URL", "http://172.23.0.2:7432")
 
 @app.get("/status")
 async def proxy_status():
