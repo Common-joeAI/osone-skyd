@@ -454,6 +454,16 @@ print('PASS:functions=' + str(len(defined)))
         growth_signal = 1.0 if post_lines > pre_lines else 0.7
         delta_lines   = post_lines - pre_lines
 
+        # Minimum delta_lines threshold — filter trivial one-liner noise.
+        # Adaptive: scales with codebase size so threshold stays proportional.
+        # At 1000 lines → min 3; at 2000 lines → min 4; at 5000+ lines → min 6.
+        _min_delta = max(3, min(6, pre_lines // 400))
+        if 0 < delta_lines < _min_delta:
+            self._log_sandbox_event(generation, "SKIP",
+                                    reason=f"too_small (+{delta_lines} lines, min={_min_delta})")
+            log.info(f"⏭️  Skipping trivial change: +{delta_lines} lines (min={_min_delta})")
+            return False, current_fitness, f"too_small (+{delta_lines} lines)"
+
         new_fitness = self._default_fitness(merged, growth_signal=growth_signal)
         delta       = new_fitness - current_fitness
 
@@ -536,6 +546,15 @@ class FitnessV2:
     def __init__(self):
         self._action_window      = deque(maxlen=50)
         self._pass_window        = deque(maxlen=50)
+        # Restore pass_window from disk if available (survives container restarts)
+        try:
+            import json as _json, pathlib as _pl
+            _pw_path = pathlib.Path('/var/log/skyd_pass_window.json')
+            if _pw_path.exists():
+                _saved = _json.loads(_pw_path.read_text())
+                for _v in _saved[-50:]:
+                    self._pass_window.append(float(_v))
+        except Exception: pass
         self._stagnant_ctr       = 0
         self._last_fitness       = None
         self._stagnant_thresh    = 10
@@ -564,6 +583,12 @@ class FitnessV2:
 
     def update_pass_rate(self, passed: bool):
         self._pass_window.append(1.0 if passed else 0.0)
+        # Persist to disk so window survives container restarts
+        try:
+            import json as _json, pathlib as _pl
+            _pl.Path('/var/log/skyd_pass_window.json').write_text(
+                _json.dumps(list(self._pass_window)))
+        except Exception: pass
 
     def windowed_pass_rate(self) -> float:
         if not self._pass_window:
