@@ -175,8 +175,10 @@ class _CSTFunctionReplacer(cst.CSTTransformer):
 
     def _try_replace(self, node):
         name = getattr(node, "name", None)
-        if isinstance(name, cst.Name) if _LIBCST_AVAILABLE else False:
+        if hasattr(name, 'value'):   # cst.Name has .value
             name = name.value
+        elif not isinstance(name, str):
+            return node  # unresolvable
         if not name or name in self.protected or name not in self.replacement_map:
             return node
         new_node = self.replacement_map[name]
@@ -188,8 +190,8 @@ class _CSTFunctionReplacer(cst.CSTTransformer):
     def leave_FunctionDef(self, original_node, updated_node):
         return self._try_replace(updated_node)
 
-    def leave_AsyncFunctionDef(self, original_node, updated_node):
-        return self._try_replace(updated_node)
+    # Note: libcst uses FunctionDef for async too (asynchronous=True attribute)
+    # No separate AsyncFunctionDef class in libcst
 
     def leave_ClassDef(self, original_node, updated_node):
         return self._try_replace(updated_node)
@@ -199,6 +201,8 @@ def _cst_merge(original_src: str, snippet: str, description: str = "") -> tuple:
     """libcst merge — preserves comments, formatting, decorators, type hints."""
     if not _LIBCST_AVAILABLE:
         return _ast_merge(original_src, snippet, description)
+    if not snippet or len(snippet.strip()) < 10:
+        return None, "snippet too short"
     try:
         orig_tree    = cst.parse_module(original_src)
         snippet_tree = cst.parse_module(snippet)
@@ -208,20 +212,28 @@ def _cst_merge(original_src: str, snippet: str, description: str = "") -> tuple:
 
     replacement_map = {}
     append_stmts    = []
+    # libcst uses FunctionDef for both sync and async (async_ attribute)
+    def _cst_name(node):
+        """Extract name string from a libcst FunctionDef or ClassDef."""
+        n = getattr(node, 'name', None)
+        if n is None: return None
+        return n.value if isinstance(n, cst.Name) else str(n)
+
+    def _is_named_def(node):
+        return isinstance(node, (cst.FunctionDef, cst.ClassDef))
+
     orig_names = {
-        (n.name.value if isinstance(n.name, cst.Name) else str(n.name))
+        _cst_name(n)
         for n in orig_tree.body
-        if isinstance(n, (cst.FunctionDef, cst.AsyncFunctionDef, cst.ClassDef))
+        if _is_named_def(n) and _cst_name(n)
     }
 
     for stmt in snippet_tree.body:
         if isinstance(stmt, cst.SimpleStatementLine):
             append_stmts.append(stmt); continue
         name = None
-        if isinstance(stmt, (cst.FunctionDef, cst.AsyncFunctionDef)):
-            name = stmt.name.value if isinstance(stmt.name, cst.Name) else str(stmt.name)
-        elif isinstance(stmt, cst.ClassDef):
-            name = stmt.name.value if isinstance(stmt.name, cst.Name) else str(stmt.name)
+        if _is_named_def(stmt):
+            name = _cst_name(stmt)
         if name:
             if name in PROTECTED_NAMES:
                 return None, f"blocked: overwrites protected '{name}'"
@@ -241,8 +253,7 @@ def _cst_merge(original_src: str, snippet: str, description: str = "") -> tuple:
         body = list(orig_tree.body)
         main_idx = next(
             (i for i, n in enumerate(body)
-             if isinstance(n, cst.FunctionDef) and
-             (n.name.value if isinstance(n.name, cst.Name) else str(n.name)) == "main"),
+             if isinstance(n, cst.FunctionDef) and _cst_name(n) == "main"),
             len(body)
         )
         for offset, node in enumerate(append_stmts):
@@ -269,6 +280,9 @@ def smart_merge(original_src: str, snippet: str, description: str = "") -> tuple
         result, reason = _cst_merge(original_src, snippet, description)
         if result:
             return result, f"libcst: {reason}"
+        # If blocked (protected name) — propagate as None, don't fall back to AST
+        if reason and "blocked" in reason:
+            return None, reason
         log.warning(f"CST merge failed ({reason}), falling back to AST")
     result, reason = _ast_merge(original_src, snippet, description)
     if result:
