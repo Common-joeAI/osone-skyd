@@ -587,6 +587,13 @@ def apply_self_improvement(improvement, ev):
     snippet = improvement.get("code_snippet","")
     benefit = improvement.get("expected_benefit","")
 
+    # Cooling-off check — reject proposals too similar to recent ones
+    _cycle = ev.get("generation", 0)
+    _cooling, _cool_reason = _check_proposal_cooloff(desc, _cycle)
+    if _cooling:
+        log.info(f"⏭️  Proposal cooling off: {desc[:60]} ({_cool_reason})")
+        return ev
+
     log.info(f"🧬 EVOLUTION [{itype}]: {desc[:100]}")
     log.info(f"   Expected: {benefit[:80]}")
 
