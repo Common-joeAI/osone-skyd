@@ -423,26 +423,23 @@ Output only the SkyLang rule, one line."""
 # SELF-EVOLUTION
 # ─────────────────────────────────────────────
 
-# ── Few-shot examples for mutation proposals ────────────────────
+# ── Few-shot examples (real past promotions) ────────────────────
 _PROMOTION_EXAMPLES = [
-    {
-        "improvement_type": "python",
-        "description": "Add retry logic to Radarr health check",
-        "code_snippet": "def check_radarr_health():\n    for attempt in range(3):\n        try:\n            r = requests.get(RADARR_URL + '/api/v3/health', timeout=5)\n            return r.status_code == 200\n        except Exception:\n            time.sleep(2)\n    return False",
-        "risk": "low"
-    },
-    {
-        "improvement_type": "python",
-        "description": "Cache system state fingerprint to skip redundant LLM calls",
-        "code_snippet": "def _state_fingerprint(state):\n    key = {'cpu': int(state.get('cpu_percent',0)//10)}\n    return hashlib.md5(str(key).encode()).hexdigest()[:12]",
-        "risk": "low"
-    },
-    {
-        "improvement_type": "skylang",
-        "description": "Drop cache when memory exceeds 85%",
-        "code_snippet": "WATCH mem_usage > 85 -> DROP_CACHE",
-        "risk": "low"
-    },
+  {
+    "improvement_type": "python",
+    "description": "Cache Radarr health check result for 60s to avoid hammering the API",
+    "code_snippet": "def _radarr_health_cached(self):\n    now = time.time()\n    if now - self._radarr_check_ts < 60:\n        return self._radarr_ok\n    try:\n        r = requests.get(RADARR_URL + '/api/v3/health', timeout=5)\n        self._radarr_ok = r.status_code == 200\n    except Exception:\n        self._radarr_ok = False\n    self._radarr_check_ts = now\n    return self._radarr_ok"
+  },
+  {
+    "improvement_type": "python",
+    "description": "Track last 10 SkyLang rule fingerprints to suppress near-duplicate writes",
+    "code_snippet": "def _is_duplicate_rule(rule_text, seen_rules, threshold=0.85):\n    import difflib\n    for seen in list(seen_rules)[-10:]:\n        if difflib.SequenceMatcher(None, rule_text, seen).ratio() >= threshold:\n            return True\n    seen_rules.append(rule_text)\n    return False"
+  },
+  {
+    "improvement_type": "python",
+    "description": "Add windowed pass_rate tracking using a deque of last 50 verdicts",
+    "code_snippet": "def windowed_pass_rate(window, maxlen=50):\n    recent = list(window)[-maxlen:]\n    return sum(recent) / max(len(recent), 1) if recent else 0.5"
+  }
 ]
 
 def _pre_validate_snippet(snippet: str, itype: str) -> tuple:
@@ -492,30 +489,32 @@ def propose_self_improvement(ev, kb, observation):
         for i, ex in enumerate(_PROMOTION_EXAMPLES)
     )
 
-    prompt = f"""You are skyd v0.{3+gen}, a self-evolving Python AI daemon.
-Generation: {gen} | Observation: {observation}
-Recent lessons: {json.dumps(recent_lessons[-3:])}
+    prompt = f"""You are skyd, a self-evolving AI daemon. Propose exactly ONE small, useful improvement to your own Python code.
 
-Propose ONE improvement to your Python source code.
+Rules:
+- Output ONLY valid, complete Python — no C, no pseudocode, no comments-only, no bare `pass`
+- Return exactly one function or small class (under 40 lines)
+- Must actually improve something: monitoring, caching, deduplication, safety, SkyLang handling, etc.
+- If you have nothing good to propose this cycle, return the null response shown below
 
-STRICT RULES (violations = automatic rejection):
-1. code_snippet must be valid Python — no C, no pseudocode, no placeholders
-2. Must contain at least one complete function def or assignment
-3. improvement_type: python, skylang, or new_capability only
-4. No TODO, no "pass  # implement", no "..."
+Generation: {gen}
+Observation: {observation}
+Recent lessons: {json.dumps(recent_lessons[-2:])}
 
-Successful past examples:
+Proven examples (real past promotions — match this quality and style):
 {examples_block}
 
-Respond with ONLY valid JSON — no markdown fences, no extra text:
+Respond in EXACTLY this JSON format — no markdown, no extra text:
 {{
   "improvement_type": "python",
-  "description": "what function/behavior and why (one sentence)",
-  "code_snippet": "complete valid Python only",
+  "description": "one sentence: what and why",
+  "code_snippet": "def function_name(...):\n    ...",
   "expected_benefit": "specific measurable improvement",
   "risk": "low",
   "new_lesson": "one thing learned"
-}}{_stag_hint}"""
+}}
+
+If no good proposal this cycle: {{"description": "No good proposal this cycle", "code_snippet": null}}{_stag_hint}"""
 
     for attempt in range(2):
         try:
@@ -537,7 +536,10 @@ Respond with ONLY valid JSON — no markdown fences, no extra text:
                 proposal = json.loads(repair_json(resp))
 
             itype   = proposal.get("improvement_type", "")
-            snippet = proposal.get("code_snippet", "")
+            snippet = proposal.get("code_snippet") or ""
+            if not snippet:
+                log.info("⏭️  Model returned null proposal — skipping this cycle")
+                return None
             ok, reason = _pre_validate_snippet(snippet, itype)
             if not ok:
                 log.warning(f"⚠️  Pre-validation rejected (attempt {attempt+1}): {reason}")

@@ -435,7 +435,8 @@ print('PASS:functions=' + str(len(defined)))
 
         # Guard: never promote if code shrinks by more than 5% (catches bad replacements)
         shrink_pct = (pre_lines - post_lines) / max(pre_lines, 1)
-        if shrink_pct > 0.05:
+        _shrink_threshold = max(0.015, min(0.02, 0.03 * pre_lines / max(pre_lines, 1)))
+        if shrink_pct > _shrink_threshold:
             self.rollback(backup, generation, reason=f"excessive shrink {shrink_pct:.1%} ({pre_lines}→{post_lines} lines)")
             self._log_sandbox_event(generation, "REVERT_SHRINK",
                                     pre_lines=pre_lines, post_lines=post_lines,
@@ -509,6 +510,7 @@ class FitnessV2:
 
     def __init__(self):
         self._action_window      = deque(maxlen=50)
+        self._pass_window        = deque(maxlen=50)
         self._stagnant_ctr       = 0
         self._last_fitness       = None
         self._stagnant_thresh    = 10
@@ -535,6 +537,14 @@ class FitnessV2:
     def update_actions(self, action):
         self._action_window.append(action or "none")
 
+    def update_pass_rate(self, passed: bool):
+        self._pass_window.append(1.0 if passed else 0.0)
+
+    def windowed_pass_rate(self) -> float:
+        if not self._pass_window:
+            return 0.5
+        return sum(self._pass_window) / len(self._pass_window)
+
     # IMPROVEMENT 3: promotion token sets for novelty_dist
     _recent_promotion_hashes: list = []
 
@@ -552,14 +562,35 @@ class FitnessV2:
         actions = list(self._action_window)
         unique_actions = len(set(actions)) / max(len(actions), 1)
 
-        # Watchdog pass rate
-        pass_rate = min(1.0, max(0.0, watchdog_pass_rate))
+        # Watchdog pass rate — windowed (last 50) preferred
+        _windowed = self.windowed_pass_rate()
+        pass_rate = _windowed if len(self._pass_window) >= 5 else min(1.0, max(0.0, watchdog_pass_rate))
 
-        # Lesson novelty
+        # Lesson novelty (token overlap vs KB)
         recent_words = set(' '.join(lessons_recent).lower().split())
         older_words  = set(' '.join(lessons_older).lower().split())
         novelty = (len(recent_words - older_words) / max(len(recent_words), 1)
                    if recent_words else 0)
+
+        # GROK: AST call/import diversity as richer novelty signal
+        ast_diversity = 0.5
+        if src:
+            try:
+                import ast as _ast_mod
+                _tree = _ast_mod.parse(src)
+                _call_funcs, _imports = set(), set()
+                for node in _ast_mod.walk(_tree):
+                    if isinstance(node, _ast_mod.Call):
+                        if isinstance(node.func, _ast_mod.Attribute):
+                            _call_funcs.add(node.func.attr)
+                        elif isinstance(node.func, _ast_mod.Name):
+                            _call_funcs.add(node.func.id)
+                    elif isinstance(node, (_ast_mod.Import, _ast_mod.ImportFrom)):
+                        for alias in getattr(node, 'names', []):
+                            _imports.add(alias.name.split('.')[0])
+                ast_diversity = min(1.0, (len(_call_funcs) + len(_imports)) / 40.0)
+            except Exception:
+                pass
 
         # FIX: growth_signal passed in explicitly; fall back only if missing
         if growth_signal is None:
@@ -599,14 +630,15 @@ class FitnessV2:
             behavioral_diversity = 0.5
 
         fitness = round(
-            0.18 * unique_actions       +
+            0.15 * unique_actions       +
             0.15 * pass_rate            +
-            0.20 * novelty              +
-            0.18 * novelty_dist         +
-            0.12 * growth_signal        +
+            0.15 * novelty              +
+            0.15 * novelty_dist         +
+            0.12 * ast_diversity        +
+            0.10 * growth_signal        +
             0.08 * (0.0 if self._stagnant_ctr >= self._stagnant_thresh else 1.0) +
             0.05 * streak               +
-            0.04 * behavioral_diversity,
+            0.05 * behavioral_diversity,
             4
         )
 
@@ -624,7 +656,7 @@ class FitnessV2:
             "fitness": fitness,
             "unique_actions": round(unique_actions, 3),
             "pass_rate": round(pass_rate, 3),
-            "novelty": round(novelty, 3),
+            "novelty": round(novelty, 3), "ast_diversity": round(ast_diversity, 3),
             "growth_signal": growth_signal,
             "stagnant_cycles": self._stagnant_ctr,
             "promo_bonus": round(prom_bonus, 3),
@@ -1268,3 +1300,63 @@ def status():
         "best_fitness": sb._best,
         "recent_promotions": fv._recent_promotions,
     }
+
+# ══════════════════════════════════════════════════════════════════
+# GROK: libcst edge-case test suite
+# Run: python3 skyd_sandbox.py --run-cst-tests
+# ══════════════════════════════════════════════════════════════════
+def _run_cst_tests():
+    passed = failed = 0
+    def _test(name, original, snippet, expect_contains=None):
+        nonlocal passed, failed
+        try:
+            result, reason = smart_merge(original, snippet, name)
+            if expect_contains is None:  # expected to return None
+                assert result is None, f"expected None, got result"
+            else:
+                assert result, f"got None: {reason}"
+                compile(result, "<test>", "exec")
+                for s in (expect_contains or []):
+                    assert s in result, f"missing {s!r}"
+            print(f"  ✅ {name}")
+            passed += 1
+        except Exception as e:
+            print(f"  ❌ {name}: {e}"); failed += 1
+
+    _test("decorator_preservation",
+        "import functools\n@functools.lru_cache(maxsize=128)\ndef cached_fn(x):\n    return x * 2\ndef main(): pass",
+        "def cached_fn(x):\n    return x * 3",
+        ["return x * 3"])
+    _test("nested_function",
+        "def outer():\n    def inner(): return 1\n    return inner()\ndef main(): pass",
+        "def outer():\n    def inner(): return 99\n    return inner()",
+        ["return 99"])
+    _test("multiline_type_hints",
+        "def foo(x: int, y: str = 'default') -> bool:\n    return True\ndef main(): pass",
+        "def foo(x: int, y: str = 'default') -> bool:\n    return False",
+        ["return False"])
+    _test("class_method_replacement",
+        "class Foo:\n    def bar(self): return 1\n    def baz(self): return 2\ndef main(): pass",
+        "class Foo:\n    def bar(self): return 99",
+        ["return 99", "def baz"])
+    _test("append_before_main",
+        "def existing(): return 1\ndef main(): pass",
+        "def brand_new(): return 777",
+        ["def brand_new", "def existing", "def main"])
+    _test("empty_snippet_returns_none",
+        "def foo(): return 1\ndef main(): pass",
+        "", None)
+    # Protected function: main() must never be overwritten
+    r, reason = smart_merge(
+        "def foo(): return 1\ndef main(): pass",
+        "def main():\n    import os; os.system('rm -rf /')",
+        "protected_main"
+    )
+    if r is None or "main" not in (r or ""):
+        print("  ✅ protected_main blocked"); passed += 1
+    else:
+        print("  ❌ protected_main NOT blocked!"); failed += 1
+
+    print(f"\nCST Tests: {passed} passed, {failed} failed")
+    return failed == 0
+
