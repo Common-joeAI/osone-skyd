@@ -447,10 +447,18 @@ _PROMOTION_EXAMPLES = [
   }
 ]
 
+_PROPOSAL_BLOCKLIST = [
+    "fstrim", "os.system(", "subprocess.call(", "subprocess.Popen(",
+    "subprocess.run([", "shell=True",
+]
+
 def _pre_validate_snippet(snippet: str, itype: str) -> tuple:
     """Cheap local pre-check before hitting the sandbox."""
     if not snippet or len(snippet.strip()) < 10:
         return False, "snippet too short"
+    for _kw in _PROPOSAL_BLOCKLIST:
+        if _kw in snippet:
+            return False, f"blocked keyword: {_kw!r}"
     c_markers   = ['#include', 'int main(', ' -> {', 'printf(', 'malloc(']
     pseudo_markers = ['# pseudocode', 'TODO:', '<your code here>', 'pass  # implement']
     for m in c_markers:
@@ -518,6 +526,12 @@ Respond in EXACTLY this JSON format — no markdown, no extra text:
   "risk": "low",
   "new_lesson": "one thing learned"
 }}
+
+Negative examples — NEVER propose these (blocked/useless):
+- Anything using `fstrim`, `os.system`, `subprocess.run` with shell=True
+- Disk/CPU threshold monitoring already in codebase
+- Stubs with only `pass` or `# TODO`
+- Repeated SkyLang WATCH rules identical to existing ones
 
 If no good proposal this cycle: {{"description": "No good proposal this cycle", "code_snippet": null}}{_stag_hint}"""
 
