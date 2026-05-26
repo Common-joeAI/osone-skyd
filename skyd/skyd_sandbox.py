@@ -166,7 +166,7 @@ try:
 except ImportError:
     _LIBCST_AVAILABLE = False
 
-class _CSTFunctionReplacer(cst.CSTTransformer if _LIBCST_AVAILABLE else object):
+class _CSTFunctionReplacer(cst.CSTTransformer):
     """Replace FunctionDef/ClassDef by name, preserving comments and decorators."""
     def __init__(self, replacement_map, protected):
         self.replacement_map = replacement_map
@@ -259,13 +259,21 @@ def _cst_merge(original_src: str, snippet: str, description: str = "") -> tuple:
 
 
 def smart_merge(original_src: str, snippet: str, description: str = "") -> tuple:
-    """Unified entry point: CST (comment-preserving) with AST fallback."""
+    """CST (libcst, preserves formatting/comments) preferred; AST fallback.
+    
+    Returns reason prefixed with 'libcst:' or 'ast:' so callers can
+    distinguish paths — important for shrink guard which must bypass
+    ast.unparse's ~30% comment/whitespace compression.
+    """
     if _LIBCST_AVAILABLE:
         result, reason = _cst_merge(original_src, snippet, description)
         if result:
-            return result, reason
-        log.warning(f"CST merge failed ({reason}), trying AST")
-    return _ast_merge(original_src, snippet, description)
+            return result, f"libcst: {reason}"
+        log.warning(f"CST merge failed ({reason}), falling back to AST")
+    result, reason = _ast_merge(original_src, snippet, description)
+    if result:
+        return result, f"ast: {reason}"
+    return None, reason
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -400,8 +408,10 @@ print('PASS:functions=' + str(len(defined)))
         # Capture pre-merge line count here if caller didn't pass it
         pre_lines = pre_merge_lines or len(original.splitlines())
 
-        # AST merge (replaces regex merge)
-        merged, merge_err = _ast_merge(original, snippet, description)
+        # Use smart_merge: CST (libcst, preserves formatting) preferred over AST
+        # CST path preserves line count — prevents false shrink guard triggers
+        merged, merge_reason = smart_merge(original, snippet, description)
+        merge_err = merge_reason
         if merged is None:
             self._log_sandbox_event(generation, "SKIP", reason=merge_err)
             log.info(f"⏭️  Sandbox skip: {merge_err}")
@@ -433,10 +443,11 @@ print('PASS:functions=' + str(len(defined)))
         new_fitness = self._default_fitness(merged, growth_signal=growth_signal)
         delta       = new_fitness - current_fitness
 
-        # Guard: never promote if code shrinks by more than 5% (catches bad replacements)
+        # Guard: shrink guard — skip for ast.unparse path which strips comments (~30% false positive)
         shrink_pct = (pre_lines - post_lines) / max(pre_lines, 1)
         _shrink_threshold = max(0.015, min(0.02, 0.03 * pre_lines / max(pre_lines, 1)))
-        if shrink_pct > _shrink_threshold:
+        _ast_path = merge_reason and merge_reason.startswith("ast:")
+        if shrink_pct > _shrink_threshold and not _ast_path:
             self.rollback(backup, generation, reason=f"excessive shrink {shrink_pct:.1%} ({pre_lines}→{post_lines} lines)")
             self._log_sandbox_event(generation, "REVERT_SHRINK",
                                     pre_lines=pre_lines, post_lines=post_lines,
