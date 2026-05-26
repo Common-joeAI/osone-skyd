@@ -451,7 +451,9 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 LLAMA = os.environ.get("LLAMA_URL", os.environ.get("LLAMA", "http://osone-llama:8080"))
-JWT_SECRET = "63ec173681e5393ba9039174cd0e2f6c96d90b67343384370a3284e12c881f7e"
+JWT_SECRET = os.environ.get("JWT_SECRET", "")
+if not JWT_SECRET:
+    raise RuntimeError("JWT_SECRET not set — add it to .env")
 JWT_ALG = "HS256"
 JWT_EXP_HOURS = 72
 
