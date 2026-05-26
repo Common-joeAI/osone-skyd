@@ -710,6 +710,13 @@ def act(action, decision):
     return decision
 
 def think(state, kb, ev):
+    # Resolve env-based URLs for use in f-strings
+    _AETHORIA_URL = os.environ.get('AETHORIA_URL', 'http://172.23.0.2:7432')
+    _RADARR_URL   = os.environ.get('RADARR_URL',   'http://172.22.0.1:7878')
+    _SONARR_URL   = os.environ.get('SONARR_URL',   'http://172.22.0.1:8989')
+    AETHORIA_URL  = _AETHORIA_URL  # noqa: F841 — used in f-string below
+    RADARR_URL    = _RADARR_URL
+    SONARR_URL    = _SONARR_URL
     persona_summary, persona_traits, corpus_lines = load_persona()
     persona_block = ""
     if persona_summary:
