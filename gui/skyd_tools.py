@@ -7,11 +7,11 @@ import json as _js
 import pathlib as _pl
 
 PLEX_URL   = os.environ.get("PLEX_URL",   "http://172.22.0.1:32400")
-PLEX_TOKEN = "vbyNrqkhhtXu29i5zywc"
+PLEX_TOKEN = os.environ.get("PLEX_TOKEN")
 RADARR_URL = os.environ.get("RADARR_URL", "http://172.22.0.1:7878")
-RADARR_KEY = "328c545f891a4e6c9f2e4355736ab5e1"
+RADARR_KEY = os.environ.get("RADARR_KEY")
 SONARR_URL = os.environ.get("SONARR_URL", "http://172.22.0.1:8989")
-SONARR_KEY = "dce481c941bb424386935c0169929d70"
+SONARR_KEY = os.environ.get("SONARR_KEY")
 
 async def tool_plex_sessions():
     try:

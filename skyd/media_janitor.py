@@ -16,12 +16,13 @@ import os, json, subprocess, logging
 from pathlib import Path
 from datetime import datetime
 
-RADARR_URL  = "http://localhost:7878"
-RADARR_KEY  = "328c545f891a4e6c9f2e4355736ab5e1"
-SONARR_URL  = "http://localhost:8989"
-SONARR_KEY  = "dce481c941bb424386935c0169929d70"
+RADARR_URL  = os.environ.get("RADARR_URL", "http://172.22.0.1:7878")
+RADARR_KEY  = os.environ.get("RADARR_KEY")
+SONARR_URL  = os.environ.get("SONARR_URL", "http://172.22.0.1:8989")
+SONARR_KEY  = os.environ.get("SONARR_KEY")
 LOG_PATH    = "/var/log/skyd_janitor.log"
 MEDIA_PATHS = ["/mnt/user/Data/Movies", "/mnt/user/Data/tvshows"]
+STATE_PATH  = "/var/log/skyd_janitor_state.json"
 
 VIDEO_EXTS = {'.mkv', '.mp4', '.avi', '.wmv', '.m2ts', '.mov', '.mpg', '.mpeg', '.flv', '.ts'}
 BAD_EXTS   = {'.iso', '.wmv', '.avi', '.m2ts'}
@@ -90,6 +91,22 @@ def find_duplicates(folder):
     keeper = ranked[0]
     return [(str(d), str(keeper)) for d in ranked[1:]]
 
+def load_state():
+    try:
+        if os.path.exists(STATE_PATH):
+            with open(STATE_PATH) as f:
+                return json.load(f)
+    except:
+        pass
+    return {"last_scan": {}}
+
+def save_state(state):
+    try:
+        with open(STATE_PATH, 'w') as f:
+            json.dump(state, f, indent=2)
+    except:
+        pass
+
 def run_janitor():
     log.info("=== Media Janitor starting ===")
     report = {
@@ -99,6 +116,8 @@ def run_janitor():
         "radarr_searches_triggered": [],
         "errors": []
     }
+    state = load_state()
+    last_scan = state.get("last_scan", {})
 
     # Build Radarr path lookup
     try:
@@ -128,7 +147,10 @@ def run_janitor():
                 radarr_delete_file(movie['movieFile']['id'])
                 log.info(f"  Radarr-deleted: {movie['title']}")
             else:
-                os.remove(disk_path)
+                try:
+                    os.remove(disk_path)
+                except Exception as e:
+                    logging.warning(f"os.remove failed for {disk_path}: {e}")
                 log.info(f"  Direct-deleted: {disk_path}")
             if movie and movie['id'] not in searched:
                 radarr_search(movie['id'])
@@ -146,6 +168,10 @@ def run_janitor():
         log.info(f"Scanning {media_root}...")
         for root, dirs, files in os.walk(media_root):
             dirs[:] = [d for d in dirs if not d.startswith('.')]
+            cur_mtime = os.path.getmtime(root)
+            saved_mtime = last_scan.get(root, 0)
+            if cur_mtime <= saved_mtime:
+                continue
             for fname in files:
                 if Path(fname).suffix.lower() not in VIDEO_EXTS:
                     continue
@@ -161,6 +187,9 @@ def run_janitor():
                 report["duplicates_removed"].append({
                     "removed": Path(dp).name, "kept": Path(keeper).name
                 })
+            last_scan[root] = cur_mtime
+
+    save_state({"last_scan": last_scan})
 
     with open('/var/log/skyd_janitor_last.json', 'w') as f:
         json.dump(report, f, indent=2)

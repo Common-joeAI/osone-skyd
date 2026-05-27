@@ -448,7 +448,13 @@ Your job: synthesize the strongest, most accurate answer.
     }
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://app.osone.org", "https://osone.org", "http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 LLAMA = os.environ.get("LLAMA_URL", os.environ.get("LLAMA", "http://osone-llama:8080"))
 JWT_SECRET = os.environ.get("JWT_SECRET", "")
@@ -579,15 +585,17 @@ async def list_users(admin=Depends(require_admin)):
 async def change_password(body: dict, me=Depends(get_current_user)):
     old_pass = body.get("old_password", "")
     new_pass = body.get("new_password", "")
+    if not new_pass or len(new_pass) < 6:
+        raise HTTPException(status_code=400, detail="Password too short")
     users = load_users()
     user = users.get(me["sub"])
     if not user or not _check_pw(old_pass, user["hashed_password"]):
         raise HTTPException(status_code=401, detail="Wrong current password")
-    users[me["sub"]]["hashed_password"] = pwd_ctx.hash(new_pass)
+    users[me["sub"]]["hashed_password"] = _hash_pw(new_pass)
     save_users(users)
     return {"ok": True}
 
-# ── PUBLIC: Stats (limited) ───────────────────────────────────────────────────
+
 @app.get("/api/stats")
 async def stats(creds: HTTPAuthorizationCredentials = Depends(bearer)):
     cpu = psutil.cpu_percent(interval=0.5)
@@ -981,16 +989,23 @@ async def ws_chat_public(ws: WebSocket):
 
 # ── ADMIN ONLY: Exec, Files, Journal, Hive control ───────────────────────────
 @app.post("/api/exec")
-async def run(body: dict, admin=Depends(require_admin)):
+async def run_exec(body: dict, admin=Depends(require_admin)):
     cmd = body.get("cmd", "").strip()
-    if not cmd: return {"stdout":"","stderr":"","error":"empty"}
+    if not cmd:
+        return {"stdout": "", "stderr": "", "error": "empty"}
+    ALLOWED_PREFIXES = [
+        "docker ps", "docker stats --no-stream", "docker logs",
+        "df -h", "free -h", "uptime", "cat /var/log/skyd",
+    ]
+    if not any(cmd.startswith(p) for p in ALLOWED_PREFIXES):
+        return JSONResponse({"error": f"forbidden — not in allowlist"}, status_code=403)
     try:
-        r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=20, cwd="/root")
-        return {"stdout":r.stdout,"stderr":r.stderr,"returncode":r.returncode}
+        r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=20, cwd="/tmp")
+        return {"stdout": r.stdout, "stderr": r.stderr, "returncode": r.returncode}
     except subprocess.TimeoutExpired:
-        return {"stdout":"","stderr":"","error":"timeout"}
+        return {"stdout": "", "stderr": "", "error": "timeout"}
     except Exception as e:
-        return {"stdout":"","stderr":"","error":str(e)}
+        return {"stdout": "", "stderr": "", "error": str(e)}
 
 
 @app.get("/api/logs/stream")

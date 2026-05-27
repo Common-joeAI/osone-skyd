@@ -93,7 +93,7 @@ services:
       - /mnt/user/osone-docker/cloudflared:/etc/cloudflared:ro
     extra_hosts:
       - "localhost:172.22.0.1"
-    command: tunnel --no-autoupdate --protocol http2 --config /etc/cloudflared/config.yml run --token eyJhIjoiYWVmMTZlY2Y5ZjA2MjBmZDkxYmZlYTAwNzkwYjczYmEiLCJ0IjoiZjQ3ZjkyOGItZmJiMi00ZTNlLWJhNjItOGI2NDYzYTk0Njk0IiwicyI6Ik9HTmxOVFk0WmpFdE5EUmxZeTAwTmpkaUxXRmlNRFF0TW1Sak1qUTRPV1U1TkRrMSJ9
+    command: tunnel --no-autoupdate --protocol http2 --config /etc/cloudflared/config.yml run --token ${CLOUDFLARE_TOKEN}
     networks:
       - osone
   landing:
