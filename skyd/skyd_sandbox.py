@@ -35,6 +35,14 @@ PROTECTED_NAMES = frozenset({
 })
 
 
+def _dedup_evolution_headers(src: str) -> str:
+    """Strip repeated leading evolved-via header lines to prevent pile-up on every CST merge."""
+    lines = src.splitlines()
+    while lines and lines[0].lstrip().startswith("# skyd.py"):
+        lines.pop(0)
+    return "\n".join(lines)
+
+
 class _FunctionReplacer(ast.NodeTransformer):
     """
     AST NodeTransformer: replaces FunctionDef/AsyncFunctionDef/ClassDef
@@ -263,6 +271,7 @@ def _cst_merge(original_src: str, snippet: str, description: str = "") -> tuple:
 
     try:
         merged = orig_tree.code
+        merged = _dedup_evolution_headers(merged)
         return f"# skyd.py — evolved via CST merge | {description[:60]}\n" + merged, "ok (libcst)"
     except Exception as e:
         log.warning(f"libcst codegen failed ({e}), falling back to AST")

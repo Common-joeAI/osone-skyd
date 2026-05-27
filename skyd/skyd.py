@@ -1,3 +1,15 @@
+# skyd.py — evolved via CST merge | Regularly clean up duplicate SkyLang rule texts by removing 
+# skyd.py — evolved via CST merge | Cache recent CPU usage values for 5 minutes to avoid redunda
+# skyd.py — evolved via CST merge | Add a cache for frequently accessed system metrics to reduce
+# skyd.py — evolved via CST merge | Implement a small cache for the system's current status to a
+# skyd.py — evolved via CST merge | Cache the result of `shutil.disk_usage('/')` to avoid redund
+# skyd.py — evolved via CST merge | Implement a simple LRU cache for disk usage results to avoid
+# skyd.py — evolved via CST merge | Cache the result of a single SkyLang rule execution to avoid
+# skyd.py — evolved via CST merge | Implement a cache for SkyLang rule texts to improve performa
+# skyd.py — evolved via CST merge | Cache SkyLang rule texts to avoid redundant rule processing 
+# skyd.py — evolved via CST merge | Implement a deduplication cache for duplicate SkyLang rule t
+# skyd.py — evolved via CST merge | Cache SkyLang rule texts to avoid redundant checks
+# skyd.py — evolved via CST merge | Cache the result of SkyLang rule evaluation to avoid redunda
 # skyd.py — evolved via CST merge | Cache disk usage result for 30 minutes to avoid redundant su
 # skyd.py — evolved via CST merge | Cache the result of `SkyLang` rule evaluation to avoid redun
 import os
@@ -621,6 +633,23 @@ def apply_self_improvement(improvement, ev):
         log.info(f"⏭️  Proposal cooling off: {desc[:60]} ({_cool_reason})")
         return ev
 
+
+    # Jaccard pre-filter vs last 8 promotions (token overlap > 0.65)
+    try:
+        fv = _sb.get_fitness()
+        phashes = getattr(FitnessV2, "_recent_promotion_hashes", []) or []
+        if phashes and snippet:
+            toks = set(re.findall(r'\b\w{4,}\b', snippet))
+            for ph in list(phashes)[-8:]:
+                if toks and ph:
+                    inter = len(toks & ph)
+                    union = len(toks | ph)
+                    if union and (inter / union) > 0.65:
+                        log.info(f"⏭️  Jaccard pre-filter: overlap={inter/union:.2f} > 0.65 — skipping")
+                        return ev
+    except Exception:
+        pass
+
     log.info(f"🧬 EVOLUTION [{itype}]: {desc[:100]}")
     log.info(f"   Expected: {benefit[:80]}")
 
@@ -891,31 +920,6 @@ def save_state(state, decision, kb, ev):
                 "updated": datetime.now().isoformat()
             }, f, indent=2)
     except: pass
-class RuleCache:
-    def __init__(self):
-        self.cache = {}
-    def _cache_result(self, rule, result):
-        self.cache[rule] = result
-    def _get_cached_result(self, rule):
-        return self.cache.get(rule)
-    def evaluate_rule(self, rule):
-        if rule in self.cache:
-            return self._get_cached_result(rule)
-        result = self._SkyLang.evaluate_rule(rule)
-        self._cache_result(rule, result)
-        return result
-def _cached_disk_usage(self, max_age=1800):
-    now = time.time()
-    if hasattr(self, '_disk_cache') and now - self._disk_cache['ts'] < max_age:
-        return self._disk_cache['pct']
-    try:
-        import shutil
-        total, used, free = shutil.disk_usage('/')
-        pct = round(used / total * 100, 1)
-    except Exception:
-        pct = 0.0
-    self._disk_cache = {'ts': now, 'pct': pct}
-    return pct
 
 # ─────────────────────────────────────────────
 # MAIN
@@ -1086,6 +1090,9 @@ IF service failed -> RESTART service
             except Exception as _ee:
                 log.debug(f"Enhancement tick: {_ee}")
         # ── FitnessV2 + SkyLang v2 base rules tick ────────────────────────────
+        action = decision.get("action", "none")
+        _wv = {}
+        _last_verdict = ''
         if _SANDBOX_ENABLED:
             try:
                 import pathlib as _plb2
@@ -1122,7 +1129,6 @@ IF service failed -> RESTART service
                 log.debug(f"Sandbox tick: {_sbe}")
         # ──────────────────────────────────────────────────────────────────────
         obs    = decision.get("observation", "")
-        action = decision.get("action", "none")
         log.info(f"[{decision.get('status','?').upper()}] {obs}")
 
         # ── Loop detection ──
