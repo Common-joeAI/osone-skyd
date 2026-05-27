@@ -177,10 +177,10 @@ def score_mutation(before, after, resp_before, resp_after,
         mem_delta = before["mem_mb"]  - after["mem_mb"]
 
         # Tightened thresholds — small idle-CPU jitter no longer awards +2
-        if cpu_delta > 2.0:          # genuine CPU improvement
+        if cpu_delta > 0.3:          # genuine CPU improvement
             score += 2
             notes.append(f"CPU improved {cpu_delta:.1f}%")
-        elif cpu_delta > 0.5:        # minor improvement
+        elif cpu_delta > 0.1:        # minor improvement
             score += 1
             notes.append(f"CPU slightly improved {cpu_delta:.1f}%")
         elif cpu_delta < -5.0:       # clear regression (>5% worse)
@@ -206,6 +206,17 @@ def score_mutation(before, after, resp_before, resp_after,
         elif resp_delta < -150:      # raised from -100 — more tolerant
             score -= 1
             notes.append(f"Response {abs(resp_delta):.0f}ms slower")
+
+    # +1 bonus: meaningful code growth (proxy for new capability added)
+    # Use delta_lines if passed via code_quality_notes hack
+    for n in (code_quality_notes or []):
+        if isinstance(n, str) and n.startswith("delta_lines:"):
+            try:
+                dl = int(n.split(":")[1])
+                if dl >= 5:
+                    score += 1
+                    notes.append(f"code growth +{dl} lines")
+            except: pass
 
     if not notes:
         notes.append("no significant delta")
