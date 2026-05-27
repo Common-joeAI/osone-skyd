@@ -2287,3 +2287,40 @@ async def skymusic_compose(body: dict):
         return {"ok": True, "song": song}
     except _json.JSONDecodeError as e:
         return {"ok": False, "error": str(e), "raw": raw[:800]}
+
+
+# ── Enhancement endpoints ─────────────────────────────────────────────────
+@app.get("/api/skylang/rules")
+def get_skylang_rules(user=Depends(require_admin)):
+    if _sky_engine is None:
+        return []
+    return _sky_engine.get_rule_status()
+
+@app.post("/api/skylang/toggle")
+def toggle_skylang_rule(payload: dict, user=Depends(require_admin)):
+    if _sky_engine is None:
+        return {"ok": False}
+    _sky_engine.set_rule_active(payload["rule_hash"], payload["active"])
+    return {"ok": True, "rule_hash": payload["rule_hash"]}
+
+@app.get("/api/evolution/history")
+def get_evolution_history(n: int = 10, user=Depends(require_admin)):
+    if _evo_hist is None:
+        return []
+    return _evo_hist.get_history(n)
+
+@app.get("/api/evolution/rollback/{gen}")
+def rollback_evolution(gen: int, user=Depends(require_admin)):
+    if _evo_hist is None:
+        return {"ok": False}
+    lines = _evo_hist.rollback(gen)
+    subprocess.run(["docker", "restart", "osone-skyd"], check=False)
+    with open("/var/log/skyd_alerts.jsonl", "a") as f:
+        f.write(json.dumps({"ts": time.time(), "action": "rollback", "gen": gen}) + "\n")
+    return {"ok": True, "gen": gen, "lines_restored": lines}
+
+@app.get("/api/tools/registry")
+def get_tools_registry(user=Depends(require_admin)):
+    if _tool_reg is None:
+        return []
+    return _tool_reg.ToolRegistry().get_registry_snapshot()

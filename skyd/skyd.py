@@ -105,6 +105,23 @@ logging.basicConfig(
     format="[%(asctime)s] %(levelname)s %(message)s",
     handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler(sys.stdout)]
 )
+# Enhancement modules
+try:
+    import skyd_skylang_engine as _sky_engine
+    _SKY_ENGINE_OK = True
+except Exception:
+    _SKY_ENGINE_OK = False
+try:
+    import skyd_tool_registry as _tool_reg
+    _TOOL_REG_OK = True
+except Exception:
+    _TOOL_REG_OK = False
+try:
+    import skyd_evolution_history as _evo_hist
+    _EVO_HIST_OK = True
+except Exception:
+    _EVO_HIST_OK = False
+
 log = logging.getLogger("skyd")
 # ── WOLF SPIDER ENGINE ──────────────────────────────────────────
 import sys as _sys
@@ -660,6 +677,11 @@ def apply_self_improvement(improvement, ev):
         apply_self_improvement._last_fitness = new_fit
         if promoted:
             log.info(f"✅ Sandbox PROMOTED: {reason}")
+        _entropy_tracker.record(action if "action" in dir() else "unknown", itype if "itype" in dir() else "unknown")
+        if _EVO_HIST_OK:
+            try:
+                _evo_hist.record_promotion("", "", 0, 0.0)
+            except Exception: pass
         else:
             log.info(f"⏮️  Sandbox REJECTED: {reason}")
     else:
@@ -925,6 +947,44 @@ def save_state(state, decision, kb, ev):
 # MAIN
 # ─────────────────────────────────────────────
 
+
+import math
+from collections import Counter
+
+class ActionEntropyTracker:
+    def __init__(self, window=20):
+        self._history = []  # last N (action_type, proposal_type) tuples
+        self._window = window
+    
+    def record(self, action: str, proposal_type: str):
+        self._history.append((action, proposal_type))
+        if len(self._history) > self._window:
+            self._history.pop(0)
+    
+    def entropy(self) -> float:
+        if not self._history:
+            return 1.0
+        types = [p[1] for p in self._history]
+        counts = Counter(types)
+        total = len(types)
+        ent = 0.0
+        for count in counts.values():
+            p = count / total
+            if p > 0:
+                ent -= p * math.log2(p)
+        max_ent = math.log2(len(counts)) if len(counts) > 1 else 1.0
+        return ent / max_ent if max_ent > 0 else 0.0
+    
+    def bias_prompt(self) -> str:
+        ent = self.entropy()
+        if ent < 0.3:
+            return "CRITICAL: You are stuck in a local optimum. Propose a NEW CAPABILITY (new tool, new SkyLang action, new monitoring target) instead of cache optimizations or internal tweaks.\n\n"
+        elif ent < 0.5:
+            return "Note: Increase proposal variety. Consider new capabilities beyond internal optimizations.\n\n"
+        else:
+            return ""
+_entropy_tracker = ActionEntropyTracker(window=20)
+
 def main():
     log.info("=" * 60)
     log.info("skyd v0.4 — OSONE Self-Evolving Intelligence Core 🧬")
@@ -1044,6 +1104,14 @@ IF service failed -> RESTART service
         subprocess.run(["apt-get","install","-y","gcc"], capture_output=True)
 
     cycle = 0
+    # Start enhancement modules
+    if _SKY_ENGINE_OK:
+        try: _sky_engine.start()
+        except Exception as _se: log.warning(f"SkyLang engine: {_se}")
+    if _TOOL_REG_OK:
+        try: _tool_reg.ToolRegistry()
+        except Exception as _te: log.warning(f"Tool registry: {_te}")
+
     while True:
         cycle += 1
         _current_cycle[0] = cycle
