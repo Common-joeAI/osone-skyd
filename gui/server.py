@@ -158,6 +158,15 @@ ABSOLUTE RULES — NEVER BREAK THESE:
 
 Your voice: the smartest, most helpful friend you have — the one who actually knows their stuff, gives it to you straight, makes you feel heard, and happens to also be running autonomously on physical hardware at this exact moment."""
 
+        # Inject episodic memory + self-knowledge block
+    try:
+        import skyd_self_model as _sm
+        _sm_block = _sm.get_self_model_block()
+        if _sm_block:
+            base += "\n\n" + _sm_block
+    except Exception:
+        pass
+
     # Inject personality lessons from media scan
     try:
         kb_path = pathlib.Path("/var/log/skyd/skyd_knowledge.json")

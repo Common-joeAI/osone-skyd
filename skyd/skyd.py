@@ -105,6 +105,12 @@ logging.basicConfig(
     format="[%(asctime)s] %(levelname)s %(message)s",
     handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler(sys.stdout)]
 )
+try:
+    import skyd_self_model as _self_model
+    _SELF_MODEL_OK = True
+except Exception:
+    _SELF_MODEL_OK = False
+
 # Enhancement modules
 try:
     import skyd_skylang_engine as _sky_engine
@@ -677,6 +683,12 @@ def apply_self_improvement(improvement, ev):
         apply_self_improvement._last_fitness = new_fit
         if promoted:
             log.info(f"✅ Sandbox PROMOTED: {reason}")
+        if _SELF_MODEL_OK:
+            try:
+                _ep_gen = ev.get('generation', 0) if 'ev' in dir() else 0
+                _ep_desc = ev.get('desc', 'code improvement')[:120] if 'ev' in dir() else 'promotion'
+                _self_model.log_episode('promotion', f'Promoted at gen {_ep_gen}: {_ep_desc}', ['evolution','code'], gen=_ep_gen)
+            except Exception: pass
         _entropy_tracker.record(action if "action" in dir() else "unknown", itype if "itype" in dir() else "unknown")
         if _EVO_HIST_OK:
             try:
@@ -1188,6 +1200,9 @@ IF service failed -> RESTART service
                 _fit2, _stag2, _frec = _sb.fitness_tick(action, _skyd_src2, kb, _wdog_rate)
                 if _stag2 and cycle % 10 == 0:
                     log.info(f"⚠️  FitnessV2 STAGNANT {_sb.get_fitness()._stagnant_ctr} cycles — applying pressure to evolution")
+                if _SELF_MODEL_OK:
+                    try: _self_model.log_episode('regression', f'FitnessV2 stagnant cycle {cycle}', ['fitness','stagnation'])
+                    except Exception: pass
                 if cycle % 25 == 0:
                     log.info(f"📊 FitnessV2: {_fit2:.4f} | stagnant={_sb.get_fitness()._stagnant_ctr} | growth={_frec.get('growth')} | novelty={_frec.get('novelty'):.3f}")
                 # Run SkyLang v2 base rules
