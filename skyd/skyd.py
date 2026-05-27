@@ -1,3 +1,4 @@
+# skyd.py — evolved via CST merge | Cache disk usage result for 30 minutes to avoid redundant su
 # skyd.py — evolved via CST merge | Cache the result of `SkyLang` rule evaluation to avoid redun
 import os
 #!/usr/bin/env python3
@@ -903,6 +904,18 @@ class RuleCache:
         result = self._SkyLang.evaluate_rule(rule)
         self._cache_result(rule, result)
         return result
+def _cached_disk_usage(self, max_age=1800):
+    now = time.time()
+    if hasattr(self, '_disk_cache') and now - self._disk_cache['ts'] < max_age:
+        return self._disk_cache['pct']
+    try:
+        import shutil
+        total, used, free = shutil.disk_usage('/')
+        pct = round(used / total * 100, 1)
+    except Exception:
+        pct = 0.0
+    self._disk_cache = {'ts': now, 'pct': pct}
+    return pct
 
 # ─────────────────────────────────────────────
 # MAIN
