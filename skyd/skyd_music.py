@@ -9,6 +9,12 @@ from datetime import datetime
 
 log = logging.getLogger("skyd.music")
 
+try:
+    from skyd_daw import music_tick_hook as _daw_render
+    DAW_OK = True
+except ImportError:
+    DAW_OK = False
+
 MUSIC_STATE_FILE = "/var/log/skyd_music_identity.json"
 MUSIC_LOG_FILE   = "/var/log/skyd_compositions.jsonl"
 LLAMA_URL        = os.environ.get("LLAMA_URL", "http://172.22.0.1:8080") + "/v1/chat/completions"
