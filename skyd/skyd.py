@@ -1206,6 +1206,8 @@ IF service failed -> RESTART service
                 try:
                     ev['fitness_score'] = round(_fit2, 4)
                     ev['pass_rate'] = round(_sb.get_fitness().windowed_pass_rate(), 3)
+                    if cycle % 10 == 0:
+                        save_evolution(ev)  # flush fitness metrics to disk
                 except Exception: pass
                 if _stag2 and cycle % 10 == 0:
                     log.info(f"⚠️  FitnessV2 STAGNANT {_sb.get_fitness()._stagnant_ctr} cycles — applying pressure to evolution")
