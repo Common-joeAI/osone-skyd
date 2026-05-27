@@ -153,6 +153,13 @@ class RLFeedbackLoop:
         if action_succeeded: reward += 1.0
         if self._last_action == "none" and (self._last_state["cpu"] > 70 or self._last_state["ram"] > 80):
             reward -= 0.5
+        # Hard cap: blocked actions can NEVER yield positive reward
+        if was_blocked:
+            reward = min(reward, -0.5)
+        # Extra penalty for disk/fstrim obsession — discourage fixation
+        _disk_keywords = ["fstrim", "disk_usage", "disk_cache", "disk space"]
+        if self._last_action and any(k in self._last_action.lower() for k in _disk_keywords):
+            reward -= 2.0
         reward = max(-3.0, min(3.0, reward))
         entry = {"ts": datetime.now().isoformat(), "action": self._last_action,
                  "action_type": self._action_type(self._last_action),
