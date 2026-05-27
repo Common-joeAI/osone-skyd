@@ -1209,11 +1209,11 @@ IF service failed -> RESTART service
                 except Exception: pass
                 if _stag2 and cycle % 10 == 0:
                     log.info(f"⚠️  FitnessV2 STAGNANT {_sb.get_fitness()._stagnant_ctr} cycles — applying pressure to evolution")
-                if _SELF_MODEL_OK:
-                    try:
-                        _ev_g = ev.get('generation', cycle) if isinstance(ev, dict) else cycle
-                        _self_model.log_episode('regression', f'FitnessV2 stagnant at cycle {cycle}', ['fitness','stagnation'], gen=_ev_g)
-                    except Exception: pass
+                    if _SELF_MODEL_OK:
+                        try:
+                            _ev_g = ev.get('generation', cycle) if isinstance(ev, dict) else cycle
+                            _self_model.log_episode('regression', f'FitnessV2 stagnant at cycle {cycle}', ['fitness','stagnation'], gen=_ev_g)
+                        except Exception: pass
                 if cycle % 25 == 0:
                     log.info(f"📊 FitnessV2: {_fit2:.4f} | stagnant={_sb.get_fitness()._stagnant_ctr} | growth={_frec.get('growth')} | novelty={_frec.get('novelty'):.3f}")
                 # Run SkyLang v2 base rules
