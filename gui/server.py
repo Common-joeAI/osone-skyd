@@ -534,6 +534,29 @@ async def require_admin(creds: HTTPAuthorizationCredentials = Depends(bearer)):
 hive_nodes = {}
 
 # ── AUTH ROUTES ───────────────────────────────────────────────────────────────
+
+import json
+
+_AUTHORIZED_SESSIONS: set = set()
+_SESSION_STORE: dict = {}
+
+def _save_sessions():
+    try:
+        with open("/var/log/skyd_sessions.json", "w") as f:
+            json.dump({"authorized": list(_AUTHORIZED_SESSIONS), "store": _SESSION_STORE}, f)
+    except: pass
+
+def _load_sessions():
+    global _AUTHORIZED_SESSIONS, _SESSION_STORE
+    try:
+        with open("/var/log/skyd_sessions.json") as f:
+            data = json.load(f)
+            _AUTHORIZED_SESSIONS = set(data.get("authorized", []))
+            _SESSION_STORE = data.get("store", {})
+    except: pass
+
+# call once at startup (e.g. in lifespan or module init)
+_load_sessions()
 @app.post("/api/auth/login")
 async def login(body: dict):
     username = body.get("username", "").strip().lower()
@@ -596,37 +619,75 @@ async def change_password(body: dict, me=Depends(get_current_user)):
     return {"ok": True}
 
 
+import asyncio
+import functools
+import time as _time
+import psutil, os, re, subprocess
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials
+
+# --- TTL cache (10s) ---
+_stats_cache = {"ts": 0, "data": None}
+_CACHE_TTL = 10
+
+def _run_blocking(fn, *a, **kw):
+    loop = asyncio.get_event_loop()
+    return loop.run_in_executor(None, functools.partial(fn, *a, **kw))
+
+async def _read_gen():
+    def _inner():
+        gen = 0
+        try:
+            with open("/var/log/skyd/skyd.log") as f:
+                for line in f:
+                    if "Gen " in line:
+                        m = re.findall(r"Gen (\d+)", line)
+                        if m: gen = int(m[-1])
+        except: pass
+        return gen
+    return await _run_blocking(_inner)
+
+async def _count_rules():
+    def _inner():
+        try:
+            return len([f for f in os.listdir("/usr/local/skyd/lang") if f.endswith(".sky")])
+        except:
+            return 0
+    return await _run_blocking(_inner)
+
+async def _svc_status(services):
+    def _inner(s):
+        r = subprocess.run(["systemctl","is-active",s], capture_output=True, text=True)
+        return r.stdout.strip()
+    loop = asyncio.get_event_loop()
+    tasks = [loop.run_in_executor(None, functools.partial(_inner, s)) for s in services]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    return {s: (r if not isinstance(r, Exception) else "") for s, r in zip(services, results)}
+
 @app.get("/api/stats")
 async def stats(creds: HTTPAuthorizationCredentials = Depends(bearer)):
-    cpu = psutil.cpu_percent(interval=0.5)
-    mem = psutil.virtual_memory()
-    disk = psutil.disk_usage("/")
-    up = int(time.time() - psutil.boot_time())
-    gen = 0
-    try:
-        with open("/var/log/skyd/skyd.log") as f:
-            for line in f:
-                if "Gen " in line:
-                    m = re.findall(r"Gen (\d+)", line)
-                    if m: gen = int(m[-1])
-    except: pass
-    rules = 0
-    try: rules = len([f for f in os.listdir("/usr/local/skyd/lang") if f.endswith(".sky")])
-    except: pass
+    now = _time.time()
+    if now - _stats_cache["ts"] < _CACHE_TTL and _stats_cache["data"]:
+        base = _stats_cache["data"].copy()
+    else:
+        cpu = await _run_blocking(psutil.cpu_percent, interval=0.5)
+        mem = await _run_blocking(psutil.virtual_memory)
+        disk = await _run_blocking(psutil.disk_usage, "/")
+        up = await _run_blocking(lambda: int(_time.time() - psutil.boot_time()))
+        gen = await _read_gen()
+        rules = await _count_rules()
 
-    base = {"cpu":cpu,"mem_used":mem.used,"mem_total":mem.total,"mem_pct":mem.percent,
-             "disk_used":disk.used,"disk_total":disk.total,"disk_pct":disk.percent,
-             "uptime":up,"gen":gen,"rules":rules,"hostname":os.uname().nodename,
-             "kernel":os.uname().release,"hive_nodes":len(hive_nodes)}
+        base = {"cpu":cpu,"mem_used":mem.used,"mem_total":mem.total,"mem_pct":mem.percent,
+                "disk_used":disk.used,"disk_total":disk.total,"disk_pct":disk.percent,
+                "uptime":up,"gen":gen,"rules":rules,"hostname":os.uname().nodename,
+                "kernel":os.uname().release,"hive_nodes":len(hive_nodes)}
+        _stats_cache.update({"ts": now, "data": base.copy()})
 
     # Full service data only for authenticated users
     if creds:
         try:
             payload = decode_token(creds.credentials)
-            svcs = {}
-            for s in ["skyd","llama-server","skyd-netmon","tailscaled","sshd","osone-gui"]:
-                r = subprocess.run(["systemctl","is-active",s], capture_output=True, text=True)
-                svcs[s] = r.stdout.strip()
+            svcs = await _svc_status(["skyd","llama-server","skyd-netmon","tailscaled","sshd","osone-gui"])
             base["services"] = svcs
             base["role"] = payload.get("role")
         except:
@@ -634,17 +695,11 @@ async def stats(creds: HTTPAuthorizationCredentials = Depends(bearer)):
     else:
         base["services"] = {}
 
-    # Frontend-compatible field aliases
     base["generation"] = base["gen"]
     base["skylang_rules"] = base["rules"]
     base["memory_percent"] = base["mem_pct"]
-    base["cpu_percent"] = base["cpu"]
-    base["disk_percent"] = base["disk_pct"]
-    base["swap_percent"] = 0
-
     return base
 
-# ── USER: Chat (no prefix needed) ─────────────────────────────────────────────
 
 @app.post("/api/upload-contract")
 async def upload_contract(session_id: str = Form(...), file: UploadFile = File(...)):
