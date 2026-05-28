@@ -5,3 +5,8 @@ __pycache__/
 *.pyc
 node_modules/
 dist/
+audio_out/
+*.mp3
+*.wav
+*.mid
+package-lock.json

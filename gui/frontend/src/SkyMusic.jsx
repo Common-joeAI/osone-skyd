@@ -438,6 +438,46 @@ export default function SkyMusic() {
   const { playing, play, stop, beat, totalBeats } = usePlayback(song)
   const [loadingAudio, setLoadingAudio] = useState(false)
 
+  // ── Real audio render via Sky Music engine ──────────────────────────────
+  const renderReal = useCallback(async () => {
+    if (!song || rendering) return
+    setRendering(true)
+    setRenderResult(null)
+    // Build prompt from song metadata
+    const prompt = [
+      song.mood_tags?.[0] || 'mysterious',
+      song.genre || 'pop',
+      'in', song.key || 'C', song.scale || 'minor',
+      song.bpm ? `at ${song.bpm} BPM` : '',
+      song.title ? `— ${song.title}` : ''
+    ].filter(Boolean).join(' ')
+    try {
+      const r = await fetch(`${API}/api/music/compose`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ prompt })
+      })
+      const d = await r.json()
+      if (d.ok && d.audio_url) {
+        setRenderResult(d)
+        if (realAudioRef.current) {
+          realAudioRef.current.src = `${API}${d.audio_url}`
+          realAudioRef.current.play()
+          setRealPlaying(true)
+        }
+      } else {
+        console.error('render failed', d)
+      }
+    } catch(e) { console.error(e) }
+    setRendering(false)
+  }, [song, rendering, token])
+
+  const toggleRealPlay = () => {
+    if (!realAudioRef.current) return
+    if (realAudioRef.current.paused) { realAudioRef.current.play(); setRealPlaying(true) }
+    else { realAudioRef.current.pause(); setRealPlaying(false) }
+  }
+
   const handlePlay = useCallback(async () => {
     if (loadingAudio) return
     setLoadingAudio(true)
@@ -661,11 +701,69 @@ export default function SkyMusic() {
                 <PlayButton playing={playing} loading={loadingAudio}
                   color={color} isMobile={isMobile}
                   onPlay={handlePlay} onStop={stop} />
+              {/* ── Real Render Button ── */}
+              <button
+                onClick={renderReal}
+                disabled={rendering || !song}
+                title="Render real multi-track audio via Sky Music engine"
+                style={{
+                  background: rendering ? 'rgba(124,111,255,0.2)' : renderResult ? '#16a34a22' : 'rgba(124,111,255,0.15)',
+                  border: `1px solid ${renderResult ? '#16a34a66' : 'rgba(124,111,255,0.4)'}`,
+                  borderRadius: 10, padding: isMobile ? '5px 10px' : '6px 14px',
+                  color: renderResult ? '#4ade80' : '#a78bfa',
+                  fontSize: isMobile ? 10 : 11, cursor: rendering||!song ? 'not-allowed' : 'pointer',
+                  display:'flex', alignItems:'center', gap:5, marginTop:6, fontWeight:600,
+                  opacity: !song ? 0.4 : 1,
+                }}>
+                {rendering ? <span style={{animation:'spin 1s linear infinite',display:'inline-block'}}>⟳</span>
+                  : renderResult ? '✅' : '✦'}
+                {rendering ? 'Rendering…' : renderResult ? 'Rendered!' : 'Render Real Audio'}
+              </button>
               </div>
               {/* Waveform */}
               <div style={{ marginTop:8 }}>
                 <Waveform playing={playing} color={color} />
               </div>
+              {/* ── Real Audio Player ── */}
+              {renderResult && (
+                <div style={{ marginTop:10, background:'rgba(22,163,74,0.08)',
+                  border:'1px solid rgba(22,163,74,0.25)', borderRadius:10,
+                  padding:'10px 12px' }}>
+                  <div style={{ fontSize:10, color:'#4ade80', marginBottom:6, fontWeight:700, letterSpacing:0.5 }}>
+                    🎵 SKY MUSIC · REAL RENDER
+                  </div>
+                  <div style={{ fontSize:11, color:'rgba(255,255,255,0.6)', marginBottom:8 }}>
+                    {renderResult.params?.key} {renderResult.params?.scale} ·
+                    {renderResult.params?.tempo} BPM · {renderResult.params?.mood}
+                  </div>
+                  <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+                    <button onClick={toggleRealPlay} style={{
+                      background:'#16a34a', border:'none', borderRadius:8,
+                      width:32, height:32, color:'#fff', fontSize:14,
+                      cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>
+                      {realPlaying ? '⏸' : '▶'}
+                    </button>
+                    <div style={{ flex:1, height:3, background:'rgba(255,255,255,0.1)',
+                      borderRadius:2, cursor:'pointer' }}
+                      onClick={e => {
+                        const r = e.currentTarget.getBoundingClientRect()
+                        const pct = (e.clientX-r.left)/r.width
+                        if(realAudioRef.current) realAudioRef.current.currentTime = pct * realDuration
+                      }}>
+                      <div style={{ height:'100%', background:'#4ade80', borderRadius:2,
+                        width: realDuration ? `${(realProgress/realDuration)*100}%` : '0%',
+                        transition:'width 0.3s' }} />
+                    </div>
+                    <span style={{ fontSize:9, color:'rgba(255,255,255,0.4)', minWidth:28 }}>
+                      {Math.floor(realProgress/60)}:{String(Math.floor(realProgress%60)).padStart(2,'0')}
+                    </span>
+                  </div>
+                  <audio ref={realAudioRef}
+                    onTimeUpdate={()=>setRealProgress(realAudioRef.current?.currentTime||0)}
+                    onDurationChange={()=>setRealDuration(realAudioRef.current?.duration||0)}
+                    onEnded={()=>setRealPlaying(false)} />
+                </div>
+              )}
             </div>
 
             {/* View tabs */}

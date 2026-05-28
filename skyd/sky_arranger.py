@@ -170,6 +170,28 @@ class SkyArranger:
                 notes += [(self.RIDE, TPB, 45)] * 4
         return notes
 
+
+    # ── Humanization ─────────────────────────────────────────────────────────
+    @staticmethod
+    def humanize(note_list: NoteList, intensity: float = 0.4) -> NoteList:
+        """
+        Apply micro-timing and velocity variation so it doesn't sound robotic.
+        intensity: 0 = none, 1 = heavy
+        """
+        import random
+        result = []
+        for note, dur, vel in note_list:
+            if vel == 0:  # rest — leave alone
+                result.append((note, dur, vel))
+                continue
+            # Velocity swing: ±(intensity * 12)
+            swing = int(intensity * 12)
+            v = max(1, min(127, vel + random.randint(-swing, swing)))
+            # Duration "breathe": shorten slightly so notes don't blur (legato = 92%)
+            d = max(60, int(dur * random.uniform(0.88, 0.97)))
+            result.append((note, d, v))
+        return result
+
     # ── Full arrangement ─────────────────────────────────────────────────────
     def arrange(self, progression_name: Optional[str] = None) -> Dict[str, Dict[str, NoteList]]:
         """
@@ -198,12 +220,14 @@ class SkyArranger:
             else:
                 chorus_prog = progression
 
+            raw_melody = self.build_melody(sec)
+            raw_lead   = self.build_lead(sec)
             arrangement[section_name] = {
-                "drums":  self.build_drums(sec),
-                "bass":   self.build_bass(sec, chorus_prog),
-                "chords": self.build_chords(sec, chorus_prog),
-                "melody": self.build_melody(sec),
-                "lead":   self.build_lead(sec),
+                "drums":  self.humanize(self.build_drums(sec),  0.25),
+                "bass":   self.humanize(self.build_bass(sec, chorus_prog), 0.3),
+                "chords": self.humanize(self.build_chords(sec, chorus_prog), 0.2),
+                "melody": self.humanize(raw_melody, 0.45),
+                "lead":   self.humanize(raw_lead,   0.35),
                 "bars":   sec.bars,
                 "energy": sec.energy,
             }

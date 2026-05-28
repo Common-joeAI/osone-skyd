@@ -2341,3 +2341,97 @@ def get_tools_registry(user=Depends(require_admin)):
     if _tool_reg is None:
         return []
     return _tool_reg.ToolRegistry().get_registry_snapshot()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  SKY MUSIC  — Theory-first composition engine
+#  Endpoints:  POST /api/music/compose   GET /api/music/status   GET /api/music/audio/{filename}
+# ═══════════════════════════════════════════════════════════════════════════════
+import sys as _sys, importlib as _il
+_SKYD_PATH = "/skyd"
+if _SKYD_PATH not in _sys.path:
+    _sys.path.insert(0, _SKYD_PATH)
+
+AUDIO_DIR = pathlib.Path("/var/log/skyd_audio")
+AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+
+def _get_sky_composer():
+    try:
+        import sky_composer as _sc
+        return _sc
+    except Exception as e:
+        return None
+
+@app.post("/api/music/compose")
+async def music_compose(body: dict, user=Depends(get_current_user)):
+    """
+    Compose a new piece from a text prompt.
+    Body: { "prompt": "a sad jazz piano piece in C minor" }
+    Returns: { ok, title, midi_path, wav_path, mp3_path, params, structure }
+    """
+    prompt = body.get("prompt", "").strip()
+    if not prompt:
+        raise HTTPException(400, "prompt is required")
+    sc = _get_sky_composer()
+    if sc is None:
+        raise HTTPException(500, "Sky Music engine not available — check skyd container")
+    try:
+        import asyncio
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(None, sc.compose_from_prompt, prompt)
+        # Make audio path relative for serving
+        if result.get("mp3_path"):
+            result["audio_url"] = f"/api/music/audio/{pathlib.Path(result['mp3_path']).name}"
+        elif result.get("wav_path"):
+            result["audio_url"] = f"/api/music/audio/{pathlib.Path(result['wav_path']).name}"
+        result["ok"] = True
+        return result
+    except Exception as e:
+        import traceback
+        raise HTTPException(500, f"Composition failed: {e}\n{traceback.format_exc()[:500]}")
+
+@app.get("/api/music/status")
+async def music_status(user=Depends(get_current_user)):
+    """Return recent compositions and engine status."""
+    sc = _get_sky_composer()
+    if sc is None:
+        return {"ok": False, "error": "Sky Music not available", "recent_compositions": []}
+    try:
+        status = sc.sky_status()
+        # Enrich each entry with audio_url
+        for r in status.get("recent_compositions", []):
+            for key in ("mp3_path", "wav_path"):
+                if r.get(key):
+                    r["audio_url"] = f"/api/music/audio/{pathlib.Path(r[key]).name}"
+                    break
+        status["ok"] = True
+        return status
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/music/audio/{filename}")
+async def music_audio(filename: str):
+    """Serve a rendered audio file (WAV or MP3)."""
+    # Security: only allow files inside AUDIO_DIR, no path traversal
+    path = AUDIO_DIR / pathlib.Path(filename).name
+    if not path.exists():
+        raise HTTPException(404, f"Audio file not found: {filename}")
+    media_type = "audio/mpeg" if str(path).endswith(".mp3") else "audio/wav"
+    from fastapi.responses import FileResponse as _FR
+    return _FR(str(path), media_type=media_type,
+               headers={"Accept-Ranges": "bytes",
+                        "Content-Disposition": f"inline; filename={path.name}"})
+
+@app.get("/api/music/list")
+async def music_list(user=Depends(get_current_user)):
+    """List all rendered audio files."""
+    files = []
+    for f in sorted(AUDIO_DIR.glob("sky_*.mp3"), reverse=True)[:20]:
+        stat = f.stat()
+        files.append({
+            "filename":   f.name,
+            "audio_url":  f"/api/music/audio/{f.name}",
+            "size_mb":    round(stat.st_size / 1024 / 1024, 1),
+            "created":    stat.st_mtime,
+        })
+    return {"ok": True, "files": files}
