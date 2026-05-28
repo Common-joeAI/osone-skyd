@@ -22,7 +22,10 @@ AUDIO_DIR    = pathlib.Path("/var/log/skyd_audio")
 RENDERS_LOG  = AUDIO_DIR / "renders.jsonl"
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
-LLAMA_URL    = os.environ.get("LLAMA_URL", "http://172.22.0.1:8080") + "/v1/chat/completions"
+# LLM endpoints — use container DNS first, gateway as fallback
+LLAMA_URL    = os.environ.get("LLAMA_URL", "http://osone-llama:8080") + "/v1/chat/completions"
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_URL     = "https://api.groq.com/openai/v1/chat/completions"
 # Soundfont priority: MuseScore Full (467MB) > FluidR3_GM > fallback
 _SF_CANDIDATES = [
     os.environ.get("SOUNDFONT_PATH", ""),
@@ -73,21 +76,67 @@ GENRE_TO_STRUCTURE = {
 }
 
 def _ask_llm(prompt: str, max_tokens: int = 256) -> str:
-    body = json.dumps({
-        "model": "llama3.2",
-        "messages": [{"role":"user","content": prompt}],
-        "max_tokens": max_tokens,
-        "temperature": 0.7,
-    }).encode()
-    try:
-        req = urllib.request.Request(LLAMA_URL, data=body,
-                                      headers={"Content-Type":"application/json"},
-                                      method="POST")
-        with urllib.request.urlopen(req, timeout=20) as r:
-            return json.loads(r.read())["choices"][0]["message"]["content"].strip()
-    except Exception as e:
-        log.debug(f"LLM unavailable: {e}")
-        return ""
+    """Try Grok-3-mini first (fast, accurate), fall back to local llama."""
+    def _call(url, model, headers, data):
+        body = json.dumps({"model": model, "messages": [{"role":"user","content": prompt}],
+                           "max_tokens": max_tokens, "temperature": 0.3}).encode()
+        try:
+            req = urllib.request.Request(url, data=body, headers={**headers, "Content-Type":"application/json"}, method="POST")
+            with urllib.request.urlopen(req, timeout=15) as r:
+                return json.loads(r.read())["choices"][0]["message"]["content"].strip()
+        except Exception as e:
+            log.debug(f"  [{model}] failed: {e}")
+            return ""
+    # 1. Groq (llama-3.1-8b-instant — fastest inference on the planet)
+    if GROQ_API_KEY:
+        result = _call(GROQ_URL, "llama-3.3-70b-versatile", {"Authorization": f"Bearer {GROQ_API_KEY}"}, {})
+        if result: return result
+    # 2. Local llama.cpp
+    result = _call(LLAMA_URL, "llama3.2", {}, {})
+    if result: return result
+    return ""
+
+
+def _extract_key(p: str) -> str:
+    """Extract musical key from prompt text. e.g. 'E major' -> 'E', 'A# minor' -> 'A#'"""
+    import re as _re
+    # Try to match "X major" or "X minor" or "key of X"
+    m = _re.search(r'\b(c#|db|d#|eb|f#|gb|g#|ab|a#|bb|[a-g])\s*(?:major|minor|blues|dorian|lydian|phrygian|mixolydian)', p, _re.I)
+    if m:
+        k = m.group(1).strip().capitalize()
+        return {"Db":"C#","Eb":"Eb","Gb":"F#","Ab":"Ab","Bb":"Bb"}.get(k, k)
+    # Try "in X major/minor"
+    m = _re.search(r'\bin\s+(c#|db|d#|eb|f#|gb|g#|ab|a#|bb|[a-g])', p, _re.I)
+    if m:
+        return m.group(1).strip().capitalize()
+    return random.choice(["C","G","D","A","E","F","Bb","Eb"])
+
+
+
+def _extract_genre(p: str) -> str:
+    _map = {
+        "jazz":       ["jazz","blues","bebop","swing","bossa","coltrane","miles","chords"],
+        "rock":       ["rock","guitar","riff","anthem","grunge","metal","punk","radiohead","nirvana","led"],
+        "electronic": ["electronic","synth","edm","techno","house","dubstep","808","arp","pad"],
+        "ambient":    ["ambient","drone","atmospheric","texture","float","wash","space"],
+        "orchestral": ["orchestral","orchestra","cinematic","epic","strings","brass","film","score","hans zimmer"],
+        "classical":  ["classical","piano","nocturne","sonata","beethoven","bach","chopin","debussy"],
+        "lo-fi":      ["lo-fi","lofi","chill","study","cafe","bedroom"],
+        "epic":       ["epic","battle","warrior","heroic","triumph","fanfare"],
+    }
+    for genre, keywords in _map.items():
+        if any(kw in p for kw in keywords):
+            return genre
+    return "pop"
+
+def _extract_tempo(p: str) -> int:
+    import re as _re
+    m = _re.search(r'(\d{2,3})\s*(?:bpm|BPM|beats)', p)
+    if m: return max(60, min(180, int(m.group(1))))
+    if any(w in p for w in ["fast","driving","upbeat","energetic","allegro","140","150","160"]): return 140
+    if any(w in p for w in ["slow","ballad","gentle","adagio","largo","60","70","80"]): return 70
+    if any(w in p for w in ["medium","moderate","andante","90","100","110","120"]): return 100
+    return random.randint(85, 125)
 
 def parse_prompt(prompt: str) -> Dict[str, Any]:
     """
@@ -121,12 +170,12 @@ Respond ONLY with valid JSON."""
     # Keyword fallback
     p = prompt.lower()
     return {
-        "key":       "C" if "major" in p else ("Am" if "minor" in p else random.choice(COF_MAJORS[:6])),
+        "key":       _extract_key(p),
         "scale":     "major" if "major" in p or "happy" in p else
                      "blues" if "blues" in p else
                      "phrygian" if "dark" in p else "minor",
-        "tempo":     180 if "fast" in p else 60 if "slow" in p else 100,
-        "genre":     next((g for g in GENRE_TO_STRUCTURE if g in p), "pop"),
+        "tempo":     _extract_tempo(p),
+        "genre":     _extract_genre(p),
         "mood":      next((m for m in ["melancholic","euphoric","mysterious","tense","dreamy","driving","primal"]
                            if m in p), "mysterious"),
         "archetype": next((a for a in ARCHETYPE_LAYOUT if a in p), "wanderer"),
