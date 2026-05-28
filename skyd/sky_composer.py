@@ -23,7 +23,15 @@ RENDERS_LOG  = AUDIO_DIR / "renders.jsonl"
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 LLAMA_URL    = os.environ.get("LLAMA_URL", "http://172.22.0.1:8080") + "/v1/chat/completions"
-SOUNDFONT    = os.environ.get("SOUNDFONT_PATH", "/usr/share/sounds/sf2/FluidR3_GM.sf2")
+# Soundfont priority: MuseScore Full (467MB) > FluidR3_GM > fallback
+_SF_CANDIDATES = [
+    os.environ.get("SOUNDFONT_PATH", ""),
+    "/usr/share/sounds/sf2/MuseScore_General_Full.sf2",   # 467MB lossless — best
+    "/usr/share/sounds/sf2/FluidR3_GM.sf2",               # 142MB — fallback
+    "/usr/share/sounds/sf2/default-GM.sf2",               # symlink fallback
+]
+SOUNDFONT = next((p for p in _SF_CANDIDATES if p and __import__("pathlib").Path(p).exists()), "/usr/share/sounds/sf2/FluidR3_GM.sf2")
+log.info(f"[sky] 🎹 Soundfont: {SOUNDFONT} ({__import__('pathlib').Path(SOUNDFONT).stat().st_size//1024//1024 if __import__('pathlib').Path(SOUNDFONT).exists() else 0}MB)")
 
 # ── Instrument → GM program map ───────────────────────────────────────────────
 GM: Dict[str,int] = {
@@ -203,9 +211,17 @@ def _render_wav(mid_path, wav_path) -> bool:
             log.warning("[sky] No soundfont found — MIDI only")
             return False
     try:
-        subprocess.run(["fluidsynth","-ni", sf, str(mid_path),
-                        "-F", str(wav_path), "-r","44100","-g","1.2"],
-                       check=True, capture_output=True, timeout=180)
+        subprocess.run([
+                "fluidsynth", "-ni",
+                "-r", "44100",          # sample rate
+                "-g", "0.8",            # gain (lower = less clipping with HQ sf)
+                "--reverb", "yes",
+                "--chorus", "yes",
+                "-C", "1",              # chorus voices
+                "-R", "1",              # reverb on
+                sf, str(mid_path),
+                "-F", str(wav_path),
+            ], check=True, capture_output=True, timeout=300)
         return pathlib.Path(wav_path).exists()
     except Exception as e:
         log.warning(f"[sky] FluidSynth: {e}")
