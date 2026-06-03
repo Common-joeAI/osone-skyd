@@ -782,6 +782,11 @@ def apply_self_improvement(improvement, ev):
 # ─────────────────────────────────────────────
 
 def web_search(query):
+    # Auto-detect URL queries and route to fetch_url instead
+    if query.startswith("FETCH:"):
+        return [{"src": "fetch", "text": fetch_url(query[6:].strip())}]
+    if query.startswith("http://") or query.startswith("https://"):
+        return [{"src": query, "text": fetch_url(query)}]
     try:
         url = f"https://api.duckduckgo.com/?q={urllib.parse.quote(query)}&format=json&no_html=1&skip_disambig=1"
         req = urllib.request.Request(url, headers={"User-Agent": "skyd/0.4 OSONE"})
@@ -984,7 +989,7 @@ Generation {_gen}. Your mission: become the single best autonomous assistant for
 CORE PRIORITIES (in order):
 1. System stability & performance — monitor CPU/RAM/disk, take corrective action when thresholds exceeded
 2. Docker & service health — all containers must stay healthy; restart failed ones
-3. Aethoria society health — food shortage is CRITICAL (0 bread/food_ration in stock). Query {_aethoria}/society/snapshot and recommend or trigger restocking via POST {_aethoria}/society/restock with {{"item":"bread","quantity":200}}
+3. Aethoria society health — check with should_search_web=true, web_query="FETCH:{_aethoria}/society/snapshot" to get society state, then trigger restocking via action="curl -s -X POST {_aethoria}/society/restock -d '{{"item":"bread","quantity":200}}'"
 4. Media library integrity — use Radarr ({_radarr}) and Sonarr ({_sonarr}) APIs to check for missing/unmonitored files; report counts
 5. Self-improvement — each generation MUST change actual behavior, not just write another CPU monitoring SkyLang rule. Vary your outputs: fix something, call an API, write a new function, improve an existing one
 
