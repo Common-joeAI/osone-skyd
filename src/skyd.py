@@ -14,6 +14,15 @@ import subprocess, requests, json, time, logging, os, sys, psutil
 import urllib.request, urllib.parse, hashlib, tempfile, stat
 from datetime import datetime
 
+# ── GitHub Models (GPT-4o dual-LLM) ──────────────────────────────
+try:
+    from github_models import dual_think as _dual_think, validate_evolution as _validate_evolution
+    _GH_MODELS_AVAILABLE = True
+except ImportError:
+    _GH_MODELS_AVAILABLE = False
+    def _dual_think(state, kb, ev, local): return local
+    def _validate_evolution(snippet, desc, itype): return {"safe": True, "reason": "module not found", "improved_snippet": None}
+
 LLAMA_URL  = os.environ.get("LLAMA_URL", "http://127.0.0.1:8080") + "/v1/chat/completions"
 MODEL       = "llama3.2"
 LOG_FILE    = "/var/log/skyd.log"
@@ -178,9 +187,25 @@ def smart_think(state, kb, ev, cycle):
         log.info(f"🧠 State unchanged (fp={fp}) — reusing last decision [skip #{_skip_think_count}]")
         return _last_think_resp
 
-    # State changed or forced refresh — call Ollama
+    # State changed or forced refresh — call local LLM first
     _skip_think_count = 0
-    resp = think(state, kb, ev)
+    local_resp = think(state, kb, ev)
+
+    # Then get GPT-4o second opinion and merge (falls back gracefully)
+    if _GH_MODELS_AVAILABLE:
+        try:
+            resp = _dual_think(state, kb, ev, local_resp)
+            if resp.get('_dual_consensus'):
+                log.info(
+                    f"🤖 Dual consensus: local={local_resp.get('status')} "
+                    f"GPT-4o={resp.get('_gpt4o_status')} → merged={resp.get('status')}"
+                )
+        except Exception as e:
+            log.warning(f"[dual_think] error — local only: {e}")
+            resp = local_resp
+    else:
+        resp = local_resp
+
     _last_think_fp   = fp
     _last_think_resp = resp
     return resp
@@ -404,7 +429,25 @@ def apply_self_improvement(improvement, ev):
     
     log.info(f"🧬 EVOLUTION [{itype}]: {desc[:100]}")
     log.info(f"   Expected: {benefit[:80]}")
-    
+
+    # ── GPT-4o safety gate before applying ───────────────────────
+    if snippet and _GH_MODELS_AVAILABLE:
+        validation = _validate_evolution(snippet, desc, itype)
+        if not validation.get("safe", True):
+            log.warning(f"🚫 GPT-4o blocked evolution [{itype}]: {validation.get('reason','')[:120]}")
+            ev.setdefault("mutations", []).append({
+                "gen": ev.get("generation", 0), "type": itype,
+                "desc": desc, "blocked": True, "reason": validation.get("reason", "")
+            })
+            save_evolution(ev)
+            return ev
+        improved = validation.get("improved_snippet")
+        if improved and len(improved.strip()) > 20:
+            log.info(f"🔧 GPT-4o improved snippet ({len(snippet)}→{len(improved)} chars)")
+            snippet = improved
+        log.info(f"✅ GPT-4o validated: risk={validation.get('risk_level','?')} — {validation.get('reason','')[:80]}")
+    # ─────────────────────────────────────────────────────────────
+
     if itype == "skylang":
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         rule_file = f"{LANG_DIR}/evolved_{ts}.sky"
