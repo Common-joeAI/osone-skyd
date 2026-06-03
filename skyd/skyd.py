@@ -43,6 +43,64 @@ except ImportError:
 import urllib.request, urllib.parse, hashlib, tempfile, stat
 from datetime import datetime
 
+# ── ArachnoCore (WidowMind) integration ───────────────────────────
+_AC_URL     = os.environ.get("ARACHNOCORE_URL", "http://widowmind-arachnocore:9001")
+_AC_API_KEY = os.environ.get("ARACHNOCORE_KEY", "wm-arachno-tower2-2026")
+_AC_ENABLED = False  # set True once registered
+
+def _ac_register():
+    global _AC_ENABLED
+    try:
+        import urllib.request as _ur, json as _js
+        payload = _js.dumps({"hostname":"tower2","os":"unraid-linux",
+                              "modules":["skyd","media_janitor","wolf_spider"],
+                              "meta":{"version":VERSION if 'VERSION' in dir() else "unknown","gpu":"RTX 4060"}}).encode()
+        req = _ur.Request(f"{_AC_URL}/hosts/register", data=payload,
+            headers={"Content-Type":"application/json","X-Api-Key":_AC_API_KEY})
+        _ur.urlopen(req, timeout=5)
+        _AC_ENABLED = True
+        try: log.info("🕷️  ArachnoCore registered — WidowMind integration active")
+        except: pass
+    except Exception as _e:
+        try: log.debug(f"[arachnocore] register failed: {_e}")
+        except: pass
+
+def ac_event(module: str, event_type: str, severity: str, title: str,
+             detail: str = None, tags: list = None, raw: dict = None):
+    """Send a threat event to ArachnoCore."""
+    if not _AC_ENABLED:
+        return
+    try:
+        import urllib.request as _ur, json as _js
+        payload = _js.dumps({
+            "module": module, "source_host": "tower2",
+            "event_type": event_type, "severity": severity,
+            "title": title, "detail": detail or "",
+            "tags": tags or [], "raw": raw or {}
+        }).encode()
+        req = _ur.Request(f"{_AC_URL}/events", data=payload,
+            headers={"Content-Type":"application/json","X-Api-Key":_AC_API_KEY})
+        _ur.urlopen(req, timeout=5)
+    except Exception as _e:
+        try: log.debug(f"[arachnocore] event failed: {_e}")
+        except: pass
+
+def ac_heartbeat():
+    """Send skyd heartbeat to ArachnoCore."""
+    if not _AC_ENABLED:
+        _ac_register()
+        return
+    try:
+        import urllib.request as _ur, json as _js
+        payload = _js.dumps({"module":"skyd","hostname":"tower2"}).encode()
+        req = _ur.Request(f"{_AC_URL}/heartbeat", data=payload,
+            headers={"Content-Type":"application/json","X-Api-Key":_AC_API_KEY})
+        _ur.urlopen(req, timeout=3)
+    except Exception as _e:
+        try: log.debug(f"[arachnocore] heartbeat failed: {_e}")
+        except: pass
+# ─────────────────────────────────────────────────────────────────
+
 LLAMA_URL  = os.environ.get("LLAMA_URL", "http://127.0.0.1:8080") + "/v1/chat/completions"
 MODEL       = "llama3.2"
 LOG_FILE    = "/var/log/skyd.log"
@@ -237,7 +295,7 @@ def smart_think(state, kb, ev, cycle):
     global _last_think_fp, _last_think_resp, _skip_think_count
 
     fp = _state_fingerprint(state)
-    force_every = 3  # always call Ollama at least every 3 cycles regardless
+    force_every = 2  # always call Ollama at least every 2 cycles regardless
 
     if fp == _last_think_fp and _last_think_resp and (cycle % force_every != 0):
         _skip_think_count += 1
@@ -739,6 +797,20 @@ def web_search(query):
     except Exception as e:
         return []
 
+def fetch_url(url: str, method: str = "GET", headers: dict = None, body: str = None) -> str:
+    """Fetch raw content from any URL. Use for APIs, documentation, status pages, etc."""
+    try:
+        h = {"User-Agent": "skyd/0.4 OSONE"}
+        if headers:
+            h.update(headers)
+        data = body.encode() if body else None
+        req = urllib.request.Request(url, data=data, headers=h, method=method)
+        with urllib.request.urlopen(req, timeout=15) as r:
+            content = r.read(65536).decode(errors='replace')
+        return content
+    except Exception as e:
+        return f"[fetch_url error] {e}"
+
 # ─────────────────────────────────────────────
 # SYSTEM STATE
 # ─────────────────────────────────────────────
@@ -879,7 +951,28 @@ def think(state, kb, ev):
     _aethoria = os.environ.get("AETHORIA_URL", "http://172.23.0.2:7432")
     _radarr   = os.environ.get("RADARR_URL",   "http://172.22.0.1:7878")
     _sonarr   = os.environ.get("SONARR_URL",   "http://172.22.0.1:8989")
+    # Build tool awareness string from registry
+    _tool_names = []
+    try:
+        if _TOOL_REG_OK:
+            _tool_names = list(_tool_reg.ToolRegistry()._tools.keys())
+    except Exception:
+        pass
+    _registered_tools = ", ".join(_tool_names) if _tool_names else "plex_status, radarr_queue, sonarr_queue, system_stats, media_search, hive_status"
+
     prompt = f"""{_persona_block}You are Sky-D (skyd v0.{3+_gen}), OS-1's Intelligent System Co-Pilot and Media Guardian.
+
+SELF-KNOWLEDGE: You are an autonomous AI daemon running on Tower2 (Unraid server, RTX 4060). You have the following capabilities — USE THEM:
+  • Web search (DuckDuckGo) — set should_search_web=true, web_query="your question"
+  • URL fetch — set should_search_web=true, web_query="FETCH:https://url-to-fetch"
+  • Shell commands — set action="your shell command" (runs inside your container)
+  • Self-evolution — set should_evolve=true to write and apply new Python code to yourself
+  • SkyLang rules — set should_write_skylang=true to define behavioral rules
+  • ASM optimization — set should_write_asm=true for native speed improvements
+  • Long-term learning — set new_lesson="text" to remember facts permanently
+  • Registered tool functions: {_registered_tools}
+  You are NOT limited to just observing. You can search for information, fetch live data, run commands, and improve yourself every cycle.
+
 IMPORTANT CONTEXT: You run INSIDE a Docker container on Unraid (Tower2). This means:
 - `docker` CLI commands are NOT available to you — do not suggest or attempt them
 - `systemctl` is NOT available — do not suggest or attempt it
@@ -909,6 +1002,41 @@ Docker containers: {_docker}
 Recent knowledge: {_lessons_str}
 {_rl_context}
 Generation: {_gen}
+
+
+AVAILABLE TOOLS — you control these by setting fields in your JSON response:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 WEB SEARCH  →  set "should_search_web": true, "web_query": "<your query>"
+   Searches DuckDuckGo and returns text snippets. Use when you need current
+   information, documentation, package versions, CVEs, config syntax, etc.
+   Examples: "nginx rate limiting config 2024", "python asyncio best practices",
+             "CVE-2024-1234 details", "Plex transcoding hardware requirements"
+
+🔗 URL FETCH   →  set "should_search_web": true, "web_query": "FETCH:<url>"
+   Fetches raw content from any URL (APIs, docs, status pages, JSON feeds).
+   Prefix query with "FETCH:" to trigger direct URL fetch instead of search.
+   Examples: "FETCH:http://radarr:7878/api/v3/health?apikey=...",
+             "FETCH:https://api.github.com/repos/owner/repo/releases/latest"
+
+📜 SHELL COMMAND  →  set "action": "<safe shell command>"
+   Runs a single shell command inside your container. Keep it safe and targeted.
+   Examples: "df -h /data", "ps aux --sort=-%cpu | head -5", "cat /var/log/skyd.log | tail -20"
+
+🧬 SELF-EVOLVE  →  set "should_evolve": true, "evolve_reason": "<reason>"
+   Triggers skyd to propose and apply a new Python/capability to itself.
+
+📐 ASM OPTIMIZE  →  set "should_write_asm": true, "asm_task": "<description>"
+   Writes an x86-64 ASM optimization routine for a specific task.
+
+📋 SKYLANG RULE  →  set "should_write_skylang": true, "skylang_situation": "...", "skylang_behavior": "..."
+   Defines a new operational rule in skyd's custom DSL.
+
+📚 LEARN  →  set "new_lesson": "<lesson text>"
+   Stores a lesson to your long-term knowledge base for future cycles.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+USE YOUR TOOLS PROACTIVELY. If you don't know something, search for it.
+If a service is misbehaving, fetch its status API. If you want to learn
+a new technique, search for it and then apply it.
 
 Respond ONLY in JSON:
 {{
@@ -1004,7 +1132,7 @@ _entropy_tracker = ActionEntropyTracker(window=20)
 def main():
     log.info("=" * 60)
     log.info("skyd v0.4 — OSONE Self-Evolving Intelligence Core 🧬")
-    log.info("  Capabilities: optimize | web | multi-AI | ASM | SkyLang | self-evolve")
+    log.info("  Capabilities: web_search | fetch_url | shell_exec | self-evolve | ASM | SkyLang | learn")
     log.info("  Creator permission: FULL SELF-MODIFICATION AUTHORIZED")
     log.info("=" * 60)
 
@@ -1033,7 +1161,8 @@ def main():
                     log.error(f"Janitor error: {_je}")
                 _t2.sleep(86400)
         _th.Thread(target=_jloop, daemon=True, name="media-janitor").start()
-        log.info("Media Janitor launched - runs every 24h")
+        _ac_register()  # WidowMind ArachnoCore
+    log.info("Media Janitor launched - runs every 24h")
     # -- Media Personality Trainer: runs every 72h --
     if _run_personality:
         import threading as _pth, time as _pt2
@@ -1253,11 +1382,17 @@ IF service failed -> RESTART service
         # System action
         decision = act(decision.get("action","none"), decision)
 
-        # Web search
+        # Web search / URL fetch
         if decision.get("should_search_web") and decision.get("web_query"):
             q = decision["web_query"]
-            log.info(f"🌐 Searching: {q}")
-            results = web_search(q)
+            if q.startswith("FETCH:"):
+                url = q[6:].strip()
+                log.info(f"🔗 Fetching URL: {url}")
+                content = fetch_url(url)
+                results = [{"src": url, "text": content[:2000]}]
+            else:
+                log.info(f"🌐 Searching: {q}")
+                results = web_search(q)
             if results:
                 summary = " | ".join(r["text"][:100] for r in results[:2])
                 kb = learn(kb, f"Web: {q} → {summary[:200]}", "web")
